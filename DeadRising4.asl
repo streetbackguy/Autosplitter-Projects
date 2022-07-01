@@ -260,9 +260,3 @@ split
     }
 }
 
-//Disable this for Mini Golf runs
-
-reset
-{
-    return (vars.CurObj == null);
-}
