@@ -1,7 +1,7 @@
 //Coded and values found mainly by Kuno Demetries, with moral support and puppetry by Streetbackguy
 state("deadrising4")
 {
-    int Loading : 0x32B0D3C;
+    int Loading : 0x32B0C90;
     long CurObj : 0x028620F0, 0x20, 0x3A8, 0x4E0, 0x78, 0x858, 0x2F0, 0x708;
 }
 
