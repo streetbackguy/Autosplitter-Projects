@@ -235,7 +235,7 @@ startup
 //Starts as soon as you gain control of Frank
 start
 {
-    return (current.Loading == 67);
+    return (old.Loading == 6553667 && current.Loading == 67);
 }
 
 update
