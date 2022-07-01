@@ -245,7 +245,8 @@ update
 
 isLoading
 {
-    return (current.Loading == 0 || current.Loading == 4128768);
+    if (current.Loading == 0 || current.Loading == 4128768);
+    return true;
 }
 
 split
