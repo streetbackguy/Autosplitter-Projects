@@ -1,4 +1,5 @@
 //Coded and values found mainly by Kuno Demetries, with moral support and puppetry by Streetbackguy
+
 state("deadrising4")
 {
     int Loading : 0x32B0C90;
@@ -233,9 +234,10 @@ startup
 }
 
 //Starts as soon as you gain control of Frank
+
 start
 {
-    return (old.Loading == 6553667 && current.Loading == 67);
+    return (current.Loading == 67);
 }
 
 update
@@ -259,6 +261,7 @@ split
 }
 
 //Disable this for Mini Golf runs
+
 reset
 {
     return (vars.CurObj == null);
