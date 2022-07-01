@@ -213,6 +213,45 @@ startup
         tB("FR", "Reroute the power", "Reroute the power"),
         tB("FR", "Vent the gas", "Vent the gas"),
         tB("FR", "Activate the treatment chamber", "Activate the treatment chamber"),
+        tB("FR", "Tuez les humains", "Tuez les humains"),
+        tB("FR", "Mangez à votre faim", "Mangez à votre faim"),
+        tB("FR", "Ècoutez la conversation", "Ècoutez la conversation"),
+        tB("FR", "Trouvez la clé", "Trouvez la clé"),
+        tB("FR", "Ouvrez la porte", "Ouvrez la porte"),
+        tB("FR", "Suivez Blackburne", "Suivez Blackburne"),
+        tB("FR", "Entrez dans la galerie", "Entrez dans la galerie"),
+        tB("FR", "Suivez les instructions de Blackburne", "Suivez les instructions de Blackburne"),
+        tB("FR", "Approach Calder’s corpse", "Approach Calder’s corpse"),
+        tB("FR", "Récupérez l'essaim", "Récupérez l'essaim"),
+        tB("FR", "Suivez la lueur verte", "Suivez la lueur verte"),
+        tB("FR", "Enquêtez sur la guêpe solitaire", "Enquêtez sur la guêpe solitaire"),
+        tB("FR", "Quittez l'abri", "Quittez l'abri"),
+        tB("FR", "Fouillez Dodd's Drugs", "Fouillez Dodd's Drugs"),
+        tB("FR", "Trouvez painkillers", "Trouvez painkillers"),
+        tB("FR", "Fouillez le Cochrane’s Pub", "Fouillez le Cochrane’s Pub"),
+        tB("FR", "Trouvez la clé de contrôle", "Trouvez la clé de contrôle"),
+        tB("FR", "Fouillez Big Buck’s", "Fouillez Big Buck’s"),
+        tB("FR", "Trouvez les solénoïdes", "Trouvez les solénoïdes"),
+        tB("FR", "Attendez les instructions de Blackburne", "Attendez les instructions de Blackburne"),
+        tB("FR", "Fouillez Rockpile Liquor", "Fouillez Rockpile Liquor"),
+        tB("FR", "Trouvez de l'alcool fort", "Trouvez de l'alcool fort"),
+        tB("FR", "Fouillez le dépôt de bus", "Fouillez le dépôt de bus"),
+        tB("FR", "Allez à West Ridge", "Allez à West Ridge"),
+        tB("FR", "Allez à l'école", "Allez à l'école"),
+        tB("FR", "Battez les zombies évolués.", "Battez les zombies évolués."),
+        tB("FR", "Récupérez la reine guepê", "Récupérez la reine guepê"),
+        tB("FR", "Dégagez la vinerie", "Dégagez la vinerie"),
+        tB("FR", "Trouvez Hammond", "Trouvez Hammond"),
+        tB("FR", "Trouvez Blackburne", "Trouvez Blackburne"),
+        tB("FR", "Parlez à Blackburne", "Parlez à Blackburne"),
+        tB("FR", "Traversez le sas", "Traversez le sas"),
+        tB("FR", "Placez la reine en isolement", "Placez la reine en isolement"),
+        tB("FR", "Synthétisez l'aérosol", "Synthétisez l'aérosol"),
+        tB("FR", "Administrez l'aérosol", "Administrez l'aérosol"),
+        tB("FR", "Installez les solénoïdes", "Installez les solénoïdes"),
+        tB("FR", "Redirigez le courant", "Redirigez le courant"),
+        tB("FR", "Èvacuez le gaz", "Èvacuez le gaz"),
+        tB("FR", "Activez la chambre de traitement", "Activez la chambre de traitement"),
     };
     foreach (var s in sB) settings.Add(s.Item2, false, s.Item3, s.Item1);
 
@@ -234,7 +273,7 @@ startup
 
 start
 {
-    return (current.Loading == 67);
+    return (current.Loading != 0);
 }
 
 update
@@ -245,7 +284,7 @@ update
 
 isLoading
 {
-    return (current.Loading != 67);
+    return true;
 }
 
 split
