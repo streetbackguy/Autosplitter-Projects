@@ -14,10 +14,15 @@ init {
         case 78782464:
             version = "Game Pass";
             break; 
-        case 77086720:
+        case 60833792:
             version = "Steam";
             break;
     }
+}
+
+update
+{
+    print(modules.First().ModuleMemorySize.ToString());
 }
 
 isLoading {
@@ -27,4 +32,9 @@ isLoading {
 start 
 {
     return current.isLoading == 1;
+}
+
+exit
+{
+    timer.IsGameTimePaused = true;
 }
