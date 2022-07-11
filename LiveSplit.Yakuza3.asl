@@ -14,12 +14,28 @@ init {
         case 78782464:
             version = "Game Pass";
             break; 
-        case 77086720:
+        case 47144960:
             version = "Steam";
             break;
     }
 }
 
-isLoading {
+update
+{
+    print(modules.First().ModuleMemorySize.ToString());
+}
+
+start
+{
+    return current.isLoading != 0;
+}
+
+isLoading 
+{
     return current.isLoading == 0;
+}
+
+exit
+{
+    timer.IsGameTimePaused = true;
 }
