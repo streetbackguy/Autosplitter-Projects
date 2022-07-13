@@ -13,8 +13,6 @@ state("Yakuza5", "Game Pass")
 init 
 {
     vars.doneMaps = new List<string>();
-    vars.lastSplit = Environment.TickCount;
-    vars.wait = false;
 
     switch(modules.First().ModuleMemorySize) {
         case 78782464:
