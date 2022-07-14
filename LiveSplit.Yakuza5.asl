@@ -26,41 +26,6 @@ init
 
 startup
 {
-    settings.Add("Y5", true, "Yakuza 5");
-        settings.Add("KK", true, "Kiryu Kazuma", "Y5");
-        settings.Add("TSA", true, "Taiga Saejima", "Y5");
-        settings.Add("HA", true, "Haruka Sawamura & Shun Akiyama", "Y5");
-        settings.Add("TSH", true, "Tatsuo Shinada", "Y5");
-        settings.Add("FIN", true, "Finale", "Y5");
-
-    var tB = (Func<string, string, string, Tuple<string, string, string>>) ((elmt1, elmt2, elmt3) => { return Tuple.Create(elmt1, elmt2, elmt3); });
-        var sB = new List<Tuple<string, string, string>> 
-    {
-        tB("KK", "Part 1, Chapter 1: The Wanderer", "The Wanderer"),
-        tB("KK", "Part 1, Chapter 2: Uninvited Guest", "Uninvited Guest"),
-        tB("KK", "Part 1, Chapter 3: The Plot Unfolds", "The Plot Unfolds"),
-        tB("KK", "Part 1, Chapter 4: Destinations", "Destinations"),
-        tB("TSA", "Part 2, Chapter 1: Ends of the Earth", "Ends of the Earth"),
-        tB("TSA", "Part 2, Chapter 2: The Way of Resolve", "The Way of Resolve"),
-        tB("TSA", "Part 2, Chapter 3: Frozen Roar", "Frozen Roar"),
-        tB("TSA", "Part 2, Chapter 4: Reckless Encounter", "Reckless Encounter"),
-        tB("HA", "Part 3, Chapter 1: Backstage Dreams", "Backstage Dreams"),
-        tB("HA", "Part 3, Chapter 2: Hope Lives On", "Hope Lives On"),
-        tB("HA", "Part 3, Chapter 3: Closing In", "Closing In"),
-        tB("HA", "Part 3, Chapter 4: Beyond the Dream", "Beyond the Dream"),
-        tB("TSH", "Part 4, Chapter 1: Abandoned Glory", "Abandoned Glory"),
-        tB("TSH", "Part 4, Chapter 2: Confronting the Past", "Confronting the Past"),
-        tB("TSH", "Part 4, Chapter 3: The Price of Truth", "The Price of Truth"),
-        tB("TSH", "Part 4, Chapter 4: Fleeting Triumph", "Fleeting Triumph"),
-        tB("FIN", "Finale, Chapter 1: A Legend Returns", "A Legend Returns"),
-        tB("FIN", "Finale, Chapter 2: A Hidden Past", "A Hidden Past"),
-        tB("FIN", "Finale, Chapter 3: The Survivors", "The Survivors"),
-        tB("FIN", "Finale, Chapter 4: Crossroads", "Crossroads"),
-        tB("FIN", "Finale, Final Chapter: Dreams Fulfilled", "Dreams Fulfilled"),
-    };
-
-    foreach (var s in sB) settings.Add(s.Item2, false, s.Item3, s.Item1);
-
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
         var timingMessage = MessageBox.Show (
