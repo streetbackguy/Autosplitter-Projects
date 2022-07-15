@@ -12,9 +12,8 @@ state("Yakuza5", "Game Pass")
 
 init 
 {
-    vars.doneMaps = new List<string>();
-
-    switch(modules.First().ModuleMemorySize) {
+    switch(modules.First().ModuleMemorySize) 
+    {
         case 78782464:
             version = "Game Pass";
             break; 
@@ -26,6 +25,9 @@ init
 
 startup
 {
+    vars.SkipSplit = new Stopwatch();
+    vars.LastSplit = TimeSpan.FromSeconds(8);
+
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
         var timingMessage = MessageBox.Show (
@@ -43,6 +45,7 @@ startup
 
 update
 {
+    if (vars.SkipSplit.Elapsed >= vars.LastSplit) vars.SkipSplit.Stop();
     print(modules.First().ModuleMemorySize.ToString());
 }
 
@@ -58,12 +61,24 @@ isLoading
     return (current.isLoading == 2);
 }
 
+//Currently autosplits on every Title Card
 split
 {
     if (current.chapter != 0 | current.chapter != 1 && current.isLoading == 2 && old.isLoading == 1)
     {
+        return !vars.SkipSplit.IsRunning;
         return true;
     }
+}
+
+onSplit
+{
+    vars.SkipSplit.Restart();
+}
+
+onSplit
+{
+    vars.SkipSplit.Restart();
 }
 
 exit
