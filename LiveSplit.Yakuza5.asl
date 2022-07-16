@@ -70,7 +70,7 @@ onSplit
     vars.SkipSplit.Restart();
 }
 
-onSplit
+onStart
 {
     vars.SkipSplit.Restart();
 }
