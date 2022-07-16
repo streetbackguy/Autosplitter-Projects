@@ -26,7 +26,7 @@ init
 startup
 {
     vars.SkipSplit = new Stopwatch();
-    vars.LastSplit = TimeSpan.FromSeconds(8);
+    vars.LastSplit = TimeSpan.FromSeconds(500);
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
