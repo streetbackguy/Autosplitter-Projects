@@ -49,12 +49,6 @@ update
     print(modules.First().ModuleMemorySize.ToString());
 }
 
-//Starts when the game is booting up, but can be reset at main menu and then will autostart upon loading a New Game/New Game Plus file
-start
-{
-    return (current.isLoading == 1);
-}
-
 //Pauses during Title and Chapter Cards also, but shouldn't be too much of an issue
 isLoading 
 {
