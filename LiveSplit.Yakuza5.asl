@@ -3,6 +3,7 @@ state("Yakuza5", "Steam")
 {
     int Loads: 0x28ECC5C;
     byte chapter: 0x2D79F90, 0x240, 0xC94;
+    int endChapter: 0x2FE9F81;
 }
 
 state("Yakuza5", "Game Pass") 
@@ -26,7 +27,7 @@ init
 startup
 {
     vars.SkipSplit = new Stopwatch();
-    vars.LastSplit = TimeSpan.FromSeconds(1000);
+    vars.LastSplit = TimeSpan.FromSeconds(15000);
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
@@ -45,6 +46,13 @@ startup
 
 update
 {
+    vars.doSplit = false;
+
+    if (current.chapter == 244 && current.endChapter == 3 && old.endChapter == 219)
+    {
+        vars.doSplit = true;
+    }
+
     if (vars.SkipSplit.Elapsed >= vars.LastSplit) vars.SkipSplit.Stop();
     print(modules.First().ModuleMemorySize.ToString());
 }
@@ -59,14 +67,11 @@ start
     return (current.Loads == 2);
 }
 
-//Currently autosplits on every Title Card after the first two
+//Currently autosplits on every end of chapter save screen
 split
 {
-    if (current.chapter == 255 && current.Loads == 2)
-    {
-        return !vars.SkipSplit.IsRunning;
-        return true;
-    }
+    return !vars.SkipSplit.IsRunning;
+    return vars.doSplit;
 }
 
 onSplit
