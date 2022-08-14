@@ -1,14 +1,16 @@
 state("Yakuza4", "Steam") 
 {
-    int isLoading: 0x198C624;
+    int Start: 0x198C624;
+    byte Loads: 0x362D400;
 }
 
 state("Yakuza4", "Game Pass") 
 {
-    int isLoading: 0x2AB2DF4;
+    int Loads: 0x2AB2DF4;
 }
 
-init {
+init 
+{
     switch(modules.First().ModuleMemorySize) 
     {
         case 78782464:
@@ -25,13 +27,19 @@ update
     print(modules.First().ModuleMemorySize.ToString());
 }
 
-isLoading {
-    return current.isLoading == 2;
+isLoading 
+{
+    return (current.Loads == 1 && current.Start == 2);
+}
+
+onStart
+{
+    timer.IsGameTimePaused = true;
 }
 
 start 
 {
-    return current.isLoading == 1;
+    return (current.Start == 2);
 }
 
 exit
