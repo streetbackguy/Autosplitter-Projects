@@ -1,6 +1,6 @@
 state("South Park - The Stick of Truth")
 {
-	bool Loads:  0x0108598, 0x0;
+    bool Loads:  0x0108598, 0x0;
     bool UnpatchedLoads: 0x00108708, 0x0; 
     int ScreenChange: 0x01B70FE4, 0x0, 0x6A8;
     int Quest: 0x0E49C00, 0x780, 0x510;
@@ -37,7 +37,7 @@ start
 
 isLoading 
 {
-		return (current.Loads || current.UnpatchedLoads || current.ScreenChange == 16);
+    return (current.Loads || current.UnpatchedLoads || current.ScreenChange == 16);
 }
 
 split
@@ -67,7 +67,6 @@ reset
 {
     return (current.MainMenu == 0 && old.MainMenu == 1);
 }
-
 
 exit
 {
