@@ -3,13 +3,15 @@ state("Yakuza5", "Steam")
 {
     int Loads: 0x28ECC5C;
     int MainMenu: 0x28A0938, 0x3C;
-    byte chapter: 0x3073166;
+    int chapter: 0x3073166;
     string255 TitleCard: 0x2008438, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
 }
 
 state("Yakuza5", "Game Pass") 
 {
     int Loads: 0x2AB2DF4;
+    int chapter: 0x2C51C24;
+    string255 TitleCard: 0x21CE5E8, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
 }
 
 init 
@@ -84,7 +86,7 @@ update
 
 isLoading 
 {
-    return (current.chapter != 34 && current.Loads == 2);
+    return ((current.chapter != 34 || 2228224) && current.Loads == 2);
 }
 
 start
