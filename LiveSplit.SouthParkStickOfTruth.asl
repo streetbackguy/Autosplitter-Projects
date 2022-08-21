@@ -1,19 +1,24 @@
 state("South Park - The Stick of Truth")
 {
-    bool Loads:  0x0108598, 0x0;
+	bool Loads:  0x0108598, 0x0;
     bool UnpatchedLoads: 0x00108708, 0x0; 
     int ScreenChange: 0x01B70FE4, 0x0, 0x6A8;
     int Quest: 0x0E49C00, 0x780, 0x510;
     int Friends: 0x1C7660C;
-    int Collectables: 0x1C7660C;
+    int Chinpokomon: 0x1C765C0;
     int MainMenu: 0x1D2AC70;
+}
+
+init
+{
+    vars.Splits = new HashSet<string>();
 }
 
 startup
 {
     settings.Add("quests", false, "Split after each Quest Complete notification");
     settings.Add("friends", false, "Split after each Friend Request");
-    settings.Add("collectables", false, "Split after each Collectable picked up");
+    settings.Add("chinpokomon", false, "Split after each Chinpokomon firgure and Key Item picked up");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
@@ -30,6 +35,14 @@ startup
     }
 }
 
+update
+{
+	if (current.MainMenu == 0 && old.MainMenu != 0) 
+    { 
+        vars.Splits.Clear(); 
+    }
+}
+
 start
 {
     return (current.ScreenChange == 0 && old.ScreenChange == 2);
@@ -37,7 +50,7 @@ start
 
 isLoading 
 {
-    return (current.Loads || current.UnpatchedLoads || current.ScreenChange == 16);
+	return (current.Loads || current.UnpatchedLoads || current.ScreenChange == 16);
 }
 
 split
@@ -47,9 +60,9 @@ split
         return settings["quests"];
     }
 
-    if (current.Collectables == 2 && old.Collectables == 1)
+    if (current.Chinpokomon == 6 && old.Chinpokomon != 6)
     {
-        return settings["collectables"];
+        return settings["chinpokomon"];
     }
 
     if (current.Friends == 5 && old.Friends == 0)
@@ -66,6 +79,11 @@ onStart
 reset
 {
     return (current.MainMenu == 0 && old.MainMenu == 1);
+}
+
+onReset
+{
+    vars.Splits.Clear();
 }
 
 exit
