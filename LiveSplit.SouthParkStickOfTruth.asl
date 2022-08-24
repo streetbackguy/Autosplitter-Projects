@@ -33,10 +33,15 @@ startup
         if (timingMessage == DialogResult.Yes)
             timer.CurrentTimingMethod = TimingMethod.GameTime;
     }
+
+    vars.SplitDelay = new Stopwatch();
+    vars.minimumtime = TimeSpan.FromSeconds(6);
 }
 
 update
 {
+    if (vars.SplitDelay.Elapsed >= vars.minimumtime) vars.SplitDelay.Stop();
+
 	if (current.MainMenu == 0 && old.MainMenu != 0) 
     { 
         vars.Splits.Clear(); 
@@ -57,16 +62,19 @@ split
 {
     if (current.Quest == 2 && old.Quest == 1)
     {
+        return !vars.SplitDelay.IsRunning;
         return settings["quests"];
     }
 
-    if (current.Chinpokomon == 6 && old.Chinpokomon != 6)
+    if (current.Chinpokomon == 6 && old.Chinpokomon == 0)
     {
+        return !vars.SplitDelay.IsRunning;
         return settings["chinpokomon"];
     }
 
     if (current.Friends == 5 && old.Friends == 0)
     {
+        return !vars.SplitDelay.IsRunning;
         return settings["friends"];
     }
 }
@@ -74,6 +82,12 @@ split
 onStart
 {
     timer.IsGameTimePaused = true;
+    vars.SplitDelay.Restart();
+}
+
+onSplit
+{
+    vars.SplitDelay.Restart();
 }
 
 reset
