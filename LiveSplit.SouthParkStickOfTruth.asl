@@ -6,7 +6,7 @@ state("South Park - The Stick of Truth")
 	int Quest: 0x0E49C00, 0x690, 0x5AC;
 	int Friends: 0x1C7660C;
 	int Chinpokomon: 0x1C765C0;
-    int Lightning: 0x1CA80D0;
+    	int Lightning: 0x1CA80D0;
 	int MainMenu: 0x1D2AC70;
 }
 
@@ -61,7 +61,7 @@ isLoading
 
 split
 {
-    if (current.Quest != 0)
+    if (current.Quest != 0 && old.Quest == 0)
     {
         vars.Splits.Add("quests");
         return settings["quests"];
