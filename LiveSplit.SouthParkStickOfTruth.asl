@@ -3,10 +3,10 @@ state("South Park - The Stick of Truth")
 	bool Loads:  0x0108598, 0x0;
 	bool UnpatchedLoads: 0x00108708, 0x0; 
 	int ScreenChange: 0x01B70FE4, 0x0, 0x6A8;
-	int Quest: 0x00E49C00, 0x780, 0xCC, 0x428;
+	int Quest: 0x0E49C00, 0x690, 0x5AC;
 	int Friends: 0x1C7660C;
 	int Chinpokomon: 0x1C765C0;
-    	int Lightning: 0x1CA80D0;
+    int Lightning: 0x1CA80D0;
 	int MainMenu: 0x1D2AC70;
 }
 
@@ -61,22 +61,11 @@ isLoading
 
 split
 {
-    if (current.Quest == 2 && old.Quest == 1)
+    if (current.Quest != 0)
     {
-        return !vars.SplitDelay.IsRunning;
+        vars.Splits.Add("quests");
         return settings["quests"];
-    }
-
-    if (current.Chinpokomon == 6 && old.Chinpokomon == 0)
-    {
         return !vars.SplitDelay.IsRunning;
-        return settings["chinpokomon"];
-    }
-
-    if (current.Friends == 5 && old.Friends == 0)
-    {
-        return !vars.SplitDelay.IsRunning;
-        return settings["friends"];
     }
 }
 
