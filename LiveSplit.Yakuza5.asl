@@ -86,7 +86,8 @@ update
 
 isLoading 
 {
-    return ((current.chapter != 34 || 2228224) && current.Loads == 2);
+    return (current.chapter != 34 && current.Loads == 2);
+    return (current.chapter != 2228224 && current.Loads == 2);
 }
 
 start
