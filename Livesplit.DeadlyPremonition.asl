@@ -1,6 +1,7 @@
 state("dp")
 {
     int Loading: 0x106E8B4;
+    int Radio: 0x4C5644;
 }
 
 start
@@ -15,7 +16,7 @@ onStart
 
 isLoading
 {
-    return (current.Loading == 0);
+    return (current.Loading == 0 || current.Radio != 12 && old.Radio <= 12);
 }
 
 exit
