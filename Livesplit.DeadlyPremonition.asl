@@ -9,11 +9,6 @@ start
     return (current.Loading == 0 && old.Loading == 1);
 }
 
-onStart
-{
-    timer.IsGameTimePaused = true;
-}
-
 isLoading
 {
     return (current.Loading == 0 || current.Radio != 12);
