@@ -6,7 +6,7 @@ state("dp")
 
 start
 {
-    return (current.Loading == 0 && old.Loading == 1);
+    return (current.Loading == 0);
 }
 
 onStart
