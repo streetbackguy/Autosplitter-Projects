@@ -16,7 +16,7 @@ onStart
 
 isLoading
 {
-    return (current.Loading == 0 || current.Radio != 12);
+    return (current.Loading == 0 && old.Loading == 1 || current.Radio != 12);
 }
 
 exit
