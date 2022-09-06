@@ -473,10 +473,9 @@ start
     return (current.Loading == 0 && current.MainMenu == 65 || current.Loading == 16843008);
 }
 
-//All of these Loads are to help stop the timer pausing on Pause Menus whilst still pausing on the Mini Golf summary screens.
 isLoading
 {
-    return (current.Loading == 0 || current.Loading == 1 && current.MGSummary == 14072 || current.Loading == 1 && current.MGSummary >= 14160);
+    return (current.Loading == 0 || current.Loading == 1 && current.MGSummary >= 14072 || current.Loading == 1 && current.MGSummary >= 14160);
 }
 
 split
