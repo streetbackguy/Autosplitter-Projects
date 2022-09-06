@@ -2,6 +2,7 @@
 state("deadrising4")
 {
     int Loading : 0x3352C54;
+    int Loading2 : 0x32B0C90;
     int MGSummary : 0x337A3F0;
     int MainMenu : 0x2119950;
     long CurObj : 0x028620F0, 0x20, 0x3A8, 0x4E0, 0x78, 0x858, 0x2F0, 0x708;
@@ -470,12 +471,12 @@ vars.Splits = new Dictionary <string, string>
 //Starts as soon as you gain control of Frank
 start
 {
-    return (current.Loading == 0 && current.MainMenu == 65 || current.Loading == 16843008);
+    return (old.Loading == 0 && current.Loading2 == 84);
 }
 
 isLoading
 {
-    return (current.Loading == 0 || current.Loading == 1 && current.MGSummary >= 14072 || current.Loading == 1 && current.MGSummary >= 14160);
+    return (current.Loading == 0 && current.Loading2 != 84|| current.Loading2 == 0 || current.Loading == 1 && current.Loading2 == 84);
 }
 
 split
@@ -487,14 +488,9 @@ split
     }
 }
 
-onStart
-{
-    timer.IsGameTimePaused = true;
-}
-
 reset
 {
-    return (current.MainMenu == 0 && current.Loading == 1);
+    return (current.MainMenu == 0 && current.Loading2 != 0);
 }
 
 onReset
