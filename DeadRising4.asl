@@ -473,12 +473,6 @@ start
     return (current.Loading == 0 && current.MainMenu == 65 || current.Loading == 16843008);
 }
 
-update
-{
-    vars.CurObj = memory.ReadString(new IntPtr(current.CurObj), 256);
-    print(vars.CurObj);
-}
-
 //All of these Loads are to help stop the timer pausing on Pause Menus whilst still pausing on the Mini Golf summary screens.
 isLoading
 {
