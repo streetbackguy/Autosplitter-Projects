@@ -27,11 +27,6 @@ start
     return (current.CharCreate == 178 && old.CharCreate == 0);
 }
 
-reset
-{
-    return (current.MainMenu == 0 && old.MainMenu != 0);
-}
-
 isLoading
 {
     return (current.Loads);
