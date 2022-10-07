@@ -86,8 +86,7 @@ update
 
 isLoading 
 {
-    return (current.chapter != 34 && current.Loads == 2);
-    return (current.chapter != 2228224 && current.Loads == 2);
+    return (current.chapter != 34 && current.Loads == 2 && version == "Steam" || current.chapter != 2228224 && current.Loads == 2 && version == "Game Pass");
 }
 
 start
