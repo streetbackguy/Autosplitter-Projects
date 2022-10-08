@@ -45,7 +45,7 @@ onStart
 start 
 {
     // Start at choosing difficulty
-    return (current.FileTimer == 0 && current.Paradigm == 212);
+    return (current.Start > 0 && current.Paradigm == 212);
 
     // Start at the first title card, i.e. after the disclaimer in English
     // return (current.Paradigm == 185);
