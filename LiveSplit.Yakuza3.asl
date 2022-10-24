@@ -13,7 +13,15 @@ state("Yakuza3", "Steam")
 
 state("Yakuza3", "Game Pass") 
 {
-    int Loads: 0x2AB2DF4;
+    byte EnemyCount:  0x144D1C0, 0x200, 0x491;
+    short HPSlot0:    0x144D1C0, 0x200, 0xD0, 0x138, 0x1AC;
+    short HPSlot0Max: 0x144D1C0, 0x200, 0xD0, 0x138, 0x1AE;
+    byte Loads: 0x144D1C0, 0x310, 0x210;
+    string255 TitleCard: 0x11B9850, 0x108, 0x1B0, 0x52; // TODO: Find Game Pass address for this!
+    short Paradigm: 0x1452738;
+    byte Start: 0x1460340;
+    string255 Objective: 0x11B7898, 0x264, 0xFB0; // TODO: Find Game Pass address for this!
+    int FileTimer: 0x147B498;
 }
 
 init {
@@ -45,6 +53,8 @@ startup
         settings.Add("2d_mn_syotitle_10.dds", false, "Chapter 10: Unfinished Business", "yak3");
         settings.Add("2d_mn_syotitle_11.dds", false, "Chapter 11: Crisis", "yak3");
         settings.Add("2d_mn_syotitle_12.dds", false, "Chapter 12: The End of Ambition", "yak3");
+
+    settings.SetToolTip("yak3", "Auto Splitter does not currently work on Game Pass version!");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
