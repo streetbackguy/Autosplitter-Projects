@@ -2,6 +2,7 @@ state("P5R", "Steam")
 {
     bool Loads: 0x2AE7BD0;
     byte NGStart: 0x2AED0CF;
+    byte Cutscene: 0x29B8D9C;
 }
 
 init 
@@ -40,7 +41,7 @@ update
 
 isLoading 
 {
-    return !current.Loads;
+    return !current.Loads && current.Cutscene != 35;
 }
 
 start
