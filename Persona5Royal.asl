@@ -50,8 +50,3 @@ start
 {
     return (current.NGStart == 59 && old.NGStart == 58);
 }
-
-exit
-{
-    timer.IsGameTimePaused = true;
-}
