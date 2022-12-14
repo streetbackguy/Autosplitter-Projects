@@ -488,11 +488,6 @@ split
     }
 }
 
-reset
-{
-    return (current.MainMenu == 0 && current.Loading2 != 0);
-}
-
 onReset
 {
     vars.doneMaps.Clear();
