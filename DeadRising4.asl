@@ -5,6 +5,7 @@ state("deadrising4")
     int Loading2 : 0x32B0C90;
     int MGSummary : 0x337A3F0;
     byte MainMenu : 0x21444B4;
+    byte PauseMenu : 0x3498D01;
     long CurObj : 0x028620F0, 0x20, 0x3A8, 0x4E0, 0x78, 0x858, 0x2F0, 0x708;
 }
 
@@ -476,7 +477,7 @@ start
 
 isLoading
 {
-    return (current.Loading == 0 && current.Loading2 != 84|| current.Loading2 == 0 || current.Loading == 1 && current.Loading2 == 84);
+    return (current.Loading == 1 && current.Loading2 != 84 || current.Loading2 == 0 && current.Loading == 0 || current.Loading == 0 && current.Loading2 == 84 && current.PauseMenu != 1);
 }
 
 split
