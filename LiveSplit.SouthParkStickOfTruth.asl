@@ -174,11 +174,6 @@ split
     }
 }
 
-onStart
-{
-    timer.IsGameTimePaused = true;
-}
-
 reset
 {
     return (current.MainMenu == 0 && old.MainMenu == 1);
