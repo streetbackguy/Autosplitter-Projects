@@ -174,11 +174,6 @@ split
     }
 }
 
-reset
-{
-    return (current.MainMenu == 0 && old.MainMenu == 1);
-}
-
 onReset
 {
     vars.Splits.Clear();
