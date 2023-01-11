@@ -79,28 +79,28 @@ update
 start
 {
     // Starts after the Ukiyo Bell OK
-    return (current.Start > 0);
+    return (current.Start > 0 && version == "Steam");
 
     // Starts after the disclaimer
-    // return (current.Loads == 1 && old.Loads == 0);
+    // return (current.Loads == 1 && old.Loads == 0 && version == "Steam");
 }
 
 // Pause the timer while the screen is black, but only if IGT has stopped.
 isLoading 
 {
-    return current.Start == 2 && current.FileTimer == old.FileTimer;
+    return current.Start == 2 && current.FileTimer == old.FileTimer && version == "Steam";
 }
 
 // Currently autosplits on every chapter's title card, and on the last hit on Mine
 split
 {   
-    if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard))
+    if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard) && version == "Steam")
     {
         vars.Splits.Add(current.TitleCard);
         return settings[current.TitleCard];
     }
 
-    if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds"))
+    if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds" && version == "Steam"))
         return (current.HPSlot0 == 1); // Mine stays at 1 HP after the final hit
 }
 
