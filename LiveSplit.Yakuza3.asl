@@ -94,13 +94,13 @@ isLoading
 // Currently autosplits on every chapter's title card, and on the last hit on Mine
 split
 {   
-    if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard) && version == "Steam")
+    if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard))
     {
         vars.Splits.Add(current.TitleCard);
         return settings[current.TitleCard];
     }
 
-    if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds") && version == "Steam")
+    if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds"))
         return (current.HPSlot0 == 1); // Mine stays at 1 HP after the final hit
 }
 
