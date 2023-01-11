@@ -88,7 +88,7 @@ start
 // Pause the timer while the screen is black, but only if IGT has stopped.
 isLoading 
 {
-    return current.Start == 2 && current.FileTimer == old.FileTimer && version == "Steam";
+    return (current.Start == 2 && current.FileTimer == old.FileTimer && version == "Steam");
 }
 
 // Currently autosplits on every chapter's title card, and on the last hit on Mine
