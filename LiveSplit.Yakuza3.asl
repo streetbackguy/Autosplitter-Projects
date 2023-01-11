@@ -6,7 +6,7 @@ state("Yakuza3", "Steam")
     byte Loads: 0x1198218, 0x310, 0x210;
     string255 TitleCard: 0x1198218, 0x560, 0xC8, 0x108, 0x5C;
     short Paradigm: 0x119D778;
-    byte Start: 0x11AB360;
+    byte Start: 0x11C6524;
     string255 Objective: 0x11B7898, 0x264, 0xFB0;
     int FileTimer: 0x11C6518;
 }
@@ -78,8 +78,8 @@ update
 
 start
 {
-    // Starts after the Ukiyo Bell OK
-    return (current.Start > 0 && version == "Steam");
+    // Starts after Selecting Game Difficulty
+    return (current.Start == 0 && old.Start == 1 && version == "Steam");
 
     // Starts after the disclaimer
     // return (current.Loads == 1 && old.Loads == 0 && version == "Steam");
@@ -88,7 +88,7 @@ start
 // Pause the timer while the screen is black, but only if IGT has stopped.
 isLoading 
 {
-    return (current.Start == 2 && current.FileTimer == old.FileTimer && version == "Steam");
+    return (current.Start == 0 && current.FileTimer == old.FileTimer && version == "Steam");
 }
 
 // Currently autosplits on every chapter's title card, and on the last hit on Mine
