@@ -41,18 +41,18 @@ init {
 startup
 {   
     settings.Add("yak3", true, "Yakuza 3");
-        settings.Add("2d_mn_syotitle_01.dds", false, "Chapter 1: New Beginnings", "yak3");
-        settings.Add("2d_mn_syotitle_02.dds", false, "Chapter 2: The Ryudo Encounter", "yak3");
-        settings.Add("2d_mn_syotitle_03.dds", false, "Chapter 3: Power Struggle", "yak3");
-        settings.Add("2d_mn_syotitle_04.dds", false, "Chapter 4: The Man in the Sketch", "yak3");
-        settings.Add("2d_mn_syotitle_05.dds", false, "Chapter 5: The Curtain Rises", "yak3");
-        settings.Add("2d_mn_syotitle_06.dds", false, "Chapter 6: Gameplan", "yak3");
-        settings.Add("2d_mn_syotitle_07.dds", false, "Chapter 7: The Mad Dog", "yak3");
-        settings.Add("2d_mn_syotitle_08.dds", false, "Chapter 8: Conspirators", "yak3");
-        settings.Add("2d_mn_syotitle_09.dds", false, "Chapter 9: The Plot", "yak3");
-        settings.Add("2d_mn_syotitle_10.dds", false, "Chapter 10: Unfinished Business", "yak3");
-        settings.Add("2d_mn_syotitle_11.dds", false, "Chapter 11: Crisis", "yak3");
-        settings.Add("2d_mn_syotitle_12.dds", false, "Chapter 12: The End of Ambition", "yak3");
+        settings.Add("er/2d_mn_syotitle_01.dds", false, "Chapter 1: New Beginnings", "yak3");
+        settings.Add("er/2d_mn_syotitle_02.dds", false, "Chapter 2: The Ryudo Encounter", "yak3");
+        settings.Add("er/2d_mn_syotitle_03.dds", false, "Chapter 3: Power Struggle", "yak3");
+        settings.Add("er/2d_mn_syotitle_04.dds", false, "Chapter 4: The Man in the Sketch", "yak3");
+        settings.Add("er/2d_mn_syotitle_05.dds", false, "Chapter 5: The Curtain Rises", "yak3");
+        settings.Add("er/2d_mn_syotitle_06.dds", false, "Chapter 6: Gameplan", "yak3");
+        settings.Add("er/2d_mn_syotitle_07.dds", false, "Chapter 7: The Mad Dog", "yak3");
+        settings.Add("er/2d_mn_syotitle_08.dds", false, "Chapter 8: Conspirators", "yak3");
+        settings.Add("er/2d_mn_syotitle_09.dds", false, "Chapter 9: The Plot", "yak3");
+        settings.Add("er/2d_mn_syotitle_10.dds", false, "Chapter 10: Unfinished Business", "yak3");
+        settings.Add("er/2d_mn_syotitle_11.dds", false, "Chapter 11: Crisis", "yak3");
+        settings.Add("er/2d_mn_syotitle_12.dds", false, "Chapter 12: The End of Ambition", "yak3");
 
     settings.SetToolTip("yak3", "Auto Splitter does not currently work on Game Pass version!");
 
