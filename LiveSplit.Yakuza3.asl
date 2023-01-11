@@ -100,7 +100,7 @@ split
         return settings[current.TitleCard];
     }
 
-    if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds" && version == "Steam"))
+    if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds") && version == "Steam")
         return (current.HPSlot0 == 1); // Mine stays at 1 HP after the final hit
 }
 
