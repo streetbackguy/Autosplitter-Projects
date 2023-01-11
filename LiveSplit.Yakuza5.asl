@@ -2,7 +2,7 @@
 state("Yakuza5", "Steam") 
 {
     int Loads: 0x28ECC5C;
-    int MainMenu: 0x28A0938, 0x3C;
+    int MainMenu: 0x28F40FA;
     int chapter: 0x3073166;
     string255 TitleCard: 0x2008438, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
 }
@@ -91,7 +91,7 @@ isLoading
 
 start
 {
-    return (current.Loads == 2 && old.MainMenu == 4352);
+    return (current.Loads == 2 && current.MainMenu == 1);
 }
 
 //Currently autosplits on every end of chapter save screen
