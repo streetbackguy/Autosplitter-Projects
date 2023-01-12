@@ -7,6 +7,7 @@ state("Yakuza3", "Steam")
     string255 TitleCard: 0x1198218, 0x560, 0xC8, 0x108, 0x5C;
     short Paradigm: 0x119D778;
     byte Start: 0x11C6524;
+    byte LoadHelper: 0x11AB360;
     string255 Objective: 0x11B7898, 0x264, 0xFB0;
     int FileTimer: 0x11C6518;
 }
@@ -20,6 +21,7 @@ state("Yakuza3", "Game Pass")
     string255 TitleCard: 0x11B9850, 0x108, 0x1B0, 0x52; // TODO: Find Game Pass address for this!
     short Paradigm: 0x1452738;
     byte Start: 0x1460340;
+    byte LoadHelper: 0x11AB360;
     string255 Objective: 0x11B7898, 0x264, 0xFB0; // TODO: Find Game Pass address for this!
     int FileTimer: 0x147B498;
 }
@@ -41,18 +43,18 @@ init {
 startup
 {   
     settings.Add("yak3", true, "Yakuza 3");
-        settings.Add("er/2d_mn_syotitle_01.dds", false, "Chapter 1: New Beginnings", "yak3");
-        settings.Add("er/2d_mn_syotitle_02.dds", false, "Chapter 2: The Ryudo Encounter", "yak3");
-        settings.Add("er/2d_mn_syotitle_03.dds", false, "Chapter 3: Power Struggle", "yak3");
-        settings.Add("er/2d_mn_syotitle_04.dds", false, "Chapter 4: The Man in the Sketch", "yak3");
-        settings.Add("er/2d_mn_syotitle_05.dds", false, "Chapter 5: The Curtain Rises", "yak3");
-        settings.Add("er/2d_mn_syotitle_06.dds", false, "Chapter 6: Gameplan", "yak3");
-        settings.Add("er/2d_mn_syotitle_07.dds", false, "Chapter 7: The Mad Dog", "yak3");
-        settings.Add("er/2d_mn_syotitle_08.dds", false, "Chapter 8: Conspirators", "yak3");
-        settings.Add("er/2d_mn_syotitle_09.dds", false, "Chapter 9: The Plot", "yak3");
-        settings.Add("er/2d_mn_syotitle_10.dds", false, "Chapter 10: Unfinished Business", "yak3");
-        settings.Add("er/2d_mn_syotitle_11.dds", false, "Chapter 11: Crisis", "yak3");
-        settings.Add("er/2d_mn_syotitle_12.dds", false, "Chapter 12: The End of Ambition", "yak3");
+        settings.Add("01.dds", false, "Chapter 1: New Beginnings", "yak3");
+        settings.Add("02.dds", false, "Chapter 2: The Ryudo Encounter", "yak3");
+        settings.Add("03.dds", false, "Chapter 3: Power Struggle", "yak3");
+        settings.Add("04.dds", false, "Chapter 4: The Man in the Sketch", "yak3");
+        settings.Add("05.dds", false, "Chapter 5: The Curtain Rises", "yak3");
+        settings.Add("06.dds", false, "Chapter 6: Gameplan", "yak3");
+        settings.Add("07.dds", false, "Chapter 7: The Mad Dog", "yak3");
+        settings.Add("08.dds", false, "Chapter 8: Conspirators", "yak3");
+        settings.Add("09.dds", false, "Chapter 9: The Plot", "yak3");
+        settings.Add("10.dds", false, "Chapter 10: Unfinished Business", "yak3");
+        settings.Add("11.dds", false, "Chapter 11: Crisis", "yak3");
+        settings.Add("12.dds", false, "Chapter 12: The End of Ambition", "yak3");
 
     settings.SetToolTip("yak3", "Auto Splitter does not currently work on Game Pass version!");
 
@@ -88,7 +90,7 @@ start
 // Pause the timer while the screen is black, but only if IGT has stopped.
 isLoading 
 {
-    return (current.Start == 0 && current.FileTimer == old.FileTimer && version == "Steam");
+    return (current.LoadHelper == 2 && current.FileTimer == old.FileTimer && version == "Steam");
 }
 
 // Currently autosplits on every chapter's title card, and on the last hit on Mine
@@ -97,7 +99,7 @@ split
     if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard))
     {
         vars.Splits.Add(current.TitleCard);
-        return settings[current.TitleCard];
+        return settings[current.TitleCard.Substring(current.TitleCard.Length - 6)];
     }
 
     if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds") && version == "Steam")
