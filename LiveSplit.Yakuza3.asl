@@ -42,21 +42,22 @@ init {
 
 startup
 {   
-    settings.Add("yak3", true, "Yakuza 3");
-        settings.Add("01.dds", false, "Chapter 1: New Beginnings", "yak3");
-        settings.Add("02.dds", false, "Chapter 2: The Ryudo Encounter", "yak3");
-        settings.Add("03.dds", false, "Chapter 3: Power Struggle", "yak3");
-        settings.Add("04.dds", false, "Chapter 4: The Man in the Sketch", "yak3");
-        settings.Add("05.dds", false, "Chapter 5: The Curtain Rises", "yak3");
-        settings.Add("06.dds", false, "Chapter 6: Gameplan", "yak3");
-        settings.Add("07.dds", false, "Chapter 7: The Mad Dog", "yak3");
-        settings.Add("08.dds", false, "Chapter 8: Conspirators", "yak3");
-        settings.Add("09.dds", false, "Chapter 9: The Plot", "yak3");
-        settings.Add("10.dds", false, "Chapter 10: Unfinished Business", "yak3");
-        settings.Add("11.dds", false, "Chapter 11: Crisis", "yak3");
-        settings.Add("12.dds", false, "Chapter 12: The End of Ambition", "yak3");
+    settings.Add("yak3", true, "Yakuza 3 Chapter End Splits");
+        settings.Add("02.dds", false, "Chapter 1: New Beginnings", "yak3");
+        settings.Add("03.dds", false, "Chapter 2: The Ryudo Encounter", "yak3");
+        settings.Add("04.dds", false, "Chapter 3: Power Struggle", "yak3");
+        settings.Add("05.dds", false, "Chapter 4: The Man in the Sketch", "yak3");
+        settings.Add("06.dds", false, "Chapter 5: The Curtain Rises", "yak3");
+        settings.Add("07.dds", false, "Chapter 6: Gameplan", "yak3");
+        settings.Add("08.dds", false, "Chapter 7: The Mad Dog", "yak3");
+        settings.Add("09.dds", false, "Chapter 8: Conspirators", "yak3");
+        settings.Add("10.dds", false, "Chapter 9: The Plot", "yak3");
+        settings.Add("11.dds", false, "Chapter 10: Unfinished Business", "yak3");
+        settings.Add("12.dds", false, "Chapter 11: Crisis", "yak3");
+        settings.Add("mine", false, "Chapter 12: The End of Ambition", "yak3");
 
     settings.SetToolTip("yak3", "Auto Splitter does not currently work on Game Pass version!");
+    settings.SetToolTip("mine", "Splits on the last hit on the final boss.");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
@@ -102,8 +103,8 @@ split
         return settings[current.TitleCard.Substring(current.TitleCard.Length - 6)];
     }
 
-    if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds") && version == "Steam")
-        return (current.HPSlot0 == 1); // Mine stays at 1 HP after the final hit
+    if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds"))
+        return (current.HPSlot0 == 1 && settings["mine"]); // Mine stays at 1 HP after the final hit
 }
 
 exit
