@@ -101,7 +101,7 @@ isLoading
 // Currently autosplits on every chapter's title card, and on the last hit on Mine.
 split
 {   
-    if version != "Steam"
+    if (version != "Steam")
         return false;
 
     if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard))
