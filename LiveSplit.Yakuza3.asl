@@ -10,6 +10,8 @@ state("Yakuza3", "Steam")
     byte LoadHelper: 0x11AB360;
     string255 Objective: 0x11B7898, 0x264, 0xFB0;
     int FileTimer: 0x11C6518;
+    string255 MusicSlot2: 0x128B040, 0x5C;
+    byte MusicCursor2: 0x2A2BC60, 0x30, 0x68, 0x10, 0x18, 0x0;
 }
 
 state("Yakuza3", "Game Pass") 
@@ -21,9 +23,11 @@ state("Yakuza3", "Game Pass")
     string255 TitleCard: 0x11B9850, 0x108, 0x1B0, 0x52; // TODO: Find Game Pass address for this!
     short Paradigm: 0x1452738;
     byte Start: 0x1460340;
-    byte LoadHelper: 0x11AB360;
+    byte LoadHelper: 0x11AB360; // TODO: Find Game Pass address for this!
     string255 Objective: 0x11B7898, 0x264, 0xFB0; // TODO: Find Game Pass address for this!
     int FileTimer: 0x147B498;
+    string255 MusicSlot2: 0x128B040, 0x5C; // TODO: Find Game Pass address for this!
+    byte MusicCursor2: 0x2A2BC60, 0x30, 0x68, 0x10, 0x18, 0x0; // TODO: Find Game Pass address for this!
 }
 
 init {
@@ -42,22 +46,22 @@ init {
 
 startup
 {   
-    settings.Add("yak3", true, "Yakuza 3 Chapter End Splits");
-        settings.Add("02.dds", false, "Chapter 1: New Beginnings", "yak3");
-        settings.Add("03.dds", false, "Chapter 2: The Ryudo Encounter", "yak3");
-        settings.Add("04.dds", false, "Chapter 3: Power Struggle", "yak3");
-        settings.Add("05.dds", false, "Chapter 4: The Man in the Sketch", "yak3");
-        settings.Add("06.dds", false, "Chapter 5: The Curtain Rises", "yak3");
-        settings.Add("07.dds", false, "Chapter 6: Gameplan", "yak3");
-        settings.Add("08.dds", false, "Chapter 7: The Mad Dog", "yak3");
-        settings.Add("09.dds", false, "Chapter 8: Conspirators", "yak3");
-        settings.Add("10.dds", false, "Chapter 9: The Plot", "yak3");
-        settings.Add("11.dds", false, "Chapter 10: Unfinished Business", "yak3");
-        settings.Add("12.dds", false, "Chapter 11: Crisis", "yak3");
-        settings.Add("mine", false, "Chapter 12: The End of Ambition", "yak3");
+    settings.Add("yak3", true, "Yakuza 3 - Chapter End Splits");
+        settings.Add("tle_02.dds", true, "Chapter 1: New Beginnings", "yak3");
+        settings.Add("tle_03.dds", true, "Chapter 2: The Ryudo Encounter", "yak3");
+        settings.Add("tle_04.dds", true, "Chapter 3: Power Struggle", "yak3");
+        settings.Add("tle_05.dds", true, "Chapter 4: The Man in the Sketch", "yak3");
+        settings.Add("tle_06.dds", true, "Chapter 5: The Curtain Rises", "yak3");
+        settings.Add("tle_07.dds", true, "Chapter 6: Gameplan", "yak3");
+        settings.Add("tle_08.dds", true, "Chapter 7: The Mad Dog", "yak3");
+        settings.Add("tle_09.dds", true, "Chapter 8: Conspirators", "yak3");
+        settings.Add("tle_10.dds", true, "Chapter 9: The Plot", "yak3");
+        settings.Add("tle_11.dds", true, "Chapter 10: Unfinished Business", "yak3");
+        settings.Add("tle_12.dds", true, "Chapter 11: Crisis", "yak3");
+        settings.Add("RUN OVER", true, "Chapter 12: The End of Ambition", "yak3");
 
     settings.SetToolTip("yak3", "Auto Splitter does not currently work on Game Pass version!");
-    settings.SetToolTip("mine", "Splits on the last hit on the final boss.");
+    settings.SetToolTip("RUN OVER", "Splits on the last hit on the final boss.");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
@@ -82,7 +86,7 @@ update
 start
 {
     // Starts after Selecting Game Difficulty
-    return (current.Start == 0 && old.Start == 1 && version == "Steam");
+    return (version == "Steam" && current.Start == 0 && old.Start == 1);
 
     // Starts after the disclaimer
     // return (current.Loads == 1 && old.Loads == 0 && version == "Steam");
@@ -91,20 +95,23 @@ start
 // Pause the timer while the screen is black, but only if IGT has stopped.
 isLoading 
 {
-    return (current.LoadHelper == 2 && current.FileTimer == old.FileTimer && version == "Steam");
+    return (version == "Steam" && current.LoadHelper == 2 && current.FileTimer == old.FileTimer);
 }
 
-// Currently autosplits on every chapter's title card, and on the last hit on Mine
+// Currently autosplits on every chapter's title card, and on the last hit on Mine.
 split
 {   
+    if version != "Steam"
+        return false;
+
     if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard))
     {
         vars.Splits.Add(current.TitleCard);
-        return settings[current.TitleCard.Substring(current.TitleCard.Length - 6)];
+        return settings[current.TitleCard.Substring(current.TitleCard.Length - 10)];
     }
 
-    if (current.HPSlot0Max == 3000 && current.Objective.EndsWith("2d_mn_bc_em_hakuhou.dds"))
-        return (current.HPSlot0 == 1 && settings["mine"]); // Mine stays at 1 HP after the final hit
+    if (current.MusicSlot2.EndsWith("btlbgm_vs_mine2_fin.adx") && current.MusicCursor2 != old.MusicCursor2)
+        return settings["RUN OVER"];
 }
 
 exit
