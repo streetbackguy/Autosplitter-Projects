@@ -8,6 +8,7 @@ state("Yakuza3", "Steam")
     short Paradigm: 0x119D778;
     byte Start: 0x11C6524;
     byte LoadHelper: 0x11AB360;
+    string255 GolfResults: 0x011C3470, 0x28, 0x5D4;
     string255 Objective: 0x11B7898, 0x264, 0xFB0;
     int FileTimer: 0x11C6518;
     string255 MusicSlot2: 0x128B040, 0x5C;
@@ -24,6 +25,7 @@ state("Yakuza3", "Game Pass")
     short Paradigm: 0x1452738;
     byte Start: 0x1460340;
     byte LoadHelper: 0x11AB360; // TODO: Find Game Pass address for this!
+    string255 GolfResults: 0x011C3470, 0x28, 0x5D4; // TODO: Find Game Pass address for this!
     string255 Objective: 0x11B7898, 0x264, 0xFB0; // TODO: Find Game Pass address for this!
     int FileTimer: 0x147B498;
     string255 MusicSlot2: 0x128B040, 0x5C; // TODO: Find Game Pass address for this!
@@ -50,6 +52,7 @@ startup
         settings.Add("tle_02.dds", true, "Chapter 1: New Beginnings", "yak3");
         settings.Add("tle_03.dds", true, "Chapter 2: The Ryudo Encounter", "yak3");
         settings.Add("tle_04.dds", true, "Chapter 3: Power Struggle", "yak3");
+            settings.Add("golf", false, "Split after Golf", "tle_04.dds");
         settings.Add("tle_05.dds", true, "Chapter 4: The Man in the Sketch", "yak3");
         settings.Add("tle_06.dds", true, "Chapter 5: The Curtain Rises", "yak3");
         settings.Add("tle_07.dds", true, "Chapter 6: Gameplan", "yak3");
@@ -76,11 +79,16 @@ startup
         if (timingMessage == DialogResult.Yes)
             timer.CurrentTimingMethod = TimingMethod.GameTime;
     }
+
+    vars.GolfCaddy = new Stopwatch();
+    vars.minimumtime = TimeSpan.FromSeconds(5);
 }
 
 update
 {
     print(modules.First().ModuleMemorySize.ToString());
+
+    if (vars.GolfCaddy.Elapsed >= vars.minimumtime) vars.GolfCaddy.Stop();
 }
 
 start
@@ -112,6 +120,19 @@ split
 
     if (current.MusicSlot2.EndsWith("btlbgm_vs_mine2_fin.adx") && current.MusicCursor2 != old.MusicCursor2)
         return settings["RUN OVER"];
+
+    if (old.GolfResults == "on/mng19golf.par" && current.GolfResults != "on/mng19golf.par")
+        return settings["golf"] && !vars.GolfCaddy.IsRunning;
+}
+
+onStart
+{
+    vars.GolfCaddy.Restart();
+}
+
+onSplit
+{
+    vars.GolfCaddy.Restart();
 }
 
 exit
