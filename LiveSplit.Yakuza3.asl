@@ -11,8 +11,8 @@ state("Yakuza3", "Steam")
     string255 GolfResults: 0x011C3470, 0x28, 0x5D4;
     string255 Objective: 0x11B7898, 0x264, 0xFB0;
     int FileTimer: 0x11C6518;
-    string255 MusicSlot2: 0x128B040, 0x5C;
-    byte MusicCursor2: 0x2A2BC60, 0x30, 0x68, 0x10, 0x18, 0x0;
+    string255 MusicSlot2: 0x128B048, 0x5C;
+    byte MusicCursor2: 0x2A2BC60, 0x28, 0xC0, 0x0, 0x0, 0x0;
 }
 
 state("Yakuza3", "Game Pass") 
@@ -28,8 +28,8 @@ state("Yakuza3", "Game Pass")
     string255 GolfResults: 0x011C3470, 0x28, 0x5D4; // TODO: Find Game Pass address for this!
     string255 Objective: 0x11B7898, 0x264, 0xFB0; // TODO: Find Game Pass address for this!
     int FileTimer: 0x147B498;
-    string255 MusicSlot2: 0x128B040, 0x5C; // TODO: Find Game Pass address for this!
-    byte MusicCursor2: 0x2A2BC60, 0x30, 0x68, 0x10, 0x18, 0x0; // TODO: Find Game Pass address for this!
+    string255 MusicSlot2: 0x128B048, 0x5C; // TODO: Find Game Pass address for this!
+    byte MusicCursor2: 0x2A2BC60, 0x28, 0xC0, 0x0, 0x0, 0x0; // TODO: Find Game Pass address for this!
 }
 
 init {
@@ -44,6 +44,7 @@ init {
             version = "Steam";
             break;
     }
+
 }
 
 startup
@@ -82,6 +83,8 @@ startup
 
     vars.GolfCaddy = new Stopwatch();
     vars.minimumtime = TimeSpan.FromSeconds(5);
+  
+    vars.EndingHelper = 0;
 }
 
 update
@@ -112,14 +115,23 @@ split
     if (version != "Steam")
         return false;
 
+    // if(vars.EndingHelper == "Zero")
+    //     return false;
+
+    if(current.MusicSlot2.Contains("vs_mine2") && vars.EndingHelper == 0 && current.MusicCursor2 == 128)
+        vars.EndingHelper = 1;
+
+    else if (vars.EndingHelper == 1 && current.MusicCursor2 != 128)
+    {
+        vars.EndingHelper = 2;
+        return settings["RUN OVER"];
+    }
+
     if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard))
     {
         vars.Splits.Add(current.TitleCard);
         return settings[current.TitleCard.Substring(current.TitleCard.Length - 10)];
     }
-
-    if (current.MusicSlot2.EndsWith("btlbgm_vs_mine2_fin.adx") && current.MusicCursor2 != old.MusicCursor2)
-        return settings["RUN OVER"];
 
     if (old.GolfResults == "on/mng19golf.par" && current.GolfResults != "on/mng19golf.par")
         return settings["golf"] && !vars.GolfCaddy.IsRunning;
