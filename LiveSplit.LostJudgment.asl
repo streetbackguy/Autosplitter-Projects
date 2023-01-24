@@ -1,9 +1,7 @@
 state("LostJudgment", "Steam") 
 {
-    bool LogoLoads: 0x41E9C44;
-    bool GameState: 0x41EA74C;
-    int Transitions: 0x1495D950;
-    int Autostart: 0x532EEFC;
+    byte Loads: 0x4322CE0, 0x310, 0x544;
+    byte Autostart: 0x151D3DA2;
 }
 
 init 
@@ -13,7 +11,11 @@ init
     switch(modules.First().ModuleMemorySize) 
     {
         case 77086720:
-            version = "Steam";
+            version = "Steam 1.0";
+            break;
+
+        case 472219648:
+            version = "Steam 1.11";
             break;
     }
 }
@@ -42,20 +44,16 @@ update
 
 isLoading 
 {
-    return current.LogoLoads || current.Transitions == 0;
+    return current.Loads == 1;
 }
 
+//Autostarts after the checkpoint information prompt
 start
 {
-    return current.Autostart == 0 && old.Autostart == 1;
+    return current.Autostart != old.Autostart;
 }
 
 onStart
-{
-    timer.IsGameTimePaused = true;
-}
-
-exit
 {
     timer.IsGameTimePaused = true;
 }
