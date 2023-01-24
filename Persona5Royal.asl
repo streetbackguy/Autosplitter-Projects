@@ -1,10 +1,11 @@
 state("P5R", "Steam") 
 {
-    byte Loads: 0x29B5938;
-    byte Transitions: 0x2AA1973;
+    byte Loads: 0x29B5918;
+    byte Transitions: 0x2AA1983;
     byte SceneLoads: 0x2AA1970;
-    byte NGStart: 0x2AED0CF;
-    byte Cutscene: 0x29B8D9C;
+    byte Fades: 0x2AA45F0;
+    byte NGStart: 0x29B4AC8;
+    byte Cutscene: 0x26E4AA8;
 }
 
 init 
@@ -14,7 +15,11 @@ init
     switch(modules.First().ModuleMemorySize) 
     {
         case 405430272:
-            version = "Steam";
+            version = "Steam Version 1.0";
+            break; 
+
+        case 395833344:
+            version = "Steam Version 1.03";
             break; 
     }
 }
@@ -43,10 +48,10 @@ update
 
 isLoading 
 {
-    return current.Loads == 40 && current.Cutscene != 35 && current.Transitions == 4 || current.Cutscene != 35 && current.Transitions == 4 && current.SceneLoads != 0;
+    return (current.Transitions == 4 || current.Loads == 0 && old.Loads == 40 && current.Cutscene == 0 || current.Loads == 0 && old.Loads == 40);
 }
 
 start
 {
-    return (current.NGStart == 59 && old.NGStart == 58);
+    return (current.NGStart == 39 && old.NGStart == 80);
 }
