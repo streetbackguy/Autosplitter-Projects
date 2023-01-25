@@ -1,4 +1,4 @@
-state("LostJudgment", "Steam") 
+state("LostJudgment", "Steam 1.11") 
 {
     byte Loads: 0x4322CE0, 0x310, 0x544;
     byte Autostart: 0x151D3DA2;
@@ -38,9 +38,9 @@ startup
         settings.Add("c13_chapter_sequence.par", false, "Chapter 12: To Nourish a Viper", "LJ");
         settings.Add("13", false, "Final Chapter: Darkest Before the Dawn", "LJ");
     settings.Add("KF", true, "The Kaito Files");
-        settings.Add("dlc\\c02_chapter_sequence_dlc.par", false, "Chapter 01: What Goes Around", "KF");
-        settings.Add("dlc\\c03_chapter_sequence_dlc.par", false, "Chapter 02: Like Father, Like Son", "KF");
-        settings.Add("dlc\\c04_chapter_sequence_dlc.par", false, "Chapter 03: Out for Blood", "KF");
+        settings.Add("dlc\\dlc_p02_00100.par", false, "Chapter 01: What Goes Around", "KF");
+        settings.Add("dlc\\dlc_p03_00100.par", false, "Chapter 02: Like Father, Like Son", "KF");
+        settings.Add("dlc\\dlc_p04_00100.par", false, "Chapter 03: Out for Blood", "KF");
         settings.Add("4", false, "Chapter 04: Cat & Mouse", "KF");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
@@ -68,7 +68,7 @@ isLoading
     return current.Loads == 1;
 }
 
-//Autostarts after the checkpoint information prompt
+//Autostarts after the autosave information prompt
 start
 {
     return current.Autostart != old.Autostart;
@@ -83,6 +83,11 @@ split
     }
 }
 
+reset
+{
+    return (current.Chapter != old.Chapter && current.Chapter == "p00_start.par");
+}
+
 onReset
 {
     vars.Splits.Clear();
@@ -90,5 +95,11 @@ onReset
 
 onStart
 {
+    timer.IsGameTimePaused = true;
+}
+
+exit
+{
+    vars.Splits.Clear();
     timer.IsGameTimePaused = true;
 }
