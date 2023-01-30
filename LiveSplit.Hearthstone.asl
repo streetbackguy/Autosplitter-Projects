@@ -29,13 +29,10 @@ init
     vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
 	{
         var SM = helper.GetClass("Assembly-CSharp", "SceneMgr");
-        var SMM = helper.GetParent(SM);
         var GP = helper.GetClass("Assembly-CSharp", "Gameplay");
-        var LB = helper.GetClass("Assembly-CSharp", "LoadingScreen");
 
         vars.Unity.Make<bool>(GP.Static, GP["s_instance"]).Name = "Gameplay";
-        vars.Unity.Make<bool>(LB.Static, LB["m_FadeInSec"]).Name = "isLoading";
-        vars.Unity.Make<bool>(SM.Static, SM["m_reloadMode"]).Name = "LoadScreen";
+        vars.Unity.Make<bool>(SM.Static, SM["s_instance"], SM["m_transitioning"]).Name = "LoadScreen";
 
 		return true;
 	});
@@ -49,15 +46,14 @@ update
 
     vars.Unity.Update();
 
-    current.LoadingBar = vars.Unity["isLoading"].Current;
-    current.Gameplay = vars.Unity["Gameplay"].Current;
     current.LoadScreen = vars.Unity["LoadScreen"].Current;
+    current.Gameplay = vars.Unity["Gameplay"].Current;
     current.Scene = vars.Unity.Scenes.Active.Index;
 }
 
 isLoading
 {
-    return !current.Gameplay;
+    return current.LoadScreen && !current.Gameplay;
 }
 
 onStart
