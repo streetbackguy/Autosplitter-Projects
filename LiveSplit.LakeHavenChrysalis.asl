@@ -71,12 +71,6 @@ reset
     return current.activeScene == "MainMenu" || current.loadingScene == "WarningScreen";
 }
 
-onReset
-{
-    return current.IGT == 0.0f;
-    vars.Helper.Dispose();
-}
-
 exit
 {
     timer.IsGameTimePaused = true;
