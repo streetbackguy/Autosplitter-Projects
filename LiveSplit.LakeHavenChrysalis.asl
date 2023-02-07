@@ -27,9 +27,11 @@ startup
 
 init
 {
-        vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
+    vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        vars.Helper["Fades"] = mono.Make<bool>("Transition", "To");
+        var scm = mono.GetClass("SceneChangeManager", 0);
+
+        vars.Helper["Fades"] = scm.MakeString("Instance", "nextRoom");
 
         return true;
     });
@@ -37,12 +39,22 @@ init
 
 update
 {
-	current.activeScene = vars.Helper.Scenes.Active.Name == null ? current.activeScene : vars.Helper.Scenes.Active.Name;
-	current.loadingScene = vars.Helper.Scenes.Loaded[0].Name == null ? current.loadingScene : vars.Helper.Scenes.Loaded[0].Name;
+    try
+    {
+        current.activeScene = vars.Helper.Scenes.Active.Name ?? current.activeScene;
+	    current.loadingScene = vars.Helper.Scenes.Loaded[0].Name == null ? current.loadingScene : vars.Helper.Scenes.Loaded[0].Name;
+    }
+        catch (Exception ex)
+    {
+        vars.Log("Inner: " + ex.InnerException);
+        vars.Log("Outer: " + ex);
+    }
 
 	//if(current.activeScene != old.activeScene) vars.Log("a: " + old.activeScene + ", " + current.activeScene);
 	//if(current.loadingScene != old.loadingScene) vars.Log("l: " + old.loadingScene + ", " + current.loadingScene);
 
+    	//print("Current Scene:" + vars.Helper["Rooms"].Current);
+    	print("Next Scene:" + vars.Helper["Fades"].Current);
 }
 
 start
@@ -52,7 +64,7 @@ start
 
 isLoading
 {
-    return current.Fades;
+    return current.loadingScene != old.activeScene && current.Fades != "";
 }
 
 reset
@@ -62,6 +74,7 @@ reset
 
 onReset
 {
+    return current.IGT == 0.0f;
     vars.Helper.Dispose();
 }
 
