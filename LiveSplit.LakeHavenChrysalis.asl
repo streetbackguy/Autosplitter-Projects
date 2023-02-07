@@ -1,36 +1,19 @@
-state("Lake Haven - Chrysalis")
-{
-    float IGT: "UnityPlayer.dll", 0x19B3730, 0x40, 0x10, 0x38, 0xDE4;
-}
+state("Lake Haven - Chrysalis") {}
 
 startup
 {
-	Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
-    	vars.Helper.GameName = "Lake Haven - Chrysalis";
-	vars.Helper.LoadSceneManager = true;
-
-    if (timer.CurrentTimingMethod == TimingMethod.RealTime)
-    {
-        var timingMessage = MessageBox.Show (
-            "This game uses Time without Loads (Game Time) as the main timing method.\n"+
-            "LiveSplit is currently set to show Real Time (RTA).\n"+
-            "Would you like to set the timing method to Game Time?",
-            "LiveSplit | Lake Haven - Chrysalis",
-            MessageBoxButtons.YesNo, MessageBoxIcon.Question
-        );
-
-        if (timingMessage == DialogResult.Yes)
-            timer.CurrentTimingMethod = TimingMethod.GameTime;
-    }
+    Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
+    vars.Helper.GameName = "Lake Haven - Chrysalis";
+    vars.Helper.LoadSceneManager = true;
+    vars.Helper.AlertLoadless();
 }
 
 init
 {
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        var scm = mono.GetClass("SceneChangeManager", 0);
-
-        vars.Helper["Fades"] = scm.MakeString("Instance", "nextRoom");
+        vars.Helper["nextRoom"] = mono.MakeString("SceneChangeManager", "Instance", "nextRoom");
+        vars.Helper["igt"] = mono.Make<float>("SavedDataManager", "IGT");
 
         return true;
     });
@@ -38,32 +21,18 @@ init
 
 update
 {
-    try
-    {
-        current.activeScene = vars.Helper.Scenes.Active.Name ?? current.activeScene;
-	   current.loadingScene = vars.Helper.Scenes.Loaded[0].Name == null ? current.loadingScene : vars.Helper.Scenes.Loaded[0].Name;
-    }
-        catch (Exception ex)
-    {
-        vars.Log("Inner: " + ex.InnerException);
-        vars.Log("Outer: " + ex);
-    }
+    current.activeScene = vars.Helper.Scenes.Active.Name ?? old.activeScene;
+    current.loadingScene = vars.Helper.Scenes.Loaded[0].Name ?? old.loadingScene;
 
-	//if(current.activeScene != old.activeScene) vars.Log("a: " + old.activeScene + ", " + current.activeScene);
-	//if(current.loadingScene != old.loadingScene) vars.Log("l: " + old.loadingScene + ", " + current.loadingScene);
-
-    	//print("Current Scene:" + vars.Helper["Rooms"].Current);
-    	//print("Next Scene:" + vars.Helper["Fades"].Current);
+    if (old.nextRoom != current.nextRoom)
+    {
+        vars.Log("NextRoom changed: " + old.nextRoom + " -> " + current.nextRoom);
+    }
 }
 
 start
 {
-    return current.activeScene == "FarmHouse_Exterior" && current.IGT > 0.0f;
-}
-
-isLoading
-{
-    return current.loadingScene != old.activeScene && current.Fades != "";
+    return current.activeScene == "FarmHouse_Exterior" && old.igt == 0f && current.igt > 0f;
 }
 
 reset
@@ -71,8 +40,17 @@ reset
     return current.activeScene == "MainMenu" || current.loadingScene == "WarningScreen";
 }
 
+gameTime
+{
+    return TimeSpan.FromSeconds(current.igt);
+}
+
+isLoading
+{
+    return true;
+}
+
 exit
 {
     timer.IsGameTimePaused = true;
-    vars.Helper.Dispose();
 }
