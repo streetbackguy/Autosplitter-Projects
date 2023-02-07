@@ -8,7 +8,6 @@ startup
 	Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     	vars.Helper.GameName = "Lake Haven - Chrysalis";
 	vars.Helper.LoadSceneManager = true;
-    	vars.Helper.AlertLoadless();
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
@@ -42,7 +41,7 @@ update
     try
     {
         current.activeScene = vars.Helper.Scenes.Active.Name ?? current.activeScene;
-	    current.loadingScene = vars.Helper.Scenes.Loaded[0].Name == null ? current.loadingScene : vars.Helper.Scenes.Loaded[0].Name;
+	   current.loadingScene = vars.Helper.Scenes.Loaded[0].Name == null ? current.loadingScene : vars.Helper.Scenes.Loaded[0].Name;
     }
         catch (Exception ex)
     {
@@ -54,7 +53,7 @@ update
 	//if(current.loadingScene != old.loadingScene) vars.Log("l: " + old.loadingScene + ", " + current.loadingScene);
 
     	//print("Current Scene:" + vars.Helper["Rooms"].Current);
-    	print("Next Scene:" + vars.Helper["Fades"].Current);
+    	//print("Next Scene:" + vars.Helper["Fades"].Current);
 }
 
 start
