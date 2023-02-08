@@ -76,7 +76,7 @@ split
         return settings["safe"];
     }
 
-    if (!current.gameTimeStarted && vars.Splits.Contains("Basement"))
+    if (!current.gameTimeStarted && old.gameTimeStarted && vars.Splits.Contains("Basement"))
     {
         vars.Splits.Add("end");
         return settings["end"];
