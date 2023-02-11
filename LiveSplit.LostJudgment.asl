@@ -3,14 +3,16 @@ state("LostJudgment", "Steam 1.11")
     bool Loads: 0x4322CE0, 0x310, 0x544;
     bool CutsceneLoads: 0x5313844;
     bool Crafting: 0x5340E84;
+    byte QTE: 0x5310EC8;
     byte Autostart: 0x151D3DA2;
-    int KuwanaHealth: 0x03B6ABB8, 0x110, 0x48, 0x0, 0x8, 0x10, 0x180;
+    int BossHealth: 0x03B6ABB8, 0x110, 0x48, 0x0, 0x8, 0x10, 0x180;
     string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
 }
 
 init 
 {
     vars.Splits = new HashSet<string>();
+    vars.QTEs = 0;
 
     switch(modules.First().ModuleMemorySize) 
     {
@@ -44,7 +46,7 @@ startup
         settings.Add("dlc\\dlc_p02_00100.par", false, "Chapter 01: What Goes Around", "KF");
         settings.Add("dlc\\dlc_p03_00100.par", false, "Chapter 02: Like Father, Like Son", "KF");
         settings.Add("dlc\\dlc_p04_00100.par", false, "Chapter 03: Out for Blood", "KF");
-        settings.Add("4", false, "Chapter 04: Cat & Mouse", "KF");
+        settings.Add("dlcend", false, "Chapter 04: Cat & Mouse", "KF");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
@@ -64,6 +66,11 @@ startup
 update
 {
     print(modules.First().ModuleMemorySize.ToString());
+
+    if (current.QTE == 60 && old.QTE == 59)
+    {
+        vars.QTEs++;
+    }
 }
 
 isLoading 
@@ -87,15 +94,22 @@ split
     }
 
     //Splits on the hit after the final Kuwana QTE
-    if (current.Chapter == "coyote\\jh80670_c13_kwn_last.par" && old.KuwanaHealth == 1500 && current.KuwanaHealth < old.KuwanaHealth)
+    if (current.Chapter == "coyote\\jh80670_c13_kwn_last.par" && old.BossHealth == 1500 && current.BossHealth < old.BossHealth)
     {
         return settings["end"];
+    }
+
+    //Splits on the hit after the final Kuwana QTE
+    if (current.Chapter == "coyote\\jh80710_dlc_shi_hit.par" && old.BossHealth == 1500 && current.BossHealth < old.BossHealth)
+    {
+        return settings["dlcend"];
     }
 }
 
 onReset
 {
     vars.Splits.Clear();
+    vars.QTEs.Clear();
 }
 
 onStart
@@ -106,5 +120,6 @@ onStart
 exit
 {
     vars.Splits.Clear();
+    vars.QTEs.Clear();
     timer.IsGameTimePaused = true;
 }
