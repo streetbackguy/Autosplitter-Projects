@@ -4,6 +4,7 @@ state("LostJudgment", "Steam 1.11")
     bool CutsceneLoads: 0x5313844;
     bool Crafting: 0x5340E84;
     byte Autostart: 0x151D3DA2;
+    int KuwanaHealth: 0x03B6ABB8, 0x110, 0x48, 0x0, 0x8, 0x10, 0x180;
     string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
 }
 
@@ -38,7 +39,7 @@ startup
         settings.Add("c11_chapter_sequence.par", false, "Chapter 10: Catch a Tiger", "LJ");
         settings.Add("c12_chapter_sequence.par", false, "Chapter 11: Undercover", "LJ");
         settings.Add("c13_chapter_sequence.par", false, "Chapter 12: To Nourish a Viper", "LJ");
-        settings.Add("13", false, "Final Chapter: Darkest Before the Dawn", "LJ");
+        settings.Add("end", false, "Final Chapter: Darkest Before the Dawn", "LJ");
     settings.Add("KF", true, "The Kaito Files");
         settings.Add("dlc\\dlc_p02_00100.par", false, "Chapter 01: What Goes Around", "KF");
         settings.Add("dlc\\dlc_p03_00100.par", false, "Chapter 02: Like Father, Like Son", "KF");
@@ -78,10 +79,17 @@ start
 
 split
 {
+    //Splits after each end of chapter save screen, on the story summary
     if (current.Chapter != old.Chapter && (!vars.Splits.Contains(current.Chapter)))
     {
         vars.Splits.Add(current.Chapter);
         return settings[current.Chapter];
+    }
+
+    //Splits on the hit after the final Kuwana QTE
+    if (current.Chapter == "coyote\\jh80670_c13_kwn_last.par" && old.KuwanaHealth == 1500 && current.KuwanaHealth < old.KuwanaHealth)
+    {
+        return settings["end"];
     }
 }
 
