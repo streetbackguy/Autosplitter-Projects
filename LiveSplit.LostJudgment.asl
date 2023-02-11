@@ -1,6 +1,8 @@
 state("LostJudgment", "Steam 1.11") 
 {
-    byte Loads: 0x4322CE0, 0x310, 0x544;
+    bool Loads: 0x4322CE0, 0x310, 0x544;
+    bool CutsceneLoads: 0x5313844;
+    bool Crafting: 0x5340E84;
     byte Autostart: 0x151D3DA2;
     string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
 }
@@ -65,7 +67,7 @@ update
 
 isLoading 
 {
-    return current.Loads == 1;
+    return current.Loads && !current.Crafting || current.CutsceneLoads;
 }
 
 //Autostarts after the autosave information prompt
@@ -81,11 +83,6 @@ split
         vars.Splits.Add(current.Chapter);
         return settings[current.Chapter];
     }
-}
-
-reset
-{
-    return (current.Chapter != old.Chapter && current.Chapter == "p00_start.par");
 }
 
 onReset
