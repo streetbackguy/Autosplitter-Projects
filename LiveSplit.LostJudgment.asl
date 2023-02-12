@@ -3,8 +3,8 @@ state("LostJudgment", "Steam 1.11")
     bool Loads: 0x4322CE0, 0x310, 0x544;
     bool CutsceneLoads: 0x5313844;
     bool Crafting: 0x5340E84;
-    byte QTE: 0x5310EC8;
     byte Autostart: 0x3BBE0B8;
+    int QTE: 0x041F0D88, 0x8, 0xF68, 0xA8, 0x8;
     int BossHealth: 0x03B6ABB8, 0x110, 0x48, 0x0, 0x8, 0x10, 0x180;
     string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
 }
@@ -67,7 +67,12 @@ update
 {
     print(modules.First().ModuleMemorySize.ToString());
 
-    if (current.QTE == 60 && old.QTE == 59)
+    if (current.Chapter == "coyote\\jh80710_dlc_shi_hit.par" && current.QTE == 0 && old.QTE == 1)
+    {
+        vars.QTEs++;
+    }
+
+    if (current.Chapter == "coyote\\jh80670_c13_kwn_last.par" && current.QTE == 0 && old.QTE == 1)
     {
         vars.QTEs++;
     }
@@ -81,7 +86,7 @@ isLoading
 //Autostarts after the autosave information prompt
 start
 {
-    return current.Autostart != 0 && old.Autostart == 0;
+    return current.Autostart != old.Autostart;
 }
 
 split
@@ -94,14 +99,15 @@ split
     }
 
     //Splits on the hit after the final Kuwana QTE
-    if (current.Chapter == "coyote\\jh80670_c13_kwn_last.par" && old.BossHealth == 1500 && current.BossHealth < old.BossHealth)
+    if (current.Chapter == "coyote\\jh80670_c13_kwn_last.par" && vars.QTEs == 1 && !vars.Splits.Contains("end"))
     {
         return settings["end"];
     }
 
-    //Splits on the hit after the final Shirakaba QTE
-    if (current.Chapter == "coyote\\jh80710_dlc_shi_hit.par" && old.BossHealth == 1500 && current.BossHealth < old.BossHealth)
+    //Splits on the final Shirakaba QTE
+    if (current.Chapter == "coyote\\jh80710_dlc_shi_hit.par" && vars.QTEs == 4 && !vars.Splits.Contains("dlcend"))
     {
+        vars.Splits.Add("dlcend");
         return settings["dlcend"];
     }
 }
