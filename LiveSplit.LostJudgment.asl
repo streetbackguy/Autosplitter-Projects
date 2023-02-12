@@ -4,7 +4,7 @@ state("LostJudgment", "Steam 1.11")
     bool CutsceneLoads: 0x5313844;
     bool Crafting: 0x5340E84;
     byte QTE: 0x5310EC8;
-    bool Autostart: 0x3BBE0B8;
+    byte Autostart: 0x3BBE0B8;
     int BossHealth: 0x03B6ABB8, 0x110, 0x48, 0x0, 0x8, 0x10, 0x180;
     string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
 }
@@ -81,7 +81,7 @@ isLoading
 //Autostarts after the autosave information prompt
 start
 {
-    return current.Autostart;
+    return current.Autostart != 0 && old.Autostart == 0;
 }
 
 split
