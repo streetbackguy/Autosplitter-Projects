@@ -4,7 +4,7 @@ state("LostJudgment", "Steam 1.11")
     bool CutsceneLoads: 0x5313844;
     bool Crafting: 0x5340E84;
     byte QTE: 0x5310EC8;
-    byte Autostart: 0x151D3DA2;
+    bool Autostart: 0x3BBE0B8;
     int BossHealth: 0x03B6ABB8, 0x110, 0x48, 0x0, 0x8, 0x10, 0x180;
     string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
 }
@@ -81,7 +81,7 @@ isLoading
 //Autostarts after the autosave information prompt
 start
 {
-    return current.Autostart != old.Autostart;
+    return current.Autostart;
 }
 
 split
@@ -99,7 +99,7 @@ split
         return settings["end"];
     }
 
-    //Splits on the hit after the final Kuwana QTE
+    //Splits on the hit after the final Shirakaba QTE
     if (current.Chapter == "coyote\\jh80710_dlc_shi_hit.par" && old.BossHealth == 1500 && current.BossHealth < old.BossHealth)
     {
         return settings["dlcend"];
