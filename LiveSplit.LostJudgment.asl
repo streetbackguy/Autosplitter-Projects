@@ -112,7 +112,7 @@ split
 onReset
 {
     vars.Splits.Clear();
-    vars.QTEs.Clear();
+    vars.QTEs = 0;
 }
 
 onStart
@@ -122,7 +122,7 @@ onStart
 
 exit
 {
-    vars.Splits.Clear();
-    vars.QTEs.Clear();
     timer.IsGameTimePaused = true;
+    vars.Splits.Clear();
+    vars.QTEs = 0;
 }
