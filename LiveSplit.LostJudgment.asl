@@ -82,7 +82,7 @@ isLoading
 //Autostarts after the autosave information prompt
 start
 {
-    return current.Autostart != old.Autostart;
+    return current.Autostart == 1 && old.Autostart != 1;
 }
 
 split
