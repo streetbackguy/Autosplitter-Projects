@@ -30,7 +30,7 @@ init
 startup
 {   
     settings.Add("LJ", true, "Lost Judgment");
-        settings.Add("c01_chapter_sequence.par", false, "Prologue", "LJ");
+        settings.Add("a01_070.par", false, "Prologue", "LJ");
         settings.Add("c02_chapter_sequence.par", false, "Chapter 01: Black Sheep", "LJ");
         settings.Add("c03_chapter_sequence.par", false, "Chapter 02: Vicious Cycle", "LJ");
         settings.Add("c04_chapter_sequence.par", false, "Chapter 03: Two Sides of the Same Coin", "LJ");
