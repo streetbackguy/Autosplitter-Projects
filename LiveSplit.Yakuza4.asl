@@ -110,11 +110,11 @@ split
         return settings[current.TitleCard];
     }
 
-    //if (current.BossHealth == 0 && old.BossHealth > 0 && !vars.Splits.Contains("end"))
-    //{
-    //    vars.Splits.Add("end");
-    //    return settings["end"];
-    //}
+    if (current.Chapter == 17 && current.Character == 3 && old.EnemyCount > 0 && current.EnemyCount == 0 && !vars.Splits.Contains("end"))
+    {
+        vars.Splits.Add("end");
+        return settings["end"];
+    }
 }
 
 onReset
