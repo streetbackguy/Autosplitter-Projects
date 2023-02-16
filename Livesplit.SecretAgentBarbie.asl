@@ -58,16 +58,13 @@ split
 {
     if (current.Level != old.Level) 
     {
-        vars.Splits.Add(old.Level);
-        return settings[old.Level];
+        return settings[old.Level] && vars.Splits.Add(old.Level);
     }
 
     if (current.Level == "SIsland" && current.EndSplit == 0 && old.EndSplit == 34)
     {
-        vars.Splits.Add("end");
-        return settings["end"];
+        return settings["end"] && vars.Splits.Add("end");
     }
-
 }
 
 reset
