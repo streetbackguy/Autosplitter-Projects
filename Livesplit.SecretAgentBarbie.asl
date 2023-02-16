@@ -11,8 +11,8 @@ startup
 {
     settings.Add("SAB", true, "Secret Agent Barbie");
         settings.Add("NewYork1", false, "New York 1", "SAB");
-        settings.Add("Tokyo1", false, "Tokyo 1","SAB");
         settings.Add("Paris", false, "Paris 1", "SAB");
+        settings.Add("Tokyo1", false, "Tokyo 1","SAB");
         settings.Add("Egypt", false, "Egypt 1", "SAB");
         settings.Add("NewYork2", false, "New York 2", "SAB");
         settings.Add("Paris2", false, "Paris 2", "SAB");
@@ -22,7 +22,7 @@ startup
         settings.Add("Rio2", false, "Rio 2","SAB");
         settings.Add("NewYork3", false, "New York 3", "SAB");
         settings.Add("Egypt2", false, "Egypt 2", "SAB");
-        settings.Add("end", false, "Himalaya's", "SAB");
+        settings.Add("end", false, "Himalayas", "SAB");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
