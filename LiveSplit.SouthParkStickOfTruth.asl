@@ -1,39 +1,13 @@
-state("South Park - The Stick of Truth", "Current Patch")
+state("South Park - The Stick of Truth")
 {
 	bool Loads:  0x0108598, 0x0;
+	bool UnpatchedLoads: 0x00108708, 0x0;
 	int ScreenChange: 0x01B70FE4, 0x0, 0x6A8;
-	int Quest: 0x0E49C00, 0x690, 0x5AC;
-	int Friends: 0x1C7660C;
-	int Chinpokomon: 0x1C765C0;
-    	int Lightning: 0x1CA80D0;
+	int Lightning: 0x1CA80D0;
 	int MainMenu: 0x1D2AC70;
-    	int QuestComplete: 0x1C76600;
-}
-
-state("South Park - The Stick of Truth", "Unpatched")
-{
-	bool Loads: 0x00108708, 0x0; 
-	int ScreenChange: 0x01B70FE4, 0x0, 0x6A8;
-	int Quest: 0x0E49C00, 0x690, 0x5AC;
-	int Friends: 0x1C7660C;
-	int Chinpokomon: 0x1C765C0;
-    	int Lightning: 0x1CA80D0;
-	int MainMenu: 0x1D2AC70;
-    	int QuestComplete: 0x1C76600;
-}
-
-init
-{
-    switch(modules.First().ModuleMemorySize) 
-    {
-        case 31830016:
-            version = "Current Patch";
-            break;
-
-        case 472219648:
-            version = "Unpatched";
-            break;
-    }
+	int QuestComplete: 0x1C76600;
+	int EndSplit: 0x1CC5D3C;
+	int Chinpokomon: 0x1C76080;
 }
 
 startup
@@ -41,8 +15,10 @@ startup
     vars.QuestTimer = new Stopwatch();
     vars.minimumtime = TimeSpan.FromSeconds(10);
 
-    settings.Add("Anyquests", true, "Any% Quests");
-        settings.Add("quests", false, "Split after each completed quest", "Anyquests");
+    settings.Add("Anyquests", true, "Quests");
+        settings.Add("quests", false, "Split after each Quest and Friend", "Anyquests");
+        settings.Add("end", false, "Split on the final button prompt", "Anyquests");
+        settings.Add("chin", false, "Split after each collected Chinpokomon", "Anyquests");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
@@ -73,7 +49,7 @@ start
 
 isLoading 
 {
-	return (current.Loads || current.ScreenChange == 16 || current.Lightning == 1);
+	return (current.Loads || current.UnpatchedLoads || current.ScreenChange == 16 || current.Lightning == 1);
 }
 
 split
@@ -83,11 +59,22 @@ split
         return !vars.QuestTimer.IsRunning;
         return settings["quests"];
     }
+
+    if (current.EndSplit == 18 && old.EndSplit == 0)
+    {
+        return settings["end"];
+    }
+
+    if (current.Chinpokomon == 1347209379 && old.Chinpokomon == 0)
+    {
+        return settings["chin"];
+    }
 }
 
 onStart
 {
     vars.QuestTimer.Restart();
+    timer.IsGameTimePaused = true;
 }
 
 onSplit
