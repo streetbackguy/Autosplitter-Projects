@@ -5,9 +5,9 @@ state("South Park - The Stick of Truth", "Current Patch")
 	int Quest: 0x0E49C00, 0x690, 0x5AC;
 	int Friends: 0x1C7660C;
 	int Chinpokomon: 0x1C765C0;
-    int Lightning: 0x1CA80D0;
+    	int Lightning: 0x1CA80D0;
 	int MainMenu: 0x1D2AC70;
-    int QuestComplete: 0x1C76600;
+    	int QuestComplete: 0x1C76600;
 }
 
 state("South Park - The Stick of Truth", "Unpatched")
@@ -17,9 +17,9 @@ state("South Park - The Stick of Truth", "Unpatched")
 	int Quest: 0x0E49C00, 0x690, 0x5AC;
 	int Friends: 0x1C7660C;
 	int Chinpokomon: 0x1C765C0;
-    int Lightning: 0x1CA80D0;
+    	int Lightning: 0x1CA80D0;
 	int MainMenu: 0x1D2AC70;
-    int QuestComplete: 0x1C76600;
+    	int QuestComplete: 0x1C76600;
 }
 
 init
