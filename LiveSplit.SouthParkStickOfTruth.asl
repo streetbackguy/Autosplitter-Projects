@@ -85,7 +85,6 @@ onStart
 {
     vars.FriendTimer.Restart();
     vars.QuestTimer.Restart();
-    timer.IsGameTimePaused = true;
 }
 
 onSplit
