@@ -56,7 +56,7 @@ isLoading
 
 split
 {
-    if (current.Level != old.Level && !vars.Splits.Contains(old.Level)) 
+    if (current.Level != old.Level && current.Level != "TokyoPI" && !vars.Splits.Contains(old.Level)) 
     {
         return settings[old.Level] && vars.Splits.Add(old.Level);
     }
