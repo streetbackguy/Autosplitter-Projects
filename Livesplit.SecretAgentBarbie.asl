@@ -12,25 +12,25 @@ state("SecretAgent")
 startup 
 {
     settings.Add("SAB", false, "Secret Agent Barbie splits");
-        settings.Add("VRAct", false, "VR Action Training", "SAB");
-        settings.Add("VRSte", false, "VR Stealth Training", "SAB");
-        settings.Add("VRAdv", false, "VR Adventure Training", "SAB");
-        settings.Add("NewYork1", false, "New York 1", "SAB");
-        settings.Add("VRGRAP", false, "VR Camera/Wrist Glider Training", "SAB");
-        settings.Add("Paris", false, "Paris 1", "SAB");
-        settings.Add("Tokyo1", false, "Tokyo 1","SAB");
-        settings.Add("Egypt", false, "Egypt 1", "SAB");
-        settings.Add("NewYork2", false, "New York 2", "SAB");
-        settings.Add("Paris2", false, "Paris 2", "SAB");
-        settings.Add("Tokyo5", false, "Tokyo 2", "SAB");
-        settings.Add("Rio1", false, "Rio 1", "SAB");
-        settings.Add("Tokyo3", false, "Enter Tokyo Warehouse", "SAB");
-        settings.Add("TokyoWH", false, "Tokyo 3", "SAB");
-        settings.Add("Rio2", false, "Rio 2","SAB");
-        settings.Add("NewYork3", false, "New York 3", "SAB");
-        settings.Add("Egypt2", false, "Egypt 2", "SAB");
-        settings.Add("end", false, "Himalayas", "SAB");
-    settings.Add("limitedStart", false, "Only start on Intro or NY1", "SAB");
+        settings.Add("VRAct", true, "VR Action Training", "SAB");
+        settings.Add("VRSte", true, "VR Stealth Training", "SAB");
+        settings.Add("VRAdv", true, "VR Adventure Training", "SAB");
+        settings.Add("NewYork1", true, "New York 1", "SAB");
+        settings.Add("VRGRAP", true, "VR Camera/Wrist Glider Training", "SAB");
+        settings.Add("Paris", true, "Paris 1", "SAB");
+        settings.Add("Tokyo1", true, "Tokyo 1","SAB");
+        settings.Add("Egypt", true, "Egypt 1", "SAB");
+        settings.Add("NewYork2", true, "New York 2", "SAB");
+        settings.Add("Paris2", true, "Paris 2", "SAB");
+        settings.Add("Tokyo5", true, "Tokyo 2", "SAB");
+        settings.Add("Rio1", true, "Rio 1", "SAB");
+        settings.Add("Tokyo3", true, "Enter Tokyo Warehouse", "SAB");
+        settings.Add("TokyoWH", true, "Tokyo 3", "SAB");
+        settings.Add("Rio2", true, "Rio 2","SAB");
+        settings.Add("NewYork3", true, "New York 3", "SAB");
+        settings.Add("Egypt2", true, "Egypt 2", "SAB");
+        settings.Add("end", true, "Himalayas", "SAB");
+    settings.Add("limitedStart", true, "Only start on Intro or NY1");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
