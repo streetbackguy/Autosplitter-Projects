@@ -1,9 +1,9 @@
 state("Barbie Horse")
 {
     int Loads: 0x376FD8;
-    int AreaID: 0x1A8970;
     int Minigame: 0x169EF0;
     int MainMenu: 0x35B4B4;
+    int AreaID: 0x36F5ED;
 }
 
 startup
@@ -14,7 +14,9 @@ startup
         settings.Add("minigame", true, "Split after each Minigame", "BMR");
         settings.Add("river", true, "Split on entering the River area", "BMR");
         settings.Add("cave", true, "Split on entering the Cave area", "BMR");
-        settings.Add("end", true, "Split on exiting the final Stable", "BMR");
+        settings.Add("desert", true, "Split on entering the Desert area after Canyon Race", "BMR");
+        settings.Add("desert2", true, "Alternate Canyon Race Split after exiting Fruit Puzzle", "BMR");
+        settings.Add("end", true, "Split on exiting the final stable", "BMR");
 }
 
 start
@@ -24,16 +26,28 @@ start
 
 split
 {
-    if (current.AreaID == 13872 && old.AreaID == 49 && !vars.Splits.Contains("river"))
+    if (current.AreaID == 1144862801 && old.AreaID == 1010645073 && !vars.Splits.Contains("river"))
     {
         vars.Splits.Add("river");
         return settings["river"];
     }
 
-    if (current.AreaID == 13872 && old.AreaID == 13824 && !vars.Splits.Contains("cave"))
+    if (current.AreaID == 1279080529 && old.AreaID == 943536209 && !vars.Splits.Contains("cave"))
     {
         vars.Splits.Add("cave");
         return settings["cave"];
+    }
+
+    if (current.AreaID == 943536209 && old.AreaID == 1413298257 && !vars.Splits.Contains("desert"))
+    {
+        vars.Splits.Add("desert");
+        return settings["desert"];
+    }
+
+    if (current.AreaID == 943536209 && old.Minigame == 1 && !vars.Splits.Contains("desert"))
+    {
+        vars.Splits.Add("desert2");
+        return settings["desert2"];
     }
 
     if (current.Minigame == 0 && old.Minigame == 1)
