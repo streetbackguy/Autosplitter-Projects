@@ -14,8 +14,8 @@ startup
         settings.Add("minigame", true, "Split after each Minigame", "BMR");
         settings.Add("river", true, "Split on entering the River area", "BMR");
         settings.Add("cave", true, "Split on entering the Cave area", "BMR");
-        settings.Add("desert", true, "Split on entering the Desert area after Canyon Race", "BMR");
-        settings.Add("desert2", true, "Alternate Canyon Race Split after exiting Fruit Puzzle", "BMR");
+        settings.Add("desert2", true, "Canyon Race Split after exiting Fruit Puzzle", "BMR");
+        settings.Add("desert", false, "Alternate Split on entering the Desert area after Canyon Race", "BMR");
         settings.Add("end", true, "Split on exiting the final stable", "BMR");
 }
 
@@ -50,7 +50,7 @@ split
         return settings["desert2"];
     }
 
-    if (current.Minigame == 0 && old.Minigame == 1)
+    if (current.Minigame == 0 && old.Minigame == 1 && current.AreaID != 943536209)
     {
         vars.Splits.Add("minigame");
         return settings["minigame"];
