@@ -1,17 +1,39 @@
 state("LikeaDragonIshin-Win64-Shipping", "Steam 1.02") 
 {
-    int Loads: 0x0625E968, 0x780, 0x6C; //Version 1.02
-    int Autostart: 0x6239E78;
+    int Loads: 0x0625E968, 0x780, 0x6C; 
+    int Autostart: 0x6239E78; //Version 1.02
 }
 
 state("LikeaDragonIshin-Win64-Shipping", "Steam 1.03") 
 {
-    int Loads: 0x0625B398, 0x780, 0x6C; //Version 1.03
-    int Autostart: 0x625ECD0;
+    int Loads: 0x0625B398, 0x780, 0x6C; 
+    int Autostart: 0x625ECD0; //Version 1.03
+}
+
+state("LikeaDragonIshin-Win64-Shipping", "Steam 1.04") 
+{
+    int Loads: 0x0625C0E8, 0x780, 0x6C; 
+    int Autostart: 0x625FA20; //Version 1.04
 }
 
 startup
-{   
+{
+    vars.Splits = new HashSet<string>();
+
+    settings.Add("ishin", true, "Like a Dragon: Ishin!");
+        settings.Add("2", false, "Chapter 1: New Beginnings", "ishin");
+        settings.Add("3", false, "Chapter 2: The Ryudo Encounter", "ishin");
+        settings.Add("4", false, "Chapter 3: Power Struggle", "ishin");
+        settings.Add("5", false, "Chapter 4: The Man in the Sketch", "ishin");
+        settings.Add("6", false, "Chapter 5: The Curtain Rises", "ishin");
+        settings.Add("7", false, "Chapter 6: Gameplan", "ishin");
+        settings.Add("8", false, "Chapter 7: The Mad Dog", "ishin");
+        settings.Add("9", false, "Chapter 8: Conspirators", "ishin");
+        settings.Add("10", false, "Chapter 9: The Plot", "ishin");
+        settings.Add("11", false, "Chapter 10: Unfinished Business", "ishin");
+        settings.Add("12", false, "Chapter 11: Crisis", "ishin");
+        settings.Add("RUN OVER", false, "Chapter 12: The End of Ambition", "ishin");
+
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
         var timingMessage = MessageBox.Show (
@@ -38,6 +60,10 @@ init
         case 348905472:
             version = "Steam 1.03";
             break;
+
+        case 349364224:
+            version = "Steam 1.04";
+            break;
     }
 
     print(modules.First().ModuleMemorySize.ToString());
@@ -53,12 +79,23 @@ start
     return current.Autostart == 1 && old.Autostart == 0;
 }
 
+split
+{
+
+}
+
 onStart
 {
     timer.IsGameTimePaused = true;
 }
 
+onReset
+{
+    vars.Splits.Clear();
+}
+
 exit
 {
     timer.IsGameTimePaused = true;
+    vars.Splits.Clear();
 }
