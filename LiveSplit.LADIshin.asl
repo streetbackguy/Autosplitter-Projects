@@ -20,7 +20,7 @@ startup
 {
     vars.Splits = new HashSet<string>();
 
-    settings.Add("ishin", true, "Like a Dragon: Ishin!");
+    settings.Add("ishin", true, "Like a Dragon: Ishin! (AUTOSPLITTER DOES NOT WORK YET)");
         settings.Add("2", false, "Chapter 1: New Beginnings", "ishin");
         settings.Add("3", false, "Chapter 2: The Ryudo Encounter", "ishin");
         settings.Add("4", false, "Chapter 3: Power Struggle", "ishin");
