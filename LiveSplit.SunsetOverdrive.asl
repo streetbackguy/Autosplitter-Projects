@@ -1,7 +1,7 @@
 state("Sunset") 
 {
     bool Loads: 0x42ACC48;
-    byte Autostart: 0x45AA825;
+    int Objective: 0x38E7270; //Originally found by Meta
     int Autoreset: 0x433B878;
 }
 
@@ -29,7 +29,7 @@ isLoading
 
 start
 {
-    return current.Autostart == 1 && old.Autostart == 0;
+    return current.Objective == 1 && old.Objective == 0 && !current.Loads;
 }
 
 reset
