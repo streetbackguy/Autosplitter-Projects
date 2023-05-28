@@ -2,6 +2,7 @@ state("My Friend Peppa Pig")
 {
     byte Start: "UnityPlayer.dll", 0x19A7630, 0xA8, 0xC8, 0x28, 0x30;
     byte AutosaveInfo: "UnityPlayer.dll", 0x199AD38, 0xD0, 0x8, 0x70, 0x328, 0x3A4;
+    int MainMenu: "UnityPlayer.dll", 0x19C55D0;
 }
 
 startup
@@ -39,7 +40,7 @@ init
 
 isLoading
 {
-    return current.Transitions || current.PauseMenu || current.AutosaveInfo == 1;
+    return current.Transitions || current.PauseMenu || current.AutosaveInfo == 1 || current.MainMenu == 41951232;
 }
 
 start
