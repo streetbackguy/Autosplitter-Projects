@@ -1,13 +1,13 @@
 state("Hearthstone") 
 {
-
+    bool LoadingBar: "mono-2.0-bdwgc.dll", 0x0586A44, 0x400, 0xCA8, 0x18, 0x108, 0x658, 0x24, 0x804;
 }
 
 startup
 {
-	vars.Log = (Action<object>)(value => print(String.Concat("[Hearthstone] ", value)));
-	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\UnityASL.bin")).CreateInstance("UnityASL.Unity");
-	vars.Unity.LoadSceneManager = true;
+	Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
+    vars.Helper.GameName = "Hearthstone";
+	vars.Helper.LoadSceneManager = true;
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
@@ -26,53 +26,29 @@ startup
 
 init
 {
-    vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
-	{
-        var SM = helper.GetClass("Assembly-CSharp", "SceneMgr");
-        var GP = helper.GetClass("Assembly-CSharp", "Gameplay");
+        vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
+    {
+        var sm = mono.GetClass("SceneMgr");
+        var gm = mono.GetClass("GameMgr");
 
-        vars.Unity.Make<bool>(GP.Static, GP["s_instance"]).Name = "Gameplay";
-        vars.Unity.Make<bool>(SM.Static, SM["s_instance"], SM["m_transitioning"]).Name = "LoadScreen";
+        vars.Helper["Transitioning"] = sm.Make<bool>("s_instance", "m_transitioning");
 
-		return true;
-	});
-
-    vars.Unity.Load(game);
-}
-
-update
-{
-    if (!vars.Unity.Loaded) return false;
-
-    vars.Unity.Update();
-
-    current.LoadScreen = vars.Unity["LoadScreen"].Current;
-    current.Gameplay = vars.Unity["Gameplay"].Current;
-    current.Scene = vars.Unity.Scenes.Active.Index;
+        return true;
+    });
 }
 
 isLoading
 {
-    return current.LoadScreen && !current.Gameplay;
-}
-
-onStart
-{
-    print("\nNew run started!\n----------------\n");
-}
-
-onReset
-{
-	print("\nRESET\n-----\n");
+    return current.Transitioning || current.LoadingBar;
 }
 
 exit
 {
 	timer.IsGameTimePaused = true;
-    vars.Unity.Reset();
+    vars.Helper.Dispose();
 }
 
 shutdown
 {
-    vars.Unity.Reset();
+    vars.Helper.Dispose();
 }
