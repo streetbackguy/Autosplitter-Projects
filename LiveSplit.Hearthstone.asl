@@ -1,6 +1,6 @@
 state("Hearthstone") 
 {
-    bool LoadingBar: "mono-2.0-bdwgc.dll", 0x0586A44, 0x400, 0xCA8, 0x18, 0x108, 0x658, 0x24, 0x804;
+    bool LoadingBar: "mono-2.0-bdwgc.dll", 0x05FBF04, 0x3C, 0x8, 0x88, 0xD0, 0x18, 0xC8, 0x294;
 }
 
 startup
@@ -29,7 +29,6 @@ init
         vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         var sm = mono.GetClass("SceneMgr");
-        var gm = mono.GetClass("GameMgr");
 
         vars.Helper["Transitioning"] = sm.Make<bool>("s_instance", "m_transitioning");
 
