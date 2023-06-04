@@ -1,8 +1,8 @@
 state("My Friend Peppa Pig", "Steam")
 {
     byte Start: "UnityPlayer.dll", 0x19A7630, 0xA8, 0xC8, 0x28, 0x30;
-    bool MainMenu: "UnityPlayer.dll", 0x199ACE0, 0x1E0, 0x48, 0x118, 0x50, 0x20, 0x10, 0x28;
-    bool MainMenu2: "mono-2.0-bdwgc.dll", 0x0495A90, 0xD88, 0x130, 0x18, 0x18, 0x210, 0xE0, 0xA6C;
+    byte MainMenu: "UnityPlayer.dll", 0x199ACE0, 0x1E0, 0x48, 0x118, 0x50, 0x20, 0x10, 0x28;
+    byte MainMenu2: "mono-2.0-bdwgc.dll", 0x0495A90, 0xD88, 0x130, 0x18, 0x18, 0x210, 0xE0, 0xA6C;
 }
 
 startup
@@ -27,7 +27,7 @@ init
 
 isLoading
 {
-    return current.Transitions || current.PauseMenu || current.MainMenu || current.MainMenu2;
+    return current.Transitions || current.PauseMenu || current.MainMenu == 1 || current.MainMenu2 == 1;
 }
 
 start
