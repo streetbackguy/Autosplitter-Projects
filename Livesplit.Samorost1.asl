@@ -21,27 +21,27 @@ start
 
 split
 {
-    if (current.LevelID == 2 && old.LevelID == 1)
+    if (current.Level == 2 && old.Level == 1)
     {
         return settings["LEVEL1"];
     }
 
-    if (current.LevelID == 3 && old.LevelID == 2)
+    if (current.Level == 3 && old.Level == 2)
     {
         return settings["LEVEL2"];
     }
 
-    if (current.LevelID == 4 && old.LevelID == 3)
+    if (current.Level == 4 && old.Level == 3)
     {
         return settings["LEVEL3"];
     }
 
-    if (vars.LevelID == 5 && old.LevelID == 4)
+    if (current.Level == 5 && old.Level == 4)
     {
         return settings["LEVEL4"];
     }
 
-    if (current.LevelID == 6 && old.LevelID == 5)
+    if (current.Level == 6 && old.Level == 5)
     {
         return settings["LEVEL5"];
     }
