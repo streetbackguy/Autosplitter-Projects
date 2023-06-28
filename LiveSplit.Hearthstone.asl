@@ -1,7 +1,6 @@
 state("Hearthstone") 
 {
-    bool LoadingBar: "mono-2.0-bdwgc.dll", 0x5FBF04, 0x3C, 0x8, 0x88, 0xD0, 0x18, 0xC8, 0x294;
-    byte Transitioning: "UnityPlayer.dll", 0x154EBF0, 0x10;
+    bool LoadingBar: "UnityPlayer.dll", 0x1557660, 0xA9C, 0x9C0, 0x4, 0x44, 0x840;
 }
 
 startup
@@ -24,7 +23,7 @@ init
 
 isLoading
 {
-    return current.Transitioning == 3 || current.LoadingBar;
+    return current.Transitions || current.LoadingBar;
 }
 
 exit
