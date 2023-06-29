@@ -53,7 +53,7 @@ startup
         settings.Add("syotitle_02.dds", true, "Chapter 1: New Beginnings", "yak3");
         settings.Add("syotitle_03.dds", true, "Chapter 2: The Ryudo Encounter", "yak3");
         settings.Add("syotitle_04.dds", true, "Chapter 3: Power Struggle", "yak3");
-            settings.Add("golf", false, "Split after Golf", "04.dds");
+            settings.Add("golf", false, "Split after Golf", "syotitle_04.dds");
         settings.Add("syotitle_05.dds", true, "Chapter 4: The Man in the Sketch", "yak3");
         settings.Add("syotitle_06.dds", true, "Chapter 5: The Curtain Rises", "yak3");
         settings.Add("syotitle_07.dds", true, "Chapter 6: Gameplan", "yak3");
