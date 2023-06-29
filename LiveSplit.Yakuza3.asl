@@ -4,7 +4,7 @@ state("Yakuza3", "Steam")
     short HPSlot0:    0x1198218, 0x200, 0xD0, 0x138, 0x1AC;
     short HPSlot0Max: 0x1198218, 0x200, 0xD0, 0x138, 0x1AE;
     byte Loads: 0x1198218, 0x310, 0x210;
-    string255 TitleCard: 0x1198218, 0x560, 0xC8, 0x108, 0x57;
+    string255 TitleCard: 0x1198218, 0x560, 0xC8, 0x108, 0x14;
     short Paradigm: 0x119D778;
     byte Start: 0x11C6524;
     byte LoadHelper: 0x11AB360;
@@ -50,18 +50,18 @@ init {
 startup
 {   
     settings.Add("yak3", true, "Yakuza 3 - Chapter End Splits");
-        settings.Add("tle_02.dds", true, "Chapter 1: New Beginnings", "yak3");
-        settings.Add("tle_03.dds", true, "Chapter 2: The Ryudo Encounter", "yak3");
-        settings.Add("tle_04.dds", true, "Chapter 3: Power Struggle", "yak3");
-            settings.Add("golf", false, "Split after Golf", "tle_04.dds");
-        settings.Add("tle_05.dds", true, "Chapter 4: The Man in the Sketch", "yak3");
-        settings.Add("tle_06.dds", true, "Chapter 5: The Curtain Rises", "yak3");
-        settings.Add("tle_07.dds", true, "Chapter 6: Gameplan", "yak3");
-        settings.Add("tle_08.dds", true, "Chapter 7: The Mad Dog", "yak3");
-        settings.Add("tle_09.dds", true, "Chapter 8: Conspirators", "yak3");
-        settings.Add("tle_10.dds", true, "Chapter 9: The Plot", "yak3");
-        settings.Add("tle_11.dds", true, "Chapter 10: Unfinished Business", "yak3");
-        settings.Add("tle_12.dds", true, "Chapter 11: Crisis", "yak3");
+        settings.Add("syotitle_02.dds", true, "Chapter 1: New Beginnings", "yak3");
+        settings.Add("syotitle_03.dds", true, "Chapter 2: The Ryudo Encounter", "yak3");
+        settings.Add("syotitle_04.dds", true, "Chapter 3: Power Struggle", "yak3");
+            settings.Add("golf", false, "Split after Golf", "04.dds");
+        settings.Add("syotitle_05.dds", true, "Chapter 4: The Man in the Sketch", "yak3");
+        settings.Add("syotitle_06.dds", true, "Chapter 5: The Curtain Rises", "yak3");
+        settings.Add("syotitle_07.dds", true, "Chapter 6: Gameplan", "yak3");
+        settings.Add("syotitle_08.dds", true, "Chapter 7: The Mad Dog", "yak3");
+        settings.Add("syotitle_09.dds", true, "Chapter 8: Conspirators", "yak3");
+        settings.Add("syotitle_10.dds", true, "Chapter 9: The Plot", "yak3");
+        settings.Add("syotitle_11.dds", true, "Chapter 10: Unfinished Business", "yak3");
+        settings.Add("syotitle_12.dds", true, "Chapter 11: Crisis", "yak3");
         settings.Add("RUN OVER", true, "Chapter 12: The End of Ambition", "yak3");
 
     settings.SetToolTip("yak3", "Auto Splitter does not currently work on Game Pass version!");
@@ -130,7 +130,7 @@ split
     if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard))
     {
         vars.Splits.Add(current.TitleCard);
-        return settings[current.TitleCard.Substring(current.TitleCard.Length - 10)];
+        return settings[current.TitleCard.Substring(current.TitleCard.Length - 15)];
     }
 
     if (old.GolfResults == "on/mng19golf.par" && current.GolfResults != "on/mng19golf.par")
