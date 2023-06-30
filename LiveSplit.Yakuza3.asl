@@ -1,32 +1,26 @@
 state("Yakuza3", "Steam") 
 {
     byte EnemyCount:  0x1198218, 0x200, 0x491;
-    short HPSlot0:    0x1198218, 0x200, 0xD0, 0x138, 0x1AC;
-    short HPSlot0Max: 0x1198218, 0x200, 0xD0, 0x138, 0x1AE;
     byte Loads: 0x1198218, 0x310, 0x210;
-    string255 TitleCard: 0x1198218, 0x560, 0xC8, 0x108, 0x57;
+    string255 TitleCard: 0x1198218, 0x560, 0xC8, 0x108, 0x14;
     short Paradigm: 0x119D778;
     byte Start: 0x11C6524;
     byte LoadHelper: 0x11AB360;
     string255 GolfResults: 0x011C3470, 0x28, 0x5D4;
-    string255 Objective: 0x11B7898, 0x264, 0xFB0;
     int FileTimer: 0x11C6518;
+    byte MusicSlot2State: 0x128B048, 0x40;
     string255 MusicSlot2: 0x128B048, 0x5C;
-    byte MusicCursor2: 0x2A2BC60, 0x28, 0xC0, 0x0, 0x0, 0x0;
 }
 
 state("Yakuza3", "Game Pass") 
 {
     byte EnemyCount:  0x144D1C0, 0x200, 0x491;
-    short HPSlot0:    0x144D1C0, 0x200, 0xD0, 0x138, 0x1AC;
-    short HPSlot0Max: 0x144D1C0, 0x200, 0xD0, 0x138, 0x1AE;
     byte Loads: 0x144D1C0, 0x310, 0x210;
     string255 TitleCard: 0x11B9850, 0x108, 0x1B0, 0x52; // TODO: Find Game Pass address for this!
     short Paradigm: 0x1452738;
     byte Start: 0x1460340;
     byte LoadHelper: 0x11AB360; // TODO: Find Game Pass address for this!
     string255 GolfResults: 0x011C3470, 0x28, 0x5D4; // TODO: Find Game Pass address for this!
-    string255 Objective: 0x11B7898, 0x264, 0xFB0; // TODO: Find Game Pass address for this!
     int FileTimer: 0x147B498;
     string255 MusicSlot2: 0x128B048, 0x5C; // TODO: Find Game Pass address for this!
     byte MusicCursor2: 0x2A2BC60, 0x28, 0xC0, 0x0, 0x0, 0x0; // TODO: Find Game Pass address for this!
@@ -50,18 +44,18 @@ init {
 startup
 {   
     settings.Add("yak3", true, "Yakuza 3 - Chapter End Splits");
-        settings.Add("tle_02.dds", true, "Chapter 1: New Beginnings", "yak3");
-        settings.Add("tle_03.dds", true, "Chapter 2: The Ryudo Encounter", "yak3");
-        settings.Add("tle_04.dds", true, "Chapter 3: Power Struggle", "yak3");
-            settings.Add("golf", false, "Split after Golf", "tle_04.dds");
-        settings.Add("tle_05.dds", true, "Chapter 4: The Man in the Sketch", "yak3");
-        settings.Add("tle_06.dds", true, "Chapter 5: The Curtain Rises", "yak3");
-        settings.Add("tle_07.dds", true, "Chapter 6: Gameplan", "yak3");
-        settings.Add("tle_08.dds", true, "Chapter 7: The Mad Dog", "yak3");
-        settings.Add("tle_09.dds", true, "Chapter 8: Conspirators", "yak3");
-        settings.Add("tle_10.dds", true, "Chapter 9: The Plot", "yak3");
-        settings.Add("tle_11.dds", true, "Chapter 10: Unfinished Business", "yak3");
-        settings.Add("tle_12.dds", true, "Chapter 11: Crisis", "yak3");
+        settings.Add("syotitle_02.dds", true, "Chapter 1: New Beginnings", "yak3");
+        settings.Add("syotitle_03.dds", true, "Chapter 2: The Ryudo Encounter", "yak3");
+        settings.Add("syotitle_04.dds", true, "Chapter 3: Power Struggle", "yak3");
+            settings.Add("golf", false, "Split after Golf", "syotitle_04.dds");
+        settings.Add("syotitle_05.dds", true, "Chapter 4: The Man in the Sketch", "yak3");
+        settings.Add("syotitle_06.dds", true, "Chapter 5: The Curtain Rises", "yak3");
+        settings.Add("syotitle_07.dds", true, "Chapter 6: Gameplan", "yak3");
+        settings.Add("syotitle_08.dds", true, "Chapter 7: The Mad Dog", "yak3");
+        settings.Add("syotitle_09.dds", true, "Chapter 8: Conspirators", "yak3");
+        settings.Add("syotitle_10.dds", true, "Chapter 9: The Plot", "yak3");
+        settings.Add("syotitle_11.dds", true, "Chapter 10: Unfinished Business", "yak3");
+        settings.Add("syotitle_12.dds", true, "Chapter 11: Crisis", "yak3");
         settings.Add("RUN OVER", true, "Chapter 12: The End of Ambition", "yak3");
 
     settings.SetToolTip("yak3", "Auto Splitter does not currently work on Game Pass version!");
@@ -83,13 +77,11 @@ startup
 
     vars.GolfCaddy = new Stopwatch();
     vars.minimumtime = TimeSpan.FromSeconds(5);
-  
-    vars.EndingHelper = 0;
 }
 
 update
 {
-    print(modules.First().ModuleMemorySize.ToString());
+    //print(modules.First().ModuleMemorySize.ToString());
 
     if (vars.GolfCaddy.Elapsed >= vars.minimumtime) vars.GolfCaddy.Stop();
 }
@@ -115,22 +107,15 @@ split
     if (version != "Steam")
         return false;
 
-    // if(vars.EndingHelper == "Zero")
-    //     return false;
-
-    if(current.MusicSlot2.Contains("vs_mine2") && vars.EndingHelper == 0 && current.MusicCursor2 == 128)
-        vars.EndingHelper = 1;
-
-    else if (vars.EndingHelper == 1 && current.MusicCursor2 != 128)
+    if(current.MusicSlot2.Contains("vs_mine2") && old.MusicSlot2State == 2 && current.MusicSlot2State == 4)
     {
-        vars.EndingHelper = 2;
         return settings["RUN OVER"];
     }
 
     if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard))
     {
         vars.Splits.Add(current.TitleCard);
-        return settings[current.TitleCard.Substring(current.TitleCard.Length - 10)];
+        return settings[current.TitleCard.Substring(current.TitleCard.Length - 15)];
     }
 
     if (old.GolfResults == "on/mng19golf.par" && current.GolfResults != "on/mng19golf.par")
