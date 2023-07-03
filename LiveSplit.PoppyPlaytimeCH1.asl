@@ -1,3 +1,6 @@
+//Original ASL by Poots N Doots
+//Updated for Current Patch by Streetbackguy
+
 state("Poppy_Playtime-Win64-Shipping", "Current Patch")
 {
     int isLoaded: 0x3E54898;
