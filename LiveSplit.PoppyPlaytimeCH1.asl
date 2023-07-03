@@ -178,13 +178,11 @@ init
         var General = new SigScanTarget(3, "48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 8B 4C 24 ?? 48 89 0C ?? 48 8B 74 24");
         var PlayerBP_C = new SigScanTarget(3, "48 89 1D ?? ?? ?? ?? F2 0F 11 0D");
         var uWorld = new SigScanTarget(3, "48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 4C 89 34");
-        var GameLoad = new SigScanTarget("88 05 78 F9 76 03");
 
     IntPtr ptr = scanner2.Scan(General);
     IntPtr ptr2 = scanner2.Scan(PlayerBP_C);
     IntPtr ptr3 = scanner2.Scan(uWorld);
 
-    vars.isLoaded = new MemoryWatcher<int>(new DeepPointer(ptr, 0x20, 0x18, 0x60, 0xBC));
     vars.isPaused = new MemoryWatcher<int>(new DeepPointer(ptr, 0x20, 0x18, 0x60, 0xBC));
     vars.isEndCaseDoorOpening = new MemoryWatcher<int>(new DeepPointer(ptr, 0x580, 0x018, 0x020, 0x098, 0x780, 0x278, 0x0B1));
     vars.hasLeftHand = new MemoryWatcher<int>(new DeepPointer(ptr2, 0x030, 0x2A0, 0x70A));
