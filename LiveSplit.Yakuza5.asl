@@ -69,7 +69,7 @@ startup
             settings.Add("syotitle_04.dds", false, "Part 4", "tsh");
             settings.Add("syotitle_04_01.dds", false, "Abandoned Glory", "tsh");
             settings.Add("syotitle_04_02.dds", false, "Confronting the Past", "tsh");
-            settings.Add("syotitle_04_03.dds", false, "The Price of truth", "tsh");
+            settings.Add("syotitle_04_03.dds", false, "The Price of Truth", "tsh");
             settings.Add("syotitle_04_04.dds", false, "Fleeting Triumph", "tsh");
         settings.Add("fin", true, "Finale", "yak5");
             settings.Add("syotitle_05.dds", false, "Final Part", "fin");
@@ -94,10 +94,10 @@ startup
     }
 }
 
-update
-{
-    print(modules.First().ModuleMemorySize.ToString());
-}
+// update
+// {
+//     print(modules.First().ModuleMemorySize.ToString());
+// }
 
 isLoading 
 {
