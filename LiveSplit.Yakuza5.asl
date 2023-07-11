@@ -1,25 +1,28 @@
 //Collaborative effort by streetbackguy and hoxi
 state("Yakuza5", "Steam") 
 {
-    int Loads: 0x28ECC5C;
+    byte Loads: 0x28ECC5C;
+    int FileTimer: 0x28ED098;
     int MainMenu: 0x28F40FA;
-    byte chapter: 0x3073166;
+    // byte chapter: 0x3073166;
     string255 TitleCard: 0x2008438, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
 }
 
 state("Yakuza5", "Game Pass") 
 {
-    int Loads: 0x2AB2DF4;
+    byte Loads: 0x2AB2DF4;
+    int FileTimer: 0x2AB3228;
     int MainMenu: 0x2ABA28A;
-    byte chapter: 0x2C51C26;
+    // byte chapter: 0x2C51C26;
     string255 TitleCard: 0x21CE5E8, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
 }
 
 state("Yakuza5", "GOG") 
 {
-    int Loads: 0x2865ADC;
+    byte Loads: 0x2865ADC;
+    int FileTimer: 0x2865F18;
     int MainMenu: 0x286CF7A;
-    byte chapter: 0x2FEBBE6;
+    // byte chapter: 0x2FEBBE6;
     string255 TitleCard: 0x1F812A8, 0x15C, 0xEF4, 0x454, 0xD0, 0x10, 0x10, 0x274;
 }
 
@@ -98,12 +101,12 @@ update
 
 isLoading 
 {
-    return (current.chapter != 34 && current.Loads == 2);
+    return current.Loads == 2 && current.FileTimer == old.FileTimer;
 }
 
 start
 {
-    return (current.Loads == 2 && current.MainMenu == 1);
+    return current.Loads == 2 && current.MainMenu == 1;
 }
 
 //Currently autosplits on every end of chapter save screen
