@@ -10,14 +10,14 @@ state("Yakuza5", "Steam")
 state("Yakuza5", "Game Pass") 
 {
     int Loads: 0x2AB2DF4;
-    int chapter: 0x2C51C24;
+    int chapter: 0x2C51C26;
     string255 TitleCard: 0x21CE5E8, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
 }
 
 state("Yakuza5", "GOG") 
 {
     int Loads: 0x2865ADC;
-    int chapter: 0x1B983E8;
+    int chapter: 0x2FEBBE6;
     string255 TitleCard: 0x1F812A8, 0x15C, 0xEF4, 0x454, 0xD0, 0x10, 0x10, 0x274;
 }
 
@@ -96,7 +96,7 @@ update
 
 isLoading 
 {
-    return (current.chapter != 34 && current.Loads == 2 && version == "Steam" || current.chapter != 2228224 && current.Loads == 2 && version == "Game Pass" || current.chapter !=63 && current.Loads == 2 && version == "GOG");
+    return (current.chapter != 34 && current.Loads == 2);
 }
 
 start
