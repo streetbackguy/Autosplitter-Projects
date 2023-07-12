@@ -1,29 +1,40 @@
-//Collaborative effort by streetbackguy and hoxi
+// Collaborative effort by streetbackguy, hoxi and PlayingLikeAss
 state("Yakuza5", "Steam") 
 {
+    string255 QTE: 0x20071E0, 0x83A;
+    byte QTEPassfail: 0x20071E0, 0x1304;
+    string255 TitleCard: 0x2008438, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
+    byte Chapter: 0x2008A92;
+    // byte Paradigm: 0x200B764;
     byte Loads: 0x28ECC5C;
     int FileTimer: 0x28ED098;
     int MainMenu: 0x28F40FA;
+    // byte Character: 0x28F99F4;
     // byte chapter: 0x3073166;
-    string255 TitleCard: 0x2008438, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
 }
 
-state("Yakuza5", "Game Pass") 
+state("Yakuza5", "Game Pass")
 {
+    string255 QTE: 0x21CD390, 0x83A;
+    byte QTEPassfail: 0x21CD390, 0x1304;
+    string255 TitleCard: 0x21CE5E8, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
+    byte Chapter: 0x21CEC52;
     byte Loads: 0x2AB2DF4;
     int FileTimer: 0x2AB3228;
     int MainMenu: 0x2ABA28A;
     // byte chapter: 0x2C51C26;
-    string255 TitleCard: 0x21CE5E8, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
 }
 
-state("Yakuza5", "GOG") 
+state("Yakuza5", "GOG")
 {
+    string255 QTE: 0x1F80060, 0x83A;
+    byte QTEPassfail: 0x1F80060, 0x1304;
+    string255 TitleCard: 0x1F812B8, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
+    byte Chapter: 0x1F81912;
     byte Loads: 0x2865ADC;
     int FileTimer: 0x2865F18;
     int MainMenu: 0x286CF7A;
     // byte chapter: 0x2FEBBE6;
-    string255 TitleCard: 0x1F812A8, 0x15C, 0xEF4, 0x454, 0xD0, 0x10, 0x10, 0x274;
 }
 
 init 
@@ -78,6 +89,9 @@ startup
             settings.Add("syotitle_05_03.dds", false, "The Survivors", "fin");
             settings.Add("syotitle_05_04.dds", false, "Crossroads", "fin");
             settings.Add("syotitle_05_05.dds", false, "Dreams Fulfilled", "fin");
+            settings.Add("RUN OVER", false, "End of the Run", "fin");
+
+    settings.SetToolTip("RUN OVER", "Splits on the last QTE of the final boss.");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
@@ -94,11 +108,6 @@ startup
     }
 }
 
-// update
-// {
-//     print(modules.First().ModuleMemorySize.ToString());
-// }
-
 isLoading 
 {
     return current.Loads == 2 && current.FileTimer == old.FileTimer;
@@ -109,9 +118,15 @@ start
     return current.Loads == 2 && current.MainMenu == 1;
 }
 
-//Currently autosplits on every end of chapter save screen
+// Currently autosplits on every end of chapter save screen, and on the final QTE.
 split
-{   
+{
+    if (current.Chapter == 21 && current.QTE == "h10340_aizawa_last" && current.QTEPassfail == 1 && !vars.Splits.Contains("RUN OVER"))
+    {
+        vars.Splits.Add("RUN OVER");
+        return settings["RUN OVER"];
+    }
+
     if (current.TitleCard != old.TitleCard && !vars.Splits.Contains(current.TitleCard))
     {
         vars.Splits.Add(current.TitleCard);
