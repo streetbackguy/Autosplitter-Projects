@@ -139,6 +139,11 @@ onStart
     timer.IsGameTimePaused = true;
 }
 
+onReset
+{
+    vars.Splits.Clear();
+}
+
 exit
 {
     timer.IsGameTimePaused = true;
