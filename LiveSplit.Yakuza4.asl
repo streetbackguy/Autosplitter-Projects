@@ -127,6 +127,11 @@ split
     }
 }
 
+reset
+{
+    return (old.Paradigm == 209 && current.Paradigm == 221);
+}
+
 onReset
 {
     vars.Splits.Clear();
