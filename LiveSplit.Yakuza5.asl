@@ -134,6 +134,11 @@ split
     }
 }
 
+reset
+{
+    return current.Chapter == 0 && old.FileTimer < current.FileTimer && current.FileTimer < 100;
+}
+
 onStart
 {
     timer.IsGameTimePaused = true;
