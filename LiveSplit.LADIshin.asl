@@ -16,11 +16,24 @@ state("LikeaDragonIshin-Win64-Shipping", "Steam 1.04")
     int Autostart: 0x625FA20; //Version 1.04
 }
 
+state("LikeaDragonIshin-Win64-Shipping", "Steam 1.05") 
+{
+    int Loads: 0x0625C0E8, 0x780, 0x6C; 
+    int Autostart: 0x625FA20; //Version 1.05
+}
+
+state("LikeaDragonIshin-Win64-Shipping", "Steam 1.06") 
+{
+    int Loads: 0x06281028, 0x780, 0x6C; 
+    int Autostart: 0x6284960; //Version 1.06
+}
+
+
 startup
 {
     vars.Splits = new HashSet<string>();
 
-    settings.Add("ishin", true, "Like a Dragon: Ishin! (AUTOSPLITTER DOES NOT WORK YET)");
+    settings.Add("ishin", true, "Like a Dragon: Ishin!");
         settings.Add("2", false, "Chapter 1: New Beginnings", "ishin");
         settings.Add("3", false, "Chapter 2: The Ryudo Encounter", "ishin");
         settings.Add("4", false, "Chapter 3: Power Struggle", "ishin");
@@ -63,6 +76,14 @@ init
 
         case 349364224:
             version = "Steam 1.04";
+            break;
+        
+        case 0:
+            version = "Steam 1.05";
+            break;
+
+        case 331259904:
+            version = "Steam 1.06";
             break;
     }
 
