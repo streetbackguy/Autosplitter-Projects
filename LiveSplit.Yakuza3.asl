@@ -12,18 +12,19 @@ state("Yakuza3", "Steam")
     string255 MusicSlot2: 0x128B048, 0x5C;
     string255 MusicSlot3: 0x128B048, 0x25C;
 }
-
-state("Yakuza3", "Game Pass") 
+state("Yakuza3", "Game Pass")
 {
     byte EnemyCount:  0x144D1C0, 0x200, 0x491;
     byte Loads: 0x144D1C0, 0x310, 0x210;
-    string255 TitleCard: 0x11B9850, 0x108, 0x1B0, 0x52; // TODO: Find Game Pass address for this!
+    string255 TitleCard: 0x144D1C0, 0x560, 0xC8, 0x108, 0x14;
     // short Paradigm: 0x1452738;
-    byte Start: 0x1460340;
-    byte LoadHelper: 0x11AB360; // TODO: Find Game Pass address for this!
+    byte LoadHelper: 0x1460340;
     // string255 GolfResults: 0x11C3470, 0x28, 0x5D4; // TODO: Find Game Pass address for this!
     int FileTimer: 0x147B498;
-    string255 MusicSlot2: 0x128B048, 0x5C; // TODO: Find Game Pass address for this!
+    byte Start: 0x147B4A4;
+    byte MusicSlot2State: 0x153FE10, 0x40;
+    string255 MusicSlot2: 0x153FE10, 0x5C;
+    string255 MusicSlot3: 0x153FE10, 0x25C;
 }
 
 state("Yakuza3", "GOG") //- 65900
