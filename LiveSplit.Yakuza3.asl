@@ -5,13 +5,14 @@ state("Yakuza3", "Steam")
     string255 TitleCard: 0x1198218, 0x560, 0xC8, 0x108, 0x14;
     // short Paradigm: 0x119D778;
     byte LoadHelper: 0x11AB360;
-    // string255 GolfResults: 0x11C3470, 0x28, 0x5D4;
+    // string255 GolfResults: 0x11C3470, 0x28, 0x5A9;
     int FileTimer: 0x11C6518;
     byte Start: 0x11C6524;
     byte MusicSlot2State: 0x128B048, 0x40;
     string255 MusicSlot2: 0x128B048, 0x5C;
     string255 MusicSlot3: 0x128B048, 0x25C;
 }
+
 state("Yakuza3", "Game Pass")
 {
     byte EnemyCount:  0x144D1C0, 0x200, 0x491;
@@ -66,8 +67,8 @@ startup
     settings.Add("yak3", true, "Yakuza 3 - Chapter End Splits");
         settings.Add("syotitle_02.dds", true, "Chapter 1: New Beginnings", "yak3");
         settings.Add("syotitle_03.dds", true, "Chapter 2: The Ryudo Encounter", "yak3");
+        settings.Add("GOLF", false, "Split after Golf", "yak3");
         settings.Add("syotitle_04.dds", true, "Chapter 3: Power Struggle", "yak3");
-            settings.Add("golf", false, "Split after Golf", "syotitle_04.dds");
         settings.Add("syotitle_05.dds", true, "Chapter 4: The Man in the Sketch", "yak3");
         settings.Add("syotitle_06.dds", true, "Chapter 5: The Curtain Rises", "yak3");
         settings.Add("syotitle_07.dds", true, "Chapter 6: Gameplan", "yak3");
@@ -76,9 +77,9 @@ startup
         settings.Add("syotitle_10.dds", true, "Chapter 9: The Plot", "yak3");
         settings.Add("syotitle_11.dds", true, "Chapter 10: Unfinished Business", "yak3");
         settings.Add("syotitle_12.dds", true, "Chapter 11: Crisis", "yak3");
-        settings.Add("RUN OVER", true, "Chapter 12: The End of Ambition", "yak3");
+        settings.Add("RUN OVER", true, "End of the Run", "yak3");
 
-    settings.SetToolTip("yak3", "Auto Splitter does not currently work on Game Pass version!");
+    settings.SetToolTip("syotitle_02.dds", "Splits when Chapter 2 begins, and so on down the line.");
     settings.SetToolTip("RUN OVER", "Splits on the last hit on the final boss.");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
@@ -125,11 +126,11 @@ split
         return settings[current.TitleCard.Substring(current.TitleCard.Length - 15)];
     }
 
-    if (!vars.Splits.Contains("golf")
+    if (!vars.Splits.Contains("GOLF")
     && old.MusicSlot3.EndsWith("amb_golf.aix") && !current.MusicSlot3.EndsWith("amb_golf.aix"))
     {
-        vars.Splits.Add("golf");
-        return settings["golf"];
+        vars.Splits.Add("GOLF");
+        return settings["GOLF"];
     }
 }
 
