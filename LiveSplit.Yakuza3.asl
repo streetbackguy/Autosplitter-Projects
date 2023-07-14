@@ -10,7 +10,7 @@ state("Yakuza3", "Steam")
     byte Start: 0x11C6524;
     byte MusicSlot2State: 0x128B048, 0x40;
     string255 MusicSlot2: 0x128B048, 0x5C;
-    string255 MusicSlot3: 0x128B048, 0x25C;
+    string255 AUXSlot1: 0x128B020, 0x5C;
 }
 
 state("Yakuza3", "Game Pass")
@@ -23,12 +23,12 @@ state("Yakuza3", "Game Pass")
     // string255 GolfResults: 0x11C3470, 0x28, 0x5D4; // TODO: Find Game Pass address for this!
     int FileTimer: 0x147B498;
     byte Start: 0x147B4A4;
-    byte MusicSlot2State: 0x153FE10, 0x40;
-    string255 MusicSlot2: 0x153FE10, 0x5C;
-    string255 MusicSlot3: 0x153FE10, 0x25C;
+    byte MusicSlot2State: 0x153FE38, 0x40;
+    string255 MusicSlot2: 0x153FE38, 0x5C;
+    string255 AUXSlot1: 0x153FE10, 0x5C;
 }
 
-state("Yakuza3", "GOG") //- 65900
+state("Yakuza3", "GOG")
 {
     byte EnemyCount: 0x1132918, 0x200, 0x491;
     byte Loads: 0x1132918, 0x310, 0x210;
@@ -40,7 +40,7 @@ state("Yakuza3", "GOG") //- 65900
     byte Start: 0x1160BD4;
     byte MusicSlot2State: 0x1225718, 0x40;
     string255 MusicSlot2: 0x1225718, 0x5C;
-    string255 MusicSlot3: 0x1225718, 0x25C;
+    string255 AUXSlot1: 0x12256F0, 0x5C;
 }
 
 init
@@ -127,7 +127,7 @@ split
     }
 
     if (!vars.Splits.Contains("GOLF")
-    && old.MusicSlot3.EndsWith("amb_golf.aix") && !current.MusicSlot3.EndsWith("amb_golf.aix"))
+    && old.AUXSlot1.EndsWith("amb_golf.aix") && !current.AUXSlot1.EndsWith("amb_golf.aix"))
     {
         vars.Splits.Add("GOLF");
         return settings["GOLF"];
