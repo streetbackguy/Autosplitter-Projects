@@ -134,6 +134,11 @@ split
     }
 }
 
+onReset
+{
+    vars.Splits.Clear();
+}
+
 exit
 {
     timer.IsGameTimePaused = true;
