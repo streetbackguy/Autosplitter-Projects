@@ -11,13 +11,13 @@ state("Yakuza4", "Steam")
 
 state("Yakuza4", "Game Pass")
 {
-    byte EnemyCount: 0x197C440, 0x4B3;
-    byte Chapter: 0x197C838, 0x640, 0x204;
-    string255 TitleCard: 0x1993C38, 0x150, 0x1E4, 0x16C, 0x88, 0x28, 0x148, 0x14;
-    byte Character: 0x19806D0;      // 0 - 3: Kiryu, Akiyama, Saejima, Tanimura
-    short Paradigm: 0x1980D94;      // Unique value for different gameplay modes, menus, etc.
-    byte Start: 0x198C624;          // Black screen / screen fade flag
-    int FileTimer: 0x19A3AC8;       // In-game timer
+    byte EnemyCount: 0x1C590F0, 0x4B3;
+    byte Chapter: 0x1C594E8, 0x640, 0x204;
+    string255 TitleCard: 0x1C70A08, 0x150, 0x1E4, 0x16C, 0x88, 0x28, 0x148, 0x14;
+    byte Character: 0x1C5D4A0;
+    short Paradigm: 0x1C5DB64;
+    byte Start: 0x1C693F4;
+    int FileTimer: 0x1C80888;
 }
 
 state("Yakuza4", "GOG")
@@ -125,6 +125,11 @@ split
         vars.Splits.Add("end");
         return settings["end"];
     }
+}
+
+reset
+{
+    return (old.Paradigm == 209 && current.Paradigm == 221);
 }
 
 onReset
