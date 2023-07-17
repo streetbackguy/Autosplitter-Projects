@@ -1,8 +1,9 @@
 state("Viva Pinata")
 {
-    byte Start: 0x7B10AC;
+    byte Start: 0x7D85BF;
     byte Loads: 0x82B84C;
     int GardenLevel: 0xB9A384;
+    byte GameState: 0xAEC72C;
 }
 
 init
@@ -31,7 +32,7 @@ startup
 
 split
 {
-    if (current.GardenLevel != old.GardenLevel && !vars.Splits.Contains(current.GardenLevel.ToString()))
+    if (current.GardenLevel != old.GardenLevel && old.GameState == 1 && !vars.Splits.Contains(current.GardenLevel.ToString()))
     {
         vars.Splits.Add("LVL" + current.GardenLevel.ToString());
         return settings["LVL" + current.GardenLevel.ToString()];
@@ -45,7 +46,7 @@ isLoading
 
 start
 {
-    return current.Loads == 0 && current.Start == 0 && old.Loads == 1;
+    return current.Loads == 0 && current.Start == 56 && old.Start == 57;
 }
 
 onReset
