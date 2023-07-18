@@ -3,7 +3,7 @@ state("Viva Pinata")
     byte Start: 0x7D85BF;
     byte Loads: 0x82B84C;
     int GardenLevel: 0xB9A384;
-    //byte GameState: 0xAEC72C;
+    string255 Awards: 0xB9D9A8;
 }
 
 init
@@ -32,10 +32,24 @@ startup
 
 split
 {
-    if (current.GardenLevel != old.GardenLevel && !vars.Splits.Contains(current.GardenLevel.ToString()))
+    if (old.Awards != current.Awards && current.Awards == "Your gardening is improving! Well done! You just seem to get better and better." && !vars.Splits.Contains(current.GardenLevel.ToString()))
     {
         vars.Splits.Add("LVL" + current.GardenLevel.ToString());
         return settings["LVL" + current.GardenLevel.ToString()];
+    }
+
+    if (old.Awards != current.Awards && current.Awards == "Level up." && !vars.Splits.Contains(current.GardenLevel.ToString()))
+    {
+        vars.Splits.Add("LVL" + current.GardenLevel.ToString());
+        return settings["LVL" + current.GardenLevel.ToString()];
+    }
+}
+
+update
+{
+    if (current.Awards != old.Awards)
+    {
+        print("current Award: " + current.Awards);
     }
 }
 
@@ -47,6 +61,11 @@ isLoading
 start
 {
     return current.Loads == 0 && current.Start == 56 && old.Start == 57;
+}
+
+reset
+{
+    return current.Awards == "[VERSION] Game Experience May Change During Online Play.";
 }
 
 onReset
