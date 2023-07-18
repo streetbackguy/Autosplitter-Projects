@@ -6,13 +6,10 @@ state("Viva Pinata")
     string255 Awards: 0xB9D9A8;
 }
 
-init
-{
-    vars.Splits = new HashSet<string>();
-}
-
 startup
 {
+    vars.Splits = new HashSet<int>();
+
     settings.Add("VP", true, "Viva Pinata");
         settings.Add("GLVL10", true, "Garden Level 10", "VP");
             settings.Add("LVL2", false, "Level 2", "GLVL10");
@@ -25,32 +22,40 @@ startup
             settings.Add("LVL9", false, "Level 9", "GLVL10");
             settings.Add("LVL10", false, "Level 10", "GLVL10");
         settings.Add("GPERCENT", true, "Garden%", "VP");
-            settings.Add("LVL21", false, "Split upon reaching Level 21", "GPERCENT");
+            settings.Add("LVL11", false, "Level 11", "GPERCENT");
+            settings.Add("LVL12", false, "Level 12", "GPERCENT");
+            settings.Add("LVL13", false, "Level 13", "GPERCENT");
+            settings.Add("LVL14", false, "Level 14", "GPERCENT");
+            settings.Add("LVL15", false, "Level 15", "GPERCENT");
+            settings.Add("LVL16", false, "Level 16", "GPERCENT");
+            settings.Add("LVL17", false, "Level 17", "GPERCENT");
+            settings.Add("LVL18", false, "Level 18", "GPERCENT");
+            settings.Add("LVL19", false, "Level 19", "GPERCENT");
+            settings.Add("LVL20", false, "Level 20", "GPERCENT");
+            settings.Add("LVL21", false, "Level 21", "GPERCENT");
         settings.Add("MPERCENT", true, "Master%", "VP");
-            settings.Add("LVL31", false, "Split upon reaching Level 31", "MPERCENT");
+            settings.Add("LVL22", false, "Level 22", "MPERCENT");
+            settings.Add("LVL23", false, "Level 23", "MPERCENT");
+            settings.Add("LVL24", false, "Level 24", "MPERCENT");
+            settings.Add("LVL25", false, "Level 25", "MPERCENT");
+            settings.Add("LVL26", false, "Level 26", "MPERCENT");
+            settings.Add("LVL27", false, "Level 27", "MPERCENT");
+            settings.Add("LVL28", false, "Level 28", "MPERCENT");
+            settings.Add("LVL29", false, "Level 29", "MPERCENT");
+            settings.Add("LVL30", false, "Level 30", "MPERCENT");
+            settings.Add("LVL31", false, "Level 31", "MPERCENT");
 }
 
 split
 {
-    if (old.Awards != current.Awards && current.Awards == "Your gardening is improving! Well done! You just seem to get better and better." && !vars.Splits.Contains(current.GardenLevel.ToString()))
-    {
-        vars.Splits.Add("LVL" + current.GardenLevel.ToString());
-        return settings["LVL" + current.GardenLevel.ToString()];
-    }
+    //Code clean-up for splitting by ero
+    const string IMPROVING = "Your gardening is improving! Well done! You just seem to get better and better.";
+    const string LEVEL_UP = "Level up.";
 
-    if (old.Awards != current.Awards && current.Awards == "Level up." && !vars.Splits.Contains(current.GardenLevel.ToString()))
-    {
-        vars.Splits.Add("LVL" + current.GardenLevel.ToString());
-        return settings["LVL" + current.GardenLevel.ToString()];
-    }
-}
-
-update
-{
-    if (current.Awards != old.Awards)
-    {
-        print("current Award: " + current.Awards);
-    }
+    return old.Awards != current.Awards
+        && (current.Awards == IMPROVING || current.Awards == LEVEL_UP)
+        && settings["LVL" + current.GardenLevel]
+        && vars.Splits.Add(current.GardenLevel);
 }
 
 isLoading
@@ -68,7 +73,7 @@ reset
     return current.Awards == "[VERSION] Game Experience May Change During Online Play.";
 }
 
-onReset
+onStart
 {
     vars.Splits.Clear();
 }
