@@ -1,7 +1,7 @@
 state("Bloodline")
 {
     byte Starter: 0x2CB35D;
-    bool Loads: 0x34380C;
+    uint Loads: 0x01026FC, 0x220;
 }
 
 startup
@@ -23,12 +23,12 @@ startup
 
 isLoading
 {
-    return !current.Loads;
+    return current.Loads == 1095393201;
 }
 
 start
 {
-    return current.Starter == 0 && old.Starter == 1;
+    return current.Loads == 1095481451 && old.Loads == 1095393201 && current.Starter != 1;
 }
 
 split
@@ -39,4 +39,4 @@ split
 exit
 {
     timer.IsGameTimePaused = true;
-}
+}3
