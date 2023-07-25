@@ -39,4 +39,4 @@ split
 exit
 {
     timer.IsGameTimePaused = true;
-}3
+}
