@@ -1,7 +1,7 @@
 state("Bloodline")
 {
     byte Starter: 0x2CB35D;
-    uint Loads: 0x01026FC, 0x220;
+    byte Loads: 0x01026FC, 0x220;
 }
 
 startup
@@ -23,12 +23,12 @@ startup
 
 isLoading
 {
-    return current.Loads == 1095393201;
+    return current.Loads == 177;
 }
 
 start
 {
-    return current.Loads == 1095481451 && old.Loads == 1095393201 && current.Starter != 1;
+    return current.Starter == 0 && current.Loads != old.Loads;
 }
 
 split
