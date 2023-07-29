@@ -2,6 +2,7 @@ state("Bloodline")
 {
     byte Starter: 0x2CB35D;
     byte Loads: 0x01026FC, 0x220;
+    string255 Dialogue: 0x006F3FC, 0xB8;
 }
 
 startup
@@ -21,6 +22,14 @@ startup
     }
 }
 
+update
+{
+    if (current.Dialogue != old.Dialogue)
+    {
+        print(current.Dialogue);
+    }
+}
+
 isLoading
 {
     return current.Loads == 177;
@@ -33,7 +42,7 @@ start
 
 split
 {
-    //Work in Progress for Final Split
+    return current.Dialogue == "\nSomething is happening to me... " && old.Dialogue =="\nBell. ";
 }
 
 exit
