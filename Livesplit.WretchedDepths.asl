@@ -5,9 +5,6 @@ startup
     vars.Watch = (Action<string>)(key =>
     { if(vars.Helper[key].Changed) vars.Log(key + ": " + vars.Helper[key].Old + " -> " + vars.Helper[key].Current); });
 
-    settings.Add("WD", true, "Wretched Depths");
-        settings.Add("END", true, "Split on Ending Cutscene", "WD");
-
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     vars.Helper.GameName = "Wretched Depths";
     vars.Helper.LoadSceneManager = true;
@@ -44,12 +41,4 @@ isLoading
 start
 {
     return current.igt > 0f && current.levelID == 0;
-}
-
-split
-{
-    if(current.state == 1 && old.state == 0)
-    {
-        return settings["END"];
-    }
 }
