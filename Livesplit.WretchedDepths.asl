@@ -18,7 +18,6 @@ init
         vars.Helper["igt"] = mono.Make<float>("GameManager", "Instance", 0x120);
         vars.Helper["isPaused"] = mono.Make<bool>("GameManager", "Instance", 0x11C);
         vars.Helper["levelID"] = mono.Make<int>("GameManager", "Instance", 0xFC);
-        vars.Helper["state"] = mono.Make<int>("EndingCutsceneLoader", "state");
 
         return true;
     });
