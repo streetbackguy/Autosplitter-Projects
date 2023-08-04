@@ -29,10 +29,7 @@ init
 
 update
 {
-    if(current.levelID != old.levelID)
-    {
-        vars.Log("Old Level: " + old.levelID + " New level: " + current.levelID);
-    }
+    vars.Watch("levelID");
 
     //Original code by diggity
     current.ActiveScene = vars.Helper.Scenes.Active.Name ?? old.ActiveScene;
