@@ -10,21 +10,9 @@ startup
     vars.Helper.AlertLoadless();
 
     settings.Add("NC", true, "Nightcry");
-        settings.Add("Chapter1_1", true, "Split after Chapter 1-1", "NC");
-        settings.Add("Chapter1_2", true, "Split after Chapter 1-2", "NC");
-        settings.Add("Chapter1_3", true, "Split after Chapter 1-3", "NC");
-        settings.Add("Chapter2_1", true, "Split after Chapter 2-1", "NC");
-        settings.Add("Chapter2_2", true, "Split after Chapter 2-2", "NC");
-        settings.Add("Chapter2_3", true, "Split after Chapter 2-3", "NC");
-        settings.Add("Chapter2_4", true, "Split after Chapter 2-4", "NC");
-        settings.Add("Chapter3_1", true, "Split after Chapter 3-1", "NC");
-        settings.Add("Chapter3_2", true, "Split after Chapter 3-2", "NC");
-        settings.Add("Chapter3_3", true, "Split after Chapter 3-3", "NC");
-        settings.Add("Chapter3_4", true, "Split after Chapter 3-4", "NC");
-        settings.Add("Chapter3_5", true, "Split after Chapter 3-5", "NC");
-        settings.Add("Chapter3_6", true, "Split after Chapter 3-6", "NC");
-        settings.Add("Chapter3_7", true, "Split after Chapter 3-7", "NC");
-        settings.Add("Chapter3_8", true, "Split after Chapter 3-8", "NC");
+        settings.Add("Chapter1_3", true, "Split after Chapter 1", "NC");
+        settings.Add("Chapter2_4", true, "Split after Chapter 2", "NC");
+        settings.Add("Chapter3_8", true, "Split after Chapter 3", "NC");
 }
 
 init
