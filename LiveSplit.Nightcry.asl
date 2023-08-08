@@ -65,8 +65,3 @@ start
 {
     return current.LoadTask && old.sceneChange == "Title";
 }
-
-reset
-{
-    return current.sceneChange == "Title";
-}
