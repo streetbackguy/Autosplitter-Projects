@@ -65,3 +65,8 @@ start
 {
     return current.LoadTask && old.sceneChange == "Title";
 }
+
+onStart
+{
+    vars.Splits.Clear();
+}
