@@ -10,6 +10,18 @@ state("LostJudgment", "Steam 1.11")
     string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
 }
 
+state("LostJudgment", "Steam 1.12") 
+{
+    bool Loads: 0x4322CE0, 0x310, 0x544;
+    bool CutsceneLoads: 0x5313844;
+    bool Crafting: 0x5340E84;
+    int Autostart: 0x041F0D88, 0x8, 0x6F8, 0x170, 0x58, 0x0, 0xA2C;
+    int QTE: 0x041F0D88, 0x8, 0xF68, 0xA8, 0x8;
+    int QTE2: 0x03EFD538, 0x148, 0x460, 0x2B8, 0x58, 0x94;
+    int BossHealth: 0x03B6ABB8, 0x110, 0x48, 0x0, 0x8, 0x10, 0x180;
+    string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
+}
+
 init 
 {
     vars.Splits = new HashSet<string>();
@@ -23,6 +35,10 @@ init
 
         case 472219648:
             version = "Steam 1.11";
+            break;
+
+        case 451444736: 
+            version = "Steam 1.12";
             break;
     }
 }
