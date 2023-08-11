@@ -1,6 +1,6 @@
 state("Hearthstone") 
 {
-    bool LoadingBar: "UnityPlayer.dll", 0x158EDE0, 0xB04, 0xA1C, 0x9F4, 0x8E0, 0x0, 0x7F8;
+    int LoadingBar: "UnityPlayer.dll", 0x153BEA0, 0x30, 0x1AC, 0x184, 0x30, 0x348, 0x5D0;
 }
 
 startup
@@ -15,18 +15,14 @@ init
 {
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        vars.Helper["Transitions"] = mono.Make<bool>("SceneMgr", "s_instance", "m_transitioning");
+        vars.Helper["m_sceneLoaded"] = mono.Make<bool>("SceneMgr", "s_instance", 0x55);
 
         return true;
     });
+
 }
 
 isLoading
 {
-    return current.Transitions || current.LoadingBar;
-}
-
-exit
-{
-    timer.IsGameTimePaused = true;
+    return !current.m_sceneLoaded || current.LoadingBar != 38412338;
 }
