@@ -17,6 +17,8 @@ startup
 
 init
 {
+    Thread.Sleep(10000);
+
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         vars.Helper["fadeUIAlpha"] = mono.Make<float>("SceneManager", "instance", 0x214);
