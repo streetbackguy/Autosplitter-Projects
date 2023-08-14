@@ -17,7 +17,7 @@ startup
 
 init
 {
-    Thread.Sleep(10000);
+    Thread.Sleep(20000);
 
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
