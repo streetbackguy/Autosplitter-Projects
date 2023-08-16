@@ -112,14 +112,14 @@ split
     }
 
     //Splits on the final Kuwana QTE
-    if (current.Chapter.Contains("\\jh80670_c13_kwn_last.par") && current.QTE2 == 0 && old.QTE2 > 0 && !vars.Splits.Contains("end"))
+    if (current.Chapter.EndsWith("\\jh80670_c13_kwn_last.par") && current.QTE2 == 0 && old.QTE2 > 0 && !vars.Splits.Contains("end"))
     {
         vars.Splits.Add("end");
         return settings["end"];
     }
 
     //Splits on the final Shirakaba QTE
-    if (current.Chapter.Contains("\\jh80710_dlc_shi_hit.par") && vars.QTEs > 3 && !vars.Splits.Contains("dlcend"))
+    if (current.Chapter.EndsWith("\\jh80710_dlc_shi_hit.par") && vars.QTEs > 3 && !vars.Splits.Contains("dlcend"))
     {
         vars.Splits.Add("dlcend");
         return settings["dlcend"];
