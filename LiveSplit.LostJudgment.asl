@@ -7,7 +7,7 @@ state("LostJudgment", "Steam 1.11")
     int QTE: 0x041F0D88, 0x8, 0xF68, 0xA8, 0x8;
     int QTE2: 0x03EFD538, 0x148, 0x460, 0x2B8, 0x58, 0x94;
     int BossHealth: 0x03B6ABB8, 0x110, 0x48, 0x0, 0x8, 0x10, 0x180;
-    string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
+    string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xDD0;
 }
 
 state("LostJudgment", "Steam 1.12") 
@@ -19,11 +19,13 @@ state("LostJudgment", "Steam 1.12")
     int QTE: 0x041F0D88, 0x8, 0xF68, 0xA8, 0x8;
     int QTE2: 0x03EFD538, 0x148, 0x460, 0x2B8, 0x58, 0x94;
     int BossHealth: 0x03B6ABB8, 0x110, 0x48, 0x0, 0x8, 0x10, 0x180;
-    string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xE2C;
+    string255 Chapter: 0x03F12E30, 0x1A8, 0x60, 0x4D0, 0xDD0;
 }
 
 init 
 {
+    print(modules.First().ModuleMemorySize.ToString());
+
     vars.Splits = new HashSet<string>();
     vars.QTEs = 0;
 
@@ -46,7 +48,7 @@ init
 startup
 {   
     settings.Add("LJ", true, "Lost Judgment");
-        settings.Add("a01_070.par", false, "Prologue", "LJ");
+        settings.Add("ia\\data\\auth\\a01_070.par", false, "Prologue", "LJ");
         settings.Add("c02_chapter_sequence.par", false, "Chapter 01: Black Sheep", "LJ");
         settings.Add("c03_chapter_sequence.par", false, "Chapter 02: Vicious Cycle", "LJ");
         settings.Add("c04_chapter_sequence.par", false, "Chapter 03: Two Sides of the Same Coin", "LJ");
@@ -61,9 +63,9 @@ startup
         settings.Add("c13_chapter_sequence.par", false, "Chapter 12: To Nourish a Viper", "LJ");
         settings.Add("end", false, "Final Chapter: Darkest Before the Dawn", "LJ");
     settings.Add("KF", true, "The Kaito Files");
-        settings.Add("dlc\\dlc_p02_00100.par", false, "Chapter 01: What Goes Around", "KF");
-        settings.Add("dlc\\dlc_p03_00100.par", false, "Chapter 02: Like Father, Like Son", "KF");
-        settings.Add("dlc\\dlc_p04_00100.par", false, "Chapter 03: Out for Blood", "KF");
+        settings.Add("th_dlc\\dlc_p02_00100.par", false, "Chapter 01: What Goes Around", "KF");
+        settings.Add("th_dlc\\dlc_p03_00100.par", false, "Chapter 02: Like Father, Like Son", "KF");
+        settings.Add("th_dlc\\dlc_p04_00100.par", false, "Chapter 03: Out for Blood", "KF");
         settings.Add("dlcend", false, "Chapter 04: Cat & Mouse", "KF");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
@@ -83,9 +85,7 @@ startup
 
 update
 {
-    print(modules.First().ModuleMemorySize.ToString());
-
-    if (current.Chapter == "coyote\\jh80710_dlc_shi_hit.par" && current.QTE == 0 && old.QTE == 1)
+    if (current.Chapter == "\\jh80710_dlc_shi_hit.par" && current.QTE == 0 && old.QTE == 1)
     {
         vars.QTEs++;
     }
@@ -108,18 +108,18 @@ split
     if (current.Chapter != old.Chapter && (!vars.Splits.Contains(current.Chapter)))
     {
         vars.Splits.Add(current.Chapter);
-        return settings[current.Chapter];
+        return settings[current.Chapter.Substring(current.Chapter.Length - 24)];
     }
 
     //Splits on the final Kuwana QTE
-    if (current.Chapter == "coyote\\jh80670_c13_kwn_last.par" && current.QTE2 == 0 && old.QTE2 > 0 && !vars.Splits.Contains("end"))
+    if (current.Chapter.Contains("\\jh80670_c13_kwn_last.par") && current.QTE2 == 0 && old.QTE2 > 0 && !vars.Splits.Contains("end"))
     {
         vars.Splits.Add("end");
         return settings["end"];
     }
 
     //Splits on the final Shirakaba QTE
-    if (current.Chapter == "coyote\\jh80710_dlc_shi_hit.par" && vars.QTEs == 4 && !vars.Splits.Contains("dlcend"))
+    if (current.Chapter.Contains("\\jh80710_dlc_shi_hit.par") && vars.QTEs > 3 && !vars.Splits.Contains("dlcend"))
     {
         vars.Splits.Add("dlcend");
         return settings["dlcend"];
