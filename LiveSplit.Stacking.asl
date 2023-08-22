@@ -5,6 +5,11 @@ state("Stack")
     int Starter: 0x5CB9BC;
 }
 
+init
+{
+    vars.BaronCutscenes = 0;
+}
+
 startup
 {
     settings.Add("STACK", true, "Stacking");
@@ -12,6 +17,15 @@ startup
         settings.Add("GS", true, "Split after Gilded Steamship", "STACK");
         settings.Add("ZC", true, "Split after Zeppelin of Consequence", "STACK");
         settings.Add("TD", true, "Split after Triple Decker Tank Engine", "STACK");
+        settings.Add("STB", true, "Split after Stop the Baron", "STACK");
+}
+
+update
+{
+    if(current.Starter == 4 && current.LevelID == 12)
+    {
+        vars.BaronCutscenes++;
+    }
 }
 
 split
@@ -35,6 +49,11 @@ split
     {
         return settings["TD"];
     }
+
+    if(current.LevelID == 12 && vars.BaronCutscenes == 9)
+    {
+        return settings["STB"];
+    }
 }
 
 start
@@ -45,6 +64,11 @@ start
 isLoading
 {
     return current.Loading == 1;
+}
+
+onStart
+{
+    vars.BaronCutscenes = 0;
 }
 
 reset
