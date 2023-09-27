@@ -30,12 +30,12 @@ update
 
 isLoading
 {
-    return current.Loads > 1;
+    return vars.Loader > 1;
 }
 
 start
 {
-    return current.Loads > 1;
+    return vars.Loader > 1;
 }
 
 exit
