@@ -10,7 +10,7 @@ startup
 
 init
 {
-    Thread.Sleep(20000);
+    vars.Loader = 0;
 
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
@@ -20,12 +20,25 @@ init
     });
 }
 
+update
+{
+    if(current.Loads)
+    {
+        vars.Loader++;
+    }
+}
+
 isLoading
 {
-    return current.Loads;
+    return current.Loads > 1;
 }
 
 start
 {
-    return current.Loads;
+    return current.Loads > 1;
+}
+
+exit
+{
+    vars.Loader = 0;
 }
