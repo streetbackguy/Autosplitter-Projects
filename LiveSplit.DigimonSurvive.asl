@@ -22,9 +22,9 @@ init
 
 update
 {
-    if(current.Loads)
+    if(current.Loads && old.Loads)
     {
-        vars.Loader++;
+        return vars.Loader++;
     }
 }
 
