@@ -1,12 +1,17 @@
 state("Sunset") 
 {
     bool Loads: 0x42ACC48;
-    int Objective: 0x38E7270; //Originally found by Meta
+    int Starter: 0x45AA825;
     int Autoreset: 0x433B878;
+    int MissionSuccess: 0x3C18FE0;
 }
 
 startup
 {   
+    settings.Add("SO", true, "Sunset Overdrive");
+        settings.Add("MISSIONS", true, "Split after each Mission is completed", "SO");
+        //settings.Add("END", true, "Split when the Fizzco Building is defeated", "SO");
+
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {
         var timingMessage = MessageBox.Show (
@@ -29,7 +34,15 @@ isLoading
 
 start
 {
-    return current.Objective == 1 && old.Objective == 0 && !current.Loads;
+    return current.Starter == 2 && old.Starter == 0 && !current.Loads;
+}
+
+split
+{
+    if(current.MissionSuccess != 0 && old.MissionSuccess == 0)
+    {
+        return settings["MISSIONS"];
+    }
 }
 
 reset
