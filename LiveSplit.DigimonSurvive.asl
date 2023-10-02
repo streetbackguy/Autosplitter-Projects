@@ -10,35 +10,23 @@ startup
 
 init
 {
-    vars.Loader = 0;
+    Thread.Sleep(20000);
 
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         vars.Helper["Loads"] = mono.Make<bool>("FadeManager", "instance", 0x9C);
+        vars.Helper["Title"] = mono.Make<bool>("Title", "m_isFirstStarted");
 
         return true;
     });
 }
 
-update
-{
-    if(current.Loads && old.Loads)
-    {
-        return vars.Loader++;
-    }
-}
-
 isLoading
 {
-    return vars.Loader > 1;
+    return current.Loads;
 }
 
 start
 {
-    return vars.Loader > 1;
-}
-
-exit
-{
-    vars.Loader = 0;
+    return current.Loads;
 }
