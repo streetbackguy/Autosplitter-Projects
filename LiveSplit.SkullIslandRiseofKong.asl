@@ -35,6 +35,11 @@ reset
     return current.Loads == 1 && current.MainMenu == 2;
 }
 
+onStart
+{
+    timer.IsGameTimePaused = true;
+}
+
 exit
 {
     timer.IsGameTimePaused = true;
