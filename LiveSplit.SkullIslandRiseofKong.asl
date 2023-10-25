@@ -13,6 +13,11 @@ start
     return old.Loads == 1 && current.Loads == 50;
 }
 
+reset
+{
+    return current.Loads == 1 && current.MainMenu == 2;
+}
+
 exit
 {
     timer.IsGameTimePaused = true;
