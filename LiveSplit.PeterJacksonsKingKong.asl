@@ -1,10 +1,10 @@
-state("KingKong8")
+state("KingKong8", "DirectX 8.1")
 {
     string255 LevelName: 0x6A6531;
     byte Loads: 0x1695178;
 }
 
-state("KingKong9")
+state("KingKong9", "DirectX 9")
 {
     byte Loads: 0x1702158;
     string255 LevelName: 0x70E4B1;
