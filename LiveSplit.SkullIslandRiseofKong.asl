@@ -146,7 +146,7 @@ update
         print("Cutscene Total: " + vars.Cutscenes);
     }
 
-    if(current.world == "Stage" && vars.Watchers["Loading"].Current == 50 && vars.Watchers["Loading"].Old == 1 || current.world == "Stage2_Intro" && vars.Watchers["Loading"].Current == 50 && vars.Watchers["Loading"].Old == 1)
+    if(current.world == "Stage" && vars.Watchers["Loading"].Current == 50 && vars.Watchers["Loading"].Old == 1)
     {
         vars.HUBs++;
         print("Stage Total: " + vars.HUBs);
@@ -177,7 +177,7 @@ split
         return settings["Worm"];
     }
     
-    if(vars.HUBs == 2 && !vars.Splits.Contains("Wetlands"))
+    if(current.world == "Stage2_Intro" && vars.Watchers["Loading"].Current == 50 && vars.Watchers["Loading"].Old == 1 && !vars.Splits.Contains("Wetlands"))
     {
         vars.Splits.Add("Wetlands");
         return settings["Wetlands"];
