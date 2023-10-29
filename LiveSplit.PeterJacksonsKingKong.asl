@@ -103,8 +103,3 @@ isLoading
 {
     return current.Loads == 1;
 }
-
-reset
-{
-    return current.LevelName == "main_menu";
-}
