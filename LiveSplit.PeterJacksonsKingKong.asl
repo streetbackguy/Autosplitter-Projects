@@ -99,6 +99,11 @@ split
     }
 }
 
+onStart
+{
+    vars.Splits.Clear();
+}
+
 isLoading
 {
     return current.Loads == 1;
