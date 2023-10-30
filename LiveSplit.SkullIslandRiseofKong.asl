@@ -165,7 +165,7 @@ start
 
 split
 {
-    if(vars.Cutscenes == 3 && !vars.Splits.Contains("Tutorial"))
+    if(vars.Cutscenes == 4 && !vars.Splits.Contains("Tutorial"))
     {
         vars.Splits.Add("Tutorial");
         return settings["Tutorial"];
