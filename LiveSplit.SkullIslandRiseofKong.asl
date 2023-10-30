@@ -189,7 +189,7 @@ split
         return settings["Wasteland"];
     }
 
-    if(vars.Cutscenes == 15 && !vars.Splits.Contains("Gaw"))
+    if(vars.Cutscenes == 14 && !vars.Splits.Contains("Gaw"))
     {
         vars.Splits.Add("Gaw");
         return settings["Gaw"];
