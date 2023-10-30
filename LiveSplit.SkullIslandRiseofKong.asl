@@ -208,6 +208,12 @@ onStart
     timer.IsGameTimePaused = true;
 }
 
+onReset
+{
+    vars.Cutscenes = 0;
+    vars.HUBs = 0;
+}
+
 exit
 {
     vars.Cutscenes = 0;
