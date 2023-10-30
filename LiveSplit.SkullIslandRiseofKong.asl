@@ -171,7 +171,7 @@ split
         return settings["Tutorial"];
     }
 
-    if(vars.Cutscenes == 9 && !vars.Splits.Contains("Worm"))
+    if(vars.Cutscenes == 8 && !vars.Splits.Contains("Worm"))
     {
         vars.Splits.Add("Worm");
         return settings["Worm"];
