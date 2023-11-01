@@ -1,6 +1,7 @@
 //Original ASL by Streetbackguy. Unreal Engine coding updated by Kuno Demetries.
 state("Monke-Win64-Shipping", "Steam")
 {
+    int Cinematics: 0x6EC6AC0, 0xD8, 0x3C8;
 }
 
 startup
@@ -42,7 +43,7 @@ startup
 init
 {
     vars.Splits = new HashSet<string>();
-    vars.Cutscenes = 0;
+    vars.Movies = 0;
     vars.HUBs = 0;
 
     string MD5Hash;
@@ -83,6 +84,8 @@ init
         new MemoryWatcher<ulong>(new DeepPointer(uWorld, 0x18)) { Name = "worldFName"},
         // GameEngine.GameInstance.LocalPlayers[0].PlayerController.PlayerCameraManager.ViewTarget.Target.Name
         new MemoryWatcher<ulong>(new DeepPointer(gameEngine, 0xFC0, 0x38, 0x0, 0x30, 0x348, 0x12C0, 0x18)) { Name = "camViewTargetFName"},
+        // GameEngine.GameInstance.LocalPlayers[0].PlayerController.PlayerCameraManager.ViewTarget.Target.Name
+        new MemoryWatcher<ulong>(new DeepPointer(gameEngine, 0xFC0, 0x38, 0x0, 0x30, 0x348, 0x12C0, 0x18)) { Name = "cinematicFName"},
     };
 
     // Translating FName to String, this *could* be cached
@@ -120,18 +123,18 @@ update
     current.camTarget = vars.FNameToString(vars.Watchers["camViewTargetFName"].Current);
     current.loading = vars.Watchers["Loading"].Current;
     //Prints the camera target to the Livesplit layout if the setting is enabled
-        if(settings["Camera"]) 
-    {
-        vars.SetTextComponent("Camera Target:",current.camTarget.ToString());
-        if (old.camTarget != current.camTarget) print("Camera Target:" + current.camTarget.ToString());
-    }
+        //if(settings["Camera"]) 
+    //{
+        //vars.SetTextComponent("Camera Target:",current.camTarget.ToString());
+        //if (old.camTarget != current.camTarget) print("Camera Target:" + current.camTarget.ToString());
+    //}
 
     //Prints the current map to the Livesplit layout if the setting is enabled
-        if(settings["Map"]) 
-    {
-        vars.SetTextComponent("Map:",current.world.ToString());
-        if (old.world != current.world) print("Map:" + current.world.ToString());
-    }
+        //if(settings["Map"]) 
+    //{
+        //vars.SetTextComponent("Map:",current.world.ToString());
+        //if (old.world != current.world) print("Map:" + current.world.ToString());
+    //}
 
     //DEBUG CODE
         //print("isLoading? " + current.loading.ToString());
@@ -139,11 +142,12 @@ update
         //print("Camera Target = " + current.camTarget.ToString());
         //print("Horizontal Position:" + current.horizontalPos.ToString());
         //print(modules.First().ModuleMemorySize.ToString());
+        //print("isCinematic? " + current.cinematic.ToString());
 
-    if(current.camTarget == "CineCameraActor" && old.camTarget != "CineCameraActor")
+    if(current.Cinematics == 2 && old.Cinematics == 3)
     {
-        vars.Cutscenes++;
-        print("Cutscene Total: " + vars.Cutscenes);
+        vars.Movies++;
+        print("Cutscene Total: " + vars.Movies);
     }
 
     if(current.world == "Stage" && vars.Watchers["Loading"].Current == 50 && vars.Watchers["Loading"].Old == 1)
@@ -165,19 +169,19 @@ start
 
 split
 {
-    if(vars.Cutscenes == 3 && !vars.Splits.Contains("Tutorial"))
+    if(vars.Movies == 2 && !vars.Splits.Contains("Tutorial"))
     {
         vars.Splits.Add("Tutorial");
         return settings["Tutorial"];
     }
 
-    if(vars.Cutscenes == 8 && !vars.Splits.Contains("Worm"))
+    if(vars.Movies == 7 && !vars.Splits.Contains("Worm"))
     {
         vars.Splits.Add("Worm");
         return settings["Worm"];
     }
     
-    if(current.world == "Stage2_Intro" && vars.Watchers["Loading"].Current == 50 && vars.Watchers["Loading"].Old == 1 && !vars.Splits.Contains("Wetlands"))
+    if(vars.HUBs == 2 && vars.Watchers["Loading"].Current == 50 && vars.Watchers["Loading"].Old == 1 && !vars.Splits.Contains("Wetlands"))
     {
         vars.Splits.Add("Wetlands");
         return settings["Wetlands"];
@@ -189,7 +193,7 @@ split
         return settings["Wasteland"];
     }
 
-    if(vars.Cutscenes == 14 && !vars.Splits.Contains("Gaw"))
+    if(vars.Movies == 12 && !vars.Splits.Contains("Gaw"))
     {
         vars.Splits.Add("Gaw");
         return settings["Gaw"];
@@ -203,22 +207,15 @@ reset
 
 onStart
 {
-    vars.Cutscenes = 0;
+    vars.Movies = 0;
     vars.HUBs = 0;
     vars.Splits.Clear();
     timer.IsGameTimePaused = true;
 }
 
-onReset
-{
-    vars.Cutscenes = 0;
-    vars.HUBs = 0;
-    vars.Splits.Clear();
-}
-
 exit
 {
-    vars.Cutscenes = 0;
+    vars.Movies = 0;
     vars.HUBs = 0;
     vars.Splits.Clear();
     timer.IsGameTimePaused = true;
