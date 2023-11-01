@@ -178,7 +178,7 @@ split
         return settings["Worm"];
     }
     
-    if(current.world == "Stage2_Intro" && vars.Watchers["Loading"].Current == 50 && vars.Watchers["Loading"].Old == 1 && !vars.Splits.Contains("Wetlands"))
+    if(vars.HUBs == 2 && vars.Watchers["Loading"].Current == 50 && vars.Watchers["Loading"].Old == 1 && !vars.Splits.Contains("Wetlands"))
     {
         vars.Splits.Add("Wetlands");
         return settings["Wetlands"];
