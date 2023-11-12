@@ -2,7 +2,14 @@ state("LikeADragonGaiden", "Steam 1.10")
 {
     bool Loads: 0x383B6C0, 0xC0, 0x10, 0x554;
     int Chapter: 0x31E5434;
-    int FinalBoss: 0xAE737E0, 0x358, 0x8, 0x38, 0xEC;
+    int FinalBoss: 0x3824B50, 0x60;
+}
+
+state("LikeADragonGaiden", "Windows Store 1.10") 
+{
+    bool Loads: 0x383B6C0, 0xC0, 0x10, 0x554;
+    int Chapter: 0x31E5430;
+    int FinalBoss: 0x3824B50, 0x60;
 }
 
 init 
@@ -20,6 +27,7 @@ init
     switch (MD5Hash)
     {
         case "859CDDBEC2B6F5B890CD4A96BBCFCFCC": version = "Steam 1.10"; break;
+        case "0": version = "Windows Store 1.10"; break;
 
         default: version = "Unknown"; break;
     }
@@ -57,12 +65,12 @@ isLoading
 
 update
 {
-    if(current.Chapter == 9 && old.Chapter == 0)
+    if(current.Chapter != 0 && old.Chapter == 0)
     {
         vars.ChapterCard++;
     }
 
-    if(current.FinalBoss == 4 && old.FinalBoss == 3)
+    if(current.FinalBoss == 2 && old.FinalBoss == 1)
     {
         vars.QTE++;
     }
@@ -71,7 +79,7 @@ update
 split
 {
     //Splits after each end of chapter save screen, on the Chapter Card
-    if (current.Chapter == 9 && old.Chapter == 0 && (!vars.Splits.Contains("CH" + vars.ChapterCard)))
+    if (current.Chapter != 0 && old.Chapter == 0 && (!vars.Splits.Contains("CH" + vars.ChapterCard)))
     {
         vars.Splits.Add("CH" + vars.ChapterCard);
         return settings["CH" + vars.ChapterCard];
