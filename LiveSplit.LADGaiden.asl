@@ -2,12 +2,14 @@ state("LikeADragonGaiden", "Steam 1.10")
 {
     bool Loads: 0x383B6C0, 0xC0, 0x10, 0x554;
     int Chapter: 0x31E5434;
+    int FinalBoss: 0xAE737E0, 0x358, 0x8, 0x38, 0xEC;
 }
 
 init 
 {
     vars.Splits = new HashSet<string>();
     vars.ChapterCard = 0;
+    vars.QTE = 0;
 
     string MD5Hash;
     using (var md5 = System.Security.Cryptography.MD5.Create())
@@ -40,12 +42,12 @@ startup
     }
 
     settings.Add("LADG", true, "Like a Dragon: Gaiden");
-        settings.Add("CH1", false, "First Tutorial Fight", "LADG");
-        settings.Add("CH2", false, "Chapter 01: Hidden Dragon", "LADG");
-        settings.Add("CH3", false, "Chapter 02: Castle on the Water", "LADG");
-        settings.Add("CH4", false, "Chapter 03: The Man Who Knew Too Much", "LADG");
-        settings.Add("CH5", false, "Chapter 04: The Laughing Man", "LADG");
-        settings.Add("CH6", false, "Final Chapter: The Man Who Erased His Name", "LADG");
+        settings.Add("CH1", true, "First Tutorial Fight", "LADG");
+        settings.Add("CH2", true, "Chapter 01: Hidden Dragon", "LADG");
+        settings.Add("CH3", true, "Chapter 02: Castle on the Water", "LADG");
+        settings.Add("CH4", true, "Chapter 03: The Man Who Knew Too Much", "LADG");
+        settings.Add("CH5", true, "Chapter 04: The Laughing Man", "LADG");
+        settings.Add("END", true, "Final Chapter: The Man Who Erased His Name", "LADG");
 }
 
 isLoading 
@@ -59,6 +61,11 @@ update
     {
         vars.ChapterCard++;
     }
+
+    if(current.FinalBoss == 4 && old.FinalBoss == 3)
+    {
+        vars.QTE++;
+    }
 }
 
 split
@@ -68,6 +75,13 @@ split
     {
         vars.Splits.Add("CH" + vars.ChapterCard);
         return settings["CH" + vars.ChapterCard];
+    }
+
+    //Splits after the QTE in the Shishido fight in the Final Chapter
+    if (vars.QTE == 2 && (!vars.Splits.Contains("END")))
+    {
+        vars.Splits.Add("END");
+        return settings["END"];
     }
 }
 
@@ -79,8 +93,8 @@ onReset
 onStart
 {
     vars.ChapterCard = 0;
+    vars.QTE = 0;
     vars.Splits.Clear();
-    timer.IsGameTimePaused = true;
 }
 
 exit
