@@ -1,13 +1,13 @@
 state("LikeADragonGaiden", "Steam 1.10") 
 {
-    bool Loads: 0x383B6C0, 0xC0, 0x10, 0x554;
+    bool Loads: 0x383B6C0, 0xC0, 0x10, 0x35C;
     int Chapter: 0x31E5434;
     int FinalBoss: 0x3824B50, 0x60;
 }
 
 state("LikeADragonGaiden", "Windows Store 1.10") 
 {
-    bool Loads: 0x383B6C0, 0xC0, 0x10, 0x554;
+    bool Loads: 0x383B6C0, 0xC0, 0x10, 0x35C;
     int Chapter: 0x31E5430;
     int FinalBoss: 0x3824B50, 0x60;
 }
@@ -50,7 +50,7 @@ startup
     }
 
     settings.Add("LADG", true, "Like a Dragon: Gaiden");
-        settings.Add("CH1", true, "First Tutorial Fight", "LADG");
+        settings.Add("CH1", false, "First Tutorial Fight", "LADG");
         settings.Add("CH2", true, "Chapter 01: Hidden Dragon", "LADG");
         settings.Add("CH3", true, "Chapter 02: Castle on the Water", "LADG");
         settings.Add("CH4", true, "Chapter 03: The Man Who Knew Too Much", "LADG");
