@@ -1,29 +1,38 @@
 state("LikeADragonGaiden", "Steam 1.12") 
 {
-    long Chapter:   0x31E5430;
+    long Chapter:   0x31E5430;  // To-Do
     long FileTimer: 0x3826D10, 0x358;
-    int  FinalBoss: 0x3824B50, 0x60;
+    long Money:     0x3826D10, 0x420, 0x8;
+    int  FinalBoss: 0x3824B50, 0x60;    // To-Do
     bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
 }
 
 state("LikeADragonGaiden", "Steam 1.11")
 {
     long Chapter:   0x31E5430;
     long FileTimer: 0x3823CA8, 0x358;
+    long Money:     0x3823CA8, 0x420, 0x8;
     int  FinalBoss: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554; // Alternate load value
 }
 
 state("LikeADragonGaiden", "M Store") 
 {
     long Chapter:   0x31E5430;
     long FileTimer: 0x3823CA8, 0x358;
+    long Money:     0x3823CA8, 0x420, 0x8;
     int  FinalBoss: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
 }
 
 init 
 {
+    refreshRate = 60;
+    vars.StartPrompt = false;
+
     vars.Splits = new HashSet<string>();
     vars.ChapterCard = 0;
     vars.QTE = 0;
@@ -76,43 +85,56 @@ isLoading
 
 update
 {
-    if(current.Chapter != 0 && old.Chapter == 0)
+    if (version == "Steam 1.11")
     {
-        vars.ChapterCard++;
-    }
+        if(current.Chapter != 0 && old.Chapter == 0)
+        {
+            vars.ChapterCard++;
+        }
 
-    if(current.FinalBoss == 2 && old.FinalBoss == 1)
-    {
-        vars.QTE++;
+        if(current.FinalBoss == 2 && old.FinalBoss == 1)
+        {
+            vars.QTE++;
+        }
     }
+}
+
+start
+{
+    vars.StartPrompt |= current.Money == 103968 && old.Money == 0 && current.FileTimer < old.FileTimer;
+    return vars.StartPrompt && current.Starter;
+}
+
+onStart
+{
+    vars.StartPrompt = false;
+    vars.ChapterCard = 0;
+    vars.QTE = 0;
+    vars.Splits.Clear();
 }
 
 split
 {
-    //Splits after each end of chapter save screen, on the Chapter Card
-    if (current.Chapter != 0 && old.Chapter == 0 && (!vars.Splits.Contains("CH" + vars.ChapterCard)))
+    if (version == "Steam 1.11")
     {
-        vars.Splits.Add("CH" + vars.ChapterCard);
-        return settings["CH" + vars.ChapterCard];
-    }
+        // Splits after each end of chapter save screen, on the Chapter Card
+        if (current.Chapter != 0 && old.Chapter == 0 && !vars.Splits.Contains("CH" + vars.ChapterCard))
+        {
+            vars.Splits.Add("CH" + vars.ChapterCard);
+            return settings["CH" + vars.ChapterCard];
+        }
 
-    //Splits after the QTE in the Shishido fight in the Final Chapter
-    if (vars.QTE == 3 && (!vars.Splits.Contains("END")))
-    {
-        vars.Splits.Add("END");
-        return settings["END"];
+        // Splits after the QTE in the Shishido fight in the Final Chapter
+        if (vars.QTE == 3 && !vars.Splits.Contains("END"))
+        {
+            vars.Splits.Add("END");
+            return settings["END"];
+        }
     }
 }
 
 onReset
 {
-    vars.Splits.Clear();
-}
-
-onStart
-{
-    vars.ChapterCard = 0;
-    vars.QTE = 0;
     vars.Splits.Clear();
 }
 
