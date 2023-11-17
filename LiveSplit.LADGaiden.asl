@@ -86,7 +86,7 @@ split
     }
 
     //Splits after the QTE in the Shishido fight in the Final Chapter
-    if (vars.QTE == 2 && (!vars.Splits.Contains("END")))
+    if (vars.QTE == 3 && (!vars.Splits.Contains("END")))
     {
         vars.Splits.Add("END");
         return settings["END"];
