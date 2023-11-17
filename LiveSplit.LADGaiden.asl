@@ -1,15 +1,25 @@
-state("LikeADragonGaiden", "Steam 1.10") 
+state("LikeADragonGaiden", "Steam 1.12") 
 {
-    bool Loads: 0x383B6C0, 0xC0, 0x10, 0x35C;
-    int Chapter: 0x31E5434;
-    int FinalBoss: 0x3824B50, 0x60;
+    long Chapter:   0x31E5430;
+    long FileTimer: 0x3826D10, 0x358;
+    int  FinalBoss: 0x3824B50, 0x60;
+    bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
 }
 
-state("LikeADragonGaiden", "Windows Store 1.10") 
+state("LikeADragonGaiden", "Steam 1.11")
 {
-    bool Loads: 0x383B6C0, 0xC0, 0x10, 0x35C;
-    int Chapter: 0x31E5430;
-    int FinalBoss: 0x3824B50, 0x60;
+    long Chapter:   0x31E5430;
+    long FileTimer: 0x3823CA8, 0x358;
+    int  FinalBoss: 0x3824B50, 0x60;
+    bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
+}
+
+state("LikeADragonGaiden", "M Store") 
+{
+    long Chapter:   0x31E5430;
+    long FileTimer: 0x3823CA8, 0x358;
+    int  FinalBoss: 0x3824B50, 0x60;
+    bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
 }
 
 init 
@@ -26,8 +36,9 @@ init
 
     switch (MD5Hash)
     {
-        case "859CDDBEC2B6F5B890CD4A96BBCFCFCC": version = "Steam 1.10"; break;
-        case "0": version = "Windows Store 1.10"; break;
+        case "27B67CD71627BF7096823BDF038B7AD1": version = "Steam 1.12"; break;
+        case "859CDDBEC2B6F5B890CD4A96BBCFCFCC": version = "Steam 1.11"; break;
+        // case "0": version = "M Store"; break;
 
         default: version = "Unknown"; break;
     }
