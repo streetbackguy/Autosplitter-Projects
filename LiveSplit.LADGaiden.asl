@@ -3,9 +3,10 @@ state("LikeADragonGaiden", "Steam 1.12")
     long FileTimer: 0x3826D10, 0x358;
     long Money:     0x3826D10, 0x420, 0x8;
     short Plot:     0x3826D10, 0x730;
-    int  FinalBoss: 0x3827BD0, 0x60;
+    int  QTEActive: 0x3827BD0, 0x60;
     bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
 }
 
 state("LikeADragonGaiden", "Steam 1.10")
@@ -13,24 +14,29 @@ state("LikeADragonGaiden", "Steam 1.10")
     long FileTimer: 0x3823CA8, 0x358;
     long Money:     0x3823CA8, 0x420, 0x8;
     short Plot:     0x3823CA8, 0x730;
-    int  FinalBoss: 0x3824B50, 0x60;
+    int  QTEActive: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
 }
 
-state("LikeADragonGaiden", "M Store") 
+state("LikeADragonGaiden", "M Store") // To-Do
 {
     long FileTimer: 0x3823CA8, 0x358;
     long Money:     0x3823CA8, 0x420, 0x8;
-    int  FinalBoss: 0x3824B50, 0x60;
+    short Plot:     0x3823CA8, 0x730;
+    int  QTEActive: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
 }
 
 init 
 {
     refreshRate = 60;
     vars.StartPrompt = false;
+    vars.IsLoading = false;
+    vars.LoadCount = 0;
 
     vars.Splits = new List<int>();
 
@@ -41,7 +47,6 @@ init
     {122, "title_02"}, {178, "title_03"}, {193, "btl03_0100"}, {195, "btl03_0150"}, {197, "btl03_0200"}, {199, "title_04"}, {244, "title_05"}, {272, "END"}
     };
 
-    vars.QTE = 0;
 
     string MD5Hash;
     using (var md5 = System.Security.Cryptography.MD5.Create())
@@ -102,17 +107,27 @@ startup
 
 isLoading 
 {
-    return current.Loads;
+    return vars.IsLoading;
 }
 
 update
 {
     // if (old.Plot != current.Plot) print(String.Format("Plot: {0} -> {1}", old.Plot, current.Plot));
 
-    if(current.FinalBoss == 1 && old.FinalBoss == 2)
+    // Check if the game is loading.
+    if (current.Loads || current.FileTimer == old.FileTimer && !current.Pause) // TO-DO: Account for Continue screen.
     {
-        vars.QTE++;
+        vars.LoadCount++;
+        vars.IsLoading = true;
     }
+
+    else if (vars.LoadCount > 0)
+    {
+        vars.LoadCount = 0;
+        vars.IsLoading = true;
+    }
+
+    else vars.IsLoading = false;
 }
 
 start
@@ -137,9 +152,9 @@ split
     }
 
     // Splits after the QTE in the Shishido fight in the Final Chapter
-    else if (vars.QTE == 3)
+    // (For now, it splits on both success and failure)
+    else if (current.Plot == 271 && old.QTEActive == 2 && current.QTEActive == 1)
     {
-        vars.QTE = -1;
         return settings["END"];
     }
 }
