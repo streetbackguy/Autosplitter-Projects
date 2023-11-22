@@ -29,7 +29,7 @@ startup
             settings.Add("HOTR", true, "Split on Entering the Astral Plane in HOTR", "ANY");
             settings.Add("Astral", true, "Split on leaving Astral Plane", "ANY");
             settings.Add("HOTR2", true, "Split on getting all Lamp Parts in HOTR", "ANY");
-            settings.Add("Jacobo", true, "Split on Getting the the Curtain at the end of the game", "ANY");
+            settings.Add("Jacobo", true, "Split on Getting to the Curtain at the end of the game", "ANY");
 }
 
 init
@@ -104,7 +104,10 @@ update
 
 //DEBUG CODE
     //print("isLoading? " + current.loading.ToString());
-    print("Loaded Map = " + current.world.ToString());
+    if(current.world != old.world)
+    {
+        print("Loaded Map = " + current.world.ToString());
+    }
     //print("Camera Target = " + current.camTarget.ToString());
     //print("Horizontal Position:" + current.horizontalPos.ToString());
     //print(modules.First().ModuleMemorySize.ToString());
@@ -119,53 +122,41 @@ split
 {
     if (current.world == "10_ConcentrationGame" && old.world == "00_Intro" && !vars.Splits.Contains("Karzalinx"));
     {
-        return settings["Karzalinx"];
-        vars.Splits.Add("Karzalinx");
+        return vars.Splits.Add("Karzalinx") && settings["Karzalinx"];
     }
 
     if (current.world == "RaceTrackLoading" && old.world == "02_SkolgajarCity" && !vars.Splits.Contains("Skolgajar"));
     {
-        return settings["Skolgajar"];
-        vars.Splits.Add("Skolgajar");
+        return vars.Splits.Add("Skolgajar") && settings["Skolgajar"];
     }
 
     if (current.world == "ChewAndSpitScooter" && old.world == "03_BlackHoleSurf" && !vars.Splits.Contains("Racetrack"));
     {
-        return settings["Racetrack"];
-        vars.Splits.Add("Racetrack");
+        return vars.Splits.Add("Racetrack") && settings["Racetrack"];
     }
 
     if (current.world == "AstralLoading" && old.world == "07_HOTRStore" && !vars.Splits.Contains("HOTR"));
     {
-        return settings["HOTR"];
-        vars.Splits.Add("HOTR");
+        return vars.Splits.Add("HOTR") && settings["HOTR"];
     }
 
     if (current.world == "Hotr2Loading" && old.world == "AstralProjectionLevel" && !vars.Splits.Contains("Astral"));
     {
-        return settings["Astral"];
-        vars.Splits.Add("Astral");
+        return vars.Splits.Add("Astral") && settings["Astral"];
     }
 
     if (current.world == "GotAllParts" && old.world == "07_HOTRStore" && !vars.Splits.Contains("HOTR2"));
     {
-        return settings["HOTR2"];
-        vars.Splits.Add("HOTR2");
+        return vars.Splits.Add("HOTR2") && settings["HOTR2"];
     }
 
     if (current.world == "EndVictoryLevel" && old.world == "NameGenerator" && !vars.Splits.Contains("Jacobo"));
     {
-        return settings["Jacobo"];
-        vars.Splits.Add("Jacobo");
+        return vars.Splits.Add("Jacobo") && settings["Jacobo"];
     }
 }
 
 onStart
-{
-    vars.Splits.Clear();
-}
-
-onReset
 {
     vars.Splits.Clear();
 }
