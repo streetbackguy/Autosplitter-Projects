@@ -1,5 +1,6 @@
 state("JEF-Win64-Shipping")
 {
+    int Start: 0x4279FC0;
 }
 
 startup
@@ -111,6 +112,11 @@ update
     //print("Camera Target = " + current.camTarget.ToString());
     //print("Horizontal Position:" + current.horizontalPos.ToString());
     //print(modules.First().ModuleMemorySize.ToString());
+}
+
+start
+{
+    return current.Start == 4 && old.Start == 23;
 }
 
 isLoading
