@@ -14,11 +14,11 @@ init
 {
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        var ll = mono["LoadingScreen"];
-        vars.Helper["Loads"] = ll.Make<bool>("Instance");
+        var ls = mono["LoadingScreen"];
+        vars.Helper["Loads"] = ls.Make<bool>("Instance");
 
-        var sm = mono["SpectatorMenu"];
-        vars.Helper["LevelComplete"] = sm.MakeString("String_LevelComplete");
+        var gm = mono["GameManager"];
+        vars.Helper["LevelComplete"] = gm.Make<bool>("HasWon");
 
         return true;
     });
@@ -34,7 +34,7 @@ isLoading
     return current.Loads;
 }
 
-//split
-//{
-    //return current.LevelComplete == "LEVEL COMPLETE";
-//}
+split
+{
+    return current.LevelComplete && !old.LevelComplete;
+}
