@@ -1,22 +1,71 @@
-state("LikeADragonGaiden", "Steam 1.10") 
+//Original Load Remover and Autosplitter by Streetbackguy
+//Improvements on Memory Addresses and Load Refinement by PlayingLikeAss
+
+state("LikeADragonGaiden", "Steam 1.12") 
 {
-    bool Loads: 0x383B6C0, 0xC0, 0x10, 0x35C;
-    int Chapter: 0x31E5434;
-    int FinalBoss: 0x3824B50, 0x60;
+    string60 Magic: 0x3824640, 0xA8, 0x0, 0x20, 0x8, 0x28;
+    // string60 Magic: 0x383CBC0, 0xB8, 0x1C0, 0x8, 0x18, 0x7F2;
+    long FileTimer: 0x3826D10, 0x358;
+    long KiryuHP:   0x3826D10, 0x3A8;
+    long Money:     0x3826D10, 0x420, 0x8;
+    short Plot:     0x3826D10, 0x730;
+    int QTEPrompt:  0x3827BD0, 0x60;
+    bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383E740, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
 }
 
-state("LikeADragonGaiden", "Windows Store 1.10") 
+state("LikeADragonGaiden", "Steam 1.10") // To-Do
 {
-    bool Loads: 0x383B6C0, 0xC0, 0x10, 0x35C;
-    int Chapter: 0x31E5430;
-    int FinalBoss: 0x3824B50, 0x60;
+    long FileTimer: 0x3823CA8, 0x358;
+    long Money:     0x3823CA8, 0x420, 0x8;
+    short Plot:     0x3823CA8, 0x730;
+    int  QTEPrompt: 0x3824B50, 0x60;
+    bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383B6C0, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383B6C0, 0xC0, 0x10, 0x6C4;
+}
+
+state("LikeADragonGaiden", "M Store") // To-Do
+{
+    long FileTimer: 0x3823CA8, 0x358;
+    long Money:     0x3823CA8, 0x420, 0x8;
+    short Plot:     0x3823CA8, 0x730;
+    int  QTEPrompt: 0x3824B50, 0x60;
+    bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383B6C0, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383B6C0, 0xC0, 0x10, 0x6C4;
 }
 
 init 
 {
-    vars.Splits = new HashSet<string>();
-    vars.ChapterCard = 0;
-    vars.QTE = 0;
+    refreshRate = 60;
+    vars.StartPrompt = false;
+    vars.IsLoading = false;
+    vars.LoadCount = 0;
+    vars.Leash = false;
+
+    vars.Splits = new List<int>();
+
+    // Event list indices (fights adjusted to catch the event AFTER the fight)
+    vars.PlotPoints = new Dictionary<short, string>() {
+    {75, "btl01_0100"}, {78, "title_01"}, {84, "btl01_0200"}, {86, "btl01_0300"}, {91, "btl01_0400"},
+    {93, "btl01_0500"}, {98, "btl01_0600"}, {103, "btl01_0800"}, {108, "btl01_1000"}, {113, "c01_1900"},
+    {115, "btl01_1100"}, {119, "btl01_1300"}, {122, "title_02"}, {130, "btl02_0100"}, {138, "btl02_0200"},
+    {142, "btl02_0300"}, {1146, "FEET OF KSON"}, {145, "c02_1500"}, {149, "t02_0200"}, {152, "btl02_0400"},
+    {154, "btl02_0500"}, {156, "btl02_0600"}, {165, "c02_2400"}, {166, "btl02_0700"}, {168, "btl02_0800"},
+    {176, "btl02_0900"}, {178, "title_03"}, {186, "c03_0500"}, {193, "btl03_0100"}, {195, "btl03_0150"},
+    {197, "btl03_0200"}, {199, "title_04"}, {212, "c04_0800"}, {217, "btl04_0200"}, {222, "btl04_0300"},
+    {709, "DAN BRODY"}, {234, "btl04_0400"}, {238, "WAREHOUSE"}, {239, "btl04_0500"}, {241, "btl04_0600"},
+    {244, "title_05"}, {254, "t05_0200"}, {259, "btl05_0100"}, {267, "btl05_0200"}, {270, "btl05_0300"}, {272, "END"}
+    };
+
 
     string MD5Hash;
     using (var md5 = System.Security.Cryptography.MD5.Create())
@@ -26,8 +75,9 @@ init
 
     switch (MD5Hash)
     {
+        case "27B67CD71627BF7096823BDF038B7AD1": version = "Steam 1.12"; break;
         case "859CDDBEC2B6F5B890CD4A96BBCFCFCC": version = "Steam 1.10"; break;
-        case "0": version = "Windows Store 1.10"; break;
+        // case "0": version = "M Store"; break;
 
         default: version = "Unknown"; break;
     }
@@ -50,57 +100,142 @@ startup
     }
 
     settings.Add("LADG", true, "Like a Dragon: Gaiden");
-        settings.Add("CH1", false, "First Tutorial Fight", "LADG");
-        settings.Add("CH2", true, "Chapter 01: Hidden Dragon", "LADG");
-        settings.Add("CH3", true, "Chapter 02: Castle on the Water", "LADG");
-        settings.Add("CH4", true, "Chapter 03: The Man Who Knew Too Much", "LADG");
-        settings.Add("CH5", true, "Chapter 04: The Laughing Man", "LADG");
-        settings.Add("END", true, "Final Chapter: The Man Who Erased His Name", "LADG");
+
+    settings.Add("CHAPTERS", true, "Chapter Card Splits", "LADG");
+        settings.Add("title_01", false, "Chapter 1: Hidden Dragon", "CHAPTERS");
+        settings.Add("title_02", true, "Chapter 2: Castle on the Water", "CHAPTERS");
+        settings.Add("title_03", true, "Chapter 3: The Man Who Knew Too Much", "CHAPTERS");
+        settings.Add("title_04", true, "Chapter 4: The Laughing Man", "CHAPTERS");
+        settings.Add("title_05", true, "Final Chapter: The Man Who Erased His Name", "CHAPTERS");
+
+    settings.Add("FIGHTS", false, "Fight Splits", "LADG");
+        settings.Add("btl01_0100", false, "Ch.1: Osamu-kun and Friends", "FIGHTS");
+        settings.Add("btl01_0200", false, "Ch.1: Agent Jo-an", "FIGHTS");
+        settings.Add("btl01_0300", false, "Ch.1: Agent Jo-an and Friends", "FIGHTS");
+        settings.Add("btl01_0400", false, "Ch.1: Mysterious Men", "FIGHTS");
+        settings.Add("btl01_0500", false, "Ch.1: More Mysterious Men", "FIGHTS");
+        settings.Add("btl01_0600", false, "Ch.1: Rooftop Rumble", "FIGHTS");
+        settings.Add("btl01_0800", false, "Ch.1: Man in a Suit", "FIGHTS");
+        settings.Add("btl01_1000", false, "Ch.1: Man in a Hannya Mask", "FIGHTS");
+        settings.Add("btl01_1100", false, "Ch.1: Four Agents, One Room", "FIGHTS");
+        settings.Add("btl01_1300", false, "Ch.1: Yoshimura and Friends", "FIGHTS");
+        settings.Add("btl02_0100", false, "Ch.2: Parking Loiterers", "FIGHTS");
+        settings.Add("btl02_0200", false, "Ch.2: Riverside Rumpus", "FIGHTS");
+        settings.Add("btl02_0300", false, "Ch.2: Welfare Thieves", "FIGHTS");
+        settings.Add("btl02_0400", false, "Ch.2: Masaru Watase-ish Man", "FIGHTS");
+        settings.Add("btl02_0500", false, "Ch.2: Kazuma Kiryu-esque Man", "FIGHTS");
+        settings.Add("btl02_0600", false, "Ch.2: Ryuji Goda?", "FIGHTS");
+        settings.Add("c02_2400", false, "Ch.2: Namiki No. 3 Lobby", "FIGHTS");
+        settings.Add("btl02_0800", false, "Ch.2: Yuki Tsuruno and Friends", "FIGHTS");
+        settings.Add("btl02_0900", false, "Ch.2: Daidoji Hideout", "FIGHTS");
+        settings.Add("btl03_0100", false, "Ch.3: Pool Party", "FIGHTS");
+        settings.Add("btl03_0200", false, "Ch.3: Nishitani", "FIGHTS");
+        settings.Add("btl04_0200", false, "Ch.4: Cabaret Grand", "FIGHTS");
+        settings.Add("btl04_0300", false, "Ch.4: Castle Crashers", "FIGHTS");
+        settings.Add("DAN BRODY", false, "Ch.4: The Four Kings of the Coliseum", "FIGHTS");
+        settings.Add("btl04_0400", false, "Ch.4: Golf Center Gang", "FIGHTS");
+        settings.Add("WAREHOUSE", false, "Ch.4: Outside the Warehouse", "FIGHTS");
+        settings.Add("btl04_0600", false, "Ch.4: Nishitani", "FIGHTS");
+        settings.Add("btl05_0100", false, "Ch.5: Shishitani and Friends", "FIGHTS");
+        settings.Add("btl05_0200", false, "Ch.5: Breakup Brouhaha", "FIGHTS");
+        settings.Add("btl05_0300", false, "Ch.5: Shirts v. Skins", "FIGHTS");
+        settings.Add("END", false, "Ch.5: Final Boss", "FIGHTS");
+
+    settings.Add("SETPIECES", false, "Setpiece Splits (before boss)", "LADG");
+        settings.Add("btl01_1200", false, "Ch.1: Daidoji Temple", "SETPIECES");
+        settings.Add("btl02_0700", false, "Ch.2: Namiki No. 3", "SETPIECES");
+        settings.Add("btl03_0150", false, "Ch.3: The Castle", "SETPIECES");
+        settings.Add("btl04_0500", false, "Ch.4: The Warehouse", "SETPIECES");
+
+    settings.Add("EVENTS", false, "Event Splits", "LADG");
+        settings.Add("C01_1900", false, "Ch.1: Leaving Ijincho", "EVENTS");
+        settings.Add("FEET OF KSON", false, "Ch.2: Emergency Request!", "EVENTS");
+        settings.Add("c02_1500", false, "Ch.2: Go to the Castle", "EVENTS");
+        settings.Add("t02_0200", false, "Ch.2: Tuxedo Mask", "EVENTS");
+        settings.Add("c03_0500", false, "Ch.3: Akame's Drink Link", "EVENTS");
+        settings.Add("c04_0800", false, "Ch.4: A Night of Debauchery", "EVENTS");
+        settings.Add("t05_0200", false, "Ch.4: Begin the Finale", "EVENTS");
 }
 
 isLoading 
 {
-    return current.Loads;
+    return vars.IsLoading;
 }
 
 update
 {
-    if(current.Chapter != 0 && old.Chapter == 0)
+    // if (old.Plot != current.Plot) print(String.Format("Plot: {0} -> {1}", old.Plot, current.Plot));
+    // if (old.Magic != current.Magic) print(String.Format("Magic: {0} -> {1}", old.Magic ?? "NULL", current.Magic ?? "NULL"));
+
+    // We have to stop complex loads from falsely triggering in certain corner cases.
+    if (vars.Leash || current.Magic == "tougi_main_menu" || current.FileTimer != old.FileTimer && vars.IsLoading && (current.Magic == "at4060_win" || current.Magic == "at4070_fellow_win"))
     {
-        vars.ChapterCard++;
+        vars.Leash = true;
+        vars.IsLoading = vars.LoadCount > 0;
+        vars.LoadCount = 0;
+    }
+    else vars.Leash = false;
+
+    // Check if the game is loading. It's either a simple load or a complex load.
+    if (current.Loads || current.FileTimer == old.FileTimer && !current.Pause && current.KiryuHP != 0
+    && !vars.Leash && (current.Starter || !current.Abbott && current.Costello))
+    {
+        vars.LoadCount++;
+        vars.IsLoading = true;
     }
 
-    if(current.FinalBoss == 2 && old.FinalBoss == 1)
+    else if (vars.LoadCount > 0)
     {
-        vars.QTE++;
+        // print(String.Format("[{0}] {1} load frames.", current.FileTimer, vars.LoadCount+1));
+        vars.LoadCount = 0;
+        vars.IsLoading = true;
     }
+
+    else vars.IsLoading = false;
+}
+
+start
+{
+    vars.StartPrompt |= current.Plot == 0 && current.Money == 103968 && old.Money == 0;
+    if (vars.StartPrompt && current.Starter) print("START");
+    return vars.StartPrompt && current.Starter;
+}
+
+onStart
+{
+    vars.StartPrompt = false;
+    vars.QTE = 0;
+    vars.Splits.Clear();
 }
 
 split
 {
-    //Splits after each end of chapter save screen, on the Chapter Card
-    if (current.Chapter != 0 && old.Chapter == 0 && (!vars.Splits.Contains("CH" + vars.ChapterCard)))
+    if (old.Plot != current.Plot && vars.PlotPoints.ContainsKey(current.Plot) && !vars.Splits.Contains(current.Plot))
     {
-        vars.Splits.Add("CH" + vars.ChapterCard);
-        return settings["CH" + vars.ChapterCard];
+        // print(String.Format("[{2}] Split: {0}, {1}", current.Plot, current.Magic, current.FileTimer));
+        vars.Splits.Add(current.Plot);
+        return settings[vars.PlotPoints[current.Plot]];
     }
 
-    //Splits after the QTE in the Shishido fight in the Final Chapter
-    if (vars.QTE == 2 && (!vars.Splits.Contains("END")))
+    // Splits after the QTE in the Shishido fight in the Final Chapter
+    // (For now, it splits on both success and failure)
+    else if (current.Plot == 271 && current.Magic == "ab2290_ssd_last" && old.QTEPrompt == 2 && current.QTEPrompt == 1)
     {
         vars.Splits.Add("END");
         return settings["END"];
     }
 }
 
-onReset
+reset
 {
-    vars.Splits.Clear();
+    // Reset when returning to the title screen.
+    // if (current.Plot == 0 && old.Plot > 0) print("RESET");
+    return current.Plot == 0 && old.Plot > 0;
 }
 
-onStart
+onReset
 {
-    vars.ChapterCard = 0;
+    vars.StartPrompt = false;
     vars.QTE = 0;
     vars.Splits.Clear();
 }
