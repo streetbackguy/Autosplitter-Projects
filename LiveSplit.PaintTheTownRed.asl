@@ -1,5 +1,6 @@
 state("PaintTheTownRed")
 {
+    byte BeneathLoads: "UnityPlayer.dll", 0x1A46258, 0xDA8, 0x18, 0xA8, 0x0;
 }
 
 startup
@@ -22,9 +23,6 @@ init
         vars.Helper["HasNotFinishedLoadingNewLevel"] = gm.Make<bool>("HasNotFinishedLoadingNewLevel");
         vars.Helper["isBeneath"] = gm.Make<bool>("IsBeneath");
 
-        var bn = mono["ModuleLevelGenerator"];
-        vars.Helper["BeneathLoads"] = bn.Make<bool>("GeneratingLevel");
-
         return true;
     });
 }
@@ -36,10 +34,16 @@ start
 
 isLoading
 {
-    return current.Loads || current.HasNotFinishedLoadingNewLevel || current.BeneathLoads && current.isBeneath;
+    return current.Loads || current.HasNotFinishedLoadingNewLevel || current.BeneathLoads == 1 && current.isBeneath;
+
 }
 
 split
 {
     return current.LevelComplete && !old.LevelComplete;
+}
+
+exit
+{
+    timer.IsGameTimePaused = true;
 }
