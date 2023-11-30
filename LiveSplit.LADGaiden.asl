@@ -1,3 +1,6 @@
+// Original Load Remover and Autosplitter by Streetbackguy
+// Improvements on Memory Addresses and Load Refinement by PlayingLikeAss (aposteriorist)
+
 state("LikeADragonGaiden", "Steam 1.12") 
 {
     string60 Magic: 0x3824640, 0xA8, 0x0, 0x20, 0x8, 0x28;
