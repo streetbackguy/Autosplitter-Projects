@@ -1,6 +1,3 @@
-//Original Load Remover and Autosplitter by Streetbackguy
-//Improvements on Memory Addresses and Load Refinement by PlayingLikeAss
-
 state("LikeADragonGaiden", "Steam 1.12") 
 {
     string60 Magic: 0x3824640, 0xA8, 0x0, 0x20, 0x8, 0x28;
@@ -26,8 +23,6 @@ state("LikeADragonGaiden", "Steam 1.10") // To-Do
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
-    bool Abbott:    0x383B6C0, 0xC0, 0x10, 0x684;
-    bool Costello:  0x383B6C0, 0xC0, 0x10, 0x6C4;
 }
 
 state("LikeADragonGaiden", "M Store") // To-Do
@@ -39,8 +34,6 @@ state("LikeADragonGaiden", "M Store") // To-Do
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
-    bool Abbott:    0x383B6C0, 0xC0, 0x10, 0x684;
-    bool Costello:  0x383B6C0, 0xC0, 0x10, 0x6C4;
 }
 
 init 
@@ -148,7 +141,7 @@ startup
         settings.Add("btl04_0500", false, "Ch.4: The Warehouse", "SETPIECES");
 
     settings.Add("EVENTS", false, "Event Splits", "LADG");
-        settings.Add("C01_1900", false, "Ch.1: Leaving Ijincho", "EVENTS");
+        settings.Add("c01_1900", false, "Ch.1: Leaving Ijincho", "EVENTS");
         settings.Add("FEET OF KSON", false, "Ch.2: Emergency Request!", "EVENTS");
         settings.Add("c02_1500", false, "Ch.2: Go to the Castle", "EVENTS");
         settings.Add("t02_0200", false, "Ch.2: Tuxedo Mask", "EVENTS");
