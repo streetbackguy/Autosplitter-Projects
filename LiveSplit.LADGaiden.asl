@@ -157,9 +157,20 @@ isLoading
 update
 {
     // if (old.Plot != current.Plot) print(String.Format("Plot: {0} -> {1}", old.Plot, current.Plot));
+    // if (old.Magic != current.Magic) print(String.Format("Magic: {0} -> {1}", old.Magic ?? "NULL", current.Magic ?? "NULL"));
 
-    // Check if the game is loading.
-    if (current.Loads || current.FileTimer == old.FileTimer && !current.Pause) // TO-DO: Account for Continue screen.
+    // We have to stop complex loads from falsely triggering in certain corner cases.
+    if (vars.Leash || current.Magic == "tougi_main_menu" || current.FileTimer != old.FileTimer && vars.IsLoading && (current.Magic == "at4060_win" || current.Magic == "at4070_fellow_win"))
+    {
+        vars.Leash = true;
+        vars.IsLoading = vars.LoadCount > 0;
+        vars.LoadCount = 0;
+    }
+    else vars.Leash = false;
+
+    // Check if the game is loading. It's either a simple load or a complex load.
+    if (current.Loads || current.FileTimer == old.FileTimer && !current.Pause && current.KiryuHP != 0
+    && !vars.Leash && (current.Starter || !current.Abbott && current.Costello))
     {
         vars.LoadCount++;
         vars.IsLoading = true;
@@ -167,6 +178,7 @@ update
 
     else if (vars.LoadCount > 0)
     {
+        // print(String.Format("[{0}] {1} load frames.", current.FileTimer, vars.LoadCount+1));
         vars.LoadCount = 0;
         vars.IsLoading = true;
     }
@@ -176,7 +188,8 @@ update
 
 start
 {
-    vars.StartPrompt |= current.Money == 103968 && old.Money == 0 && current.FileTimer < old.FileTimer;
+    vars.StartPrompt |= current.Plot == 0 && current.Money == 103968 && old.Money == 0;
+    if (vars.StartPrompt && current.Starter) print("START");
     return vars.StartPrompt && current.Starter;
 }
 
@@ -191,14 +204,16 @@ split
 {
     if (old.Plot != current.Plot && vars.PlotPoints.ContainsKey(current.Plot) && !vars.Splits.Contains(current.Plot))
     {
+        // print(String.Format("[{2}] Split: {0}, {1}", current.Plot, current.Magic, current.FileTimer));
         vars.Splits.Add(current.Plot);
         return settings[vars.PlotPoints[current.Plot]];
     }
 
     // Splits after the QTE in the Shishido fight in the Final Chapter
-    // (For now, it splits on both success and failure)
-    else if (current.Plot == 271 && old.QTEActive == 2 && current.QTEActive == 1)
+    // (For now, it splits on both success and failure, and for QTE Hacts like Repeating Knee during the final boss)
+    else if (current.Plot == 271 && old.QTEPrompt == 2 && current.QTEPrompt == 1)
     {
+        vars.Splits.Add("END");
         return settings["END"];
     }
 }
@@ -206,7 +221,15 @@ split
 reset
 {
     // Reset when returning to the title screen.
+    // if (current.Plot == 0 && old.Plot > 0) print("RESET");
     return current.Plot == 0 && old.Plot > 0;
+}
+
+onReset
+{
+    vars.StartPrompt = false;
+    vars.QTE = 0;
+    vars.Splits.Clear();
 }
 
 exit
