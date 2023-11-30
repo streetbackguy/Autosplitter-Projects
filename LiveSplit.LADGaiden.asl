@@ -1,20 +1,24 @@
 state("LikeADragonGaiden", "Steam 1.12") 
 {
+    string60 Magic: 0x3824640, 0xA8, 0x0, 0x20, 0x8, 0x28;
     long FileTimer: 0x3826D10, 0x358;
+    long KiryuHP:   0x3826D10, 0x3A8;
     long Money:     0x3826D10, 0x420, 0x8;
     short Plot:     0x3826D10, 0x730;
-    int  QTEActive: 0x3827BD0, 0x60;
+    int QTEPrompt:  0x3827BD0, 0x60;
     bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
     bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383E740, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
 }
 
-state("LikeADragonGaiden", "Steam 1.10")
+state("LikeADragonGaiden", "Steam 1.10") // To-Do
 {
     long FileTimer: 0x3823CA8, 0x358;
     long Money:     0x3823CA8, 0x420, 0x8;
     short Plot:     0x3823CA8, 0x730;
-    int  QTEActive: 0x3824B50, 0x60;
+    int  QTEPrompt: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
@@ -25,7 +29,7 @@ state("LikeADragonGaiden", "M Store") // To-Do
     long FileTimer: 0x3823CA8, 0x358;
     long Money:     0x3823CA8, 0x420, 0x8;
     short Plot:     0x3823CA8, 0x730;
-    int  QTEActive: 0x3824B50, 0x60;
+    int  QTEPrompt: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
@@ -37,14 +41,21 @@ init
     vars.StartPrompt = false;
     vars.IsLoading = false;
     vars.LoadCount = 0;
+    vars.Leash = false;
 
     vars.Splits = new List<int>();
 
-    // Event list indices (fights adjusted by 1 to catch the event AFTER the fight)
+    // Event list indices (fights adjusted to catch the event AFTER the fight)
     vars.PlotPoints = new Dictionary<short, string>() {
     {75, "btl01_0100"}, {78, "title_01"}, {84, "btl01_0200"}, {86, "btl01_0300"}, {91, "btl01_0400"},
-    {93, "btl01_0500"}, {98, "btl01_0600"}, {103, "btl01_0800"}, {108, "btl01_1000"}, {119, "btl01_1300"},
-    {122, "title_02"}, {178, "title_03"}, {193, "btl03_0100"}, {195, "btl03_0150"}, {197, "btl03_0200"}, {199, "title_04"}, {244, "title_05"}, {272, "END"}
+    {93, "btl01_0500"}, {98, "btl01_0600"}, {103, "btl01_0800"}, {108, "btl01_1000"}, {113, "c01_1900"},
+    {115, "btl01_1100"}, {119, "btl01_1300"}, {122, "title_02"}, {130, "btl02_0100"}, {138, "btl02_0200"},
+    {142, "btl02_0300"}, {1146, "FEET OF KSON"}, {145, "c02_1500"}, {149, "t02_0200"}, {152, "btl02_0400"},
+    {154, "btl02_0500"}, {156, "btl02_0600"}, {165, "c02_2400"}, {166, "btl02_0700"}, {168, "btl02_0800"},
+    {176, "btl02_0900"}, {178, "title_03"}, {186, "c03_0500"}, {193, "btl03_0100"}, {195, "btl03_0150"},
+    {197, "btl03_0200"}, {199, "title_04"}, {212, "c04_0800"}, {217, "btl04_0200"}, {222, "btl04_0300"},
+    {709, "DAN BRODY"}, {234, "btl04_0400"}, {238, "WAREHOUSE"}, {239, "btl04_0500"}, {241, "btl04_0600"},
+    {244, "title_05"}, {254, "t05_0200"}, {259, "btl05_0100"}, {267, "btl05_0200"}, {270, "btl05_0300"}, {272, "END"}
     };
 
 
@@ -89,20 +100,53 @@ startup
         settings.Add("title_04", true, "Chapter 4: The Laughing Man", "CHAPTERS");
         settings.Add("title_05", true, "Final Chapter: The Man Who Erased His Name", "CHAPTERS");
 
-    settings.Add("FIGHTS", true, "Fight Splits", "LADG");
-        settings.Add("btl01_0100", false, "C1: Tutorial Fight 1", "FIGHTS");
-        settings.Add("btl01_0200", false, "C1: Tutorial Fight 2", "FIGHTS");
-        settings.Add("btl01_0300", false, "C1: Tutorial Fight 3", "FIGHTS");
-        settings.Add("btl01_0400", false, "C1: Mysterious Men", "FIGHTS");
-        settings.Add("btl01_0500", false, "C1: More Mysterious Men", "FIGHTS");
-        settings.Add("btl01_0600", false, "C1: Rooftop Rumble", "FIGHTS");
-        settings.Add("btl01_0800", false, "C1: Man in a Suit", "FIGHTS");
-        settings.Add("btl01_1000", false, "C1: Man in a Hannya Mask", "FIGHTS");
-        settings.Add("btl01_1300", false, "C1: Yoshimura", "FIGHTS");
-        settings.Add("btl03_0100", false, "C3: Pool Party", "FIGHTS");
-        settings.Add("btl03_0150", false, "C3: Castle Setpiece", "FIGHTS");
-        settings.Add("btl03_0200", false, "C3: Nishitani", "FIGHTS");
-        settings.Add("END", false, "Final Boss", "FIGHTS");
+    settings.Add("FIGHTS", false, "Fight Splits", "LADG");
+        settings.Add("btl01_0100", false, "Ch.1: Osamu-kun and Friends", "FIGHTS");
+        settings.Add("btl01_0200", false, "Ch.1: Agent Jo-an", "FIGHTS");
+        settings.Add("btl01_0300", false, "Ch.1: Agent Jo-an and Friends", "FIGHTS");
+        settings.Add("btl01_0400", false, "Ch.1: Mysterious Men", "FIGHTS");
+        settings.Add("btl01_0500", false, "Ch.1: More Mysterious Men", "FIGHTS");
+        settings.Add("btl01_0600", false, "Ch.1: Rooftop Rumble", "FIGHTS");
+        settings.Add("btl01_0800", false, "Ch.1: Man in a Suit", "FIGHTS");
+        settings.Add("btl01_1000", false, "Ch.1: Man in a Hannya Mask", "FIGHTS");
+        settings.Add("btl01_1100", false, "Ch.1: Four Agents, One Room", "FIGHTS");
+        settings.Add("btl01_1300", false, "Ch.1: Yoshimura and Friends", "FIGHTS");
+        settings.Add("btl02_0100", false, "Ch.2: Parking Loiterers", "FIGHTS");
+        settings.Add("btl02_0200", false, "Ch.2: Riverside Rumpus", "FIGHTS");
+        settings.Add("btl02_0300", false, "Ch.2: Welfare Thieves", "FIGHTS");
+        settings.Add("btl02_0400", false, "Ch.2: Masaru Watase-ish Man", "FIGHTS");
+        settings.Add("btl02_0500", false, "Ch.2: Kazuma Kiryu-esque Man", "FIGHTS");
+        settings.Add("btl02_0600", false, "Ch.2: Ryuji Goda?", "FIGHTS");
+        settings.Add("c02_2400", false, "Ch.2: Namiki No. 3 Lobby", "FIGHTS");
+        settings.Add("btl02_0800", false, "Ch.2: Yuki Tsuruno and Friends", "FIGHTS");
+        settings.Add("btl02_0900", false, "Ch.2: Daidoji Hideout", "FIGHTS");
+        settings.Add("btl03_0100", false, "Ch.3: Pool Party", "FIGHTS");
+        settings.Add("btl03_0200", false, "Ch.3: Nishitani", "FIGHTS");
+        settings.Add("btl04_0200", false, "Ch.4: Cabaret Grand", "FIGHTS");
+        settings.Add("btl04_0300", false, "Ch.4: Castle Crashers", "FIGHTS");
+        settings.Add("DAN BRODY", false, "Ch.4: The Four Kings of the Coliseum", "FIGHTS");
+        settings.Add("btl04_0400", false, "Ch.4: Golf Center Gang", "FIGHTS");
+        settings.Add("WAREHOUSE", false, "Ch.4: Outside the Warehouse", "FIGHTS");
+        settings.Add("btl04_0600", false, "Ch.4: Nishitani", "FIGHTS");
+        settings.Add("btl05_0100", false, "Ch.5: Shishitani and Friends", "FIGHTS");
+        settings.Add("btl05_0200", false, "Ch.5: Breakup Brouhaha", "FIGHTS");
+        settings.Add("btl05_0300", false, "Ch.5: Shirts v. Skins", "FIGHTS");
+        settings.Add("END", false, "Ch.5: Final Boss", "FIGHTS");
+
+    settings.Add("SETPIECES", false, "Setpiece Splits (before boss)", "LADG");
+        settings.Add("btl01_1200", false, "Ch.1: Daidoji Temple", "SETPIECES");
+        settings.Add("btl02_0700", false, "Ch.2: Namiki No. 3", "SETPIECES");
+        settings.Add("btl03_0150", false, "Ch.3: The Castle", "SETPIECES");
+        settings.Add("btl04_0500", false, "Ch.4: The Warehouse", "SETPIECES");
+
+    settings.Add("EVENTS", false, "Event Splits", "LADG");
+        settings.Add("c01_1900", false, "Ch.1: Leaving Ijincho", "EVENTS");
+        settings.Add("FEET OF KSON", false, "Ch.2: Emergency Request!", "EVENTS");
+        settings.Add("c02_1500", false, "Ch.2: Go to the Castle", "EVENTS");
+        settings.Add("t02_0200", false, "Ch.2: Tuxedo Mask", "EVENTS");
+        settings.Add("c03_0500", false, "Ch.3: Akame's Drink Link", "EVENTS");
+        settings.Add("c04_0800", false, "Ch.4: A Night of Debauchery", "EVENTS");
+        settings.Add("t05_0200", false, "Ch.4: Begin the Finale", "EVENTS");
 }
 
 isLoading 
