@@ -1,7 +1,9 @@
+// Original Load Remover and Autosplitter by Streetbackguy
+// Improvements on Memory Addresses and Load Refinement by PlayingLikeAss (aposteriorist)
+
 state("LikeADragonGaiden", "Steam 1.12") 
 {
     string60 Magic: 0x3824640, 0xA8, 0x0, 0x20, 0x8, 0x28;
-    // string60 Magic: 0x383CBC0, 0xB8, 0x1C0, 0x8, 0x18, 0x7F2;
     long FileTimer: 0x3826D10, 0x358;
     long KiryuHP:   0x3826D10, 0x3A8;
     long Money:     0x3826D10, 0x420, 0x8;
@@ -211,8 +213,8 @@ split
     }
 
     // Splits after the QTE in the Shishido fight in the Final Chapter
-    // (For now, it splits on both success and failure)
-    else if (current.Plot == 271 && current.Magic == "ab2290_ssd_last" && old.QTEPrompt == 2 && current.QTEPrompt == 1)
+    // (For now, it splits on both success and failure, and for QTE Hacts like Repeating Knee during the final boss)
+    else if (current.Plot == 271 && old.QTEPrompt == 2 && current.QTEPrompt == 1)
     {
         vars.Splits.Add("END");
         return settings["END"];
