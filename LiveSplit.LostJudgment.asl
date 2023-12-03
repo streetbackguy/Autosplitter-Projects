@@ -126,14 +126,10 @@ split
     }
 }
 
-onReset
+onStart
 {
     vars.Splits.Clear();
     vars.QTEs = 0;
-}
-
-onStart
-{
     timer.IsGameTimePaused = true;
 }
 
