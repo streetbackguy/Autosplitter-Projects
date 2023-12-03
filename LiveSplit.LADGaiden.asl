@@ -1,14 +1,14 @@
-// Original Load Remover and Autosplitter by Streetbackguy
-// Improvements on Memory Addresses and Load Refinement by PlayingLikeAss (aposteriorist)
-
 state("LikeADragonGaiden", "Steam 1.12") 
 {
-    string60 Magic: 0x3824640, 0xA8, 0x0, 0x20, 0x8, 0x28;
     long FileTimer: 0x3826D10, 0x358;
     long KiryuHP:   0x3826D10, 0x3A8;
     long Money:     0x3826D10, 0x420, 0x8;
     short Plot:     0x3826D10, 0x730;
-    int QTEPrompt:  0x3827BD0, 0x60;
+    // int QTEPrompt:  0x3827BD0, 0x60;
+    // int HActAdj:    0x3828190, 0x60, 0x8, 0x58, 0x8, 0x2B4;
+    // string60 Magic: 0x3828190, 0x60, 0x8, 0x58, 0x8, 0x7F2;
+    int HActAdj:    0x383CBC0, 0xC0, 0x8, 0x18, 0x2B4;
+    string60 Magic: 0x383CBC0, 0xC0, 0x8, 0x18, 0x7F2;
     bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
     bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
@@ -21,7 +21,7 @@ state("LikeADragonGaiden", "Steam 1.10") // To-Do
     long FileTimer: 0x3823CA8, 0x358;
     long Money:     0x3823CA8, 0x420, 0x8;
     short Plot:     0x3823CA8, 0x730;
-    int  QTEPrompt: 0x3824B50, 0x60;
+    // int  QTEPrompt: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
@@ -32,7 +32,7 @@ state("LikeADragonGaiden", "M Store") // To-Do
     long FileTimer: 0x3823CA8, 0x358;
     long Money:     0x3823CA8, 0x420, 0x8;
     short Plot:     0x3823CA8, 0x730;
-    int  QTEPrompt: 0x3824B50, 0x60;
+    // int  QTEPrompt: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
@@ -40,11 +40,17 @@ state("LikeADragonGaiden", "M Store") // To-Do
 
 init 
 {
+    // Pointer table offset for the QTE (to be set below in the switch)
+    vars.Cucco = 0;
+    vars.QTE = null;
+    vars.FinalQTE = false;
+
     refreshRate = 60;
     vars.StartPrompt = false;
     vars.IsLoading = false;
     vars.LoadCount = 0;
     vars.Leash = false;
+
 
     vars.Splits = new List<int>();
 
@@ -70,8 +76,15 @@ init
 
     switch (MD5Hash)
     {
-        case "27B67CD71627BF7096823BDF038B7AD1": version = "Steam 1.12"; break;
-        case "859CDDBEC2B6F5B890CD4A96BBCFCFCC": version = "Steam 1.10"; break;
+        case "27B67CD71627BF7096823BDF038B7AD1":
+            version = "Steam 1.12";
+            vars.Cucco = 0x382A740;
+            break;
+
+        case "859CDDBEC2B6F5B890CD4A96BBCFCFCC":
+            version = "Steam 1.10";
+            break;
+
         // case "0": version = "M Store"; break;
 
         default: version = "Unknown"; break;
@@ -161,9 +174,18 @@ update
 {
     // if (old.Plot != current.Plot) print(String.Format("Plot: {0} -> {1}", old.Plot, current.Plot));
     // if (old.Magic != current.Magic) print(String.Format("Magic: {0} -> {1}", old.Magic ?? "NULL", current.Magic ?? "NULL"));
+    // if (current.HActAdj != old.HActAdj) print(String.Format("Magic: {0} -> {1}", old.HActAdj ?? "NULL", current.HActAdj ?? "NULL"));
+
+    // If we're at the final boss, reset vars.QTE every time there's a new HAct.
+    if (current.Plot == 271 && current.HActAdj != old.HActAdj)
+    {
+        vars.QTE = null;
+        vars.FinalQTE = current.Magic == "ab2290_ssd_last"; // Final QTE
+    }
 
     // We have to stop complex loads from falsely triggering in certain corner cases.
-    if (vars.Leash || current.Magic == "tougi_main_menu" || current.FileTimer != old.FileTimer && vars.IsLoading && (current.Magic == "at4060_win" || current.Magic == "at4070_fellow_win"))
+    if (vars.Leash || current.Magic == "tougi_main_menu"
+    || current.FileTimer != old.FileTimer && vars.IsLoading && (current.Magic == "at4060_win" || current.Magic == "at4070_fellow_win"))
     {
         vars.Leash = true;
         vars.IsLoading = vars.LoadCount > 0;
@@ -212,12 +234,31 @@ split
         return settings[vars.PlotPoints[current.Plot]];
     }
 
-    // Splits after the QTE in the Shishido fight in the Final Chapter
-    // (For now, it splits on both success and failure, and for QTE Hacts like Repeating Knee during the final boss)
-    else if (current.Plot == 271 && old.QTEPrompt == 2 && current.QTEPrompt == 1)
+    // Split on the final QTE against the final boss.
+    else if (vars.FinalQTE && !vars.Splits.Contains(271))
     {
-        vars.Splits.Add("END");
-        return settings["END"];
+        if (vars.QTE == null && current.HActAdj > 0)
+        {
+            // 0x70 for success, 0x74 for failure. We'll use a long to check both ints.
+            vars.QTE = new DeepPointer(vars.Cucco + ((current.HActAdj & 0xFFFFF) << 5), 0x70);
+        }
+
+        long result = vars.QTE.Deref<long>(game);
+
+        if (result == 1)
+        {
+            vars.QTE = null;
+            vars.FinalQTE = false;
+            vars.Splits.Add(271);
+            return settings["END"];
+        }
+
+        else if (result == 0x100000000)
+        {
+            vars.QTE = null;
+            vars.FinalQTE = false;
+            return false;
+        }
     }
 }
 
