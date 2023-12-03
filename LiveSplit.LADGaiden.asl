@@ -236,10 +236,14 @@ split
     // Split on the final QTE against the final boss.
     else if (vars.FinalQTE && !vars.Splits.Contains(271))
     {
-        if (vars.QTE == null && current.HActAdj > 0)
+        if (vars.QTE == null)
         {
-            // 0x70 for success, 0x74 for failure. We'll use a long to check both ints.
-            vars.QTE = new DeepPointer(vars.Cucco + ((current.HActAdj & 0xFFFFF) << 5), 0x70);
+            if (current.HActAdj > 0)
+            {
+                // 0x70 for success, 0x74 for failure. We'll use a long to check both ints.
+                vars.QTE = new DeepPointer(vars.Cucco + ((current.HActAdj & 0xFFFFF) << 5), 0x70);
+            }
+            else return false;
         }
 
         long result = vars.QTE.Deref<long>(game);
