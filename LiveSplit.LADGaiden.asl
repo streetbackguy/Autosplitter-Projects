@@ -1,12 +1,12 @@
+// Original Load Remover and Autosplitter by Streetbackguy
+// Improvements on Memory Addresses and Load Refinement by PlayingLikeAss (aposteriorist)
+
 state("LikeADragonGaiden", "Steam 1.12") 
 {
     long FileTimer: 0x3826D10, 0x358;
     long KiryuHP:   0x3826D10, 0x3A8;
     long Money:     0x3826D10, 0x420, 0x8;
     short Plot:     0x3826D10, 0x730;
-    // int QTEPrompt:  0x3827BD0, 0x60;
-    // int HActAdj:    0x3828190, 0x60, 0x8, 0x58, 0x8, 0x2B4;
-    // string60 Magic: 0x3828190, 0x60, 0x8, 0x58, 0x8, 0x7F2;
     int HActAdj:    0x383CBC0, 0xC0, 0x8, 0x18, 0x2B4;
     string60 Magic: 0x383CBC0, 0xC0, 0x8, 0x18, 0x7F2;
     bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
@@ -21,7 +21,6 @@ state("LikeADragonGaiden", "Steam 1.10") // To-Do
     long FileTimer: 0x3823CA8, 0x358;
     long Money:     0x3823CA8, 0x420, 0x8;
     short Plot:     0x3823CA8, 0x730;
-    // int  QTEPrompt: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
@@ -32,7 +31,6 @@ state("LikeADragonGaiden", "M Store") // To-Do
     long FileTimer: 0x3823CA8, 0x358;
     long Money:     0x3823CA8, 0x420, 0x8;
     short Plot:     0x3823CA8, 0x730;
-    // int  QTEPrompt: 0x3824B50, 0x60;
     bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
@@ -40,31 +38,37 @@ state("LikeADragonGaiden", "M Store") // To-Do
 
 init 
 {
+    // Needs to be explicitly set for things to function appropriately
+    refreshRate = 60;
+
     // Pointer table offset for the QTE (to be set below in the switch)
     vars.Cucco = 0;
+
+    // QTE variables to be used for the final boss split
     vars.QTE = null;
     vars.FinalQTE = false;
 
-    refreshRate = 60;
+    // Start / load variables
     vars.StartPrompt = false;
     vars.IsLoading = false;
     vars.LoadCount = 0;
     vars.Leash = false;
 
-
+    // Split tracker (using numbers this time around)
     vars.Splits = new List<int>();
 
     // Event list indices (fights adjusted to catch the event AFTER the fight)
+    // Corresponding filenames have "aston_" removed from the beginning
     vars.PlotPoints = new Dictionary<short, string>() {
-    {75, "btl01_0100"}, {78, "title_01"}, {84, "btl01_0200"}, {86, "btl01_0300"}, {91, "btl01_0400"},
-    {93, "btl01_0500"}, {98, "btl01_0600"}, {103, "btl01_0800"}, {108, "btl01_1000"}, {113, "c01_1900"},
-    {115, "btl01_1100"}, {119, "btl01_1300"}, {122, "title_02"}, {130, "btl02_0100"}, {138, "btl02_0200"},
-    {142, "btl02_0300"}, {1146, "FEET OF KSON"}, {145, "c02_1500"}, {149, "t02_0200"}, {152, "btl02_0400"},
-    {154, "btl02_0500"}, {156, "btl02_0600"}, {165, "c02_2400"}, {166, "btl02_0700"}, {168, "btl02_0800"},
-    {176, "btl02_0900"}, {178, "title_03"}, {186, "c03_0500"}, {193, "btl03_0100"}, {195, "btl03_0150"},
-    {197, "btl03_0200"}, {199, "title_04"}, {212, "c04_0800"}, {217, "btl04_0200"}, {222, "btl04_0300"},
-    {709, "DAN BRODY"}, {234, "btl04_0400"}, {238, "WAREHOUSE"}, {239, "btl04_0500"}, {241, "btl04_0600"},
-    {244, "title_05"}, {254, "t05_0200"}, {259, "btl05_0100"}, {267, "btl05_0200"}, {270, "btl05_0300"}, {272, "END"}
+        {75, "btl01_0100"}, {78, "title_01"}, {84, "btl01_0200"}, {86, "btl01_0300"}, {91, "btl01_0400"},
+        {93, "btl01_0500"}, {98, "btl01_0600"}, {103, "btl01_0800"}, {108, "btl01_1000"}, {113, "c01_1900"},
+        {115, "btl01_1100"}, {119, "btl01_1300"}, {122, "title_02"}, {130, "btl02_0100"}, {138, "btl02_0200"},
+        {142, "btl02_0300"}, {1146, "FEET OF KSON"}, {145, "c02_1500"}, {149, "t02_0200"}, {152, "btl02_0400"},
+        {154, "btl02_0500"}, {156, "btl02_0600"}, {165, "c02_2400"}, {166, "btl02_0700"}, {168, "btl02_0800"},
+        {176, "btl02_0900"}, {178, "title_03"}, {186, "c03_0500"}, {193, "btl03_0100"}, {195, "btl03_0150"},
+        {197, "btl03_0200"}, {199, "title_04"}, {212, "c04_0800"}, {217, "btl04_0200"}, {222, "btl04_0300"},
+        {709, "DAN BRODY"}, {234, "btl04_0400"}, {238, "WAREHOUSE"}, {239, "btl04_0500"}, {241, "btl04_0600"},
+        {244, "title_05"}, {254, "t05_0200"}, {259, "btl05_0100"}, {267, "btl05_0200"}, {270, "btl05_0300"}, {272, "END"}
     };
 
 
@@ -83,6 +87,7 @@ init
 
         case "859CDDBEC2B6F5B890CD4A96BBCFCFCC":
             version = "Steam 1.10";
+            // vars.Cucco = 0x0;
             break;
 
         // case "0": version = "M Store"; break;
@@ -172,15 +177,11 @@ isLoading
 
 update
 {
-    // if (old.Plot != current.Plot) print(String.Format("Plot: {0} -> {1}", old.Plot, current.Plot));
-    // if (old.Magic != current.Magic) print(String.Format("Magic: {0} -> {1}", old.Magic ?? "NULL", current.Magic ?? "NULL"));
-    // if (current.HActAdj != old.HActAdj) print(String.Format("Magic: {0} -> {1}", old.HActAdj ?? "NULL", current.HActAdj ?? "NULL"));
-
-    // If we're at the final boss, reset vars.QTE every time there's a new HAct.
+    // If we're at the final boss fight, reset the QTE variables every time there's a new HAct.
     if (current.Plot == 271 && current.HActAdj != old.HActAdj)
     {
         vars.QTE = null;
-        vars.FinalQTE = current.Magic == "ab2290_ssd_last"; // Final QTE
+        vars.FinalQTE = current.Magic == "ab2290_ssd_last"; // Filename of final QTE
     }
 
     // We have to stop complex loads from falsely triggering in certain corner cases.
@@ -203,7 +204,6 @@ update
 
     else if (vars.LoadCount > 0)
     {
-        // print(String.Format("[{0}] {1} load frames.", current.FileTimer, vars.LoadCount+1));
         vars.LoadCount = 0;
         vars.IsLoading = true;
     }
@@ -214,7 +214,6 @@ update
 start
 {
     vars.StartPrompt |= current.Plot == 0 && current.Money == 103968 && old.Money == 0;
-    if (vars.StartPrompt && current.Starter) print("START");
     return vars.StartPrompt && current.Starter;
 }
 
@@ -227,9 +226,9 @@ onStart
 
 split
 {
+    // Split for event indices.
     if (old.Plot != current.Plot && vars.PlotPoints.ContainsKey(current.Plot) && !vars.Splits.Contains(current.Plot))
     {
-        // print(String.Format("[{2}] Split: {0}, {1}", current.Plot, current.Magic, current.FileTimer));
         vars.Splits.Add(current.Plot);
         return settings[vars.PlotPoints[current.Plot]];
     }
@@ -265,7 +264,6 @@ split
 reset
 {
     // Reset when returning to the title screen.
-    // if (current.Plot == 0 && old.Plot > 0) print("RESET");
     return current.Plot == 0 && old.Plot > 0;
 }
 
