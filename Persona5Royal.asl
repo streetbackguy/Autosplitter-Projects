@@ -12,17 +12,28 @@ state("P5R", "Steam 1.03")
     int NGStart: 0x02AA1CB8, 0x48, 0xD0, 0x2E0, 0x68, 0x408, 0x78C;
 }
 
+state("P5R", "Steam 1.03B") 
+{
+    int Transitions: 0x02AA2100, 0x48, 0x4;
+    int Prompts: 0x26CEB00;
+    int NGStart: 0x02AA1C98, 0x80, 0x48, 0xD0, 0x2E0, 0x68, 0x408, 0x78C;
+}
+
 init 
 {
     switch(modules.First().ModuleMemorySize) 
     {
         case 405430272:
             version = "Steam 1.02";
-            break; 
+            break;
 
         case 395833344:
             version = "Steam 1.03";
-            break; 
+            break;
+        
+        case 404893696:
+            version = "Steam 1.03B";
+            break;
     }
 }
 
@@ -55,5 +66,11 @@ isLoading
 
 start
 {
-    return (current.NGStart != 0 && old.NGStart == 0 && current.Transitions == 3 && version == "Steam 1.03");
+    return (current.NGStart != 0 && old.NGStart == 0 && current.Transitions == 3 && version == "Steam 1.03" ||
+            current.NGStart != 0 && old.NGStart == 0 && current.Transitions == 3 && version == "Steam 1.03B");
+}
+
+exit
+{
+    timer.IsGameTimePaused = true;
 }
