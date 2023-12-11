@@ -1,6 +1,5 @@
 state("Hearthstone") 
 {
-    int LoadingBar: "UnityPlayer.dll", 0x153BEA0, 0x30, 0x1AC, 0x184, 0x30, 0x348, 0x5D0;
 }
 
 startup
@@ -9,6 +8,7 @@ startup
     vars.Helper.GameName = "Hearthstone";
 
     vars.Helper.AlertLoadless();
+    vars.Helper.LoadSceneManager = true;
 }
 
 init
@@ -16,13 +16,22 @@ init
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         vars.Helper["m_sceneLoaded"] = mono.Make<bool>("SceneMgr", "s_instance", 0x55);
+        vars.Helper["Loads"] = mono.Make<bool>("SceneMgr", "s_instance", 0x38, 0x38);
+        //vars.Helper["ProgressBar2"] = mono.Make<bool>("TransitionPopup", "m_transitionPopup");
+
+        //"LoadingPopup.prefab:ff9266f7c55faa94b9cd0f1371df7168"
 
         return true;
     });
 
 }
 
+update
+{
+    //print("Current: " + current.ProgressBar);
+}
+
 isLoading
 {
-    return !current.m_sceneLoaded || current.LoadingBar != 38412338;
+    return !current.m_sceneLoaded || current.Loads;
 }
