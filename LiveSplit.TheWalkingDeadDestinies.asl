@@ -71,7 +71,7 @@ isLoading
 
 split
 {
-    if(current.activeScene != old.activeScene)
+    if(current.activeScene != old.activeScene && !vars.Splits.Contains("old.activeScene"))
     {
         vars.Splits.Add(old.activeScene);
         return settings[old.activeScene];
