@@ -58,7 +58,6 @@ init
 update
 {
     current.activeScene = vars.Helper.Scenes.Active.Name == null ? current.activeScene : vars.Helper.Scenes.Active.Name;
-    current.loadingScene = vars.Helper.Scenes.Loaded[0].Name == null ? current.loadingScene : vars.Helper.Scenes.Loaded[0].Name;
 
     if (old.activeScene != current.activeScene)
     vars.Log("Scene changed: " + old.activeScene + " -> " + current.activeScene);
