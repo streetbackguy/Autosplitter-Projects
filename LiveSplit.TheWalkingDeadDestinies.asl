@@ -29,7 +29,7 @@ startup
             settings.Add("GenericSupplyRun3_Level_Take_Care_Of_Each_Other", true, "Episode 14: Take Care of Each Other", "ACT3");
         settings.Add("ACT4", true, "Act 4: Woodbury", "TWDD");
             settings.Add("WoodBury_Level_Base_WalkWithMe", true, "Episode 15: Walk With Me", "ACT4");
-            settings.Add("Woodbury_Level_Base_MadeToSuffer", true, "Episode 16: Made to Suffer", "ACT4");
+            settings.Add("WoodBury_Level_Base_MadeToSuffer", true, "Episode 16: Made to Suffer", "ACT4");
             settings.Add("WoodBury_Level_Base_Hounded", true, "Episode 17: Hounded", "ACT4");
             settings.Add("GenericSupplyRun3_Level_WhenTheDead", true, "Episode 18: When the Dead Come Knocking", "ACT4");
             settings.Add("Woodbury_Level_Base_SuicideKing", true, "Episode 19: The Suicide King", "ACT4");
@@ -58,9 +58,16 @@ init
 update
 {
     current.activeScene = vars.Helper.Scenes.Active.Name == null ? current.activeScene : vars.Helper.Scenes.Active.Name;
+    current.loadingScene = vars.Helper.Scenes.Loaded[0].Name == null ? current.loadingScene : vars.Helper.Scenes.Loaded[0].Name;
 
     if (old.activeScene != current.activeScene)
     vars.Log("Scene changed: " + old.activeScene + " -> " + current.activeScene);
+
+    if(old.activeScene != current.activeScene && current.activeScene == "GenericWoods02_Level")
+    {
+        vars.WLAHelper++;
+        print(vars.WLAHelper.ToString());
+    }
 }
 
 isLoading
@@ -70,10 +77,16 @@ isLoading
 
 split
 {
-    if(current.activeScene != old.activeScene && !vars.Splits.Contains("old.activeScene"))
+    if(current.activeScene != old.activeScene && old.activeScene != "GenericWoods02_Level")
     {
         vars.Splits.Add(old.activeScene);
         return settings[old.activeScene];
+    }
+
+    if(current.activeScene != old.activeScene && current.activeScene == "GreeneFarm_Level_HQ_03-04")
+    {
+        vars.Splits.Add("GenericWoods02_Level");
+        return settings["GenericWoods02_Level"];
     }
 }
 
