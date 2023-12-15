@@ -1,6 +1,21 @@
 // Original Load Remover and Autosplitter by Streetbackguy
 // Improvements on Memory Addresses and Load Refinement by PlayingLikeAss (aposteriorist)
 
+state("LikeADragonGaiden", "Steam 1.20") 
+{
+    long FileTimer: 0x3826D18, 0x358;
+    long KiryuHP:   0x3826D18, 0x3A8;
+    long Money:     0x3826D18, 0x420, 0x8;
+    short Plot:     0x3826D18, 0x730;
+    int HActAdj:    0x383CBC0, 0xC0, 0x8, 0x18, 0x2B4;
+    string60 Magic: 0x383CBC0, 0xC0, 0x8, 0x18, 0x7F2;
+    bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383E740, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
+}
+
 state("LikeADragonGaiden", "Steam 1.12") 
 {
     long FileTimer: 0x3826D10, 0x358;
@@ -80,6 +95,11 @@ init
 
     switch (MD5Hash)
     {
+        case "E6031417A5A3B7819DDCD26359860AB0":
+            version = "Steam 1.20";
+            vars.Cucco = 0x382A740;
+            break;
+
         case "27B67CD71627BF7096823BDF038B7AD1":
             version = "Steam 1.12";
             vars.Cucco = 0x382A740;
@@ -219,8 +239,12 @@ start
 
 onStart
 {
+    vars.QTE = null;
+    vars.FinalQTE = false;
     vars.StartPrompt = false;
-    vars.QTE = 0;
+    vars.IsLoading = false;
+    vars.LoadCount = 0;
+    vars.Leash = false;
     vars.Splits.Clear();
 }
 
@@ -273,13 +297,23 @@ reset
 
 onReset
 {
+    vars.QTE = null;
+    vars.FinalQTE = false;
     vars.StartPrompt = false;
-    vars.QTE = 0;
+    vars.IsLoading = false;
+    vars.LoadCount = 0;
+    vars.Leash = false;
     vars.Splits.Clear();
 }
 
 exit
 {
+    vars.QTE = null;
+    vars.FinalQTE = false;
+    vars.StartPrompt = false;
+    vars.IsLoading = false;
+    vars.LoadCount = 0;
+    vars.Leash = false;
     timer.IsGameTimePaused = true;
     vars.Splits.Clear();
 }
