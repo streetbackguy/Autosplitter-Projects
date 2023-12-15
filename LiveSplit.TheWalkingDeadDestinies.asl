@@ -17,7 +17,7 @@ startup
             settings.Add("GenericWoods01_Level", true, "Episode 4: Life Worth Living", "ACT1");
             settings.Add("AtlantaCamp_Level", true, "Episode 5: Overrun", "ACT1");
         settings.Add("ACT2", true, "Act 2: Survival of the Fittest", "TWDD");
-            settings.Add("GenericWoods02_Level", true, "Episode 6: What Lies Ahead", "ACT2");
+            settings.Add("GenericWoods02_Level2", true, "Episode 6: What Lies Ahead", "ACT2");
             settings.Add("School_Level_Structures", true, "Episode 7: Bloodletting", "ACT2");
             settings.Add("HospitalMH_Level_InternalArea_TS19", true, "Episode 8: Haunted", "ACT2");
             settings.Add("GreeneFarm_Level_PrettyMuch", true, "Episode 9: Pretty Much Dead Already", "ACT2");
@@ -62,12 +62,6 @@ update
 
     if (old.activeScene != current.activeScene)
     vars.Log("Scene changed: " + old.activeScene + " -> " + current.activeScene);
-
-    if(old.activeScene != current.activeScene && current.activeScene == "GenericWoods02_Level")
-    {
-        vars.WLAHelper++;
-        print(vars.WLAHelper.ToString());
-    }
 }
 
 isLoading
@@ -77,7 +71,7 @@ isLoading
 
 split
 {
-    if(current.activeScene != old.activeScene && old.activeScene != "GenericWoods02_Level")
+    if(current.activeScene != old.activeScene)
     {
         vars.Splits.Add(old.activeScene);
         return settings[old.activeScene];
@@ -85,8 +79,8 @@ split
 
     if(current.activeScene != old.activeScene && current.activeScene == "GreeneFarm_Level_HQ_03-04")
     {
-        vars.Splits.Add("GenericWoods02_Level");
-        return settings["GenericWoods02_Level"];
+        vars.Splits.Add("GenericWoods02_Level2");
+        return settings["GenericWoods02_Level2"];
     }
 }
 
