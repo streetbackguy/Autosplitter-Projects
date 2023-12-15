@@ -239,8 +239,12 @@ start
 
 onStart
 {
+    vars.QTE = null;
+    vars.FinalQTE = false;
     vars.StartPrompt = false;
-    vars.QTE = 0;
+    vars.IsLoading = false;
+    vars.LoadCount = 0;
+    vars.Leash = false;
     vars.Splits.Clear();
 }
 
@@ -293,13 +297,23 @@ reset
 
 onReset
 {
+    vars.QTE = null;
+    vars.FinalQTE = false;
     vars.StartPrompt = false;
-    vars.QTE = 0;
+    vars.IsLoading = false;
+    vars.LoadCount = 0;
+    vars.Leash = false;
     vars.Splits.Clear();
 }
 
 exit
 {
+    vars.QTE = null;
+    vars.FinalQTE = false;
+    vars.StartPrompt = false;
+    vars.IsLoading = false;
+    vars.LoadCount = 0;
+    vars.Leash = false;
     timer.IsGameTimePaused = true;
     vars.Splits.Clear();
 }
