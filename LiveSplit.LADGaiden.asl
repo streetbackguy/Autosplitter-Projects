@@ -91,40 +91,51 @@ init
         {244, "title_05"}, {254, "t05_0200"}, {259, "btl05_0100"}, {267, "btl05_0200"}, {270, "btl05_0300"}, {272, "END"}
     };
 
-    string MD5Hash;
-    using (var md5 = System.Security.Cryptography.MD5.Create())
-    try {
-        using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-        MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
-        print("Hash is: " + MD5Hash);
+    print(modules.First().ModuleMemorySize.ToString());
+    if (modules.First().ModuleMemorySize > 350000000)
+    {
+        string MD5Hash;
+        using (var md5 = System.Security.Cryptography.MD5.Create())
+        try {
+            using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
+            print("Hash is: " + MD5Hash);
 
-        switch (MD5Hash)
+            switch (MD5Hash)
+            {
+                case "E6031417A5A3B7819DDCD26359860AB0": // Memory size: 439140352
+                    version = "Steam 1.20";
+                    vars.Cucco = 0x382A740;
+                    break;
+
+                case "27B67CD71627BF7096823BDF038B7AD1":
+                    version = "Steam 1.12";
+                    vars.Cucco = 0x382A740;
+                    break;
+
+                case "859CDDBEC2B6F5B890CD4A96BBCFCFCC":
+                    version = "Steam 1.10";
+                    vars.Cucco = 0x382A740; // TO-DO
+                    break;
+
+                default:
+                    MessageBox.Show("ASL won't work for the moment. Send PLA this: " + MD5Hash);
+                    version = "Unknown";
+                    vars.Cucco = 0;
+                    break;
+            }
+        }
+        catch (UnauthorizedAccessException) // This shouldn't ever hit.
         {
-            case "E6031417A5A3B7819DDCD26359860AB0":
-                version = "Steam 1.20";
-                vars.Cucco = 0x382A740;
-                break;
-
-            case "27B67CD71627BF7096823BDF038B7AD1":
-                version = "Steam 1.12";
-                vars.Cucco = 0x382A740;
-                break;
-
-            case "859CDDBEC2B6F5B890CD4A96BBCFCFCC":
-                version = "Steam 1.10";
-                vars.Cucco = 0x382A740; // TO-DO
-                break;
-
-            default:
-                MessageBox.Show(MD5Hash);
-                version = "Unknown";
-                vars.Cucco = 0;
-                break;
+            MessageBox.Show(String.Format("Unexpected exception!\nSend PLA a screenshot or this number: {0}", modules.First().ModuleMemorySize));
+            version = "M Store 1.20";
+            vars.Cucco = 0x2DC6760;
         }
     }
-    catch (UnauthorizedAccessException) // Workaround for now
+
+    else
     {
-        version = "M Store 1.20";
+        version = "M Store 1.20"; // Memory size: 337735680
         vars.Cucco = 0x2DC6760;
     }
 }
