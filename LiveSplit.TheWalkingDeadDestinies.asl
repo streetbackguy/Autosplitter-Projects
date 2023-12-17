@@ -73,14 +73,12 @@ split
 {
     if(current.activeScene != old.activeScene)
     {
-        vars.Splits.Add(old.activeScene);
-        return settings[old.activeScene];
+        return vars.Splits.Add(old.activeScene) && settings[old.activeScene];
     }
 
     if(current.activeScene != old.activeScene && current.activeScene == "GreeneFarm_Level_HQ_03-04")
     {
-        vars.Splits.Add("GenericWoods02_Level2");
-        return settings["GenericWoods02_Level2"];
+        return vars.Splits.Add("GenericWoods02_Level2") && settings["GenericWoods02_Level2"];
     }
 }
 
