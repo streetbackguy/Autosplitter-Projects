@@ -1,7 +1,7 @@
 // Original Load Remover and Autosplitter by Streetbackguy
 // Improvements on Memory Addresses and Load Refinement by PlayingLikeAss (aposteriorist)
 
-state("LikeADragonGaiden", "Steam 1.20") 
+state("likeadragongaiden", "Steam 1.20") 
 {
     long FileTimer: 0x3826D18, 0x358;
     long KiryuHP:   0x3826D18, 0x3A8;
@@ -16,7 +16,7 @@ state("LikeADragonGaiden", "Steam 1.20")
     bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
 }
 
-state("LikeADragonGaiden", "Steam 1.12") 
+state("likeadragongaiden", "Steam 1.12") 
 {
     long FileTimer: 0x3826D10, 0x358;
     long KiryuHP:   0x3826D10, 0x3A8;
@@ -31,7 +31,7 @@ state("LikeADragonGaiden", "Steam 1.12")
     bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
 }
 
-state("LikeADragonGaiden", "Steam 1.10") // To-Do
+state("likeadragongaiden", "Steam 1.10") // To-Do
 {
     long FileTimer: 0x3823CA8, 0x358;
     long Money:     0x3823CA8, 0x420, 0x8;
@@ -41,14 +41,19 @@ state("LikeADragonGaiden", "Steam 1.10") // To-Do
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
 }
 
-state("LikeADragonGaiden", "M Store") // To-Do
+state("likeadragongaiden", "M Store 1.20")
 {
-    long FileTimer: 0x3823CA8, 0x358;
-    long Money:     0x3823CA8, 0x420, 0x8;
-    short Plot:     0x3823CA8, 0x730;
-    bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
-    bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
-    bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
+    long FileTimer: 0x2DAB0D0, 0x358;
+    long KiryuHP:   0x2DAB0D0, 0x3A8;
+    long Money:     0x2DAB0D0, 0x420, 0x8;
+    short Plot:     0x2DAB0D0, 0x730;
+    int HActAdj:    0x2DD8C40, 0xC0, 0x8, 0x18, 0x2B4;
+    string60 Magic: 0x2DD8C40, 0xC0, 0x8, 0x18, 0x7F2;
+    bool Loads:     0x2DDA7C0, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x2DDA7C0, 0xC0, 0x10, 0x554;
+    bool Pause:     0x2DDA7C0, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x2DDA7C0, 0xC0, 0x10, 0x684;
+    bool Costello:  0x2DDA7C0, 0xC0, 0x10, 0x6C4;
 }
 
 init 
@@ -86,33 +91,52 @@ init
         {244, "title_05"}, {254, "t05_0200"}, {259, "btl05_0100"}, {267, "btl05_0200"}, {270, "btl05_0300"}, {272, "END"}
     };
 
-
-    string MD5Hash;
-    using (var md5 = System.Security.Cryptography.MD5.Create())
-    using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-    MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
-    print("Hash is: " + MD5Hash);
-
-    switch (MD5Hash)
+    print(modules.First().ModuleMemorySize.ToString());
+    if (modules.First().ModuleMemorySize > 350000000)
     {
-        case "E6031417A5A3B7819DDCD26359860AB0":
-            version = "Steam 1.20";
-            vars.Cucco = 0x382A740;
-            break;
+        string MD5Hash;
+        using (var md5 = System.Security.Cryptography.MD5.Create())
+        try {
+            using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
+            print("Hash is: " + MD5Hash);
 
-        case "27B67CD71627BF7096823BDF038B7AD1":
-            version = "Steam 1.12";
-            vars.Cucco = 0x382A740;
-            break;
+            switch (MD5Hash)
+            {
+                case "E6031417A5A3B7819DDCD26359860AB0": // Memory size: 439140352
+                    version = "Steam 1.20";
+                    vars.Cucco = 0x382A740;
+                    break;
 
-        case "859CDDBEC2B6F5B890CD4A96BBCFCFCC":
-            version = "Steam 1.10";
-            // vars.Cucco = 0x0;
-            break;
+                case "27B67CD71627BF7096823BDF038B7AD1":
+                    version = "Steam 1.12";
+                    vars.Cucco = 0x382A740;
+                    break;
 
-        // case "0": version = "M Store"; break;
+                case "859CDDBEC2B6F5B890CD4A96BBCFCFCC":
+                    version = "Steam 1.10";
+                    vars.Cucco = 0x382A740; // TO-DO
+                    break;
 
-        default: version = "Unknown"; break;
+                default:
+                    MessageBox.Show("ASL won't work for the moment. Send PLA this: " + MD5Hash);
+                    version = "Unknown";
+                    vars.Cucco = 0;
+                    break;
+            }
+        }
+        catch (UnauthorizedAccessException) // This shouldn't ever hit.
+        {
+            MessageBox.Show(String.Format("Unexpected exception!\nSend PLA a screenshot or this number: {0}", modules.First().ModuleMemorySize));
+            version = "M Store 1.20";
+            vars.Cucco = 0x2DC6760;
+        }
+    }
+
+    else
+    {
+        version = "M Store 1.20"; // Memory size: 337735680
+        vars.Cucco = 0x2DC6760;
     }
 }
 
