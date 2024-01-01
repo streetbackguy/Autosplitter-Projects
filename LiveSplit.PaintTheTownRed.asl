@@ -32,9 +32,17 @@ start
     return !current.Loads && old.Loads;
 }
 
+update
+{
+    if(current.Loads != old.Loads)
+    {
+        print("Loading: " + old.Loads + " -> " + current.Loads);
+    }
+}
+
 isLoading
 {
-    return current.Loads || current.HasNotFinishedLoadingNewLevel || current.BeneathLoads == 1 && current.isBeneath;
+    return current.Loads || current.BeneathLoads == 1 && current.isBeneath;
 
 }
 
