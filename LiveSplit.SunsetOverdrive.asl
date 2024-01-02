@@ -1,15 +1,32 @@
-state("Sunset") 
+state("Sunset", "Steam") 
 {
     bool Loads: 0x42ACC48;
     int Starter: 0x45AA825;
-    int Autoreset: 0x433B878;
-    int MissionSuccess: 0x3C18FE0;
+    int MissionSuccess: 0x3C199B4;
+}
+
+state("Sunset", "Windows Store") 
+{
+    bool Loads: 0x45BADF0;
+    int Starter: 0x3EF82D8;
+    int MissionSuccess: 0x3EA2764;
+}
+
+init
+{
+    switch(modules.First().ModuleMemorySize)
+    {
+        case 80991232: version = "Steam"; break;
+        case 83477504: version = "Windows Store"; break;
+
+        default: version = "Unknown"; break;
+    }
 }
 
 startup
 {   
     settings.Add("SO", true, "Sunset Overdrive");
-        settings.Add("MISSIONS", true, "Split after each Mission is completed", "SO");
+        settings.Add("MISSIONS", true, "Split on each Mission Success Screen", "SO");
         //settings.Add("END", true, "Split when the Fizzco Building is defeated", "SO");
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
@@ -39,15 +56,10 @@ start
 
 split
 {
-    if(current.MissionSuccess != 0 && old.MissionSuccess == 0)
+    if(current.MissionSuccess == 3 && old.MissionSuccess != 3)
     {
         return settings["MISSIONS"];
     }
-}
-
-reset
-{
-    return current.Autoreset == 2 && old.Autoreset == 3;
 }
 
 exit
