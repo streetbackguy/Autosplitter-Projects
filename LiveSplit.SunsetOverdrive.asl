@@ -51,7 +51,7 @@ isLoading
 
 start
 {
-    return current.Starter == 2 && old.Starter == 0 && !current.Loads;
+    return current.Starter == 2 && !current.Loads;
 }
 
 split
