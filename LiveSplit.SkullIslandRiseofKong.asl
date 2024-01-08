@@ -31,14 +31,14 @@ startup
 {
     settings.Add("KONG", true, "Skull Island: Rise of Kong");
         settings.Add("SPLITS", true, "GameSplits", "KONG");
-            settings.Add("Tutorial", false, "Split on final hit from Gaw in the Tutorial", "SPLITS");
-            settings.Add("Worm", false, "Split on final hit on Gijja", "SPLITS");
+            settings.Add("Tutorial", false, "Split on final hit from Gaw in the Tutorial (WIP)", "SPLITS");
+            settings.Add("Worm", false, "Split on final hit on Gijja (WIP)", "SPLITS");
             settings.Add("Wetlands", false, "Split on exiting to the Wetlands", "SPLITS");
-            settings.Add("Crab", false, "Split on final hit on King Dengiz", "SPLITS");
+            settings.Add("Crab", false, "Split on final hit on King Dengiz (WIP)", "SPLITS");
             settings.Add("Jungle", false, "Split on exiting to the Dark jungle", "SPLITS");
-            settings.Add("Raptors", false, "Split on final hit on the Three Deathrunner Raptors", "SPLITS");
+            settings.Add("Raptors", false, "Split on final hit on the Three Deathrunner Raptors (WIP)", "SPLITS");
             settings.Add("Caverns", false, "Split on exiting to the Great Caverns", "SPLITS");
-            settings.Add("Spider", false, "Split on final hit on Queen Oyoq", "SPLITS");
+            settings.Add("Spider", false, "Split on final hit on Queen Oyoq (WIP)", "SPLITS");
             settings.Add("Wasteland", false, "Split on exiting to the Wasteland", "SPLITS");
             settings.Add("Gaw", false, "Split on final hit to Gaw", "SPLITS");
 
