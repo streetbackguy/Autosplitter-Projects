@@ -16,14 +16,14 @@ state("Monke-Win64-Shipping", "Steam 1.0")
 state("Monke-Win64-Shipping", "Steam 1.1")
 {
     int Loads: 0x6EA4468;
-    float KongHealth: 0x6EB2130, 0x30, 0x878, 0x318, 0x104;
+    float KongHealth: 0x6EEAB40, 0x30, 0x878, 0x110, 0x4B0, 0x2E0;
     float GijjaHealth: 0x6CA5C60, 0x68, 0x28, 0x458, 0x240;
     float DengizHealth: 0x6D6F2A0, 0x28, 0x28, 0xC80, 0x240;
     float DeathrunnerHealth: 0x6A4D060, 0x8, 0x298, 0x50, 0xA48, 0x210;
     float OyoqHealth: 0x6EB2130, 0x30, 0x878, 0x110, 0x490, 0x2B8, 0x100, 0x200;
     float GawHealth: 0x6C5FF48, 0xA8, 0x140, 0x750, 0xA4;
 
-    int Cinematics: 0xEC6AC0, 0xE0, 0x2A8;
+    int Cinematics: 0x6EA8CC8, 0xB8, 0x178, 0x378, 0x268, 0x0, 0x44;
     string255 Stages: 0x6F042D8, 0xAF8, 0x30;
 }
 
@@ -79,7 +79,7 @@ start
 
 split
 {
-    if(current.KongHealth < 10 && current.KongHealth != old.KongHealth && current.Cinematics == 2 && current.Stages == "Stage_0" && !vars.Splits.Contains("Tutorial"))
+    if(current.KongHealth < 75 && current.KongHealth != old.KongHealth && current.Cinematics == 2 && current.Stages == "Stage_0" && !vars.Splits.Contains("Tutorial"))
     {
         vars.Splits.Add("Tutorial");
         return settings["Tutorial"];
