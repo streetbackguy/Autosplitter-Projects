@@ -1,6 +1,22 @@
 // Original Load Remover and Autosplitter by Streetbackguy
 // Improvements on Memory Addresses and Load Refinement by PlayingLikeAss (aposteriorist)
 
+
+state("likeadragongaiden", "Steam 1.21") // TO-DO
+{
+    long FileTimer: 0x3826D18, 0x358;
+    long KiryuHP:   0x3826D18, 0x3A8;
+    long Money:     0x3826D18, 0x420, 0x8;
+    short Plot:     0x3826D18, 0x730;
+    int HActAdj:    0x383CBC0, 0xC0, 0x8, 0x18, 0x2B4;
+    string60 Magic: 0x383CBC0, 0xC0, 0x8, 0x18, 0x7F2;
+    bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383E740, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
+}
+
 state("likeadragongaiden", "Steam 1.20") 
 {
     long FileTimer: 0x3826D18, 0x358;
@@ -103,6 +119,11 @@ init
 
             switch (MD5Hash)
             {
+                case "50EF74E7E7F287CE08ACF5B89D51DBF1": // Memory size: 426950656 
+                    version = "Steam 1.21";
+                    vars.Cucco = 0x382A740; // TO-DO
+                    break;
+
                 case "E6031417A5A3B7819DDCD26359860AB0": // Memory size: 439140352
                     version = "Steam 1.20";
                     vars.Cucco = 0x382A740;
@@ -123,6 +144,7 @@ init
                     version = "Unknown";
                     vars.Cucco = 0;
                     break;
+
             }
         }
         catch (UnauthorizedAccessException) // This shouldn't ever hit.
