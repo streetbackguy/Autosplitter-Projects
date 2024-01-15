@@ -57,7 +57,7 @@ state("likeadragongaiden", "Steam 1.10") // To-Do
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
 }
 
-state("likeadragongaiden", "M Store 1.20")
+state("likeadragongaiden", "M Store 1.20 - 1.21")
 {
     long FileTimer: 0x2DAB0D0, 0x358;
     long KiryuHP:   0x2DAB0D0, 0x3A8;
@@ -107,6 +107,8 @@ init
         {244, "title_05"}, {254, "t05_0200"}, {259, "btl05_0100"}, {267, "btl05_0200"}, {270, "btl05_0300"}, {272, "END"}
     };
 
+    // Note to maintainers: I'm keeping memory module sizes in comments in case they're needed down the line.
+    // Microsoft Store games don't like File.Open, hence the try-catch.
     print(modules.First().ModuleMemorySize.ToString());
     if (modules.First().ModuleMemorySize > 350000000)
     {
@@ -144,20 +146,19 @@ init
                     version = "Unknown";
                     vars.Cucco = 0;
                     break;
-
             }
         }
         catch (UnauthorizedAccessException) // This shouldn't ever hit.
         {
             MessageBox.Show(String.Format("Unexpected exception!\nSend PLA a screenshot or this number: {0}", modules.First().ModuleMemorySize));
-            version = "M Store 1.20";
+            version = "M Store 1.20 - 1.21";
             vars.Cucco = 0x2DC6760;
         }
     }
 
     else
     {
-        version = "M Store 1.20"; // Memory size: 337735680
+        version = "M Store 1.20 - 1.21"; // Memory sizes: 337735680, 337424384
         vars.Cucco = 0x2DC6760;
     }
 }
@@ -306,6 +307,11 @@ split
     // Split on the final QTE against the final boss.
     else if (vars.FinalQTE && !vars.Splits.Contains(271))
     {
+        // As of 1.21, the QTE code we're mimicking is located (using .exe offsets) at:
+        //  Steam:      Success +0x25E1CED, Failure +0x25E1D82
+        //  M Store:    Success +0x1E69F8C, Failure +0x1E69FAC
+        // Look upwards from there to see the related logic and offsets.
+        
         if (vars.QTE == null)
         {
             if (current.HActAdj > 0)
