@@ -1,6 +1,22 @@
 // Original Load Remover and Autosplitter by Streetbackguy
 // Improvements on Memory Addresses and Load Refinement by PlayingLikeAss (aposteriorist)
 
+
+state("likeadragongaiden", "Steam 1.21")
+{
+    long FileTimer: 0x3826D28, 0x358;
+    long KiryuHP:   0x3826D28, 0x3A8;
+    long Money:     0x3826D28, 0x420, 0x8;
+    short Plot:     0x3826D28, 0x730;
+    int HActAdj:    0x383CBC0, 0xC0, 0x8, 0x18, 0x2B4;
+    string60 Magic: 0x383CBC0, 0xC0, 0x8, 0x18, 0x7F2;
+    bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383E740, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
+}
+
 state("likeadragongaiden", "Steam 1.20") 
 {
     long FileTimer: 0x3826D18, 0x358;
@@ -41,7 +57,7 @@ state("likeadragongaiden", "Steam 1.10") // To-Do
     bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
 }
 
-state("likeadragongaiden", "M Store 1.20")
+state("likeadragongaiden", "M Store 1.20 - 1.21")
 {
     long FileTimer: 0x2DAB0D0, 0x358;
     long KiryuHP:   0x2DAB0D0, 0x3A8;
@@ -91,6 +107,8 @@ init
         {244, "title_05"}, {254, "t05_0200"}, {259, "btl05_0100"}, {267, "btl05_0200"}, {270, "btl05_0300"}, {272, "END"}
     };
 
+    // Note to maintainers: I'm keeping memory module sizes in comments in case they're needed down the line.
+    // Microsoft Store games don't like File.Open, hence the try-catch.
     print(modules.First().ModuleMemorySize.ToString());
     if (modules.First().ModuleMemorySize > 350000000)
     {
@@ -103,6 +121,11 @@ init
 
             switch (MD5Hash)
             {
+                case "50EF74E7E7F287CE08ACF5B89D51DBF1": // Memory size: 426950656 
+                    version = "Steam 1.21";
+                    vars.Cucco = 0x382A740;
+                    break;
+
                 case "E6031417A5A3B7819DDCD26359860AB0": // Memory size: 439140352
                     version = "Steam 1.20";
                     vars.Cucco = 0x382A740;
@@ -128,14 +151,14 @@ init
         catch (UnauthorizedAccessException) // This shouldn't ever hit.
         {
             MessageBox.Show(String.Format("Unexpected exception!\nSend PLA a screenshot or this number: {0}", modules.First().ModuleMemorySize));
-            version = "M Store 1.20";
+            version = "M Store 1.20 - 1.21";
             vars.Cucco = 0x2DC6760;
         }
     }
 
     else
     {
-        version = "M Store 1.20"; // Memory size: 337735680
+        version = "M Store 1.20 - 1.21"; // Memory sizes: 337735680, 337424384
         vars.Cucco = 0x2DC6760;
     }
 }
@@ -284,6 +307,11 @@ split
     // Split on the final QTE against the final boss.
     else if (vars.FinalQTE && !vars.Splits.Contains(271))
     {
+        // As of 1.21, the QTE code we're mimicking is located (using .exe offsets) at:
+        //  Steam:      Success +0x25E1CED, Failure +0x25E1D82
+        //  M Store:    Success +0x1E69F8C, Failure +0x1E69FAC
+        // Look upwards from there to see the related logic and offsets.
+        
         if (vars.QTE == null)
         {
             if (current.HActAdj > 0)
