@@ -219,7 +219,7 @@ startup
         settings.Add("btl05_0100", false, "Ch.5: Shishitani and Friends", "FIGHTS");
         settings.Add("btl05_0200", false, "Ch.5: Breakup Brouhaha", "FIGHTS");
         settings.Add("btl05_0300", false, "Ch.5: Shirts v. Skins", "FIGHTS");
-        settings.Add("END", false, "Ch.5: Final Boss", "FIGHTS");
+        // settings.Add("END", false, "Ch.5: Final Boss", "FIGHTS");
 
     settings.Add("SETPIECES", false, "Setpiece Splits (before boss)", "LADG");
         settings.Add("btl01_1200", false, "Ch.1: Daidoji Temple", "SETPIECES");
@@ -329,7 +329,8 @@ split
             vars.QTE = null;
             vars.FinalQTE = false;
             vars.Splits.Add(271);
-            return settings["END"];
+            // return settings["END"];
+            return false;
         }
 
         else if (result == 0x100000000)
