@@ -158,7 +158,7 @@ init
 
     else
     {
-        version = "M Store 1.20 - 1.21"; // Memory sizes: 337735680, 337424384
+        version = "M Store 1.20 - 1.21"; // Memory sizes: 337735680, 337424384, 332951552
         vars.Cucco = 0x2DC6760;
     }
 }
