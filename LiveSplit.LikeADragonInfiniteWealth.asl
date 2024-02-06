@@ -35,7 +35,7 @@ startup
             "This game uses Time without Loads (Game Time) as the main timing method.\n"+
             "LiveSplit is currently set to show Real Time (RTA).\n"+
             "Would you like to set the timing method to Game Time?",
-            "LiveSplit | Like a Dragon Gaiden: Infinite Wealth",
+            "LiveSplit | Like a Dragon: Infinite Wealth",
             MessageBoxButtons.YesNo, MessageBoxIcon.Question
         );
 
