@@ -46,20 +46,20 @@ startup
     settings.Add("LADIF", true, "Like a Dragon: Infinite Wealth");
 
     settings.Add("Chapter", true, "Chapter Card Splits", "LADIF");
-        settings.Add("title_01", true, "Chapter 1: Hidden Dragon", "Chapters");
-        settings.Add("title_02", true, "Chapter 2: Castle on the Water", "Chapters");
-        settings.Add("title_03", true, "Chapter 3: The Man Who Knew Too Much", "Chapters");
-        settings.Add("title_04", true, "Chapter 4: The Laughing Man", "Chapters");
-        settings.Add("title_04", true, "Chapter 5: The Laughing Man", "Chapters");
-        settings.Add("title_04", true, "Chapter 6: The Laughing Man", "Chapters");
-        settings.Add("title_04", true, "Chapter 7: The Laughing Man", "Chapters");
-        settings.Add("title_04", true, "Chapter 8: The Laughing Man", "Chapters");
-        settings.Add("title_04", true, "Chapter 9: The Laughing Man", "Chapters");
-        settings.Add("title_04", true, "Chapter 10: The Laughing Man", "Chapters");
-        settings.Add("title_04", true, "Chapter 11: The Laughing Man", "Chapters");
-        settings.Add("title_04", true, "Chapter 12: The Laughing Man", "Chapters");
-        settings.Add("title_04", true, "Chapter 13: The Laughing Man", "Chapters");
-        settings.Add("title_05", true, "Final Chapter: The Man Who Reclaimed His Name", "Chapters");
+        settings.Add("title_01", true, "Chapter 1: Doin' the Best I Can", "Chapters");
+        settings.Add("title_02", true, "Chapter 2: Paradise, Hawaiian Style", "Chapters");
+        settings.Add("title_03", true, "Chapter 3: The Fool", "Chapters");
+        settings.Add("title_04", true, "Chapter 4: In the Ghetto", "Chapters");
+        settings.Add("title_04", true, "Chapter 5: Suspicious Minds", "Chapters");
+        settings.Add("title_04", true, "Chapter 6: Puppet on a String", "Chapters");
+        settings.Add("title_04", true, "Chapter 7: Trouble", "Chapters");
+        settings.Add("title_04", true, "Chapter 8: Return to Sender", "Chapters");
+        settings.Add("title_04", true, "Chapter 9: Hard Headed Woman", "Chapters");
+        settings.Add("title_04", true, "Chapter 10: Don't Be Cruel", "Chapters");
+        settings.Add("title_04", true, "Chapter 11: Devil in Disguise", "Chapters");
+        settings.Add("title_04", true, "Chapter 12: For Ol' Times Sake", "Chapters");
+        settings.Add("title_04", true, "Chapter 13: Promised Land", "Chapters");
+        settings.Add("title_05", true, "Final Chapter: If I Can Dream", "Chapters");
 }
 
 isLoading
