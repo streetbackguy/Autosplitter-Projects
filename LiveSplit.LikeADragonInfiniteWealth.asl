@@ -1,4 +1,4 @@
-// Original Load Remover and Autosplitter by Streetbackguy
+// Original Load Remover by Streetbackguy
 
 state("LikeADragon8", "Steam 1.14")
 {
@@ -45,7 +45,7 @@ startup
 
     settings.Add("LADIF", true, "Like a Dragon: Infinite Wealth");
 
-    settings.Add("Chapter", true, "Chapter Card Splits", "LADIF");
+    settings.Add("Chapter", true, "End of Chapter Splits", "LADIF");
         settings.Add("title_01", true, "Chapter 1: Doin' the Best I Can", "Chapters");
         settings.Add("title_02", true, "Chapter 2: Paradise, Hawaiian Style", "Chapters");
         settings.Add("title_03", true, "Chapter 3: The Fool", "Chapters");
