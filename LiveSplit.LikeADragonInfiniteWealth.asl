@@ -4,6 +4,9 @@ state("LikeADragon8", "Steam 1.14")
 {
     bool LoadingScreen: 0x38C96E0;
     bool Transitions: 0x38DF980, 0x80, 0x90, 0x104;
+    uint Transitions2: 0x316E134;
+    bool Overlay: 0x48E8188;
+    uint PopUp: 0x31389E0, 0x868;
     uint Starter: 0x38C7FF4;
 }
 
@@ -45,26 +48,26 @@ startup
 
     settings.Add("LADIF", true, "Like a Dragon: Infinite Wealth");
 
-    settings.Add("Chapter", true, "End of Chapter Splits", "LADIF");
+    settings.Add("Chapters", true, "End of Chapter Splits", "LADIF");
         settings.Add("title_01", true, "Chapter 1: Doin' the Best I Can", "Chapters");
         settings.Add("title_02", true, "Chapter 2: Paradise, Hawaiian Style", "Chapters");
         settings.Add("title_03", true, "Chapter 3: The Fool", "Chapters");
         settings.Add("title_04", true, "Chapter 4: In the Ghetto", "Chapters");
-        settings.Add("title_04", true, "Chapter 5: Suspicious Minds", "Chapters");
-        settings.Add("title_04", true, "Chapter 6: Puppet on a String", "Chapters");
-        settings.Add("title_04", true, "Chapter 7: Trouble", "Chapters");
-        settings.Add("title_04", true, "Chapter 8: Return to Sender", "Chapters");
-        settings.Add("title_04", true, "Chapter 9: Hard Headed Woman", "Chapters");
-        settings.Add("title_04", true, "Chapter 10: Don't Be Cruel", "Chapters");
-        settings.Add("title_04", true, "Chapter 11: Devil in Disguise", "Chapters");
-        settings.Add("title_04", true, "Chapter 12: For Ol' Times Sake", "Chapters");
-        settings.Add("title_04", true, "Chapter 13: Promised Land", "Chapters");
-        settings.Add("title_05", true, "Final Chapter: If I Can Dream", "Chapters");
+        settings.Add("title_05", true, "Chapter 5: Suspicious Minds", "Chapters");
+        settings.Add("title_06", true, "Chapter 6: Puppet on a String", "Chapters");
+        settings.Add("title_07", true, "Chapter 7: Trouble", "Chapters");
+        settings.Add("title_08", true, "Chapter 8: Return to Sender", "Chapters");
+        settings.Add("title_09", true, "Chapter 9: Hard Headed Woman", "Chapters");
+        settings.Add("title_10", true, "Chapter 10: Don't Be Cruel", "Chapters");
+        settings.Add("title_11", true, "Chapter 11: Devil in Disguise", "Chapters");
+        settings.Add("title_12", true, "Chapter 12: For Ol' Times Sake", "Chapters");
+        settings.Add("title_13", true, "Chapter 13: Promised Land", "Chapters");
+        settings.Add("title_14", true, "Final Chapter: If I Can Dream", "Chapters");
 }
 
 isLoading
 {
-    return current.LoadingScreen || current.Transitions;
+    return current.LoadingScreen && current.Transitions2 == 0 || current.Transitions2 == 0 && current.Transitions;
 }
 
 start
