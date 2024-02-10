@@ -8,6 +8,13 @@ state("LikeADragon8", "Steam 1.14")
     uint Starter: 0xB6465B0;
 }
 
+state("LikeADragon8", "Steam 1.15")
+{
+    uint LoadingScreen: 0x38E09D0, 0x30, 0x0, 0x18, 0x24;
+    bool Transitions: 0x38E09C0, 0x50, 0x50, 0x104;
+    uint Starter: 0x38E09C0, 0x50, 0x50, 0xF4;
+}
+
 init
 {
     string MD5Hash;
@@ -20,6 +27,10 @@ init
             {
                 case "04B58254F97E508F43F7BFDD82807981":
                     version = "Steam 1.14";
+                    break;
+
+                case "B2B098E1ACF9906278A251159E3160D0":
+                    version = "Steam 1.15";
                     break;
 
                 default:
@@ -65,12 +76,18 @@ startup
 
 isLoading
 {
-    return current.LoadingScreen && current.LoadHelper == 0 || current.LoadHelper == 0 && current.Transitions;
+    //1.14
+    //return current.LoadingScreen && current.LoadHelper == 0 || current.LoadHelper == 0 && current.Transitions
+
+    return current.LoadingScreen == 1065353216 && current.Transitions;
 }
 
 start
 {
-    return current.Starter == 33024 && old.Starter == 32768 && current.Transitions;
+    //1.14
+    //return current.Starter == 33024 && old.Starter == 32768 && current.Transitions;
+
+    return current.Starter == 1 && old.Starter == 0;
 }
 
 exit
