@@ -5,14 +5,15 @@ state("LikeADragon8", "Steam 1.14")
     bool LoadingScreen: 0x38C96E0;
     bool Transitions: 0x38DF980, 0x80, 0x90, 0x104;
     uint LoadHelper: 0x316E134;
-    uint Starter: 0xB6465B0;
+    uint NGStarter: 0xB6465B0;
 }
 
 state("LikeADragon8", "Steam 1.15")
 {
     uint LoadingScreen: 0x38E09D0, 0x30, 0x0, 0x18, 0x24;
     bool Transitions: 0x38E09C0, 0x50, 0x50, 0x104;
-    uint Starter: 0x38E09C0, 0x50, 0x50, 0xF4;
+    uint NGStarter: 0x38E09C0, 0x50, 0x50, 0xF4;
+    uint NGPlusStarter: 0x48E7930, 0x18, 0x60, 0x30, 0x0, 0xC0, 0x30, 0xFC0;
 }
 
 init
@@ -85,9 +86,14 @@ isLoading
 start
 {
     //1.14
-    //return current.Starter == 33024 && old.Starter == 32768 && current.Transitions;
+    //return current.NGStarter == 33024 && old.NGStarter == 32768 && current.Transitions;
 
-    return current.Starter == 1 && old.Starter == 0;
+    return current.NGStarter == 1 && old.NGStarter == 0 || current.NGPlusStarter !=  old.NGPlusStarter && current.NGPlusStarter != 0;
+}
+
+onStart
+{
+    timer.IsGameTimePaused = true;
 }
 
 exit
