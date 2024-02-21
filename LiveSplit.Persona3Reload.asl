@@ -1,8 +1,6 @@
 state("P3R")
 {
-    int Transitions: 0x55B8018, 0x28, 0xD0;
-    int Dialogue: 0x55B9800, 0x20, 0x1B4;
-    bool DayorDateChange: 0x55B8000, 0x9C;
+    int Cutscenes: 0x58AC4E0;
 }
 
 startup
@@ -109,7 +107,7 @@ update
 
 isLoading
 {
-	return current.camTarget == "ItfController" || current.loading;
+	return current.camTarget == "ItfController" && current.Cutscenes != 3;
 }
 
 exit
