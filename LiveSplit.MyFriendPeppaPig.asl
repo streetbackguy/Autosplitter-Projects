@@ -12,7 +12,7 @@ startup
         settings.Add("MTN", true, "Split after Forest/Snowy Mountain", "MFPP");
         settings.Add("WIND", true, "Split after Windy Castle", "MFPP");
         settings.Add("MAUS", true, "Split after The Museum", "MFPP");
-        settings.Add("END", true, "Split when interacting with the Carousel", "MFPP");
+        //settings.Add("END", true, "Split when interacting with the Carousel", "MFPP");
 
     vars.Log = (Action<object>)(output => print("[My Friend Peppa Pig] " + output));
 
