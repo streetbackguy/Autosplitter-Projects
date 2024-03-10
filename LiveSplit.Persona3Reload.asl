@@ -1,6 +1,9 @@
 state("P3R")
 {
-    int Cutscenes: 0x58AC4E0;
+    int Cutscenes: 0x5B6B4C0;
+    int DayChange: 0x55D3770, 0x1F8;
+    int TimeChange: 0x55D3770, 0x1F0;
+    int VRandDH: 0x5869C90, 0x268, 0x28, 0x10; //Velvet Room = 30722, Dark Hour = 25042
 }
 
 startup
@@ -107,10 +110,10 @@ update
 
 isLoading
 {
-	return current.camTarget == "ItfController" && current.Cutscenes != 3;
+	return current.camTarget == "ItfController" && current.Cutscenes != 39 || current.DayChange == 1 || current.TimeChange == 1 || current.VRandDH == 30722 || current.VRandDH == 25042;
 }
 
-exit
+start
 {
-    timer.IsGameTimePaused = true;
+    return current.camTarget == "ItfController" && old.camTarget == "CameraActor";
 }
