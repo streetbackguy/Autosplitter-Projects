@@ -24,6 +24,14 @@ state("LikeADragon8", "Steam 1.17")
     uint NGPlusStarter: 0x48E8930, 0x18, 0x60, 0x30, 0x0, 0xC0, 0x30, 0xFC0;
 }
 
+state("LikeADragon8", "Steam 1.18")
+{
+    uint LoadingScreen: 0x38E2A10, 0x30, 0x0, 0x18, 0x24;
+    bool Transitions: 0x38F69C0, 0x50, 0x50, 0x104;
+    uint NGStarter: 0x38F69C0, 0x50, 0x50, 0xF4;
+    uint NGPlusStarter: 0x95FA620;
+}
+
 init
 {
     string MD5Hash;
@@ -44,6 +52,10 @@ init
 
                 case "8EB3013612252C7D78380ED5D29933B6":
                     version = "Steam 1.17";
+                    break;
+                
+                case "2BDAC9A7122D27196F29DFB5AC660578":
+                    version = "Steam 1.18";
                     break;
 
                 default:
@@ -95,7 +107,7 @@ isLoading
 
 start
 {
-    return current.NGStarter == 1 && old.NGStarter == 0 || current.NGPlusStarter !=  old.NGPlusStarter && current.NGPlusStarter != 0;
+    return current.NGStarter == 1 && old.NGStarter == 0 || current.NGPlusStarter != old.NGPlusStarter && current.NGPlusStarter != 0;
 }
 
 onStart
