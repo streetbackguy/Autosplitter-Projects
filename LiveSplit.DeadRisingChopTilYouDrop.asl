@@ -20,6 +20,7 @@ init
 {
     vars.Helper.Load = (Func<dynamic, bool>)(emu => 
     {
+        emu.Make<byte>("Starter", 0x806FDD80);
         emu.Make<int>("StartTrigger", 0x806FDD70);
         emu.Make<int>("MissionResult", 0x9347631C);
         emu.Make<int>("CaseComplete", 0x806EA96C);
@@ -37,12 +38,12 @@ start
     //Starts when selecting Difficulty from the New Game menu
     if(settings["ANY"])
     {
-        return old.StartTrigger == 10 && current.StartTrigger == 11;
+        return old.Starter == 129 && old.StartTrigger == 10 && current.StartTrigger == 11;
     }
 
     if(settings["OJ"])
     {
-        return current.OddJobActive == 1 && old.OddJobActive == 0;
+        return current.StartTrigger == 43 && current.OddJobActive == 1 && old.OddJobActive == 0;
     }
 }
 
