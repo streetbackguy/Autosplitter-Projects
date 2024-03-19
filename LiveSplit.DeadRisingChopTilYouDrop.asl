@@ -9,22 +9,25 @@ startup
     Assembly.Load(File.ReadAllBytes("Components/emu-help-v2")).CreateInstance("Wii");
 
     settings.Add("CTYD", true, "Dead Rising: Chop Til You Drop");
-        settings.Add("ANY", true, "Any%", "CTYD");
-            settings.Add("MRS", true, "Split after each Mission Results Screen", "ANY");
-            settings.Add("CC", true, "Split after each Case Summary Screen", "ANY");
+        settings.Add("ANY", false, "Any%", "CTYD");
+            settings.Add("MRS", false, "Split after each Mission Results Screen", "ANY");
+            settings.Add("CC", false, "Split after each Case Summary Screen", "ANY");
+        settings.Add("OJ", false, "Odd Jobs", "CTYD");
+            settings.Add("OJC", false, "Split after each Odd Job is completed", "OJ");
 }
 
 init
 {
     vars.Helper.Load = (Func<dynamic, bool>)(emu => 
     {
-        emu.Make<byte>("StartTrigger1", 0x806FDD80);
-        emu.Make<int>("StartTrigger2", 0x806FDD70);
+        emu.Make<int>("StartTrigger", 0x806FDD70);
         emu.Make<int>("MissionResult", 0x9347631C);
         emu.Make<int>("CaseComplete", 0x806EA96C);
+        emu.Make<int>("OddJobActive", 0x806D1470);
+        emu.Make<int>("OddJobComplete", 0x806F9FA4);
         emu.Make<float>("IGT", 0x806D3E94);
         emu.Make<float>("MissionTimer", 0x806D3E98);
-        
+
         return true;
     });
 }
@@ -32,7 +35,15 @@ init
 start
 {
     //Starts when selecting Difficulty from the New Game menu
-    return old.StartTrigger1 == 129 && (current.StartTrigger2 == 11 || current.StartTrigger2 == 12 || current.StartTrigger2 == 13);
+    if(settings["ANY"])
+    {
+        return old.StartTrigger == 10 && current.StartTrigger == 11;
+    }
+
+    if(settings["OJ"])
+    {
+        return current.OddJobActive == 1 && old.OddJobActive == 0;
+    }
 }
 
 split
@@ -48,15 +59,28 @@ split
     {
         return settings["CC"];
     }
-}
 
-update
-{
-    if (old.StartTrigger1 != current.StartTrigger1) print("Start Trigger 1: " + current.StartTrigger1.ToString());
-    if (old.StartTrigger2 != current.StartTrigger2) print("Start Trigger 2: " + current.StartTrigger2.ToString());
+    //Splits after each Odd Job is completed
+    if(current.OddJobComplete != old.OddJobComplete && current.OddJobComplete != 0)
+    {
+        return settings["OJC"];
+    }
 }
 
 gameTime
 {
-    return TimeSpan.FromSeconds(current.IGT);
+    if(settings["ANY"])
+    {
+        return TimeSpan.FromSeconds(current.IGT);
+    }
+
+    if(settings["OJ"])
+    {
+        return TimeSpan.FromSeconds(current.MissionTimer);
+    }
+}
+
+reset
+{
+    return current.StartTrigger == 0 && old.StartTrigger != 0;
 }
