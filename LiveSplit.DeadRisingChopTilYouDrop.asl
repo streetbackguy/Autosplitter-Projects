@@ -1,3 +1,4 @@
+//Made with RINE08 version of the game and Dolphin 5.0-21088
 //Big thanks to Nikoheart for the help in getting started with the Autostart Addresses
 state("LiveSplit")
 {
@@ -6,6 +7,11 @@ state("LiveSplit")
 startup
 {
     Assembly.Load(File.ReadAllBytes("Components/emu-help-v2")).CreateInstance("Wii");
+
+    settings.Add("CTYD", true, "Dead Rising: Chop Til You Drop");
+        settings.Add("ANY", true, "Any%", "CTYD");
+            settings.Add("MRS", true, "Split after each Mission Results Screen", "ANY");
+            settings.Add("CC", true, "Split after each Case Summary Screen", "ANY");
 }
 
 init
@@ -14,8 +20,10 @@ init
     {
         emu.Make<byte>("StartTrigger1", 0x806FDD80);
         emu.Make<int>("StartTrigger2", 0x806FDD70);
-        emu.Make<int>("MissionResult", 0x806D4DF8);
+        emu.Make<int>("MissionResult", 0x9347631C);
+        emu.Make<int>("CaseComplete", 0x806EA96C);
         emu.Make<float>("IGT", 0x806D3E94);
+        emu.Make<float>("MissionTimer", 0x806D3E98);
         
         return true;
     });
@@ -30,7 +38,16 @@ start
 split
 {
     //Splits after each Mission Result Screen
-    return current.MissionResult == 2 && old.MissionResult == 1;
+    if(current.MissionResult == 1 && old.MissionResult == 0 && current.MissionTimer == old.MissionTimer)
+    {
+        return settings["MRS"];
+    }
+
+    //Splits after each Case Summary Screen
+    if(current.CaseComplete == 0 && old.CaseComplete != 0)
+    {
+        return settings["CC"];
+    }
 }
 
 update
