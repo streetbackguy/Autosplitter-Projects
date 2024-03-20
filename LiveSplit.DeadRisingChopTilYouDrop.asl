@@ -8,8 +8,6 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/emu-help-v2")).CreateInstance("Wii");
 
-    vars.Sw = new Stopwatch();
-    vars.minimumtime = TimeSpan.FromSeconds(10);
     refreshRate = 30;
 
     settings.Add("CTYD", true, "Dead Rising: Chop Til You Drop");
@@ -18,6 +16,8 @@ startup
             settings.Add("CC", false, "Split after each Case Summary Screen", "ANY");
         settings.Add("OJ", false, "Odd Jobs", "CTYD");
             settings.Add("OJC", false, "Split after each Odd Job is completed", "OJ");
+        settings.Add("SA", false, "Second Amendment", "CTYD");
+            settings.Add("SAC", false, "Split after each Second Amendment Mission is completed", "SA");
 }
 
 init
@@ -49,14 +49,10 @@ start
     {
         return current.OddJobActive == 1 && current.MissionTimer > 0 && old.MissionTimer == 0;
     }
-}
 
-update
-{
-    // This stops the timer to avoid making it running forever
-    if (vars.Sw.Elapsed >= vars.minimumtime)
+    if(settings["SA"])
     {
-        vars.Sw.Stop();
+        return current.OddJobActive == 1 && current.MissionTimer <= 180 && old.MissionTimer == 0;
     }
 }
 
@@ -78,7 +74,14 @@ split
     if(current.OddJobComplete != old.OddJobComplete && current.OddJobComplete != 0)
     {
 
-        return settings["OJC"] && !vars.Sw.IsRunning;
+        return settings["OJC"];
+    }
+
+    //Splits after each Second Amendment Mission is completed
+    if(current.OddJobComplete != old.OddJobComplete && current.OddJobComplete != 0)
+    {
+
+        return settings["SAC"];
     }
 }
 
@@ -93,14 +96,9 @@ gameTime
     {
         return TimeSpan.FromSeconds(current.MissionTimer);
     }
-}
 
-onSplit
-{
-    vars.Sw.Restart();
-}
-
-onStart
-{
-    vars.Sw.Restart();
+    if(settings["SA"])
+    {
+        return TimeSpan.FromSeconds(current.IGT);
+    }
 }
