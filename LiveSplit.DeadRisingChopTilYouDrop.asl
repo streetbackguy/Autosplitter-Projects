@@ -8,6 +8,10 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/emu-help-v2")).CreateInstance("Wii");
 
+    vars.Sw = new Stopwatch();
+    vars.minimumtime = TimeSpan.FromSeconds(10);
+    refreshRate = 30;
+
     settings.Add("CTYD", true, "Dead Rising: Chop Til You Drop");
         settings.Add("ANY", false, "Any%", "CTYD");
             settings.Add("MRS", false, "Split after each Mission Results Screen", "ANY");
@@ -43,7 +47,16 @@ start
 
     if(settings["OJ"])
     {
-        return current.StartTrigger == 43 && current.OddJobActive == 1 && old.OddJobActive == 0;
+        return current.OddJobActive == 1 && current.MissionTimer > 0 && old.MissionTimer == 0;
+    }
+}
+
+update
+{
+    // This stops the timer to avoid making it running forever
+    if (vars.Sw.Elapsed >= vars.minimumtime)
+    {
+        vars.Sw.Stop();
     }
 }
 
@@ -64,7 +77,8 @@ split
     //Splits after each Odd Job is completed
     if(current.OddJobComplete != old.OddJobComplete && current.OddJobComplete != 0)
     {
-        return settings["OJC"];
+
+        return settings["OJC"] && !vars.Sw.IsRunning;
     }
 }
 
@@ -81,7 +95,12 @@ gameTime
     }
 }
 
-reset
+onSplit
 {
-    return current.StartTrigger == 0 && old.StartTrigger != 0;
+    vars.Sw.Restart();
+}
+
+onStart
+{
+    vars.Sw.Restart();
 }
