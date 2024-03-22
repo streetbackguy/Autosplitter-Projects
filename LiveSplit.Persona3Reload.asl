@@ -1,8 +1,8 @@
-state("P3R")
+state("P3R", "Steam 1.00")
 {
-    int Cutscenes: 0x5B6B4C0;
-    int DayChange: 0x55D3770, 0x1F8;
-    int TimeChange: 0x55D3770, 0x1F0;
+    int Cutscenes: 0x5B6B4C0; // 39 during cutscenes
+    int DayChange: 0x55D3770, 0x1F8; //1 when changing day, 2 when not
+    int TimeChange: 0x55D3770, 0x1F0; //1 when changing time of day, 2 when not
     int VRandDH: 0x5869C90, 0x268, 0x28, 0x10; //Velvet Room = 30722, Dark Hour = 25042
 }
 
@@ -74,6 +74,23 @@ init
     //helps with null values throwing errors - i dont exactly know why, but thanks to Nikoheart for this
     current.camTarget = "";
     current.world = "";
+
+    string MD5Hash;
+    using (var md5 = System.Security.Cryptography.MD5.Create())
+    using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+    MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
+    print("Hash is: " + MD5Hash);
+
+    switch (MD5Hash)
+            {
+                case "07783FA7FAA4B65B3801C4039C4178CE":
+                    version = "Steam 1.00";
+                    break;
+
+                default:
+                    version = "Unknown";
+                    break;
+            }
 }
 
 update
