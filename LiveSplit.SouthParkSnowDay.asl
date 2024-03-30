@@ -1,7 +1,10 @@
+//Big thanks to CactusDuper for help with Unreal Engine stuff
 state("SnowDay-Win64-Shipping", "Steam 1.00")
 {
     byte Loads: 0x536AD00, 0x354;
-    //uint StartRun: 0x514F210, 0x78, 0x218, 0x228, 0xF6C;
+    byte M_loadingscreens: 0x536E630, 0x120, 0x338;
+    byte ClosingScreen: 0x536E630, 0x120, 0x2C8, 0x4B0, 0xA0, 0x340;
+    string10 StorySummary: 0x536E630, 0x120, 0x2C8, 0x4B0, 0xA0, 0x3C0, 0x0;
     uint ChapterVictory: 0x52D38B8, 0x10, 0x8, 0x588;
 }
 
@@ -36,11 +39,13 @@ startup
 isLoading
 {
 	return current.Loads != 0;
+    //return current.M_loadingscreens;
 }
 
 start
 {
-    //return current.StartRun != old.StartRun && old.Loads != 0;
+    ///Engine/Transient.QtnEngine:QtnGameInstanceArchetype_C.MenuMapEntry_Widget_C.WidgetTree.Btn_StartRun
+    return current.ClosingScreen == 1 && current.StorySummary != "";
 }
 
 split
@@ -52,8 +57,8 @@ split
 
     if (vars.Sw.ElapsedMilliseconds >= 60000)
     {
+         return settings["CHVICTORY"];
         vars.Sw.Reset();
-        return settings["CHVICTORY"];
     }
 }
 
