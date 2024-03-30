@@ -1,8 +1,8 @@
 state("SnowDay-Win64-Shipping", "Steam 1.00")
 {
     byte Loads: 0x536AD00, 0x354;
-    byte ChapterSelect: 0x5343740, 0x1B0, 0xA0, 0xB88, 0x870, 0x230;
-    byte StartRun: 0x539F6C8, 0x198, 0x50, 0x68, 0x48, 0x48, 0x48, 0xA4;
+    //uint StartRun: 0x514F210, 0x78, 0x218, 0x228, 0xF6C;
+    uint ChapterVictory: 0x52D38B8, 0x10, 0x8, 0x588;
 }
 
 init
@@ -27,8 +27,10 @@ init
 
 startup
 {
-    settings.Add("CHSTART", false, "Select if running All Chapters");
-    settings.Add("RUNSTART", false, "Select if running a Single Chapter");
+    settings.Add("SNOWDAY", true, "South Park: Snow Day!");
+        settings.Add("CHVICTORY", true, "Split on each Chapter Victory screen", "SNOWDAY");
+
+    vars.Sw = new Stopwatch();
 }
 
 isLoading
@@ -38,13 +40,20 @@ isLoading
 
 start
 {
-    if(settings["CHSTART"])
+    //return current.StartRun != old.StartRun && old.Loads != 0;
+}
+
+split
+{
+    if(current.ChapterVictory == 192 && old.ChapterVictory == 1920)
     {
-        return current.ChapterSelect == 1 && old.ChapterSelect == 0 || current.StartRun == 5 && old.StartRun == 7;
-    } 
-    else if (settings["RUNSTART"])
+        vars.Sw.Start();
+    }
+
+    if (vars.Sw.ElapsedMilliseconds >= 60000)
     {
-        return current.StartRun == 5 && old.StartRun == 7;
+        vars.Sw.Reset();
+        return settings["CHVICTORY"];
     }
 }
 
