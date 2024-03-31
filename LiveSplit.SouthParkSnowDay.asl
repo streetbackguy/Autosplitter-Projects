@@ -31,18 +31,6 @@ startup
 {
     settings.Add("SNOWDAY", true, "South Park: Snow Day!");
         settings.Add("CHVICTORY", true, "Split on each Chapter Victory screen", "SNOWDAY");
-
-    vars.Sw = new Stopwatch();
-	vars.minimumtime = TimeSpan.FromSeconds(60);
-}
-
-update
-{
-    // This stops the timer to avoid making it running forever
-    if (vars.Sw.Elapsed >= vars.minimumtime)
-	{
-		vars.Sw.Stop();
-	}
 }
 
 isLoading
@@ -60,18 +48,8 @@ split
 {
     if(current.ChapterVictory == 192 && old.ChapterVictory == 1920)
     {
-        return !vars.Sw.IsRunning && settings["CHVICTORY"];
+        return settings["CHVICTORY"];
     }
-}
-
-onSplit
-{
-    vars.Sw.Restart();
-}
-
-onStart
-{
-    vars.Sw.Restart();
 }
 
 exit
