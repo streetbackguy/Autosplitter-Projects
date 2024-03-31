@@ -33,13 +33,16 @@ startup
         settings.Add("CHVICTORY", true, "Split on each Chapter Victory screen", "SNOWDAY");
 
     vars.Sw = new Stopwatch();
-vars.minimumtime = TimeSpan.FromSeconds(60);
+	vars.minimumtime = TimeSpan.FromSeconds(60);
 }
 
 update
 {
     // This stops the timer to avoid making it running forever
-    if (vars.Sw.Elapsed >= vars.minimumtime) vars.Sw.Stop();
+    if (vars.Sw.Elapsed >= vars.minimumtime)
+	{
+		vars.Sw.Stop();
+	}
 }
 
 isLoading
