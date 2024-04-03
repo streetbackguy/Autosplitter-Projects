@@ -90,7 +90,7 @@ state("likeadragongaiden", "M Store 1.20 - 1.21")
 init 
 {
     // Needs to be explicitly set for things to function appropriately
-    refreshRate = 60;
+    refreshRate = 30;
 
     // Pointer table offset for the QTE (to be set below in the switch)
     vars.Cucco = 0;
@@ -291,6 +291,7 @@ update
 
     else if (vars.LoadCount > 0)
     {
+        print("LC: " + vars.LoadCount.ToString());
         vars.LoadCount = 0;
         vars.IsLoading = true;
     }
