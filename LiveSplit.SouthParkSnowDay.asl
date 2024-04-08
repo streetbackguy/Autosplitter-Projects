@@ -46,7 +46,7 @@ start
 
 split
 {
-    if(current.ChapterVictory != old.ChapterVictory)
+    if(current.ChapterVictory != old.ChapterVictory && !current.Loads)
     {
         return settings["CHVICTORY"];
     }
