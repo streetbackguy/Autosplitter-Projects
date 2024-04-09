@@ -4,7 +4,7 @@ state("SnowDay-Win64-Shipping", "Steam 1.00")
     byte Loads: 0x536E630, 0x180, 0x30, 0x210, 0x37C;
     byte ClosingScreen: 0x536E630, 0x120, 0x2C8, 0x4B0, 0xA0, 0x340;
     string10 StorySummary: 0x536E630, 0x120, 0x2C8, 0x4B0, 0xA0, 0x3C0, 0x0;
-    uint ChapterVictory: 0x51466100, 0x118, 0x50, 0xA10, 0x160, 0x5A0;
+    uint ChapterVictory: 0x4F037F4;
 }
 
 init
@@ -46,7 +46,7 @@ start
 
 split
 {
-    if(current.ChapterVictory == 1 && old.ChapterVictory == 0)
+    if(current.ChapterVictory == 68 && old.ChapterVictory == 32)
     {
         return settings["CHVICTORY"];
     }
