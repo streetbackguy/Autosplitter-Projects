@@ -17,7 +17,7 @@ state("SnowDay-Win64-Shipping", "Steam 1.10")
 
 state("SnowDay-Win64-Shipping", "Steam 1.20")
 {
-    byte Loads: 0x5373A30, 0x180, 0x30, 0x210, 0x378;
+    byte Loads: 0x5370118, 0xD28, 0x30, 0x210, 0x378;
     byte ClosingScreen: 0x5373A30, 0x120, 0x2C8, 0x4B0, 0xA0, 0x340;
     string10 StorySummary: 0x5373A30, 0x120, 0x2C8, 0x4B0, 0xA0, 0x3C0, 0x0;
     uint ChapterVictory: 0x4F088E0;
@@ -65,7 +65,7 @@ isLoading
 start
 {
     ///Engine/Transient.QtnEngine:QtnGameInstanceArchetype_C.MenuMapEntry_Widget_C.WidgetTree.Btn_StartRun
-    return current.ClosingScreen == 1 && current.StorySummary != "";
+    return current.ClosingScreen == 1 && current.StorySummary != "StarksPond";
 }
 
 split
