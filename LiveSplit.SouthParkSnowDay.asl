@@ -65,7 +65,7 @@ isLoading
 start
 {
     ///Engine/Transient.QtnEngine:QtnGameInstanceArchetype_C.MenuMapEntry_Widget_C.WidgetTree.Btn_StartRun
-    return current.ClosingScreen == 1 && current.StorySummary != "StarksPond";
+    return current.ClosingScreen == 1 && current.StorySummary != "";
 }
 
 split
