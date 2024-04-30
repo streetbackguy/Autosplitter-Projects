@@ -1,6 +1,6 @@
 state("BadWay")
 {
-    int Gameplay: 0x4527230;
+    byte Gameplay: 0x45901B4;
 }
 
 startup
@@ -19,12 +19,12 @@ init
 
 isLoading
 {
-    return current.Gameplay == 0;
+    return current.Gameplay == 262144;
 }
 
 start
 {
-    //To Do
+    
 }
 
 exit
