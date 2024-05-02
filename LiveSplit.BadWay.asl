@@ -1,6 +1,6 @@
 state("BadWay")
 {
-    byte Gameplay: 0x45901B4;
+    int Gameplay: 0x45901B4;
 }
 
 startup
