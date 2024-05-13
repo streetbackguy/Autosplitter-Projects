@@ -1,0 +1,59 @@
+<Settings>
+    <Setting Id="ch" Label="Split on completing area:" State="false">
+        <Setting Id="areaRoadside" Label="Roadside" State="true" />
+        <Setting Id="areaEntrance" Label="Entrance" State="true" />
+        <Setting Id="areaToilet" Label="Toilet" State="true" />
+        <Setting Id="areaStation Square" Label="Station Square" State="true" />
+        <Setting Id="areaFairy Forest" Label="Fairy Forest" State="true" />
+        <Setting Id="areaCosmic Cosmos" Label="Cosmic Cosmos" State="true" />
+        <Setting Id="areaCorridor S" Label="Corridor S" State="true" />
+        <Setting Id="areaFairy Pool" Label="Fairy Pool" State="true" />
+        <Setting Id="areaCorridor A" Label="Corridor A" State="true" />
+        <Setting Id="areaDig Site" Label="Dig Site" State="true" />
+        <Setting Id="areaSwan Boats" Label="Swan Boats" State="true" />
+        <Setting Id="areaRailway" Label="Railway" State="true" />
+        <Setting Id="areaHauntedHilltop" Label="Haunted Hilltop" State="true" />
+        <Setting Id="areaDungeon" Label="Dungeon" State="true" />
+        <Setting Id="areaCorridor B" Label="Corridor B" State="true" />
+        <Setting Id="areaCrypt" Label="Crypt" State="true" />
+        <Setting Id="areaCorridor D" Label="Corridor D" State="true" />
+        <Setting Id="areaMachine SE" Label="Machine SE" State="true" />
+        <Setting Id="areaCell" Label="Cell" State="true" />
+        <Setting Id="areaMansion" Label="Mansion" State="true" />
+        <Setting Id="areaOffice Pike" Label="Office Pike" State="true" />
+        <Setting Id="areaTheatre" Label="Theatre" State="true" />
+        <Setting Id="areaMushroom" Label="Mushroom" State="true" />
+        <Setting Id="areaOcean Kingdom" Label="Ocean Kingdom" State="true" />
+        <Setting Id="areaArcade" Label="Arcade" State="true" />
+        <Setting Id="areaSubmarine" Label="Submarine" State="true" />
+        <Setting Id="areaWitchwood" Label="Witchwood" State="true" />
+        <Setting Id="areaRestaurant" Label="Restaurant" State="true" />
+        <Setting Id="areaOffice Tolman" Label="Office Tolman" State="true" />
+        <Setting Id="areaUnderground NW" Label="Underground NW" State="true" />
+        <Setting Id="areaBreak Room" Label="Break Room" State="true" />
+        <Setting Id="areaUnderground NE" Label="Underground NE" State="true" />
+        <Setting Id="areaRoot Sun" Label="Root Sun" State="true" />
+        <Setting Id="areaUnderground SE" Label="Underground SE" State="true" />
+        <Setting Id="areaControl Room" Label="Control Room" State="true" />
+        <Setting Id="areaOffice Crow" Label="Office Crow" State="true" />
+        <Setting Id="areaRoot Sat" Label="Root Sat" State="true" />
+        <Setting Id="areaRoot Fri" Label="Root Fri" State="true" />
+        <Setting Id="areaUnderground SW" Label="Underground SW" State="true" />
+        <Setting Id="areaRoot Thu" Label="Root Thu" State="true" />
+        <Setting Id="areaCorridor C" Label="Corridor C" State="truee" />
+        <Setting Id="areaMachine SW" Label="Machine SW" State="true" />
+        <Setting Id="areaBoat Ride Dock" Label="Boat Ride Dock" State="true" />
+        <Setting Id="areaBoat Ride" Label="Boat Ride" State="true" />
+        <Setting Id="areaRoot Wed" Label="Root Wed" State="truee" />
+        <Setting Id="areaRoot Tue" Label="Root Tue" State="true" />
+        <Setting Id="areaRoot Mon" Label="Root Mon" State="true" />
+        <Setting Id="areaPre Machine Centre" Label="Pre Machine Centre" State="true" />
+        <Setting Id="areaMachine Centre" Label="Machine Centre" State="true" />
+        <Setting Id="areaMid" Label="Mid" State="true" />
+        <Setting Id="areaUnderground Centre" Label="Underground Centre" State="true" />
+        <Setting Id="areaLadder" Label="Ladder" State="true" />
+        <Setting Id="areaUnderground Lab" Label="Underground Lab" State="true" />
+        <Setting Id="areaPool" Label="Pool" State="true" />
+        <Setting Id="areaEnding Sequence" Label="Ending Sequence" State="true" />
+    </Setting>
+</Settings>
