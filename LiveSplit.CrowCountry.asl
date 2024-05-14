@@ -47,12 +47,13 @@ start
 
 split
 {
+	//TO DO = Item Pickups, Refine Area Splits, Possible ending split
     //Areas
-    if(old.loadingScene != current.loadingScene && old.loadingScene != "Title" && old.loadingScene != "Driving Intro")
-    {
-        vars.Log("Area completed | " + old.loadingScene);
-        return settings["area" + old.loadingScene];
-    }
+    //if(old.loadingScene != current.loadingScene && old.loadingScene != "Title" && old.loadingScene != "Driving Intro")
+    //{
+        //vars.Log("Area completed | " + old.loadingScene);
+        //return settings["area" + old.loadingScene];
+    //}
 }
 
 reset
