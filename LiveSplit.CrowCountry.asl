@@ -8,7 +8,6 @@ startup
 
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     vars.Helper.LoadSceneManager = true;
-    vars.Helper.Settings.CreateFromXml("Components/CrowCountry.Settings.xml");
     vars.Helper.AlertLoadless();
 }
 
@@ -30,10 +29,10 @@ update
 	current.activeScene = vars.Helper.Scenes.Active.Name ?? current.activeScene;
     current.loadingScene = vars.Helper.Scenes.Loaded[0].Name ?? current.loadingScene;
 
-    if(current.Items!= old.Items)
-    {
-        vars.Log(old.Items + " -> " + current.Items);
-    }
+    //if(current.Items!= old.Items)
+    //{
+        //vars.Log(old.Items + " -> " + current.Items);
+    //}
 }
 
 isLoading
@@ -43,7 +42,7 @@ isLoading
 
 start
 {
-    return old.activeScene == "Title" && current.activeScene == "Driving Intro";
+    return old.loadingScene != current.activeScene && old.loadingScene == "Roadside";
 }
 
 split
