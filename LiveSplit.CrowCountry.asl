@@ -8,6 +8,7 @@ startup
 
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     vars.Helper.LoadSceneManager = true;
+    vars.Helper.Settings.CreateFromXml("Components/CrowCountry.Settings.xml");
     vars.Helper.AlertLoadless();
 }
 
@@ -42,18 +43,17 @@ isLoading
 
 start
 {
-    return old.loadingScene != current.activeScene && old.loadingScene == "Roadside";
+    //return old.loadingScene != current.activeScene && old.loadingScene == "Roadside";
 }
 
 split
 {
-	//TO DO = Item Pickups, Refine Area Splits, Possible ending split
     //Areas
-    //if(old.loadingScene != current.loadingScene && old.loadingScene != "Title" && old.loadingScene != "Driving Intro")
-    //{
-        //vars.Log("Area completed | " + old.loadingScene);
-        //return settings["area" + old.loadingScene];
-    //}
+    if(old.loadingScene != current.loadingScene && old.loadingScene != "Title" && old.loadingScene != "Driving Intro")
+    {
+        vars.Log("Area completed | " + old.loadingScene);
+        return settings["area" + old.loadingScene];
+    }
 }
 
 reset
