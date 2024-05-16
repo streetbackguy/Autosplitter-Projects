@@ -1,59 +1,77 @@
 <Settings>
-    <Setting Id="ch" Label="Split on completing area:" State="false">
-        <Setting Id="areaRoadside" Label="Roadside" State="true" />
-        <Setting Id="areaEntrance" Label="Entrance" State="true" />
-        <Setting Id="areaToilet" Label="Toilet" State="true" />
-        <Setting Id="areaStation Square" Label="Station Square" State="true" />
-        <Setting Id="areaFairy Forest" Label="Fairy Forest" State="true" />
-        <Setting Id="areaCosmic Cosmos" Label="Cosmic Cosmos" State="true" />
-        <Setting Id="areaCorridor S" Label="Corridor S" State="true" />
-        <Setting Id="areaFairy Pool" Label="Fairy Pool" State="true" />
-        <Setting Id="areaCorridor A" Label="Corridor A" State="true" />
-        <Setting Id="areaDig Site" Label="Dig Site" State="true" />
-        <Setting Id="areaSwan Boats" Label="Swan Boats" State="true" />
-        <Setting Id="areaRailway" Label="Railway" State="true" />
-        <Setting Id="areaHauntedHilltop" Label="Haunted Hilltop" State="true" />
-        <Setting Id="areaDungeon" Label="Dungeon" State="true" />
-        <Setting Id="areaCorridor B" Label="Corridor B" State="true" />
-        <Setting Id="areaCrypt" Label="Crypt" State="true" />
-        <Setting Id="areaCorridor D" Label="Corridor D" State="true" />
-        <Setting Id="areaMachine SE" Label="Machine SE" State="true" />
-        <Setting Id="areaCell" Label="Cell" State="true" />
-        <Setting Id="areaMansion" Label="Mansion" State="true" />
-        <Setting Id="areaOffice Pike" Label="Office Pike" State="true" />
-        <Setting Id="areaTheatre" Label="Theatre" State="true" />
-        <Setting Id="areaMushroom" Label="Mushroom" State="true" />
-        <Setting Id="areaOcean Kingdom" Label="Ocean Kingdom" State="true" />
-        <Setting Id="areaArcade" Label="Arcade" State="true" />
-        <Setting Id="areaSubmarine" Label="Submarine" State="true" />
-        <Setting Id="areaWitchwood" Label="Witchwood" State="true" />
-        <Setting Id="areaRestaurant" Label="Restaurant" State="true" />
-        <Setting Id="areaOffice Tolman" Label="Office Tolman" State="true" />
-        <Setting Id="areaUnderground NW" Label="Underground NW" State="true" />
-        <Setting Id="areaBreak Room" Label="Break Room" State="true" />
-        <Setting Id="areaUnderground NE" Label="Underground NE" State="true" />
-        <Setting Id="areaRoot Sun" Label="Root Sun" State="true" />
-        <Setting Id="areaUnderground SE" Label="Underground SE" State="true" />
-        <Setting Id="areaControl Room" Label="Control Room" State="true" />
-        <Setting Id="areaOffice Crow" Label="Office Crow" State="true" />
-        <Setting Id="areaRoot Sat" Label="Root Sat" State="true" />
-        <Setting Id="areaRoot Fri" Label="Root Fri" State="true" />
-        <Setting Id="areaUnderground SW" Label="Underground SW" State="true" />
-        <Setting Id="areaRoot Thu" Label="Root Thu" State="true" />
-        <Setting Id="areaCorridor C" Label="Corridor C" State="truee" />
-        <Setting Id="areaMachine SW" Label="Machine SW" State="true" />
-        <Setting Id="areaBoat Ride Dock" Label="Boat Ride Dock" State="true" />
-        <Setting Id="areaBoat Ride" Label="Boat Ride" State="true" />
-        <Setting Id="areaRoot Wed" Label="Root Wed" State="truee" />
-        <Setting Id="areaRoot Tue" Label="Root Tue" State="true" />
-        <Setting Id="areaRoot Mon" Label="Root Mon" State="true" />
-        <Setting Id="areaPre Machine Centre" Label="Pre Machine Centre" State="true" />
-        <Setting Id="areaMachine Centre" Label="Machine Centre" State="true" />
-        <Setting Id="areaMid" Label="Mid" State="true" />
-        <Setting Id="areaUnderground Centre" Label="Underground Centre" State="true" />
-        <Setting Id="areaLadder" Label="Ladder" State="true" />
-        <Setting Id="areaUnderground Lab" Label="Underground Lab" State="true" />
-        <Setting Id="areaPool" Label="Pool" State="true" />
-        <Setting Id="areaEnding Sequence" Label="Ending Sequence" State="true" />
+
+    <Setting Label="Split on collecting item:" State="false">
+      <!-- <Setting Id="i-item: 1-1" Label="ID Card" State="true" /> -->
+      <Setting Id="i-item: 2-1" Label="Bronze Key" State="true" />
+      <Setting Id="i-item: 3-1" Label="Silver Key" State="true" />
+      <Setting Id="i-item: 4-1" Label="Gold Key" State="true" />
+      <Setting Id="i-item: 5-1" Label="Crank" State="true" />
+      <Setting Id="i-item: 6-1" Label="Gemstone" State="true" />
+      <Setting Id="i-item: 7-1" Label="Chain" State="true" />
+      <Setting Id="i-item: 8-1" Label="Woeful Mask" State="true" />
+      <Setting Id="i-item: 9-1" Label="Trident" State="true" />
+      <Setting Id="i-item: 10-1" Label="Data Disk" State="true" />
+      <Setting Id="i-item: 11-1" Label="Acid bottle" State="true" />
+      <Setting Id="i-item: 12-1" Label="Large Battery" State="true" />
+      <Setting Id="i-item: 13-1" Label="Glass Vials" State="true" />
     </Setting>
-</Settings>
+
+    <Setting Label="Split on leaving area:" State="false">
+      <Setting Id="ac-Roadside" Label="Roadside" State="true" />
+      <Setting Id="ac-Entrance" Label="Entrance" State="true" />
+      <Setting Id="ac-Toilet" Label="Toilet" State="true" />
+      <Setting Id="ac-Station Square" Label="Station Square" State="true" />
+      <Setting Id="ac-Fairy Forest" Label="Fairy Forest" State="true" />
+      <Setting Id="ac-Cosmic Cosmos" Label="Cosmic Cosmos" State="true" />
+      <Setting Id="ac-Corridor S" Label="Corridor S" State="true" />
+      <Setting Id="ac-Fairy Pool" Label="Fairy Pool" State="true" />
+      <Setting Id="ac-Corridor A" Label="Corridor A" State="true" />
+      <Setting Id="ac-Dig Site" Label="Dig Site" State="true" />
+      <Setting Id="ac-Swan Boats" Label="Swan Boats" State="true" />
+      <Setting Id="ac-Railway" Label="Railway" State="true" />
+      <Setting Id="ac-HauntedHilltop" Label="Haunted Hilltop" State="true" />
+      <Setting Id="ac-Dungeon" Label="Dungeon" State="true" />
+      <Setting Id="ac-Corridor B" Label="Corridor B" State="true" />
+      <Setting Id="ac-Crypt" Label="Crypt" State="true" />
+      <Setting Id="ac-Corridor D" Label="Corridor D" State="true" />
+      <Setting Id="ac-Machine SE" Label="Machine SE" State="true" />
+      <Setting Id="ac-Cell" Label="Cell" State="true" />
+      <Setting Id="ac-Mansion" Label="Mansion" State="true" />
+      <Setting Id="ac-Office Pike" Label="Office Pike" State="true" />
+      <Setting Id="ac-Theatre" Label="Theatre" State="true" />
+      <Setting Id="ac-Mushroom" Label="Mushroom" State="true" />
+      <Setting Id="ac-Ocean Kingdom" Label="Ocean Kingdom" State="true" />
+      <Setting Id="ac-Arcade" Label="Arcade" State="true" />
+      <Setting Id="ac-Submarine" Label="Submarine" State="true" />
+      <Setting Id="ac-Witchwood" Label="Witchwood" State="true" />
+      <Setting Id="ac-Restaurant" Label="Restaurant" State="true" />
+      <Setting Id="ac-Office Tolman" Label="Office Tolman" State="true" />
+      <Setting Id="ac-Underground NW" Label="Underground NW" State="true" />
+      <Setting Id="ac-Break Room" Label="Break Room" State="true" />
+      <Setting Id="ac-Underground NE" Label="Underground NE" State="true" />
+      <Setting Id="ac-Root Sun" Label="Root Sun" State="true" />
+      <Setting Id="ac-Underground SE" Label="Underground SE" State="true" />
+      <Setting Id="ac-Control Room" Label="Control Room" State="true" />
+      <Setting Id="ac-Office Crow" Label="Office Crow" State="true" />
+      <Setting Id="ac-Root Sat" Label="Root Sat" State="true" />
+      <Setting Id="ac-Root Fri" Label="Root Fri" State="true" />
+      <Setting Id="ac-Underground SW" Label="Underground SW" State="true" />
+      <Setting Id="ac-Root Thu" Label="Root Thu" State="true" />
+      <Setting Id="ac-Corridor C" Label="Corridor C" State="truee" />
+      <Setting Id="ac-Machine SW" Label="Machine SW" State="true" />
+      <Setting Id="ac-Boat Ride Dock" Label="Boat Ride Dock" State="true" />
+      <Setting Id="ac-Boat Ride" Label="Boat Ride" State="true" />
+      <Setting Id="ac-Root Wed" Label="Root Wed" State="true" />
+      <Setting Id="ac-Root Tue" Label="Root Tue" State="true" />
+      <Setting Id="ac-Root Mon" Label="Root Mon" State="true" />
+      <Setting Id="ac-Pre Machine Centre" Label="Pre Machine Centre" State="true" />
+      <Setting Id="ac-Machine Centre" Label="Machine Centre" State="true" />
+      <Setting Id="ac-Mid" Label="Mid" State="true" />
+      <Setting Id="ac-Underground Centre" Label="Underground Centre" State="true" />
+      <Setting Id="ac-Ladder" Label="Ladder" State="true" />
+      <Setting Id="ac-Underground Lab" Label="Underground Lab" State="true" />
+      <Setting Id="ac-Pool" Label="Pool" State="true" />
+      <Setting Id="ac-Ending Sequence" Label="Ending Sequence" State="true" />
+    </Setting>
+
+  </Settings>
