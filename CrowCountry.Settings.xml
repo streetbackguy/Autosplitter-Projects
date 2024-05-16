@@ -15,6 +15,12 @@
       <Setting Id="i-item: 12-1" Label="Large Battery" State="true" />
       <Setting Id="i-item: 13-1" Label="Glass Vials" State="true" />
     </Setting>
+    
+    <Setting Label="Split on collecting Weapon:" State="false">
+      <Setting Id="w-item: shotgun-1" Label="Shotgun" State="true" />
+      <Setting Id="w-item: flamethrower-1" Label="Flamethrower" State="true" />
+      <Setting Id="w-item: magnum-1" Label="Magnum" State="true" />
+    </Setting>
 
     <Setting Label="Split on leaving area:" State="false">
       <Setting Id="ac-Roadside" Label="Roadside" State="true" />
@@ -29,6 +35,7 @@
       <Setting Id="ac-Dig Site" Label="Dig Site" State="true" />
       <Setting Id="ac-Swan Boats" Label="Swan Boats" State="true" />
       <Setting Id="ac-Railway" Label="Railway" State="true" />
+      <Setting Id="ac-Gift Shop" Label="Gift Shop" State="true" />
       <Setting Id="ac-HauntedHilltop" Label="Haunted Hilltop" State="true" />
       <Setting Id="ac-Dungeon" Label="Dungeon" State="true" />
       <Setting Id="ac-Corridor B" Label="Corridor B" State="true" />
@@ -43,6 +50,7 @@
       <Setting Id="ac-Ocean Kingdom" Label="Ocean Kingdom" State="true" />
       <Setting Id="ac-Arcade" Label="Arcade" State="true" />
       <Setting Id="ac-Submarine" Label="Submarine" State="true" />
+      <Setting Id="ac-Storeroom" Label="Storeroom" State="true" />
       <Setting Id="ac-Witchwood" Label="Witchwood" State="true" />
       <Setting Id="ac-Restaurant" Label="Restaurant" State="true" />
       <Setting Id="ac-Office Tolman" Label="Office Tolman" State="true" />
@@ -72,6 +80,20 @@
       <Setting Id="ac-Underground Lab" Label="Underground Lab" State="true" />
       <Setting Id="ac-Pool" Label="Pool" State="true" />
       <Setting Id="ac-Ending Sequence" Label="Ending Sequence" State="true" />
+    </Setting>
+    
+    <Setting Label="Split on collecting Secret:" State="false">
+      <Setting Id="s-Handgun Laser: 1" Label="Handgun Laser" State="true" />
+      <Setting Id="s-Handgun Power: 1" Label="Handgun Power" State="true" />
+      <Setting Id="s-Shotgun Laser: 1" Label="Shotgun Laser" State="true" />
+      <Setting Id="s-Magnum Laser: 1" Label="Magnum Laser" State="true" />
+      <Setting Id="i-CrystalCrows-42" Label="42 Crystal Crows" State="true" />
+    </Setting>
+    
+    <Setting Label="Misc. Splits" State="false">
+      <Setting Id="w-light found-1" Label="Flashlight" State="true" />
+      <Setting Id="w-clock1bool-1" Label="Clock Puzzle 1" State="true" />
+      <Setting Id="w-clock2bool-1" Label="Clock Puzzle 2" State="true" />
     </Setting>
 
   </Settings>
