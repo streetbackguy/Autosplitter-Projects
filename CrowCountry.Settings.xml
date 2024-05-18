@@ -14,6 +14,7 @@
       <Setting Id="i-item: 11-1" Label="Acid bottle" State="true" />
       <Setting Id="i-item: 12-1" Label="Large Battery" State="true" />
       <Setting Id="i-item: 13-1" Label="Glass Vials" State="true" />
+      <Setting Id="i-item: 14-1" Label="Paper from Edward Crow" State="true" />
     </Setting>
     
     <Setting Label="Split on collecting Weapon:" State="false">
@@ -79,13 +80,15 @@
       <Setting Id="ac-Ladder" Label="Ladder" State="true" />
       <Setting Id="ac-Underground Lab" Label="Underground Lab" State="true" />
       <Setting Id="ac-Pool" Label="Pool" State="true" />
-      <Setting Id="ac-Ending Sequence" Label="Ending Sequence" State="true" />
+      <Setting Id="w-Game End-1" Label="split on Defeating Edward Crow" State="true" />
     </Setting>
     
     <Setting Label="Split on collecting Secret:" State="false">
+      <Setting Id="w-WearingTrainers-1" Label="Running Boots" State="true" />
       <Setting Id="s-Handgun Laser: 1" Label="Handgun Laser" State="true" />
-      <Setting Id="s-Handgun Power: 1" Label="Handgun Power" State="true" />
+      <Setting Id="w-Handgun 2-1" Label="Handgun Power" State="true" />
       <Setting Id="s-Shotgun Laser: 1" Label="Shotgun Laser" State="true" />
+      <Setting Id="i-Shotgun in Clip MAX-4" Label="Shotgun Capacity" State="true" />
       <Setting Id="s-Magnum Laser: 1" Label="Magnum Laser" State="true" />
       <Setting Id="i-CrystalCrows-42" Label="42 Crystal Crows" State="true" />
     </Setting>
@@ -94,6 +97,7 @@
       <Setting Id="w-light found-1" Label="Flashlight" State="true" />
       <Setting Id="w-clock1bool-1" Label="Clock Puzzle 1" State="true" />
       <Setting Id="w-clock2bool-1" Label="Clock Puzzle 2" State="true" />
+      <Setting Id="w-mascotwalk-1" Label="Clockwork Crow" State="true" />
     </Setting>
 
   </Settings>
