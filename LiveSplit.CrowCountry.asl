@@ -54,15 +54,6 @@ init
 
         vars.IntVariableCount = intVariables.Length;
         vars.IntVariableNames = intVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
-		
-		for (var i = 0; i < intVariables.Length; i++)
-		{
-			var name = vars.Helper.ReadString(intVariables[i] + vars.OffsetName);
-			var value = vars.Helper.Read<int>(intVariables[i] + vars.IntOffsetValue);
-         if (String.IsNullOrWhiteSpace(name)) continue;
-
-			print("[Int " + i.ToString() + "] " + name + ": " + value);
-		}
 
         //Bool variable Output
 		vars.Helper["boolVariables"].Update(game);
@@ -73,15 +64,6 @@ init
 
         vars.BoolVariableCount = boolVariables.Length;
         vars.BoolVariableNames = boolVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
-		
-		for (var i = 0; i < boolVariables.Length; i++)
-		{
-			var name = vars.Helper.ReadString(boolVariables[i] + vars.OffsetName);
-			var value = vars.Helper.Read<bool>(boolVariables[i] + vars.BoolOffsetValue);
-         if (String.IsNullOrWhiteSpace(name)) continue;
-
-			print("[Bool " + i.ToString() + "] " + name + ": " + value);
-		}
 
         //Float variable Output
 		vars.Helper["floatVariables"].Update(game);
@@ -92,15 +74,6 @@ init
 
         vars.FloatVariableCount = floatVariables.Length;
         vars.FloatVariableNames = floatVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
-		
-		for (var i = 0; i < floatVariables.Length; i++)
-		{
-			var name = vars.Helper.ReadString(floatVariables[i] + vars.OffsetName);
-			var value = vars.Helper.Read<float>(floatVariables[i] + vars.FloatOffsetValue);
-            if (String.IsNullOrWhiteSpace(name)) continue;
-
-			print("[Float " + i.ToString() + "] " + name + ": " + value);
-		}
 
         //String variable Output
         vars.Helper["stringVariables"].Update(game);
@@ -111,16 +84,6 @@ init
 
         vars.StringVariableCount = stringVariables.Length;
         vars.StringVariableNames = stringVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
-        
-        for (var i = 0; i < stringVariables.Length; i++)
-		{
-		    var name = vars.Helper.ReadString(stringVariables[i] + vars.OffsetName);
-		    var value = vars.Helper.ReadString(stringVariables[i] + vars.StringOffsetValue);
-            if (String.IsNullOrWhiteSpace(name)) continue;
-		    if (value == null) value = String.Empty;
-
-		    print("[String " + i.ToString() + "] " + name + ": " + value);
-		}
 
         return true;
     });
