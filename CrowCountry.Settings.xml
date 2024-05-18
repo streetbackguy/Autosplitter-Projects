@@ -85,11 +85,11 @@
     
     <Setting Label="Split on collecting Secret:" State="false">
       <Setting Id="w-WearingTrainers-1" Label="Running Boots" State="true" />
-      <Setting Id="s-Handgun Laser: 1" Label="Handgun Laser" State="true" />
+      <Setting Id="s-Handgun Laser-1" Label="Handgun Laser" State="true" />
       <Setting Id="w-Handgun 2-1" Label="Handgun Power" State="true" />
-      <Setting Id="s-Shotgun Laser: 1" Label="Shotgun Laser" State="true" />
+      <Setting Id="s-Shotgun Laser-1" Label="Shotgun Laser" State="true" />
       <Setting Id="i-Shotgun in Clip MAX-4" Label="Shotgun Capacity" State="true" />
-      <Setting Id="s-Magnum Laser: 1" Label="Magnum Laser" State="true" />
+      <Setting Id="s-Magnum Laser-1" Label="Magnum Laser" State="true" />
       <Setting Id="i-CrystalCrows-42" Label="42 Crystal Crows" State="true" />
     </Setting>
     
