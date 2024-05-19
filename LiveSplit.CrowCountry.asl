@@ -25,7 +25,7 @@ onStart
 
 init
 {
-	refreshRate = 60;
+	refreshRate = 10;
 
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
