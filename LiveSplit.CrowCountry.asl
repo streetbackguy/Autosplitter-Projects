@@ -92,20 +92,6 @@ init
 update
 {
     current.ActiveScene = vars.Helper.Scenes.Active.Name ?? current.ActiveScene;
-}
-
-start
-{
-    // return current.ActiveScene != current.ActiveScene && old.ActiveScene == "Roadside";
-}
-
-split
-{
-    if (vars.PendingSplits > 0)
-    {
-        vars.PendingSplits--;
-        return true;
-    }
 
     // Items
     for (int i = 0; i < vars.IntVariableCount; i++)
@@ -186,6 +172,20 @@ split
             vars.Log(setting);
             vars.PendingSplits++;
         }
+    }
+}
+
+start
+{
+    // return current.ActiveScene != current.ActiveScene && old.ActiveScene == "Roadside";
+}
+
+split
+{
+    if (vars.PendingSplits > 0)
+    {
+        vars.PendingSplits--;
+        return true;
     }
 }
 
