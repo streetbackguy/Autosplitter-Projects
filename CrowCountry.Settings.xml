@@ -91,7 +91,7 @@
       <Setting Id="i-Shotgun in Clip MAX-4" Label="Shotgun Capacity" State="true" />
       <Setting Id="s-Glb ItemAction Name-Range Increased" Label="Flamethrower Range" State="true" />
       <Setting Id="s-Magnum Laser 1" Label="Magnum Laser" State="true" />
-      <Setting Id="s-magnum strength 1" Label="Magnum Power" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Gold Plated" Label="Magnum Power" State="true" />
       <Setting Id="s-First Aid knowledge 1" Label="Med Kit Improvement" State="true" />
       <Setting Id="m-Glb ItemAction Name-Toilet-Magnum Ammo" Label="Magnum Ammo found in Toilet" State="true" />
       <Setting Id="m-Glb ItemAction Name-Haunted Hilltop-Magnum Ammo" Label="Magnum Ammo found in Haunted Hilltop" State="true" />
