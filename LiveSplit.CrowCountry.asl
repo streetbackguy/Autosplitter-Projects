@@ -25,6 +25,8 @@ onStart
 
 init
 {
+	refreshRate = 60;
+
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         var pmg = mono["PlayMaker", "PlayMakerGlobals"];
