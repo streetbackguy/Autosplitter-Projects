@@ -29,15 +29,11 @@ init
     {
         var pmg = mono["PlayMaker", "PlayMakerGlobals"];
 		var variables = mono["PlayMaker", "FsmVariables"];
-		vars.Helper["arrayBaseFloat"] = pmg.Make<long>("instance", "variables", variables["floatVariables"]);
-		vars.Helper["arrayBaseInt"] = pmg.Make<long>("instance", "variables", variables["intVariables"]);
-		vars.Helper["arrayBaseBool"] = pmg.Make<long>("instance", "variables", variables["boolVariables"]);
-		vars.Helper["arrayBaseString"] = pmg.Make<long>("instance", "variables", variables["stringVariables"]);
 
-		vars.Helper["floatVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", variables["floatVariables"]);
-		vars.Helper["intVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", variables["intVariables"]);
-		vars.Helper["boolVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", variables["boolVariables"]);
-		vars.Helper["stringVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", variables["stringVariables"]);
+		vars.Helper["FloatVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "floatVariables");
+		vars.Helper["IntVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "intVariables");
+		vars.Helper["BoolVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "boolVariables");
+		vars.Helper["StringVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "stringVariables");
 
         vars.OffsetName = mono["PlayMaker", "NamedVariable"]["name"];
         vars.IntOffsetValue = mono["PlayMaker", "FsmInt"]["value"];
@@ -46,44 +42,44 @@ init
         vars.StringOffsetValue = mono["PlayMaker", "FsmString"]["value"];
 
 		//Int variable Output
-		vars.Helper["intVariables"].Update(game);
-		IntPtr[] intVariables = vars.Helper["intVariables"].Current;
+		vars.Helper["IntVariables"].Update(game);
+		IntPtr[] IntVariables = vars.Helper["IntVariables"].Current;
 
-        if (intVariables.Length == 0)
+        if (IntVariables.Length == 0)
             return false;
 
-        vars.IntVariableCount = intVariables.Length;
-        vars.IntVariableNames = intVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
+        vars.IntVariableCount = IntVariables.Length;
+        vars.IntVariableNames = IntVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
 
         //Bool variable Output
-		vars.Helper["boolVariables"].Update(game);
-		IntPtr[] boolVariables = vars.Helper["boolVariables"].Current;
+		vars.Helper["BoolVariables"].Update(game);
+		IntPtr[] BoolVariables = vars.Helper["BoolVariables"].Current;
 
-        if (boolVariables.Length == 0)
+        if (BoolVariables.Length == 0)
             return false;
 
-        vars.BoolVariableCount = boolVariables.Length;
-        vars.BoolVariableNames = boolVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
+        vars.BoolVariableCount = BoolVariables.Length;
+        vars.BoolVariableNames = BoolVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
 
         //Float variable Output
-		vars.Helper["floatVariables"].Update(game);
-		IntPtr[] floatVariables = vars.Helper["floatVariables"].Current;
+		vars.Helper["FloatVariables"].Update(game);
+		IntPtr[] FloatVariables = vars.Helper["FloatVariables"].Current;
 
-        if (floatVariables.Length == 0)
+        if (FloatVariables.Length == 0)
             return false;
 
-        vars.FloatVariableCount = floatVariables.Length;
-        vars.FloatVariableNames = floatVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
+        vars.FloatVariableCount = FloatVariables.Length;
+        vars.FloatVariableNames = FloatVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
 
         //String variable Output
-        vars.Helper["stringVariables"].Update(game);
-		IntPtr[] stringVariables = vars.Helper["stringVariables"].Current;
+        vars.Helper["StringVariables"].Update(game);
+		IntPtr[] StringVariables = vars.Helper["StringVariables"].Current;
 
-        if (stringVariables.Length == 0)
+        if (StringVariables.Length == 0)
             return false;
 
-        vars.StringVariableCount = stringVariables.Length;
-        vars.StringVariableNames = stringVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
+        vars.StringVariableCount = StringVariables.Length;
+        vars.StringVariableNames = StringVariables.Select(entry => vars.Helper.ReadString(entry + vars.OffsetName)).ToArray();
 
         return true;
     });
@@ -97,7 +93,7 @@ update
     for (int i = 0; i < vars.IntVariableCount; i++)
     {
         string name = vars.IntVariableNames[i];
-        int value = vars.Helper.Read<int>(current.intVariables[i] + vars.IntOffsetValue);
+        int value = vars.Helper.Read<int>(current.IntVariables[i] + vars.IntOffsetValue);
 
         string setting = "i-" + name + "-" + value; // i = item
         if (settings.ContainsKey(setting) && settings[setting] && vars.CompletedSplits.Add(setting))
@@ -111,19 +107,12 @@ update
     for (int i = 0; i < vars.BoolVariableCount; i++)
     {
         string name = vars.BoolVariableNames[i];
-        int value = vars.Helper.Read<int>(current.boolVariables[i] + vars.BoolOffsetValue);
+        int value = vars.Helper.Read<int>(current.BoolVariables[i] + vars.BoolOffsetValue);
 
-        string setting = "w-" + name + "-" + value; // w = weapon
-        string setting2 = "s-" + name + " " + value; // s = secret
+        string setting = "s-" + name + " " + value; // s = secret
         if (settings.ContainsKey(setting) && settings[setting] && vars.CompletedSplits.Add(setting))
         {
             vars.Log(setting);
-            vars.PendingSplits++;
-        }
-
-        if (settings.ContainsKey(setting2) && settings[setting2] && vars.CompletedSplits.Add(setting2))
-        {
-            vars.Log(setting2);
             vars.PendingSplits++;
         }
     }
@@ -143,7 +132,7 @@ update
     for (int i = 0; i < vars.FloatVariableCount; i++)
     {
         string name = vars.FloatVariableNames[i];
-        float value = vars.Helper.Read<float>(current.floatVariables[i] + vars.FloatOffsetValue);
+        float value = vars.Helper.Read<float>(current.FloatVariables[i] + vars.FloatOffsetValue);
 
         string setting = "s-" + name + " " + value; // s = secret
         if (settings.ContainsKey(setting) && settings[setting] && vars.CompletedSplits.Add(setting))
@@ -157,17 +146,10 @@ update
     for (int i = 0; i < vars.StringVariableCount; i++)
     {
         string name = vars.StringVariableNames[i];
-        string value = vars.Helper.ReadString(current.stringVariables[i] + vars.StringOffsetValue);
+        string value = vars.Helper.ReadString(current.StringVariables[i] + vars.StringOffsetValue);
 
         string setting = "m-" + name + "-" + current.ActiveScene + "-" + value; // m = magnum ammo
-        string setting2 = "s-" + name + "-" + value; // s = secret
         if (settings.ContainsKey(setting) && settings[setting] && vars.CompletedSplits.Add(setting))
-        {
-            vars.Log(setting);
-            vars.PendingSplits++;
-        }
-
-        if (settings.ContainsKey(setting2) && settings[setting2] && vars.CompletedSplits.Add(setting2))
         {
             vars.Log(setting);
             vars.PendingSplits++;
