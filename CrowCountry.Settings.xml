@@ -18,9 +18,9 @@
     </Setting>
     
     <Setting Label="Split on collecting Weapon:" State="false">
-      <Setting Id="w-item: shotgun-1" Label="Shotgun" State="true" />
-      <Setting Id="w-item: flamethrower-1" Label="Flamethrower" State="true" />
-      <Setting Id="w-item: magnum-1" Label="Magnum" State="true" />
+      <Setting Id="s-item: shotgun-1" Label="Shotgun" State="true" />
+      <Setting Id="s-item: flamethrower-1" Label="Flamethrower" State="true" />
+      <Setting Id="s-item: magnum-1" Label="Magnum" State="true" />
     </Setting>
 
     <Setting Label="Split on leaving area:" State="false">
@@ -89,9 +89,9 @@
       <Setting Id="s-handgun strength 0.8" Label="Handgun Power" State="true" />
       <Setting Id="s-Shotgun Laser 1" Label="Shotgun Laser" State="true" />
       <Setting Id="i-Shotgun in Clip MAX-4" Label="Shotgun Capacity" State="true" />
-      <Setting Id="s-Glb ItemAction Name-Range Increased" Label="Flamethrower Range" State="true" />
+      <Setting Id="m-Glb ItemAction Name-Range Increased" Label="Flamethrower Range" State="true" />
       <Setting Id="s-Magnum Laser 1" Label="Magnum Laser" State="true" />
-      <Setting Id="s-Glb ItemAction Name-Gold Plated" Label="Magnum Power" State="true" />
+      <Setting Id="m-Glb ItemAction Name-Gold Plated" Label="Magnum Power" State="true" />
       <Setting Id="s-First Aid knowledge 1" Label="Med Kit Improvement" State="true" />
       <Setting Id="m-Glb ItemAction Name-Toilet-Magnum Ammo" Label="Magnum Ammo found in Toilet" State="true" />
       <Setting Id="m-Glb ItemAction Name-Haunted Hilltop-Magnum Ammo" Label="Magnum Ammo found in Haunted Hilltop" State="true" />
