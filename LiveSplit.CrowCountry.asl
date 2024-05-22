@@ -134,7 +134,7 @@ update
         string name = vars.FloatVariableNames[i];
         float value = vars.Helper.Read<float>(current.FloatVariables[i] + vars.FloatOffsetValue);
 
-        string setting = "s-" + name + " " + value; // s = secret
+        string setting = "s-" + name + "-" + value; // s = secret
         if (settings.ContainsKey(setting) && settings[setting] && vars.CompletedSplits.Add(setting))
         {
             vars.Log(setting);
