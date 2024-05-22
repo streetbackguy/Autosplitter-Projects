@@ -14,8 +14,6 @@ startup
 
 init
 {
-    vars.CompletedSplits = new HashSet<string>();
-
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         vars.Helper["SceneLoader"] = mono.Make<bool>("SceneLoader", "_instance", "isLoadingScene");
