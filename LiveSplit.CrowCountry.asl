@@ -109,7 +109,7 @@ update
         string name = vars.BoolVariableNames[i];
         int value = vars.Helper.Read<int>(current.BoolVariables[i] + vars.BoolOffsetValue);
 
-        string setting = "s-" + name + " " + value; // s = secret
+        string setting = "s-" + name + "-" + value; // s = secret
         if (settings.ContainsKey(setting) && settings[setting] && vars.CompletedSplits.Add(setting))
         {
             vars.Log(setting);
