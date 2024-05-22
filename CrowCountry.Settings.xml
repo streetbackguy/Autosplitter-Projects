@@ -84,15 +84,15 @@
     </Setting>
     
     <Setting Label="Split on collecting Secret:" State="false">
-      <Setting Id="s-WearingTrainers 1" Label="Running Boots" State="true" />
-      <Setting Id="s-Handgun Laser 1" Label="Handgun Laser" State="true" />
-      <Setting Id="s-handgun strength 0.8" Label="Handgun Power" State="true" />
-      <Setting Id="s-Shotgun Laser 1" Label="Shotgun Laser" State="true" />
+      <Setting Id="s-WearingTrainers-1" Label="Running Boots" State="true" />
+      <Setting Id="s-Handgun Laser-1" Label="Handgun Laser" State="true" />
+      <Setting Id="s-handgun strength-0.8" Label="Handgun Power" State="true" />
+      <Setting Id="s-Shotgun Laser-1" Label="Shotgun Laser" State="true" />
       <Setting Id="i-Shotgun in Clip MAX-4" Label="Shotgun Capacity" State="true" />
       <Setting Id="m-Glb ItemAction Name-Range Increased" Label="Flamethrower Range" State="true" />
-      <Setting Id="s-Magnum Laser 1" Label="Magnum Laser" State="true" />
+      <Setting Id="s-Magnum Laser-1" Label="Magnum Laser" State="true" />
       <Setting Id="m-Glb ItemAction Name-Gold Plated" Label="Magnum Power" State="true" />
-      <Setting Id="s-First Aid knowledge 1" Label="Med Kit Improvement" State="true" />
+      <Setting Id="s-First Aid knowledge-1" Label="Med Kit Improvement" State="true" />
       <Setting Id="m-Glb ItemAction Name-Toilet-Magnum Ammo" Label="Magnum Ammo found in Toilet" State="true" />
       <Setting Id="m-Glb ItemAction Name-Haunted Hilltop-Magnum Ammo" Label="Magnum Ammo found in Haunted Hilltop" State="true" />
       <Setting Id="m-Glb ItemAction Name-Storeroom-Magnum Ammo" Label="Magnum Ammo found in Storeroom" State="true" />
@@ -102,10 +102,10 @@
     </Setting>
     
     <Setting Label="Misc. Splits" State="false">
-      <Setting Id="s-light found 1" Label="Flashlight" State="true" />
-      <Setting Id="s-clock1bool 1" Label="Clock Puzzle 1" State="true" />
-      <Setting Id="s-clock2bool 1" Label="Clock Puzzle 2" State="true" />
-      <Setting Id="s-mascotwalk 1" Label="Clockwork Crow" State="true" />
+      <Setting Id="s-light found-1" Label="Flashlight" State="true" />
+      <Setting Id="s-clock1bool-1" Label="Clock Puzzle 1" State="true" />
+      <Setting Id="s-clock2bool-1" Label="Clock Puzzle 2" State="true" />
+      <Setting Id="s-mascotwalk-1" Label="Clockwork Crow" State="true" />
     </Setting>
 
   </Settings>
