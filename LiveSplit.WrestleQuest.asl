@@ -28,7 +28,6 @@ init
 update
 {
     current.ActiveScene = vars.Helper.Scenes.Active.Name ?? old.ActiveScene;
-    current.LoadingScene = vars.Helper.Scenes.Loaded[0].Name ?? old.LoadingScene;
 }
 
 start
