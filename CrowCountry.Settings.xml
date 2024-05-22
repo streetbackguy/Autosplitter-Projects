@@ -18,9 +18,9 @@
     </Setting>
     
     <Setting Label="Split on collecting Weapon:" State="false">
-      <Setting Id="s-item: shotgun-1" Label="Shotgun" State="true" />
-      <Setting Id="s-item: flamethrower-1" Label="Flamethrower" State="true" />
-      <Setting Id="s-item: magnum-1" Label="Magnum" State="true" />
+      <Setting Id="b-item: shotgun-1" Label="Shotgun" State="true" />
+      <Setting Id="b-item: flamethrower-1" Label="Flamethrower" State="true" />
+      <Setting Id="b-item: magnum-1" Label="Magnum" State="true" />
     </Setting>
 
     <Setting Label="Split on leaving area:" State="false">
@@ -80,32 +80,32 @@
       <Setting Id="ac-Ladder" Label="Ladder" State="true" />
       <Setting Id="ac-Underground Lab" Label="Underground Lab" State="true" />
       <Setting Id="ac-Pool" Label="Pool" State="true" />
-      <Setting Id="s-Game End 1" Label="split on Defeating Edward Crow" State="true" />
+      <Setting Id="b-Game End 1" Label="split on Defeating Edward Crow" State="true" />
     </Setting>
     
     <Setting Label="Split on collecting Secret:" State="false">
-      <Setting Id="s-WearingTrainers-1" Label="Running Boots" State="true" />
-      <Setting Id="s-Handgun Laser-1" Label="Handgun Laser" State="true" />
-      <Setting Id="s-handgun strength-0.8" Label="Handgun Power" State="true" />
-      <Setting Id="s-Shotgun Laser-1" Label="Shotgun Laser" State="true" />
+      <Setting Id="b-WearingTrainers-1" Label="Running Boots" State="true" />
+      <Setting Id="b-Handgun Laser-1" Label="Handgun Laser" State="true" />
+      <Setting Id="f-handgun strength-0.8" Label="Handgun Power" State="true" />
+      <Setting Id="b-Shotgun Laser-1" Label="Shotgun Laser" State="true" />
       <Setting Id="i-Shotgun in Clip MAX-4" Label="Shotgun Capacity" State="true" />
-      <Setting Id="m-Glb ItemAction Name-Range Increased" Label="Flamethrower Range" State="true" />
-      <Setting Id="s-Magnum Laser-1" Label="Magnum Laser" State="true" />
-      <Setting Id="m-Glb ItemAction Name-Gold Plated" Label="Magnum Power" State="true" />
-      <Setting Id="s-First Aid knowledge-1" Label="Med Kit Improvement" State="true" />
-      <Setting Id="m-Glb ItemAction Name-Toilet-Magnum Ammo" Label="Magnum Ammo found in Toilet" State="true" />
-      <Setting Id="m-Glb ItemAction Name-Haunted Hilltop-Magnum Ammo" Label="Magnum Ammo found in Haunted Hilltop" State="true" />
-      <Setting Id="m-Glb ItemAction Name-Storeroom-Magnum Ammo" Label="Magnum Ammo found in Storeroom" State="true" />
-      <Setting Id="m-Glb ItemAction Name-Witchwood-Magnum Ammo" Label="Magnum Ammo found in Witchwood" State="true" />
-      <Setting Id="m-Glb ItemAction Name-Corridor B-Magnum Ammo" Label="Magnum Ammo found in Crow Office Corridor" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Range Increased" Label="Flamethrower Range" State="true" />
+      <Setting Id="b-Magnum Laser-1" Label="Magnum Laser" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Gold Plated" Label="Magnum Power" State="true" />
+      <Setting Id="b-First Aid knowledge-1" Label="Med Kit Improvement" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Toilet-Magnum Ammo" Label="Magnum Ammo found in Toilet" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Haunted Hilltop-Magnum Ammo" Label="Magnum Ammo found in Haunted Hilltop" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Storeroom-Magnum Ammo" Label="Magnum Ammo found in Storeroom" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Witchwood-Magnum Ammo" Label="Magnum Ammo found in Witchwood" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Corridor D-Magnum Ammo" Label="Magnum Ammo found in Crow Office Corridor" State="true" />
       <Setting Id="i-CrystalCrows-42" Label="42 Crystal Crows" State="true" />
     </Setting>
     
     <Setting Label="Misc. Splits" State="false">
-      <Setting Id="s-light found-1" Label="Flashlight" State="true" />
-      <Setting Id="s-clock1bool-1" Label="Clock Puzzle 1" State="true" />
-      <Setting Id="s-clock2bool-1" Label="Clock Puzzle 2" State="true" />
-      <Setting Id="s-mascotwalk-1" Label="Clockwork Crow" State="true" />
+      <Setting Id="b-light found-1" Label="Flashlight" State="true" />
+      <Setting Id="b-clock1bool-1" Label="Clock Puzzle 1" State="true" />
+      <Setting Id="b-clock2bool-1" Label="Clock Puzzle 2" State="true" />
+      <Setting Id="b-mascotwalk-1" Label="Clockwork Crow" State="true" />
     </Setting>
 
   </Settings>
