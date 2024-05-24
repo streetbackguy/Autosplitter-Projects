@@ -57,7 +57,7 @@ update
 
 start
 {
-    return current.StageIGT > 0f && old.StageIGT == 0f;
+    return current.StageIGT > 0.0f && old.StageIGT == 0.0f;
 }
 
 onStart
