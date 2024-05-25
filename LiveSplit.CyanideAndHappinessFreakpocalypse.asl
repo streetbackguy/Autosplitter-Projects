@@ -2,7 +2,7 @@
 //Updated with Autostart, Game Time, Reset and new Autosplitting by Streetbackguy
 state("Freakpocalypse")
 {
-    int choreNumber: "UnityPlayer.dll", 0x18243D0, 0x3D8, 0x80, 0xE8, 0x60, 0x38, 0x48;
+    int choreNumber: "UnityPlayer.dll", 0x177D2C0, 0x50, 0x30, 0x0, 0x250, 0x40, 0x30, 0x18;
 }
 
 startup
