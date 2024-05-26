@@ -18,9 +18,9 @@
     </Setting>
     
     <Setting Label="Split on collecting Weapon:" State="false">
-      <Setting Id="b-item: shotgun-1" Label="Shotgun" State="true" />
-      <Setting Id="b-item: flamethrower-1" Label="Flamethrower" State="true" />
-      <Setting Id="b-item: magnum-1" Label="Magnum" State="true" />
+      <Setting Id="i-item: shotgun-1" Label="Shotgun" State="true" />
+      <Setting Id="i-item: flamethrower-1" Label="Flamethrower" State="true" />
+      <Setting Id="i-item: magnum-1" Label="Magnum" State="true" />
     </Setting>
 
     <Setting Label="Split on leaving area:" State="false">
@@ -37,7 +37,7 @@
       <Setting Id="ac-Swan Boats" Label="Swan Boats" State="true" />
       <Setting Id="ac-Railway" Label="Railway" State="true" />
       <Setting Id="ac-Gift Shop" Label="Gift Shop" State="true" />
-      <Setting Id="ac-HauntedHilltop" Label="Haunted Hilltop" State="true" />
+      <Setting Id="ac-Haunted Hilltop" Label="Haunted Hilltop" State="true" />
       <Setting Id="ac-Dungeon" Label="Dungeon" State="true" />
       <Setting Id="ac-Corridor B" Label="Corridor B" State="true" />
       <Setting Id="ac-Crypt" Label="Crypt" State="true" />
