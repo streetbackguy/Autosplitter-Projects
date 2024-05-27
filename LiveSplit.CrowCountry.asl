@@ -420,9 +420,9 @@ split
         vars.Log("Med Kit Improvement");
     }
 
-    if(!old.hasMagnum && current.hasMagnumAmmo && !vars.CompletedSplits.Contains("s-Glb ItemAction Name-" + current.ActiveScene + "-Magnum Ammo"))
+    if(!old.hasMagnum && current.hasMagnumAmmo && !vars.CompletedSplits.Contains("s-Glb ItemAction Name-Magnum Ammo-" + current.ActiveScene))
     {
-        return settings["s-Glb ItemAction Name-" + current.ActiveScene + "-Magnum Ammo"] && vars.CompletedSplits.Add("s-Glb ItemAction Name-" + current.ActiveScene + "-Magnum Ammo");
+        return settings["s-Glb ItemAction Name-Magnum Ammo-" + current.ActiveScene] && vars.CompletedSplits.Add("s-Glb ItemAction Name-Magnum Ammo-" + current.ActiveScene);
         vars.Log("Magnum Ammo " + current.ActiveScene);
     }
 
