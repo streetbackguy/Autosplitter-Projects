@@ -209,6 +209,8 @@ init
     current.hasMagnumAmmoStoreroom = false;
     current.hasMagnumAmmoWitchwood = false;
     current.hasMagnumAmmoShortcut = false;
+
+    current.SceneTransition = false;
 }
 
 update
@@ -258,6 +260,8 @@ update
     current.hasFlamethrowerRange = vars.ReadStringVariable("Glb ItemAction Name") == "Range Increased";
     current.hasMagnumPower = vars.ReadStringVariable("Glb ItemAction Name") == "Gold Plated";
     current.hasMagnumAmmo = vars.ReadStringVariable("Glb ItemAction Name") == "Magnum Ammo";
+
+    current.SceneTransition = vars.ReadBoolVariable("SceneTransition");
 }
 
 start
@@ -479,5 +483,5 @@ reset
 
 isLoading
 {
-    return vars.Helper.IsLoading;
+    return current.SceneTransition || vars.Helper.IsLoading;
 }
