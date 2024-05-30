@@ -212,7 +212,7 @@ init
 
     current.SceneTransition = false;
 
-    current.StartRun = false;
+    //current.StartRun = false;
 }
 
 update
@@ -265,12 +265,7 @@ update
 
     current.SceneTransition = vars.ReadBoolVariable("SceneTransition");
 
-    current.StartRun = vars.ReadBoolVariable("IsInRun");
-}
-
-start
-{
-    // return current.ActiveScene != current.ActiveScene && old.ActiveScene == "Roadside";
+    //current.StartRun = vars.ReadBoolVariable("IsInRun");
 }
 
 split
@@ -474,17 +469,17 @@ split
     }
 
     //Final input
-    if(!current.StartRun && old.StartRun)
-    {
-        var setting = "end-input-0";
+    //if(!current.StartRun && old.StartRun)
+    //{
+        //var setting = "end-input-0";
 
-        return settings[setting] && vars.CompletedSplits.Add(setting);
-    }
+        //return settings[setting] && vars.CompletedSplits.Add(setting);
+    //}
 }
 
 start
 {
-    return current.StartRun;
+    //return current.StartRun;
 }
 
 onStart
