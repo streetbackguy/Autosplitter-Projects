@@ -211,6 +211,8 @@ init
     current.hasMagnumAmmoShortcut = false;
 
     current.SceneTransition = false;
+
+    current.StartRun = false;
 }
 
 update
@@ -262,6 +264,8 @@ update
     current.hasMagnumAmmo = vars.ReadStringVariable("Glb ItemAction Name") == "Magnum Ammo";
 
     current.SceneTransition = vars.ReadBoolVariable("SceneTransition");
+
+    current.StartRun = vars.ReadBoolVariable("IsInRun");
 }
 
 start
@@ -468,6 +472,19 @@ split
 
         return settings[setting] && vars.CompletedSplits.Add(setting);
     }
+
+    //Final input
+    if(!current.StartRun && old.StartRun)
+    {
+        var setting = "end-input-0";
+
+        return settings[setting] && vars.CompletedSplits.Add(setting);
+    }
+}
+
+start
+{
+    return current.StartRun;
 }
 
 onStart
