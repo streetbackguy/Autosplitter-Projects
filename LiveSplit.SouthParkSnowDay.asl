@@ -23,6 +23,14 @@ state("SnowDay-Win64-Shipping", "Steam 1.20")
     uint ChapterVictory: 0x4F088E0;
 }
 
+state("SnowDay-Win64-Shipping", "Steam 1.30")
+{
+    byte Loads: 0x53730D8, 0xD28, 0x30, 0x210, 0x378;
+    byte ClosingScreen: 0x53769F0, 0x120, 0x2C8, 0x4B0, 0xA0, 0x340;
+    string10 StorySummary: 0x53769F0, 0x120, 0x2C8, 0x4B0, 0xA0, 0x3C0, 0x0;
+    uint ChapterVictory: 0x4F0ABD0;
+}
+
 init
 {
     string MD5Hash;
@@ -43,6 +51,10 @@ init
 
                 case "EB2CB505F5C076605F5868B71939105D":
                     version = "Steam 1.20";
+                    break;
+
+                case "89AED6D9AA30C6D12092E087762BB808":
+                    version = "Steam 1.30";
                     break;
 
                 default:
