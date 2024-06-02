@@ -8,6 +8,11 @@ state("Enotria-Win64-Shipping", "Demo 1.1")
     int Loads: 0x78FB800;
 }
 
+state("Enotria-Win64-Shipping", "Demo 1.2")
+{
+    int Loads: 0x78FDB00;
+}
+
 init
 {
     string MD5Hash;
@@ -24,6 +29,10 @@ init
 
                 case "F1E0E1D8F3A787EB531BABBEB41B1484":
                     version = "Demo 1.1";
+                    break;
+
+                case "9B54B859520DCADF15D07269E2C55BDB":
+                    version = "Demo 1.2";
                     break;
 
                 default:
