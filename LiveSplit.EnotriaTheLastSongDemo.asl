@@ -13,7 +13,7 @@ state("Enotria-Win64-Shipping", "Demo 1.2")
     int Loads: 0x78FDB00;
 }
 
-state("Enotria-Win64-Shipping", "Demo 1.3")
+state("Enotria-Win64-Shipping", "Demo 1.3 & 1.4")
 {
     int Loads: 0x78FDB00;
 }
@@ -41,7 +41,7 @@ init
                     break;
 
                 case "354B615D0E84D95A6C8C1AC83BDAF388":
-                    version = "Demo 1.3";
+                    version = "Demo 1.3 & 1.4";
                     break;
 
                 default:
