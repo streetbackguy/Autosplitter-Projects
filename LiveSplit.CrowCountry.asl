@@ -222,7 +222,7 @@ update
     // print("SYS Playtime is " + vars.ReadIntVariable("item: 1").ToString());
     // print("SYS Playtime is " + vars.ReadBoolVariable("item: shotgun").ToString());
     // print("SYS Playtime is " + vars.ReadFloatVariable("handgun strength").ToString());
-    // print("SYS Playtime is " + vars.ReadStringVariable("Glb ItemAction Name").ToString());
+    //print("SYS Playtime is " + vars.ReadStringVariable("Glb ItemAction Name").ToString());
 
     current.hasBronzeKey = vars.ReadIntVariable("item: 2") == 1;
     current.hasSilverKey = vars.ReadIntVariable("item: 3") == 1;
@@ -259,9 +259,9 @@ update
 
     current.hasHandgunPower = vars.ReadFloatVariable("handgun strength") == 0.8f;
 
-    current.hasFlamethrowerRange = vars.ReadStringVariable("Glb ItemAction Name") == "Range Increased";
-    current.hasMagnumPower = vars.ReadStringVariable("Glb ItemAction Name") == "Gold Plated";
-    current.hasMagnumAmmo = vars.ReadStringVariable("Glb ItemAction Name") == "Magnum Ammo";
+    current.hasFlamethrowerRange = vars.ReadStringVariable("Glb ItemAction Name");
+    current.hasMagnumPower = vars.ReadStringVariable("Glb ItemAction Name");
+    current.hasMagnumAmmo = vars.ReadStringVariable("Glb ItemAction Name");
 
     current.SceneTransition = vars.ReadBoolVariable("SceneTransition");
 
@@ -399,7 +399,7 @@ split
         vars.Log("Shotgun Capacity");
     }
 
-    if(!old.hasFlamethrowerRange && current.hasFlamethrowerRange && !vars.CompletedSplits.Contains("s-Glb ItemAction Name-Range Increased"))
+    if(old.hasFlamethrowerRange != "Range Increased" && current.hasFlamethrowerRange == "Range Increased" && !vars.CompletedSplits.Contains("s-Glb ItemAction Name-Range Increased"))
     {
         return settings["s-Glb ItemAction Name-Range Increased"] && vars.CompletedSplits.Add("s-Glb ItemAction Name-Range Increased");
         vars.Log("Flamethrower Range");
@@ -411,7 +411,7 @@ split
         vars.Log("Magnum Laser");
     }
 
-    if(!old.hasMagnumPower && current.hasMagnumPower && !vars.CompletedSplits.Contains("s-Glb ItemAction Name-Gold Plated"))
+    if(old.hasMagnumPower != "Gold Plated" && current.hasMagnumPower == "Gold Plated" && !vars.CompletedSplits.Contains("s-Glb ItemAction Name-Gold Plated"))
     {
         return settings["s-Glb ItemAction Name-Gold Plated"] && vars.CompletedSplits.Add("s-Glb ItemAction Name-Gold Plated");
         vars.Log("Magnum Power");
@@ -423,7 +423,7 @@ split
         vars.Log("Med Kit Improvement");
     }
 
-    if(!old.hasMagnum && current.hasMagnumAmmo && !vars.CompletedSplits.Contains("s-Glb ItemAction Name-Magnum Ammo-" + current.ActiveScene))
+    if(current.hasMagnumAmmo == "Magnum Ammo" && !vars.CompletedSplits.Contains("s-Glb ItemAction Name-Magnum Ammo-" + current.ActiveScene))
     {
         return settings["s-Glb ItemAction Name-Magnum Ammo-" + current.ActiveScene] && vars.CompletedSplits.Add("s-Glb ItemAction Name-Magnum Ammo-" + current.ActiveScene);
         vars.Log("Magnum Ammo " + current.ActiveScene);
