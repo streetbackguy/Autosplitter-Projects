@@ -98,7 +98,7 @@
       <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Haunted Hilltop" Label="Magnum Ammo found in Haunted Hilltop" State="true" />
       <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Storeroom" Label="Magnum Ammo found in Storeroom" State="true" />
       <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Witchwood" Label="Magnum Ammo found in Witchwood" State="true" />
-      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Corridor D" Label="Magnum Ammo found in Crow Office Corridor" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Corridor B" Label="Magnum Ammo found in Crow Office Corridor" State="true" />
       <Setting Id="i-CrystalCrows-42" Label="42 Crystal Crows" State="true" />
     </Setting>
     
