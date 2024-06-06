@@ -94,11 +94,11 @@
       <Setting Id="b-Magnum Laser-1" Label="Magnum Laser" State="true" />
       <Setting Id="s-Glb ItemAction Name-Gold Plated" Label="Magnum Power" State="true" />
       <Setting Id="b-First Aid knowledge-1" Label="Med Kit Improvement" State="true" />
-      <Setting Id="s-Glb ItemAction Name-Toilet-Magnum Ammo" Label="Magnum Ammo found in Toilet" State="true" />
-      <Setting Id="s-Glb ItemAction Name-Haunted Hilltop-Magnum Ammo" Label="Magnum Ammo found in Haunted Hilltop" State="true" />
-      <Setting Id="s-Glb ItemAction Name-Storeroom-Magnum Ammo" Label="Magnum Ammo found in Storeroom" State="true" />
-      <Setting Id="s-Glb ItemAction Name-Witchwood-Magnum Ammo" Label="Magnum Ammo found in Witchwood" State="true" />
-      <Setting Id="s-Glb ItemAction Name-Corridor D-Magnum Ammo" Label="Magnum Ammo found in Crow Office Corridor" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Toilet" Label="Magnum Ammo found in Toilet" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Haunted Hilltop" Label="Magnum Ammo found in Haunted Hilltop" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Storeroom" Label="Magnum Ammo found in Storeroom" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Witchwood" Label="Magnum Ammo found in Witchwood" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Corridor D" Label="Magnum Ammo found in Crow Office Corridor" State="true" />
       <Setting Id="i-CrystalCrows-42" Label="42 Crystal Crows" State="true" />
     </Setting>
     
