@@ -30,7 +30,7 @@ init
 
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        vars.Helper["StageIGT"] = mono.Make<float>("MainPlayer", "instance", 0x314);
+        vars.Helper["StageIGT"] = mono.Make<float>("MainPlayer", "instance", 0x31C);
 
         vars.Helper["Floor"] = mono.Make<int>("MMC", "instance", "floorNumber");
         // vars.Helper["Chapter"] = mono.Make<int>("MMC", "instance", "currentChapter");
