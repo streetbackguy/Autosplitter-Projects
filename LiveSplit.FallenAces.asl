@@ -22,8 +22,6 @@ init
 
         vars.Helper["MenuID"] = mono.Make<int>("MainMenuManager", "Instance", "_currentMenuId");
 
-        vars.Helper["LevelID"] = mono.Make<int>("PosterButton", "_levelIndex");
-
         vars.Helper["ContextID"] = mono.Make<int>("MainMenuManager", "Instance", "_context");
 
         return true;
@@ -32,7 +30,7 @@ init
 
 isLoading
 {
-    return current.ScreenTransitions || current.Loads;
+    return current.ScreenTransitions || current.Loads && current.ContextID != 2;
 }
 
 start
