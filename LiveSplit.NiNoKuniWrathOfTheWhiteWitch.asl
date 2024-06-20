@@ -2,7 +2,7 @@ state("NinoKuni_WotWW_Remastered")
 {
     int StartEasy: 0x1081708, 0x3C8, 0x0, 0xD70, 0x208;
     int StartNormal: 0x109F558, 0x110, 0x58, 0x1B0, 0x310, 0x7E8;
-    float BossHealth: 0x1081628, 0x1A8, 0x178, 0x1B0, 0xF0;
+    float BossHealth: 0x1081628, 0x1A8, 0x58, 0x30, 0x250, 0x118, 0xDF8;
     string255 BossName: 0x1081628, 0x1A8, 0x58, 0x30, 0x780, 0x178, 0xB0, 0x104;
 }
 
@@ -12,6 +12,8 @@ init
     vars.ShadarCount = 1;
     vars.VileHeartCount = 1;
     vars.CassiopeiaCount = 1;
+
+    vars.BossSecondForm = 0;
 }
 
 startup
@@ -49,6 +51,7 @@ startup
             settings.Add("Cas", true, "Cassiopeia", "BOSSES");
             settings.Add("Cas2", true, "Cassiopeia Phase 2", "BOSSES");
             settings.Add("Zo", true, "Zodiarch", "BOSSES");
+        settings.Add("pause", true, "Enable for Load Removal", "NNK");
 }
 
 start
@@ -62,6 +65,17 @@ onStart
     vars.ShadarCount = 1;
     vars.VileHeartCount = 1;
     vars.CassiopeiaCount = 1;
+
+    vars.BossSecondForm = 0;
+}
+
+update
+{
+    if(old.BossHealth > 0 && current.BossHealth == 0 && current.BossName.Contains("King Tom XIV") || 
+    old.BossHealth > 0 && current.BossHealth == 0 && current.BossName.Contains("Queen Lowlah"))
+    {
+        vars.BossSecondForm++;
+    }
 }
 
 split
@@ -106,7 +120,7 @@ split
         return settings["SN"] && vars.CompletedSplits.Add("SN");
     }
 
-    if(old.BossHealth > 0 && current.BossHealth == 0 && current.BossName.Contains("Shadar") && !vars.CompletedSplits.Contains("Sh"))
+    if(old.BossHealth > current.BossHealth && current.BossHealth < old.BossHealth && old.BossName.Contains("Shadar") && current.BossName != old.BossName && !vars.CompletedSplits.Contains("Sh"))
     {
         return settings["Sh"] && vars.CompletedSplits.Add("Sh") && vars.ShadarCount++;
     }
@@ -186,7 +200,7 @@ split
         return settings["DD"] && vars.CompletedSplits.Add("DD");
     }
 
-    if(old.BossHealth > 0 && current.BossHealth == 0 && current.BossName.Contains("King Tom XIV") && !vars.CompletedSplits.Contains("KT"))
+    if(old.BossHealth > 0 && current.BossHealth == 0 && vars.BossSecondForm == 2 && current.BossName.Contains("King Tom XIV") && !vars.CompletedSplits.Contains("KT"))
     {
         return settings["KT"] && vars.CompletedSplits.Add("KT");
     }
@@ -196,7 +210,7 @@ split
         return settings["PL"] && vars.CompletedSplits.Add("PL");
     }
 
-    if(old.BossHealth > 0 && current.BossHealth == 0 && current.BossName.Contains("Queen Lowlah") && !vars.CompletedSplits.Contains("QL"))
+    if(old.BossHealth > 0 && current.BossHealth == 0 && current.BossName.Contains("Queen Lowlah") && vars.BossSecondForm == 4 && !vars.CompletedSplits.Contains("QL"))
     {
         return settings["QL"] && vars.CompletedSplits.Add("QL");
     }
@@ -220,4 +234,9 @@ split
     {
         return settings["Zo"] && vars.CompletedSplits.Add("Zo");
     }
+}
+
+reset
+{
+    //return current.TitleScreen == 1 && old.TitleScreen == 0;
 }
