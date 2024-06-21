@@ -16,8 +16,6 @@ init
 {
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        vars.Helper["ScreenTransitions"] = mono.Make<bool>("MainMenuManager", "Instance", "_screenTransition", "_isTransitioning");
-        
         vars.Helper["Loads"] = mono.Make<bool>("GameworldSceneController", "Instance", "_worldLoader", "_isLoading");
 
         vars.Helper["MenuID"] = mono.Make<int>("MainMenuManager", "Instance", "_currentMenuId");
@@ -30,7 +28,7 @@ init
 
 isLoading
 {
-    return current.ScreenTransitions || current.Loads && current.ContextID != 2;
+    return current.Loads || current.ContextID != 2;
 }
 
 start
