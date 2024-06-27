@@ -14,14 +14,8 @@ startup
     settings.Add("MMJ", true, "Mullet Mad Jack");
         settings.Add("CAMPAIGN", true, "Campaign Splits", "MMJ");
             settings.Add("FLOORS", false, "Split after each Floor", "CAMPAIGN");
-            // settings.Add("CH1", true, "Split on Completing Chapter 1", "CAMPAIGN");
-            // settings.Add("CH2", true, "Split on Completing Chapter 2", "CAMPAIGN");
-            // settings.Add("CH3", true, "Split on Completing Chapter 3", "CAMPAIGN");
-            // settings.Add("CH4", true, "Split on Completing Chapter 4", "CAMPAIGN");
-            // settings.Add("CH5", true, "Split on Completing Chapter 5", "CAMPAIGN");
-            // settings.Add("CH6", true, "Split on Completing Chapter 6", "CAMPAIGN");
-            // settings.Add("CH7", true, "Split on Completing Chapter 7", "CAMPAIGN");
-            // settings.Add("CH8", true, "Split on Defeating Chapter 8's Boss", "CAMPAIGN");
+            settings.Add("CHAPTERS", false, "Split on each Chapter Select Screen", "CAMPAIGN");
+
 }
 
 init
@@ -30,14 +24,10 @@ init
 
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        vars.Helper["StageIGT"] = mono.Make<float>("MainPlayer", "instance", 0x31C);
+        vars.Helper["StageIGT"] = mono.Make<float>("MainPlayer", "instance", 0x324);
 
         vars.Helper["Floor"] = mono.Make<int>("MMC", "instance", "floorNumber");
-        // vars.Helper["Chapter"] = mono.Make<int>("MMC", "instance", "currentChapter");
-        // vars.Helper["FinalBoss"] = mono.Make<int>("FinalbossMastermind", "stPartIIIdefeat");
-        
-        // vars.Helper["ChapterComplete"] = mono.Make<int>("MMC", "instance", "nextChapterExtra");
-        // vars.Helper["PlayerData"] = mono.Make<bool>("PlayerDataHelper", "instance");
+        vars.Helper["ChapComplete"] = mono.Make<bool>("MadMulletCopTM", "instance", "onChapterCompleteScreen");
 
         return true;
     });
@@ -51,8 +41,6 @@ update
     // {
     //     vars.Log(old.CurrentChapter + " -> " + current.CurrentChapter);
     // }
-
-    vars.Log(current.Floor);
 }
 
 start
@@ -72,10 +60,10 @@ split
         return true && vars.Log("Floor Cleared");
     }
 
-    // if(current.Chapter != old.Chapter)
-    // {
-    //     return settings["CH" + old.Chapter];
-    // }
+    if(current.ChapComplete && !old.ChapComplete && settings["CHAPTERS"])
+    {
+        return true;
+    }
 
     // if(current.FinalBoss == 6 && old.FinalBoss == 5)
     // {
