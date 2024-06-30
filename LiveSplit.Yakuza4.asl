@@ -1,8 +1,37 @@
+/*
+    Documentation for sanity! Ghidra hates the Steam version, but the GOG version works well enough.
+
+    EnemyCount has always used the pointer for CActionFighterManager, but it was previously going outside
+    that instance's boundaries to land on EnemyManager instead, which is usually (not always) contiguous in memory.
+    This explains why this pointer sometimes can seem to sour and not work... probably.
+    But FighterManager has a pointer to EnemyManager, which we're now using instead. Blame Cheat Engine.
+
+    Chapter: CActionManager -> CActionRandomEncount ptr -> 0x204
+    It only increments when gameplay first resumes after a chapter begins (i.e. after title card and cutscenes),
+    which is fine for our use case of determining the final boss split.
+
+    TitleCard: Former series of pointers, no idea.
+    Now it's CActionManager -> CActionChapter ptr -> CFileTexture ptr 0x1b0 -> 0x14 which is the .dds texture filepath.
+    CActionChapter is instantiated on demand between chapters to display title cards, then destroyed afterwards,
+    so this pointer won't ever show strings other than title cards, and only during those moments.
+
+    Character: Static value, not sure yet what shepherds it.
+
+    Paradigm: Static value inc/decremented by CSE interfaces. I think it's just a count (possibly of CSEObj?).
+    I need to find something to replace this, because we've had one instance of values being different than expected
+    for one player in particular.
+
+    Start: Static value written through CActionLoadGame. It's set to values of 0, 1, or 2.
+    It's a mode (or steps?) somewhere in the screen fade process.
+
+    FileTimer: IGT, just a value in CSaveData which is a static instance.
+*/
+
 state("Yakuza4", "Steam")
 {
-    byte EnemyCount: 0x197C440, 0x4B3;
+    byte EnemyCount: 0x197C440, 0x368, 0x33;
+    string255 TitleCard: 0x197C838, 0x3f8, 0x1b0, 0x14;
     byte Chapter: 0x197C838, 0x640, 0x204;
-    string255 TitleCard: 0x1993C38, 0x150, 0x1E4, 0x16C, 0x88, 0x28, 0x148, 0x14;
     byte Character: 0x19806D0;      // 0 - 3: Kiryu, Akiyama, Saejima, Tanimura
     short Paradigm: 0x1980D94;      // Unique value for different gameplay modes, menus, etc.
     byte Start: 0x198C624;          // Black screen / screen fade flag
@@ -11,9 +40,9 @@ state("Yakuza4", "Steam")
 
 state("Yakuza4", "Game Pass")
 {
-    byte EnemyCount: 0x1C590F0, 0x4B3;
+    byte EnemyCount: 0x1C590F0, 0x368, 0x33;
+    string255 TitleCard: 0x1C594E8, 0x3f8, 0x1b0, 0x14;
     byte Chapter: 0x1C594E8, 0x640, 0x204;
-    string255 TitleCard: 0x1C70A08, 0x150, 0x1E4, 0x16C, 0x88, 0x28, 0x148, 0x14;
     byte Character: 0x1C5D4A0;
     short Paradigm: 0x1C5DB64;
     byte Start: 0x1C693F4;
@@ -22,9 +51,9 @@ state("Yakuza4", "Game Pass")
 
 state("Yakuza4", "GOG")
 {
-    byte EnemyCount: 0x18F68C0, 0x4B3;
+    byte EnemyCount: 0x18F68C0, 0x368, 0x33;
+    string255 TitleCard: 0x18F6CB8, 0x3f8, 0x1b0, 0x14;
     byte Chapter: 0x18F6CB8, 0x640, 0x204;
-    string255 TitleCard: 0x190E0B8, 0x150, 0x1E4, 0x16C, 0x88, 0x28, 0x148, 0x14;
     byte Character: 0x18FAB50;
     short Paradigm: 0x18FB214;
     byte Start: 0x1906AA4;
@@ -103,10 +132,10 @@ onStart
     timer.IsGameTimePaused = true;
 }
 
-start 
+start
 {
     // Start at choosing difficulty
-    return (current.FileTimer == 0 && current.Paradigm == 212);
+    return (current.FileTimer == 0 && (current.Paradigm == 212 || current.Paradigm == 213));
 
     // Start at the first title card, i.e. after the disclaimer in English
     // return (current.Paradigm == 185);
