@@ -1,4 +1,4 @@
-//Made for Retroarch Emulator with Genesis GX Core
+//Made for Retroarch Emulator with Genesis Plus GX Core v1.7.4 d593106
 state("LiveSplit")
 {
 }
@@ -34,6 +34,7 @@ init
     vars.Helper.Load = (Func<dynamic, bool>)(emu => 
 	{
 		emu.Make<byte>("Boss", 0xF955);
+        emu.Make<byte>("Chest", 0xFBF4);
         emu.Make<byte>("EnemyHealth", 0xAA03);
 		emu.Make<byte>("RoomID", 0xEFDB);
         emu.Make<byte>("LocationID", 0xEFDA);
@@ -51,6 +52,11 @@ start
 onStart
 {
     vars.Splits.Clear();
+}
+
+update
+{
+    //print(current.Boss.ToString());
 }
 
 split
@@ -135,7 +141,7 @@ split
         return settings["Fairy"] && vars.Splits.Add("Fairy");
     }
 
-    if(current.LocationID == 28 && current.RoomID == 224 && current.EnemyHealth == 0 && old.EnemyHealth > 0 && old.Boss == 0 && !vars.Splits.Contains("Ramiah"))
+    if(current.LocationID == 28 && current.RoomID == 224 && (old.Chest == 0 && current.Chest >= 47) && !vars.Splits.Contains("Ramiah"))
     {
         return settings["Ramiah"] && vars.Splits.Add("Ramiah");
     }
