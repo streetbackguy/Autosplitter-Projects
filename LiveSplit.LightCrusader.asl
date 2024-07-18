@@ -54,11 +54,6 @@ onStart
     vars.Splits.Clear();
 }
 
-update
-{
-    //print(current.Boss.ToString());
-}
-
 split
 {
     if(old.LocationID == 219 && old.RoomID == 248 && current.RoomID != 248 && !vars.Splits.Contains("EyeBoss"))
