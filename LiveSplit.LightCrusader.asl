@@ -25,8 +25,6 @@ startup
         settings.Add("Fairy", true, "Fairy Boss Defeated", "LC");
         settings.Add("Necromancer", true, "Necromancer Boss Defeated", "LC");
         settings.Add("Ramiah", true, "Ramiah Boss Defeated", "LC");
-
-        vars.Congratulations = new Stopwatch();
 }
 
 init
@@ -53,12 +51,6 @@ start
 onStart
 {
     vars.Splits.Clear();
-    vars.Congratulations.Restart();
-}
-
-update
-{
-    print(current.EnemyHealth.ToString());
 }
 
 split
@@ -145,12 +137,6 @@ split
 
     if(current.LocationID == 28 && current.RoomID == 224 && current.EnemyHealth == 0 && old.EnemyHealth > 0 && old.Boss == 0 && !vars.Splits.Contains("Ramiah"))
     {
-        vars.Congratulations.Start();
-
-        if (vars.Congratulations.Elapsed.TotalSeconds >= 11.2)
-        {
-        vars.Congratulations.Stop();
         return settings["Ramiah"] && vars.Splits.Add("Ramiah");
-        }
     }
 }
