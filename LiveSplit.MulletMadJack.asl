@@ -14,8 +14,8 @@ startup
     settings.Add("MMJ", true, "Mullet Mad Jack");
         settings.Add("CAMPAIGN", true, "Campaign Splits", "MMJ");
             settings.Add("FLOORS", false, "Split after each Floor", "CAMPAIGN");
-            settings.Add("CHAPTERS", false, "Split on each Chapter Select Screen", "CAMPAIGN");
-
+            settings.Add("CHAPTERS", true, "Split on each Chapter Select Screen", "CAMPAIGN");
+            // settings.Add("FINALBOSS", true, "Split on Defeating the Final Boss", "CAMPAIGN");
 }
 
 init
@@ -24,33 +24,25 @@ init
 
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        vars.Helper["StageIGT"] = mono.Make<float>("MainPlayer", "instance", 0x324);
-
         vars.Helper["Floor"] = mono.Make<int>("MMC", "instance", "floorNumber");
         vars.Helper["ChapComplete"] = mono.Make<bool>("MadMulletCopTM", "instance", "onChapterCompleteScreen");
 
+        vars.Helper["GameSession"] = mono.Make<float>("MainPlayer", "totalGameSessionTime");
+
         return true;
     });
+
+    
 }
 
 update
 {
     current.ActiveScene = vars.Helper.Scenes.Active.Name ?? old.ActiveScene;
-
-    // if(current.CurrentChapter != old.CurrentChapter)
-    // {
-    //     vars.Log(old.CurrentChapter + " -> " + current.CurrentChapter);
-    // }
 }
 
 start
 {
-    return current.StageIGT > 0.0f && old.StageIGT == 0.0f;
-}
-
-onStart
-{
-    vars.totalIGT = TimeSpan.Zero;
+    return current.GameSession > 0.0f && old.GameSession == 0.0f;
 }
 
 split
@@ -64,21 +56,11 @@ split
     {
         return true;
     }
-
-    // if(current.FinalBoss == 6 && old.FinalBoss == 5)
-    // {
-    //     return settings["CH8"] && vars.Log("Final Boss Defeated!");
-    // }
 }
 
 gameTime
 {
-    if (old.StageIGT > current.StageIGT)
-    {
-        vars.totalIGT += TimeSpan.FromSeconds(old.StageIGT);
-    }
-    
-    return vars.totalIGT + TimeSpan.FromSeconds(current.StageIGT);
+    return TimeSpan.FromSeconds(current.GameSession);
 }
 
 reset
