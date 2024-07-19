@@ -15,7 +15,6 @@ startup
         settings.Add("CAMPAIGN", true, "Campaign Splits", "MMJ");
             settings.Add("FLOORS", false, "Split after each Floor", "CAMPAIGN");
             settings.Add("CHAPTERS", true, "Split on each Chapter Select Screen", "CAMPAIGN");
-            // settings.Add("FINALBOSS", true, "Split on Defeating the Final Boss", "CAMPAIGN");
 }
 
 init
