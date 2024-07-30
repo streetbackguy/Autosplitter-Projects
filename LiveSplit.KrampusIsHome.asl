@@ -120,7 +120,7 @@ onStart
 
 reset
 {
-    return current.MainMenu;
+    return current.MainMenu && !old.MainMenu;
 }
 
 exit
