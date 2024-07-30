@@ -40,6 +40,8 @@ init
 
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
+        mono.Images.Clear();
+
         var smd = mono["StoryMode_Director"];
         vars.Helper["StoryPart"] = smd.Make<int>("StoryMode_Director_S", "Current_StoryPart");
         vars.Helper["StoryPartFirstLoaded"] = smd.Make<bool>("StoryMode_Director_S", "StoryPart_FirstLoaded");
