@@ -21,8 +21,8 @@ startup
             settings.Add("RB", true, "Roulette Boy Soul Obtained", "ANY");
             settings.Add("ADD", true, "Angel/Devil Dog Soul Obtained", "ANY");
             settings.Add("JBG", true, "Judgement Boy Gold Soul Obtained", "ANY");
-            // settings.Add("GM", true, "Escape from Gregory Mama's Room", "ANY");
-            // settings.Add("EGH", true, "Escape Gregory House", "ANY");
+            settings.Add("GM", true, "Escape from Gregory Mama's Room", "ANY");
+            settings.Add("EGH", true, "Escape Gregory House", "ANY");
 }
 
 init
@@ -42,8 +42,9 @@ init
         emu.Make<byte>("RouletteBoySoul", 0x64EAC0);
         emu.Make<byte>("AngelDevilDogSoul", 0x64EB50);
         emu.Make<byte>("JudgementBoyGoldSoul", 0x64EBE0);
-        emu.Make<byte>("GregoryMamaRoom", 0x45E3FC, 0x7F);
-        emu.Make<byte>("EscapeGregoryHouse", 0x45E3FC, 0x04);
+        emu.Make<float>("PlayerPositionX", 0x471820);
+        emu.Make<float>("PlayerPositionZ", 0x471828);
+        emu.Make<byte>("MapID", 0x45E3FC); //0x7F - Gregory Mama's Room, 0x04 - Escaping Gregory House
 
         return true;
     });
@@ -120,6 +121,17 @@ split
         return settings["JBG"] && vars.CompletedSplits.Add("JBG");
     }
 
+    //Splits after Mama Gregory Boss
+    if(current.PlayerPositionZ == -128 && current.PlayerPositionZ == 0 && current.MapID == 3 && !vars.CompletedSplits.Contains("GM"))
+    {
+        return settings["GM"] && vars.CompletedSplits.Add("GM");
+    }
+
+    //Splits on Losing Control of character
+    if(current.PlayerPositionZ > 8250 && current.MapID == 4 && !vars.CompletedSplits.Contains("EGH"))
+    {
+        return settings["EGH"] && vars.CompletedSplits.Add("EGH");
+    }
 }
 
 reset
