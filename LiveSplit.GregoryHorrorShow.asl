@@ -128,7 +128,7 @@ split
     }
 
     //Splits on Losing Control of character
-    if(current.PlayerPositionZ > 8250 && current.MapID == 4 && !vars.CompletedSplits.Contains("EGH"))
+    if(current.PlayerPositionZ > 8300 && current.MapID == 4 && !vars.CompletedSplits.Contains("EGH"))
     {
         return settings["EGH"] && vars.CompletedSplits.Add("EGH");
     }
