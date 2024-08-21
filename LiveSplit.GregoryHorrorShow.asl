@@ -122,7 +122,7 @@ split
     }
 
     //Splits after Mama Gregory Boss
-    if(current.PlayerPositionZ == -128 && current.PlayerPositionZ == 0 && current.MapID == 3 && !vars.CompletedSplits.Contains("GM"))
+    if(current.PlayerPositionZ == -128 && current.PlayerPositionX == 0 && current.MapID == 3 && !vars.CompletedSplits.Contains("GM"))
     {
         return settings["GM"] && vars.CompletedSplits.Add("GM");
     }
