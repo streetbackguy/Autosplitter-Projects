@@ -10,33 +10,20 @@ startup
 
     settings.Add("GLY", true, "Ghostland Yard");
         settings.Add("ANY", true, "Splits after Each Completed Level", "GLY");
-        // settings.Add("BOSS", true, "Splits after Each Boss Level", "GLY");
-
 }
 
 init
 {
-    vars.Splits = new HashSet<string>();
-
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         vars.Helper["GameTimer"] = mono.Make<float>("SceneParameters", "SpeedrunTimer");
         vars.Helper["LevelEnded"] = mono.Make<bool>("LevelManager", "Instance", "levelEnded");
-
-        // vars.Helper["BossOne"] = mono.Make<bool>("LavaBossManager", "dead");
-        // vars.Helper["BossTwo"] = mono.Make<bool>("Boss2Manager", "endTrigger");
-        // vars.Helper["BossThree"] = mono.Make<bool>("Boss3Manager", "dead");
-        // vars.Helper["BossFour"] = mono.Make<int>("Boss4Manager", "bossState");
-        // vars.Helper["BossFive"] = mono.Make<bool>("Boss5Manager", "dead");
-        // vars.Helper["BossSix"] = mono.Make<bool>("Boss6Manager", "bossDead");
 
         vars.Helper["LevelNumber"] = mono.Make<int>("LevelManager", "Instance", "lvl");
         vars.Helper["WorldNumber"] = mono.Make<int>("LevelManager", "Instance", "World");
         
         return true;
     });
-
-    
 }
 
 update
@@ -58,16 +45,6 @@ split
     {
         return settings["ANY"];
     };
-
-    // if(current.BossOne && current.BossOne != old.BossOne ||
-    // current.BossTwo && current.BossTwo != old.BossTwo ||
-    // current.BossThree && current.BossThree != old.BossThree ||
-    // current.BossFour == 7 && current.BossFour != old.BossFour ||
-    // current.BossFive && current.BossFive != old.BossFive ||
-    // current.BossSix && current.BossSix != old.BossSix)
-    // {
-    //     return settings["BOSS"];
-    // };
 }
 
 gameTime
