@@ -6,10 +6,7 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     vars.Helper.GameName = "Ghostland Yard";
-    vars.Helper.LoadSceneManager = true;
     vars.Helper.AlertLoadless();
-
-    vars.totalIGT = new TimeSpan();
 
     settings.Add("GLY", true, "Ghostland Yard");
         settings.Add("ANY", true, "Splits after Each Completed Level", "GLY");
