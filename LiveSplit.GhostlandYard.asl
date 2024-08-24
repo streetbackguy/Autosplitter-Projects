@@ -6,6 +6,7 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     vars.Helper.GameName = "Ghostland Yard";
+    vars.Helper.LoadSceneManager = true;
     vars.Helper.AlertLoadless();
 
     settings.Add("GLY", true, "Ghostland Yard");
@@ -16,11 +17,11 @@ init
 {
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        vars.Helper["GameTimer"] = mono.Make<float>("SceneParameters", "SpeedrunTimer");
+        vars.Helper["SpeedrunTimer"] = mono.Make<float>("SceneParameters", "SpeedrunTimer");
         vars.Helper["LevelEnded"] = mono.Make<bool>("LevelManager", "Instance", "levelEnded");
 
-        vars.Helper["LevelNumber"] = mono.Make<int>("LevelManager", "Instance", "lvl");
-        vars.Helper["WorldNumber"] = mono.Make<int>("LevelManager", "Instance", "World");
+        // vars.Helper["LevelNumber"] = mono.Make<int>("LevelManager", "Instance", "lvl");
+        // vars.Helper["WorldNumber"] = mono.Make<int>("LevelManager", "Instance", "World");
         
         return true;
     });
@@ -28,15 +29,13 @@ init
 
 update
 {
-    if(current.LevelEnded && current.LevelEnded != old.LevelEnded)
-    {
-        vars.Log("World " + old.WorldNumber + " Level " + old.LevelNumber + " beaten!");
-    };
+    current.activeScene = vars.Helper.Scenes.Active.Name ?? old.activeScene;
+    current.loadingScene = vars.Helper.Scenes.Loaded[0].Name ?? old.loadingScene;
 }
 
 start
 {
-    return current.GameTimer > 0.0f && old.GameTimer == 0.0f;
+    return current.SpeedrunTimer > 0.0f && old.SpeedrunTimer == 0.0f;
 }
 
 split
@@ -49,5 +48,10 @@ split
 
 gameTime
 {
-    return TimeSpan.FromSeconds(current.GameTimer);
+    return TimeSpan.FromSeconds(current.SpeedrunTimer);
+}
+
+reset
+{
+    return current.SpeedrunTimer == 0.0f || current.activeScene == "Menu_RELEASE" && old.activeScene == "Menu_RELEASE";
 }
