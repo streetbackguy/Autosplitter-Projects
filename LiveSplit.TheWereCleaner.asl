@@ -10,7 +10,8 @@ startup
     vars.Helper.AlertLoadless();
 
     settings.Add("TWC", true, "The WereCleaner");
-        settings.Add("ANY", true, "Splits after Each Completed Level", "TWC");
+        settings.Add("ANY", true, "Split after Each Completed Level", "TWC");
+        settings.Add("COL", true, "Split after Collecting Each Collectible", "TWC");
 }
 
 init
@@ -19,7 +20,7 @@ init
     {
         vars.Helper["LevelStart"] = mono.Make<bool>("GameManager", "instance", "clockInScript", "levelDoorController", "isInteractable");
         vars.Helper["LevelEnd"] = mono.Make<bool>("GameManager", "instance", "levelEndStarted");
-        vars.Helper["Transitions"] = mono.Make<bool>("LevelLoader", "slider");
+        vars.Helper["LevelEndFade"] = mono.Make<bool>("GameManager", "instance", "screenTransitions", "isTransitioning");
         
         return true;
     });
@@ -29,8 +30,6 @@ update
 {
     current.activeScene = vars.Helper.Scenes.Active.Name ?? old.activeScene;
     current.loadingScene = vars.Helper.Scenes.Loaded[0].Name ?? old.loadingScene;
-
-    print(current.loadingScene.ToString());
 }
 
 start
@@ -48,5 +47,5 @@ split
 
 isLoading
 {
-    return current.loadingScene == "LevelLoader";
+    return current.loadingScene == "LevelLoader" || current.LevelEndFade;
 }
