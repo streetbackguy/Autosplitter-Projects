@@ -11,7 +11,6 @@ startup
 
     settings.Add("TWC", true, "The WereCleaner");
         settings.Add("ANY", true, "Split after Each Completed Level", "TWC");
-        settings.Add("COL", true, "Split after Collecting Each Collectible", "TWC");
 }
 
 init
