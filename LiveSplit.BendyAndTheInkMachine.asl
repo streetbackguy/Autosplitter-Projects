@@ -209,11 +209,6 @@ start
 	return current.Chapters == 1 && current.IGT > 0.0f && old.IGT == 0.0f;
 }
 
-reset
-{
-    return old.Chapters == 0 && current.IGT == 0.0f && old.IGT > 0.0f;
-}
-
 split 
 {
 	if(current.Chapters == old.Chapters + 1)
