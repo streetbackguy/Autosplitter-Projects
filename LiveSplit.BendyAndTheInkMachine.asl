@@ -96,7 +96,6 @@ init
     {
         //Current Chapter ID
         vars.Helper["Chapters"] = mono.Make<int>("GameManager", "m_Instance", "CurrentChapter", "m_Chapter");
-        // vars.Helper["Objectives"] = mono.MakeString("GameManager", "m_Instance", "m_ObjectiveController", "m_DataVO", "Objective");
 
         //Chapter 1
         vars.Helper["Inkwell"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH1Data", "Inkwell", "IsStarted");
