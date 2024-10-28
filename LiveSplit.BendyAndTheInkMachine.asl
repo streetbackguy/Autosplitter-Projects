@@ -1,3 +1,5 @@
+//Original ASL by Rythin
+//Updated 2024 with asl-help by Streetbackguy
 state("Bendy and the Ink Machine")
 {
 }
@@ -184,9 +186,9 @@ init
         });
 
         return true;
-    	});
+    });
 
-    	vars.CompletedSplits = new HashSet<string>();
+    vars.CompletedSplits = new HashSet<string>();
 }
 
 update
@@ -199,7 +201,7 @@ update
 
 gameTime
 {
-    	return TimeSpan.FromSeconds(current.IGT);
+    return TimeSpan.FromSeconds(current.IGT);
 }
 
 start 
@@ -209,14 +211,14 @@ start
 
 reset
 {
-    	return old.Chapters == 0 && current.IGT == 0.0f && old.IGT > 0.0f;
+    return old.Chapters == 0 && current.IGT == 0.0f && old.IGT > 0.0f;
 }
 
 split 
 {
 	if(current.Chapters == old.Chapters + 1)
     {
-	return settings["ch" + old.Chapters];
+		return settings["ch" + old.Chapters];
         vars.CompletedSplits.Add("ch" + old.Chapters);
 	}
 
