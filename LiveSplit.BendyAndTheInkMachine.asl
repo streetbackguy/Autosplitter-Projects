@@ -7,7 +7,85 @@ startup
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     vars.Helper.GameName = "Bendy and the Ink Machine";
     vars.Helper.AlertLoadless();
-    vars.Helper.Settings.CreateFromXml("Components/BATIM.Settings.xml");
+    
+    settings.Add("Chapter 1", true);
+		settings.Add("CH1", true, "Chapter Splits", "Chapter 1");
+			settings.Add("Inkwell", false, "Inkwell", "CH1");
+			settings.Add("Doll", false, "Doll", "CH1");
+			settings.Add("Record", false, "Record", "CH1");
+			settings.Add("Book", false, "Book", "CH1");
+			settings.Add("Wrench", false, "Wrench", "CH1");
+			settings.Add("Gear", false, "Gear", "CH1");
+			settings.Add("InkMachineRevealObjective", false, "InkMachineRevealObjective", "CH1");
+			settings.Add("CollectablesObjective", false, "CollectablesObjective", "CH1");
+			settings.Add("TheatreObjective", false, "TheatreObjective", "CH1");
+			settings.Add("InkMachineObjective", false, "InkMachineObjective", "CH1");
+			settings.Add("BendyChaseObjective", false, "BendyChaseObjective", "CH1");
+			settings.Add("BasementObjective", false, "BasementObjective", "CH1");
+		settings.Add("ch1", true, "Chapter Completion", "Chapter 1");
+	settings.Add("Chapter 2", true);
+		settings.Add("CH2", true, "Chapter Splits", "Chapter 2");
+			settings.Add("RitualObjective", false, "RitualObjective", "CH2");
+			settings.Add("GateObjective", false, "GateObjective", "CH2");
+			settings.Add("MusicDepartmentObjective", false, "MusicDepartmentObjective", "CH2");
+			settings.Add("LostKeysObjective", false, "LostKeysObjective", "CH2");
+			settings.Add("MusicPuzzleObjective", false, "MusicPuzzleObjective", "CH2");
+			settings.Add("SanctuaryObjective", false, "SanctuaryObjective", "CH2");
+			settings.Add("InfirmaryObjective", false, "InfirmaryObjective", "CH2");
+			settings.Add("SewersObjective", false, "SewersObjective", "CH2");
+			settings.Add("SammysOfficeObjective", false, "SammysOfficeObjective", "CH2");
+		settings.Add("ch2", true, "Chapter Completion");
+	settings.Add("Chapter 3", true);
+		settings.Add("CH3", true, "Chapter Splits", "Chapter 3");
+			settings.Add("SqueakyToys", false, "SqueakyToys", "CH3");
+			settings.Add("AccountingRoom", false, "AccountingRoom", "CH3");
+			settings.Add("SafehouseObjective", false, "SafehouseObjective", "CH3");
+			settings.Add("DarkHallwayObjective", false, "DarkHallwaysObjective", "CH3");
+			settings.Add("HeavenlyToysObjective", false, "HeavenlyToysObjective", "CH3");
+			settings.Add("AliceRevealObjective", false, "AliceRevealObjective", "CH3");
+			settings.Add("DecisionObjective", false, "DecisionObjective", "CH3");
+			settings.Add("BorisJumpscareObjective", false, "BorisJumpscareObjective", "CH3");
+			settings.Add("PosterPiperObjective", false, "PosterPiperObjective", "CH3");
+			settings.Add("EnterLiftObjective", false, "EnterLiftObjective", "CH3");
+			settings.Add("AliceLairObjective", false, "AliceLairObjective", "CH3");
+			settings.Add("AliceTasksObjective", false, "AliceTasksObjective", "CH3");
+			settings.Add("GearTask", false, "GearTask", "CH3");
+			settings.Add("ThickInkTask", false, "ThickInkTask", "CH3");
+			settings.Add("PowerCoreTask", false, "PowerCoreTask", "CH3");
+			settings.Add("CutoutTask", false, "CutoutTask", "CH3");
+			settings.Add("ButcherGangTask", false, "ButcherGangTask", "CH3");
+			settings.Add("HeartTask", false, "HeartTask", "CH3");
+		settings.Add("ch3", true, "Chapter Completion");
+	settings.Add("Chapter 4", true);
+		settings.Add("CH4", true, "Chapter Splits", "Chapter 4");
+			settings.Add("AccountingObjective", false, "AccountingObjective", "CH4");
+			settings.Add("BridgeMachineObjective", false, "BridgeMachineObjective", "CH4");
+			settings.Add("LostOnesObjective", false, "LostOnesObjective", "CH4");
+			settings.Add("VentObjective", false, "VentObjective", "CH4");
+			settings.Add("MapRoomObjective", false, "MapRoomObjective", "CH4");
+			settings.Add("WarehouseObjective", false, "WarehouseObjective", "CH4");
+			settings.Add("FairGamesObjective", false, "FairGamesObjective", "CH4");
+			settings.Add("ResearchObjective", false, "ResearchObjective", "CH4");
+			settings.Add("RideStorageObjective", false, "RideStorageObjective", "CH4");
+			settings.Add("MaintenanceObjective", false, "MaintenanceObjective", "CH4");
+			settings.Add("HauntedHouseObjective", false, "HauntedHouseObjective", "CH4");
+		settings.Add("ch4", true, "Chapter Completion");
+	settings.Add("Chapter 5", true);
+		settings.Add("CH5", true, "Chapter Splits", "Chapter 5");
+			settings.Add("PipePuzzleBasic", false, "PipePuzzleBasic", "CH5");
+			settings.Add("PipePuzzleCorner", false, "PipePuzzleCorner", "CH5");
+			settings.Add("PipePuzzleThreeWay", false, "PipePuzzleThreeWay", "CH5");
+			settings.Add("SafehouseObjective2", false, "SafehouseObjective", "CH5");
+			settings.Add("CavesObjective", false, "CavesObjective", "CH5");
+			settings.Add("DockObjective", false, "DockObjective", "CH5");
+			settings.Add("TunnelsObjective", false, "TunnelsObjective", "CH5");
+			settings.Add("LostHarbourObjective", false, "LostHarbourObjective", "CH5");
+			settings.Add("AdministrationObjective", false, "AdministrationObjective", "CH5");
+			settings.Add("VaultObjective", false, "VaultObjective", "CH5");
+			settings.Add("GiantInkMachineObjective", false, "GiantInkMachineObjective", "CH5");
+			settings.Add("ThroneRoomObjective", false, "ThroneRoomObjective", "CH5");
+			settings.Add("BendyArena", false, "BendyArena", "CH5");
+		settings.Add("ch5", true, "Chapter Completion");
 }
 
 init
@@ -16,7 +94,7 @@ init
     {
         //Current Chapter ID
         vars.Helper["Chapters"] = mono.Make<int>("GameManager", "m_Instance", "CurrentChapter", "m_Chapter");
-        vars.Helper["Objectives"] = mono.MakeString("GameManager", "m_Instance", "m_ObjectiveController", "m_DataVO", "Objective");
+        // vars.Helper["Objectives"] = mono.MakeString("GameManager", "m_Instance", "m_ObjectiveController", "m_DataVO", "Objective");
 
         //Chapter 1
         vars.Helper["Inkwell"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH1Data", "Inkwell", "IsStarted");
@@ -94,19 +172,25 @@ init
         //Save File Playtime
         vars.Helper["IGT"] = mono.Make<float>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "PlayTime");
 
-        return true;
-    });
+        vars.CheckWatcher = (Func<string, bool>)(watcher =>
+        {
+            if(!vars.Helper[watcher].Old && vars.Helper[watcher].Current && !vars.CompletedSplits.Contains(watcher))
+            {
+                vars.CompletedSplits.Add(watcher);
+                return settings[watcher];
+                print(watcher + "has split!");
+            }
+            return false;
+        });
 
-    vars.CompletedSplits = new HashSet<string>();
+        return true;
+    	});
+
+    	vars.CompletedSplits = new HashSet<string>();
 }
 
 update
 {
-    if(old.Objectives != current.Objectives)
-    {
-        vars.Log("Objective: " + current.Objectives);
-    }
-
     if(old.Chapters != current.Chapters)
     {
         vars.Log("Chapter: " + current.Chapters);
@@ -115,7 +199,7 @@ update
 
 gameTime
 {
-    return TimeSpan.FromSeconds(current.IGT);
+    	return TimeSpan.FromSeconds(current.IGT);
 }
 
 start 
@@ -125,399 +209,88 @@ start
 
 reset
 {
-    return old.Chapters == 0 && current.IGT == 0.0f && old.IGT > 0.0f;
+    	return old.Chapters == 0 && current.IGT == 0.0f && old.IGT > 0.0f;
 }
 
 split 
 {
-	if(current.Chapters > old.Chapters)
+	if(current.Chapters == old.Chapters + 1)
     {
-		return settings["ch" + old.Chapters];
+	return settings["ch" + old.Chapters];
         vars.CompletedSplits.Add("ch" + old.Chapters);
 	}
 
     //Chapter 1
-    if(current.Inkwell && !old.Inkwell && !vars.CompletedSplits.Contains("Inkwell"))
-    {
-        return settings["Inkwell"];
-        vars.CompletedSplits.Add("Inkwell");
-    }
-
-    if(current.Doll && !old.Doll && !vars.CompletedSplits.Contains("Doll"))
-    {
-        return settings["Doll"];
-        vars.CompletedSplits.Add("Doll");
-    }
-
-    if(current.Record && !old.Record && !vars.CompletedSplits.Contains("Record"))
-    {
-        return settings["Record"];
-        vars.CompletedSplits.Add("Record");
-    }
-
-    if(current.Book && !old.Book && !vars.CompletedSplits.Contains("Book"))
-    {
-        return settings["Book"];
-        vars.CompletedSplits.Add("Book");
-    }
-
-    if(current.Wrench && !old.Wrench && !vars.CompletedSplits.Contains("Wrench"))
-    {
-        return settings["Wrench"];
-        vars.CompletedSplits.Add("Wrench");
-    }
-
-    if(current.Gear && !old.Gear && !vars.CompletedSplits.Contains("Gear"))
-    {
-        return settings["Gear"];
-        vars.CompletedSplits.Add("Gear");
-    }
-
-    if(current.InkMachineRevealObjective && !old.InkMachineRevealObjective && !vars.CompletedSplits.Contains("InkMachineRevealObjective"))
-    {
-        return settings["InkMachineRevealObjective"];
-        vars.CompletedSplits.Add("InkMachineRevealObjective");
-    }
-
-    if(current.CollectablesObjective && !old.CollectablesObjective && !vars.CompletedSplits.Contains("CollectablesObjective"))
-    {
-        return settings["CollectablesObjective"];
-        vars.CompletedSplits.Add("CollectablesObjective");
-    }
-
-    if(current.TheatreObjective && !old.TheatreObjective && !vars.CompletedSplits.Contains("TheatreObjective"))
-    {
-        return settings["TheatreObjective"];
-        vars.CompletedSplits.Add("TheatreObjective");
-    }
-
-    if(current.InkMachineObjective && !old.InkMachineObjective && !vars.CompletedSplits.Contains("InkMachineObjective"))
-    {
-        return settings["InkMachineObjective"];
-        vars.CompletedSplits.Add("InkMachineObjective");
-    }
-
-    if(current.BendyChaseObjective && !old.BendyChaseObjective && !vars.CompletedSplits.Contains("BendyChaseObjective"))
-    {
-        return settings["BendyChaseObjective"];
-        vars.CompletedSplits.Add("BendyChaseObjective");
-    }
-
-    if(current.BendyChaseObjective && !old.BendyChaseObjective && !vars.CompletedSplits.Contains("BendyChaseObjective"))
-    {
-        return settings["BasementObjective"];
-        vars.CompletedSplits.Add("BasementObjective");
-    }
+    if (vars.CheckWatcher("Inkwell")) return true;
+    if (vars.CheckWatcher("Doll")) return true;
+    if (vars.CheckWatcher("Record")) return true;
+    if (vars.CheckWatcher("Book")) return true;
+    if (vars.CheckWatcher("Wrench")) return true;
+    if (vars.CheckWatcher("Gear")) return true;
+    if (vars.CheckWatcher("InkMachineRevealObjective")) return true;
+    if (vars.CheckWatcher("CollectablesObjective")) return true;
+    if (vars.CheckWatcher("TheatreObjective")) return true;
+    if (vars.CheckWatcher("InkMachineObjective")) return true;
+    if (vars.CheckWatcher("BendyChaseObjective")) return true;
 
     //Chapter 2
-    if(current.RitualObjective && !old.RitualObjective && !vars.CompletedSplits.Contains("RitualObjective"))
-    {
-        return settings["RitualObjective"];
-        vars.CompletedSplits.Add("RitualObjective");
-    }
-
-    if(current.GateObjective && !old.GateObjective && !vars.CompletedSplits.Contains("GateObjective"))
-    {
-        return settings["GateObjective"];
-        vars.CompletedSplits.Add("GateObjective");
-    }
-
-    if(current.MusicDepartmentObjective && !old.MusicDepartmentObjective && !vars.CompletedSplits.Contains("MusicDepartmentObjective"))
-    {
-        return settings["MusicDepartmentObjective"];
-        vars.CompletedSplits.Add("MusicDepartmentObjective");
-    }
-
-    if(current.LostKeysObjective && !old.LostKeysObjective && !vars.CompletedSplits.Contains("LostKeysObjective"))
-    {
-        return settings["LostKeysObjective"];
-        vars.CompletedSplits.Add("LostKeysObjective");
-    }
-
-    if(current.MusicPuzzleObjective && !old.MusicPuzzleObjective && !vars.CompletedSplits.Contains("MusicPuzzleObjective"))
-    {
-        return settings["MusicPuzzleObjective"];
-        vars.CompletedSplits.Add("MusicPuzzleObjective");
-    }
-
-    if(current.SanctuaryObjective && !old.SanctuaryObjective && !vars.CompletedSplits.Contains("SanctuaryObjective"))
-    {
-        return settings["SanctuaryObjective"];
-        vars.CompletedSplits.Add("SanctuaryObjective");
-    }
-
-    if(current.InfirmaryObjective && !old.InfirmaryObjective && !vars.CompletedSplits.Contains("InfirmaryObjective"))
-    {
-        return settings["InfirmaryObjective"];
-        vars.CompletedSplits.Add("InfirmaryObjective");
-    }
-
-    if(current.SewersObjective && !old.SewersObjective && !vars.CompletedSplits.Contains("SewersObjective"))
-    {
-        return settings["SewersObjective"];
-        vars.CompletedSplits.Add("SewersObjective");
-    }
-
-    if(current.SammysOfficeObjective && !old.SammysOfficeObjective && !vars.CompletedSplits.Contains("SammysOfficeObjective"))
-    {
-        return settings["SammysOfficeObjective"];
-        vars.CompletedSplits.Add("SammysOfficeObjective");
-    }
+    if (vars.CheckWatcher("RitualObjective")) return true;
+    if (vars.CheckWatcher("GateObjective")) return true;
+    if (vars.CheckWatcher("MusicDepartmentObjective")) return true;
+    if (vars.CheckWatcher("LostKeysObjective")) return true;
+    if (vars.CheckWatcher("MusicPuzzleObjective")) return true;
+    if (vars.CheckWatcher("SanctuaryObjective")) return true;
+    if (vars.CheckWatcher("InfirmaryObjective")) return true;
+    if (vars.CheckWatcher("SewersObjective")) return true;
+    if (vars.CheckWatcher("SammysOfficeObjective")) return true;
 
     //Chapter 3
-    if(current.SqueakyToys && !old.SqueakyToys && !vars.CompletedSplits.Contains("SqueakyToys"))
-    {
-        return settings["SqueakyToys"];
-        vars.CompletedSplits.Add("SqueakyToys");
-    }
-
-    if(current.AccountingRoom && !old.AccountingRoom && !vars.CompletedSplits.Contains("AccountingRoom"))
-    {
-        return settings["AccountingRoom"];
-        vars.CompletedSplits.Add("AccountingRoom");
-    }
-
-    if(current.SafehouseObjective && !old.SafehouseObjective && !vars.CompletedSplits.Contains("SafehouseObjective"))
-    {
-        return settings["SafehouseObjective"];
-        vars.CompletedSplits.Add("SafehouseObjective");
-    }
-
-    if(current.DarkHallwayObjective && !old.DarkHallwayObjective && !vars.CompletedSplits.Contains("DarkHallwayObjective"))
-    {
-        return settings["DarkHallwayObjective"];
-        vars.CompletedSplits.Add("DarkHallwayObjective");
-    }
-
-    if(current.HeavenlyToysObjective && !old.HeavenlyToysObjective && !vars.CompletedSplits.Contains("HeavenlyToysObjective"))
-    {
-        return settings["HeavenlyToysObjective"];
-        vars.CompletedSplits.Add("HeavenlyToysObjective");
-    }
-
-    if(current.AliceRevealObjective && !old.AliceRevealObjective && !vars.CompletedSplits.Contains("AliceRevealObjective"))
-    {
-        return settings["AliceRevealObjective"];
-        vars.CompletedSplits.Add("AliceRevealObjective");
-    }
-
-    if(current.DecisionObjective && !old.DecisionObjective && !vars.CompletedSplits.Contains("DecisionObjective"))
-    {
-        return settings["DecisionObjective"];
-        vars.CompletedSplits.Add("DecisionObjective");
-    }
-
-    if(current.BorisJumpscareObjective && !old.BorisJumpscareObjective && !vars.CompletedSplits.Contains("BorisJumpscareObjective"))
-    {
-        return settings["BorisJumpscareObjective"];
-        vars.CompletedSplits.Add("BorisJumpscareObjective");
-    }
-    
-    if(current.PosterPiperObjective && !old.PosterPiperObjective && !vars.CompletedSplits.Contains("PosterPiperObjective"))
-    {
-        return settings["PosterPiperObjective"];
-        vars.CompletedSplits.Add("PosterPiperObjective");
-    }
-    
-    if(current.EnterLiftObjective && !old.EnterLiftObjective && !vars.CompletedSplits.Contains("EnterLiftObjective"))
-    {
-        return settings["EnterLiftObjective"];
-        vars.CompletedSplits.Add("EnterLiftObjective");
-    }
-    
-    if(current.AliceLairObjective && !old.AliceLairObjective && !vars.CompletedSplits.Contains("AliceLairObjective"))
-    {
-        return settings["AliceLairObjective"];
-        vars.CompletedSplits.Add("AliceLairObjective");
-    }
-    
-    if(current.AliceTasksObjective && !old.AliceTasksObjective && !vars.CompletedSplits.Contains("AliceTasksObjective"))
-    {
-        return settings["AliceTasksObjective"];
-        vars.CompletedSplits.Add("AliceTasksObjective");
-    }
-    
-    if(current.GearTask && !old.GearTask && !vars.CompletedSplits.Contains("GearTask"))
-    {
-        return settings["GearTask"];
-        vars.CompletedSplits.Add("GearTask");
-    }
-    
-    if(current.ThickInkTask && !old.ThickInkTask && !vars.CompletedSplits.Contains("ThickInkTask"))
-    {
-        return settings["ThickInkTask"];
-        vars.CompletedSplits.Add("ThickInkTask");
-    }
-    
-    if(current.PowerCoreTask && !old.PowerCoreTask && !vars.CompletedSplits.Contains("PowerCoreTask"))
-    {
-        return settings["PowerCoreTask"];
-        vars.CompletedSplits.Add("PowerCoreTask");
-    }
-    
-    if(current.CutoutTask && !old.CutoutTask && !vars.CompletedSplits.Contains("CutoutTask"))
-    {
-        return settings["CutoutTask"];
-        vars.CompletedSplits.Add("CutoutTask");
-    }
-    
-    if(current.ButcherGangTask && !old.ButcherGangTask && !vars.CompletedSplits.Contains("ButcherGangTask"))
-    {
-        return settings["ButcherGangTask"];
-        vars.CompletedSplits.Add("ButcherGangTask");
-    }
-    
-    if(current.HeartTask && !old.HeartTask && !vars.CompletedSplits.Contains("HeartTask"))
-    {
-        return settings["HeartTask"];
-        vars.CompletedSplits.Add("HeartTask");
-    }
+    if (vars.CheckWatcher("SqueakyToys")) return true;
+    if (vars.CheckWatcher("AccountingRoom")) return true;
+    if (vars.CheckWatcher("SafehouseObjective")) return true;
+    if (vars.CheckWatcher("DarkHallwayObjective")) return true;
+    if (vars.CheckWatcher("HeavenlyToysObjective")) return true;
+    if (vars.CheckWatcher("AliceRevealObjective")) return true;
+    if (vars.CheckWatcher("DecisionObjective")) return true;
+    if (vars.CheckWatcher("BorisJumpscareObjective")) return true;
+    if (vars.CheckWatcher("PosterPiperObjective")) return true;
+    if (vars.CheckWatcher("EnterLiftObjective")) return true;
+    if (vars.CheckWatcher("AliceLairObjective")) return true;
+    if (vars.CheckWatcher("AliceTasksObjective")) return true;
+    if (vars.CheckWatcher("GearTask")) return true;
+    if (vars.CheckWatcher("ThickInkTask")) return true;
+    if (vars.CheckWatcher("PowerCoreTask")) return true;
+    if (vars.CheckWatcher("CutoutTask")) return true;
+    if (vars.CheckWatcher("ButcherGangTask")) return true;
+    if (vars.CheckWatcher("HeartTask")) return true;
 
     //Chapter 4    
-    if(current.AccountingObjective && !old.AccountingObjective && !vars.CompletedSplits.Contains("AccountingObjective"))
-    {
-        return settings["AccountingObjective"];
-        vars.CompletedSplits.Add("AccountingObjective");
-    }
-    
-    if(current.BridgeMachineObjective && !old.BridgeMachineObjective && !vars.CompletedSplits.Contains("BridgeMachineObjective"))
-    {
-        return settings["BridgeMachineObjective"];
-        vars.CompletedSplits.Add("BridgeMachineObjective");
-    }
-    
-    if(current.LostOnesObjective && !old.LostOnesObjective && !vars.CompletedSplits.Contains("LostOnesObjective"))
-    {
-        return settings["LostOnesObjective"];
-        vars.CompletedSplits.Add("LostOnesObjective");
-    }
-    
-    if(current.VentObjective && !old.VentObjective && !vars.CompletedSplits.Contains("VentObjective"))
-    {
-        return settings["VentObjective"];
-        vars.CompletedSplits.Add("VentObjective");
-    }
-    
-    if(current.MapRoomObjective && !old.MapRoomObjective && !vars.CompletedSplits.Contains("MapRoomObjective"))
-    {
-        return settings["MapRoomObjective"];
-        vars.CompletedSplits.Add("MapRoomObjective");
-    }
-
-    if(current.WarehouseObjective && !old.WarehouseObjective && !vars.CompletedSplits.Contains("WarehouseObjective"))
-    {
-        return settings["WarehouseObjective"];
-        vars.CompletedSplits.Add("WarehouseObjective");
-    }
-    
-    if(current.FairGamesObjective && !old.FairGamesObjective && !vars.CompletedSplits.Contains("FairGamesObjective"))
-    {
-        return settings["FairGamesObjective"];
-        vars.CompletedSplits.Add("FairGamesObjective");
-    }
-
-    if(current.ResearchObjective && !old.ResearchObjective && !vars.CompletedSplits.Contains("ResearchObjective"))
-    {
-        return settings["ResearchObjective"];
-        vars.CompletedSplits.Add("ResearchObjective");
-    }
-    
-    if(current.RideStorageObjective && !old.RideStorageObjective && !vars.CompletedSplits.Contains("RideStorageObjective"))
-    {
-        return settings["RideStorageObjective"];
-        vars.CompletedSplits.Add("RideStorageObjective");
-    }
-    
-    if(current.MaintenanceObjective && !old.MaintenanceObjective && !vars.CompletedSplits.Contains("MaintenanceObjective"))
-    {
-        return settings["MaintenanceObjective"];
-        vars.CompletedSplits.Add("MaintenanceObjective");
-    }
-    
-    if(current.HauntedHouseObjective && !old.HauntedHouseObjective && !vars.CompletedSplits.Contains("HauntedHouseObjective"))
-    {
-        return settings["HauntedHouseObjective"];
-        vars.CompletedSplits.Add("HauntedHouseObjective");
-    }
+    if (vars.CheckWatcher("AccountingObjective")) return true;
+    if (vars.CheckWatcher("BridgeMachineObjective")) return true;
+    if (vars.CheckWatcher("LostOnesObjective")) return true;
+    if (vars.CheckWatcher("VentObjective")) return true;
+    if (vars.CheckWatcher("MapRoomObjective")) return true;
+    if (vars.CheckWatcher("WarehouseObjective")) return true;
+    if (vars.CheckWatcher("FairGamesObjective")) return true;
+    if (vars.CheckWatcher("ResearchObjective")) return true;
+    if (vars.CheckWatcher("RideStorageObjective")) return true;
+    if (vars.CheckWatcher("MaintenanceObjective")) return true;
+    if (vars.CheckWatcher("HauntedHouseObjective")) return true;
 
     //Chapter 5
-    if(current.PipePuzzleBasic && !old.PipePuzzleBasic && !vars.CompletedSplits.Contains("PipePuzzleBasic"))
-    {
-        return settings["PipePuzzleBasic"];
-        vars.CompletedSplits.Add("PipePuzzleBasic");
-    }
-    
-    if(current.PipePuzzleCorner && !old.PipePuzzleCorner && !vars.CompletedSplits.Contains("PipePuzzleCorner"))
-    {
-        return settings["PipePuzzleCorner"];
-        vars.CompletedSplits.Add("PipePuzzleCorner");
-    }
-    
-    if(current.PipePuzzleThreeWay && !old.PipePuzzleThreeWay && !vars.CompletedSplits.Contains("PipePuzzleThreeWay"))
-    {
-        return settings["PipePuzzleThreeWay"];
-        vars.CompletedSplits.Add("PipePuzzleThreeWay");
-    }
-
-    if(current.SafehouseObjective2 && !old.SafehouseObjective2 && !vars.CompletedSplits.Contains("SafehouseObjective2"))
-    {
-        return settings["SafehouseObjective2"];
-        vars.CompletedSplits.Add("SafehouseObjective2");
-    }
-    
-    if(current.CavesObjective && !old.CavesObjective && !vars.CompletedSplits.Contains("CavesObjective"))
-    {
-        return settings["CavesObjective"];
-        vars.CompletedSplits.Add("CavesObjective");
-    }
-    
-    if(current.DockObjective && !old.DockObjective && !vars.CompletedSplits.Contains("DockObjective"))
-    {
-        return settings["DockObjective"];
-        vars.CompletedSplits.Add("DockObjective");
-    }
-    
-    if(current.TunnelsObjective && !old.TunnelsObjective && !vars.CompletedSplits.Contains("TunnelsObjective"))
-    {
-        return settings["TunnelsObjective"];
-        vars.CompletedSplits.Add("TunnelsObjective");
-    }
-    
-    if(current.LostHarbourObjective && !old.LostHarbourObjective && !vars.CompletedSplits.Contains("LostHarbourObjective"))
-    {
-        return settings["LostHarbourObjective"];
-        vars.CompletedSplits.Add("LostHarbourObjective");
-    }
-    
-    if(current.AdministrationObjective && !old.AdministrationObjective && !vars.CompletedSplits.Contains("AdministrationObjective"))
-    {
-        return settings["AdministrationObjective"];
-        vars.CompletedSplits.Add("AdministrationObjective");
-    }
-    
-    if(current.VaultObjective && !old.VaultObjective && !vars.CompletedSplits.Contains("VaultObjective"))
-    {
-        return settings["VaultObjective"];
-        vars.CompletedSplits.Add("VaultObjective");
-    }
-    
-    if(current.GiantInkMachineObjective && !old.GiantInkMachineObjective && !vars.CompletedSplits.Contains("GiantInkMachineObjective"))
-    {
-        return settings["GiantInkMachineObjective"];
-        vars.CompletedSplits.Add("GiantInkMachineObjective");
-    }
-    
-    if(current.ThroneRoomObjective && !old.ThroneRoomObjective && !vars.CompletedSplits.Contains("ThroneRoomObjective"))
-    {
-        return settings["ThroneRoomObjective"];
-        vars.CompletedSplits.Add("ThroneRoomObjective");
-    }
-
-    if(current.BendyArenaObjective && !old.BendyArenaObjective && !vars.CompletedSplits.Contains("BendyArenaObjective"))
-    {
-        return settings["BendyArenaObjective"];
-        vars.CompletedSplits.Add("BendyArenaObjective");
-    }
+    if (vars.CheckWatcher("PipePuzzleBasic")) return true;
+    if (vars.CheckWatcher("PipePuzzleCorner")) return true;
+    if (vars.CheckWatcher("PipePuzzleThreeWay")) return true;
+    if (vars.CheckWatcher("SafehouseObjective2")) return true;
+    if (vars.CheckWatcher("CavesObjective")) return true;
+    if (vars.CheckWatcher("DockObjective")) return true;
+    if (vars.CheckWatcher("TunnelsObjective")) return true;
+    if (vars.CheckWatcher("LostHarbourObjective")) return true;
+    if (vars.CheckWatcher("AdministrationObjective")) return true;
+    if (vars.CheckWatcher("VaultObjective")) return true;
+    if (vars.CheckWatcher("GiantInkMachineObjective")) return true;
+    if (vars.CheckWatcher("ThroneRoomObjective")) return true;
+    if (vars.CheckWatcher("BendyArenaObjective")) return true;
 }
 
 onStart
