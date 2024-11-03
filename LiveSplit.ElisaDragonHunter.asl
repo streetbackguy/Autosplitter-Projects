@@ -10,11 +10,6 @@ start
     return old.Starter == 0 && current.Starter == 1;
 }
 
-isLoading
-{
-
-}
-
 split
 {
     return old.DragonHP >= 0.02000029758f && current.DragonHP < 0.02000029758f && current.ElisaHP > 0.000000000f;
@@ -22,5 +17,5 @@ split
 
 reset
 {
-    return old.ElisaHP < 1 && current.ElisaHP == 4;
+    return old.ElisaHP <= 1 && current.ElisaHP == 4;
 }
