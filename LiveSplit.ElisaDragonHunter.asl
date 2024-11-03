@@ -17,7 +17,7 @@ isLoading
 
 split
 {
-    return old.DragonHP >= 0.02000029758f && current.DragonHP < 0.02000029758f;
+    return old.DragonHP >= 0.02000029758f && current.DragonHP < 0.02000029758f && current.ElisaHP > 0.000000000f;
 }
 
 reset
