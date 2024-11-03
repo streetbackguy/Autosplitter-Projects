@@ -22,5 +22,5 @@ split
 
 reset
 {
-    return old.Starter != 0 && current.Starter == 0;
+    return old.ElisaHP < 1 && current.ElisaHP == 4;
 }
