@@ -228,6 +228,7 @@ split
     if (vars.CheckWatcher("TheatreObjective")) return true;
     if (vars.CheckWatcher("InkMachineObjective")) return true;
     if (vars.CheckWatcher("BendyChaseObjective")) return true;
+    if (vars.CheckWatcher("BasementObjective")) return true;
 
     //Chapter 2
     if (vars.CheckWatcher("RitualObjective")) return true;
