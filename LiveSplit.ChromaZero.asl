@@ -1,3 +1,4 @@
+// Thanks to Ekorz and Aurora Lucias for the help in finding stuff before the full release
 state("Chroma_Zero-Win64-Shipping")
 {
 }
