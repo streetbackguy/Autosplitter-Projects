@@ -86,7 +86,7 @@ split
 
 reset 
 {    
-    return current.DeleteSaveProgress > 0.98f;
+    return current.DeleteSaveProgress > 0.90f;
 }
 
 isLoading
