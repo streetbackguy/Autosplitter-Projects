@@ -83,9 +83,9 @@ split
         return settings["creditsSplit"] && vars.Splits.Add("Credits");
     }
 
-    if (current.ObtainedReminder != old.ObtainedReminder && !vars.Splits.Contains("Obtained Zerologue"+current.ObtainedReminder.ToString()))
+    if (current.ObtainedReminder != old.ObtainedReminder && !vars.Splits.Contains("Obtained Zerologue "+current.ObtainedReminder.ToString()))
     {
-        return settings["Zerologue "+current.ObtainedReminder] && vars.Splits.Add("Obtained Zerologue"+current.ObtainedReminder.ToString());
+        return settings["Zerologue "+current.ObtainedReminder] && vars.Splits.Add("Obtained Zerologue "+current.ObtainedReminder.ToString());
     }
 }
 
