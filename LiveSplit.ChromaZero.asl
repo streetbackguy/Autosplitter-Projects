@@ -1,11 +1,9 @@
+// Chroma Zero Speedrun ASL code
+// Created by Aurora Lucias & Streetbackguy
+
 state("Chroma_Zero-Win64-Shipping")
 {
 }
-
-/*
-	Chroma Zero Speedrun ASL code
-	Created by Aurora Lucias & Streetbackguy
-*/
 
 startup
 {
