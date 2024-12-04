@@ -2,6 +2,11 @@ state("Chroma_Zero-Win64-Shipping")
 {
 }
 
+/*
+	Chroma Zero Speedrun ASL code
+	Created by Aurora Lucias & Streetbackguy
+*/
+
 startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
@@ -10,15 +15,15 @@ startup
 
     settings.Add("ChromaZero", true, "Chroma Zero Splits");
         settings.Add("lightGateSplit", true, "Split on getting Reminder 0 from the Light Gate", "ChromaZero");
-        settings.Add("remindersSplit", true, "Split on Reminders", "ChromaZero");
-            settings.Add("Reminder 1", false, "Split on Reminder 1", "remindersSplit");
-            settings.Add("Reminder 6", false, "Split on Reminder 6", "remindersSplit");
-            settings.Add("Reminder 7", false, "Split on Reminder 7", "remindersSplit");
-            settings.Add("Reminder 10", false, "Split on Reminder 10", "remindersSplit");
-            settings.Add("Reminder 18", false, "Split on Reminder 18", "remindersSplit");
-            settings.Add("Reminder 19", false, "Split on Reminder 19", "remindersSplit");
-            settings.Add("Reminder 26", false, "Split on Reminder 26", "remindersSplit");
-        settings.Add("Reminder 22", true, "Split on obtaining the clues from the Magenta Tower", "ChromaZero");
+        settings.Add("zerologuesSplit", true, "Split on Zerologues", "ChromaZero");
+            settings.Add("Zerologue 1", false, "Split on obtaining Reminder 2", "zerologuesSplit");
+            settings.Add("Zerologue 6", false, "Split on obtaining Reminder 3", "zerologuesSplit");
+            settings.Add("Zerologue 7", false, "Split on obtaining Reminder 4", "zerologuesSplit");
+            settings.Add("Zerologue 10", false, "Split on obtaining Reminder 5", "zerologuesSplit");
+            settings.Add("Zerologue 18", false, "Split on obtaining Reminder 6", "zerologuesSplit");
+            settings.Add("Zerologue 19", false, "Split on obtaining the Light Phase Reminder 7", "zerologuesSplit");
+            settings.Add("Zerologue 22", true, "Split on obtaining the clues from the Magenta Tower", "zerologuesSplit");
+            settings.Add("Zerologue 26", false, "Split on obtaining the Dark Phase Reminder 7", "zerologuesSplit");
         settings.Add("creditsSplit", true, "Split on reaching the credits", "ChromaZero");
 }
 
@@ -62,7 +67,7 @@ update
 
     if (current.ObtainedReminder != old.ObtainedReminder)
     {
-        vars.Log("Current Reminders: " + current.ObtainedReminder);
+        vars.Log("Current Zerologue: " + current.ObtainedReminder);
     }
 }
 
@@ -78,9 +83,9 @@ split
         return settings["creditsSplit"] && vars.Splits.Add("Credits");
     }
 
-    if (current.ObtainedReminder != old.ObtainedReminder && !vars.Splits.Contains("Obtained Reminder"+current.ObtainedReminder.ToString()))
+    if (current.ObtainedReminder != old.ObtainedReminder && !vars.Splits.Contains("Obtained Zerologue"+current.ObtainedReminder.ToString()))
     {
-        return settings["Reminder "+current.ObtainedReminder] && vars.Splits.Add("Obtained Reminder"+current.ObtainedReminder.ToString());
+        return settings["Zerologue "+current.ObtainedReminder] && vars.Splits.Add("Obtained Zerologue"+current.ObtainedReminder.ToString());
     }
 }
 
