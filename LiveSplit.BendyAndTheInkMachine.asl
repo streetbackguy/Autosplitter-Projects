@@ -139,8 +139,8 @@ init
         vars.Helper["ThickInkTask"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH3Data", "ThickInkTask", 0x18, 0x10);
         vars.Helper["PowerCoreTask"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH3Data", "PowerCoreTask", 0x18, 0x10);
         vars.Helper["CutoutTask"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH3Data", "CutoutTask", 0x18, 0x10);
-        vars.Helper["ButcherGangTask"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH3Data", "ButcherGangTask", 0x10);
-        vars.Helper["HeartTask"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH3Data", "HeartTask", 0x18, 0x10);
+        vars.Helper["ButcherGangTask"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH3Data", "ButcherGangTask", 0x11);
+        vars.Helper["HeartTask"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH3Data", "HeartTask", 0x18, 0x11);
 
         //Chapter 4
         vars.Helper["AccountingObjective"] = mono.Make<bool>("GameManager", "m_Instance", "GameData", "CurrentSaveFile", "CH4Data", "AccountingObjective", 0x11);
