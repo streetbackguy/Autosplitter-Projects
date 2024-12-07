@@ -127,9 +127,10 @@ update
 
 split
 {
-    if(current.World != old.World && !vars.Splits.Contains(old.World))
+    if(current.World != old.World && current.World == "loading" && !vars.Splits.Contains(old.World))
     {
-        return settings[old.World] && vars.Splits.Add(old.World);
+        return settings[old.World];
+        vars.Splits.Add(old.World);
     }
 }
 
