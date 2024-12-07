@@ -136,10 +136,15 @@ split
 
 isLoading
 {
-    return current.World == "loading";
+    return current.World == "loading" || current.World == "avant";
 }
 
 reset 
 {    
     return current.World == "main_cit2" && old.World != "main_cit2";
+}
+
+exit
+{
+    timer.IsGameTimePaused = true;
 }
