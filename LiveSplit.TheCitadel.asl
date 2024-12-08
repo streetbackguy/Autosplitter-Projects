@@ -1,4 +1,4 @@
-state("the_citadel-Win64-Shipping")
+Psystate("the_citadel-Win64-Shipping")
 {
 }
 
@@ -18,42 +18,42 @@ startup
             settings.Add("E1M3", true, "The Hallway", "Act1");
             settings.Add("E1M4", true, "Chain of Fire", "Act1");
             settings.Add("E1M5", true, "Vectra, the Angel of Gluttony", "Act1");
-            settings.Add("E1EX", false, "Secret Level", "Act1");
+            settings.Add("E1EX", false, "Get Psyched", "Act1");
         settings.Add("Act2", true, "Act 2 Splits", "TheCitadel");
             settings.Add("E2M1", true, "Reembody", "Act2");
             settings.Add("E2M2", true, "Armored Fury", "Act2");
             settings.Add("E2M3", true, "Devastator Engine", "Act2");
             settings.Add("E2M4", true, "Shadowforge", "Act2");
             settings.Add("E2M5", true, "Cereste, the Angel of Sloth", "Act2");
-            settings.Add("E2EX", false, "Secret Level", "Act2");
+            settings.Add("E2EX", false, "Fortress Wolfstone", "Act2");
         settings.Add("Act3", true, "Act 3 Splits", "TheCitadel");
             settings.Add("E3M1", true, "Whirlwind", "Act3");
             settings.Add("E3M2", true, "High Ground", "Act3");
             settings.Add("E3M3", true, "Pitfall", "Act3");
             settings.Add("E3M4", true, "Downfall", "Act3");
             settings.Add("E3M5", true, "Harkonnen, the Angel of Greed", "Act3");
-            settings.Add("E3EX", false, "Secret Level", "Act3");
+            settings.Add("E3EX", false, "Gate of Doom", "Act3");
         settings.Add("Act4", true, "Act 4 Splits", "TheCitadel");
             settings.Add("E4M1", true, "The Gauntlet", "Act4");
             settings.Add("E4M2", true, "Painless", "Act4");
             settings.Add("E4M3", true, "Nightmare Fuel", "Act4");
             settings.Add("E4M4", true, "Sinking City", "Act4");
             settings.Add("E4M5", true, "Lysander, the Angel of Envy", "Act4");
-            settings.Add("E4EX", false, "Secret Level", "Act4");
+            settings.Add("E4EX", false, "Entryway", "Act4");
         settings.Add("Act5", true, "Act 5 Splits", "TheCitadel");
             settings.Add("E5M1", true, "Ironclad", "Act5");
             settings.Add("E5M2", true, "Infested Catacomb", "Act5");
             settings.Add("E5M3", true, "Brimstone", "Act5");
             settings.Add("E5M4", true, "Fortress", "Act5");
             settings.Add("E5M5", true, "Gaussia, the Angel of Wrath", "Act5");
-            settings.Add("E5EX", false, "Secret Level", "Act5");
+            settings.Add("E5EX", false, "Deadly Simple", "Act5");
         settings.Add("Act6", true, "Act 6 Splits", "TheCitadel");
             settings.Add("E6M1", true, "The Hive", "Act6");
             settings.Add("E6M2", true, "Unholy Temple", "Act6");
             settings.Add("E6M3", true, "Grainder", "Act6");
             settings.Add("E6M4", true, "Tainted Sanctuary", "Act6");
             settings.Add("E6M5", true, "Krone, the Angel of Pride", "Act6");
-            settings.Add("E6EX", false, "Secret Level", "Act6");
+            settings.Add("E6EX", false, "Sword of Roland", "Act6");
         settings.Add("Act7", true, "Act 7 Splits", "TheCitadel");
             settings.Add("E7M1", true, "Delirium, The Angel of Lust", "Act7");
             settings.Add("E7M2", true, "Let the Sleeping God Die", "Act7");
