@@ -1,40 +1,60 @@
 // Collaborative effort by streetbackguy, hoxi and PlayingLikeAss
+
+/* Some documentation, for sanity:
+
+    The presence and absence of a CActionTitle instance dictates autoreset.
+    This class is only instantiated by the game when the main menu is required.
+    The two main menu values used for autostart are values within CActionTitle.
+
+    The two QTE values are in CActionHactManager and track Heat action states.
+
+    I don't care enough to document TitleCard! It tracks subtitle texture filenames on load.
+    I will say, I'd like to move to a sequence-based thing like with 3 and 4 so we can add more splits.
+
+    "Chapter" is more likely a sequence index, but chapters in the game have linear sequence indices,
+     so it amounts to the same thing.
+     
+    "Loads" is a value set from 0 to 2 based on a float related to screen fade. It's probably controlled by CCC.
+    We use it in conjunction with IGT to recognize non-gameplay segments. (Same as in 3 and 4.)
+    This combination catches gameplay, and throws away all non-gameplay segments with variable lengths based on hardware.
+*/
+
+
 state("Yakuza5", "Steam") 
 {
+    long CActionTitle: 0x1D9B128, 0x478;
+    byte MenuConfirm:  0x1D9B128, 0x478, 0x1ec;
+    byte AutoAssignmentMenu: 0x1D9B128, 0x478, 0x334;
     string255 QTE: 0x20071E0, 0x83A;
     byte QTEPassfail: 0x20071E0, 0x1304;
     string255 TitleCard: 0x2008438, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
     byte Chapter: 0x2008A92;
-    // byte Paradigm: 0x200B764;
     byte Loads: 0x28ECC5C;
     int FileTimer: 0x28ED098;
-    int MainMenu: 0x28F40FA;
-    // byte Character: 0x28F99F4;
-    // byte chapter: 0x3073166;
 }
 
 state("Yakuza5", "Game Pass")
 {
+    // Currently no auto-start or reset for Game Pass
     string255 QTE: 0x21CD390, 0x83A;
     byte QTEPassfail: 0x21CD390, 0x1304;
     string255 TitleCard: 0x21CE5E8, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
     byte Chapter: 0x21CEC52;
     byte Loads: 0x2AB2DF4;
     int FileTimer: 0x2AB3228;
-    int MainMenu: 0x2ABA28A;
-    // byte chapter: 0x2C51C26;
 }
 
 state("Yakuza5", "GOG")
 {
+    long CActionTitle: 0x1D13F78, 0x478;
+    byte MenuConfirm:  0x1D13F78, 0x478, 0x1ec;
+    byte AutoAssignmentMenu: 0x1D13F78, 0x478, 0x334;
     string255 QTE: 0x1F80060, 0x83A;
     byte QTEPassfail: 0x1F80060, 0x1304;
     string255 TitleCard: 0x1F812B8, 0x98, 0x11C, 0x2EC, 0x180, 0x1D4, 0xE0, 0x5B4;
     byte Chapter: 0x1F81912;
     byte Loads: 0x2865ADC;
     int FileTimer: 0x2865F18;
-    int MainMenu: 0x286CF7A;
-    // byte chapter: 0x2FEBBE6;
 }
 
 init 
@@ -115,7 +135,7 @@ isLoading
 
 start
 {
-    return current.Loads == 2 && current.MainMenu == 1;
+    return current.AutoAssignmentMenu == 1 && current.MenuConfirm != 0;
 }
 
 // Currently autosplits on every end of chapter save screen, and on the final QTE.
@@ -136,7 +156,7 @@ split
 
 reset
 {
-    return current.Chapter == 0 && old.FileTimer < current.FileTimer && current.FileTimer < 100;
+    return current.CActionTitle != 0 && old.CActionTitle == 0;
 }
 
 onStart
