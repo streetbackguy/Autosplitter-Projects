@@ -10,6 +10,7 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     vars.Helper.LoadSceneManager = true;
+
     vars.Helper.Settings.CreateFromXml("Components/CrowCountry.Settings.xml");
     vars.Helper.AlertLoadless();
 
@@ -138,22 +139,18 @@ init
 {
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
-        var ccs = mono["CrowCountrySpeedrun"];
-
-        vars.Helper["currentSceneName"] = ccs.MakeString("currentSceneName");
-
         var pmg = mono["PlayMaker", "PlayMakerGlobals"];
 
-        vars.Helper["IntVariables"] = pmg.MakeArray<IntPtr>("instance", "variables", "intVariables");
+        vars.Helper["IntVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "intVariables");
         vars.Helper["IntVariables"].Update(game);
 
-        vars.Helper["BoolVariables"] = pmg.MakeArray<IntPtr>("instance", "variables", "boolVariables");
+        vars.Helper["BoolVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "boolVariables");
         vars.Helper["BoolVariables"].Update(game);
 
-        vars.Helper["FloatVariables"] = pmg.MakeArray<IntPtr>("instance", "variables", "floatVariables");
+        vars.Helper["FloatVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "floatVariables");
         vars.Helper["FloatVariables"].Update(game);
 
-        vars.Helper["StringVariables"] = pmg.MakeArray<IntPtr>("instance", "variables", "stringVariables");
+        vars.Helper["StringVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "stringVariables");
         vars.Helper["StringVariables"].Update(game);
 
         IntPtr[] intVariables = vars.Helper["IntVariables"].Current;
@@ -220,15 +217,12 @@ init
 
 update
 {
-    vars.Helper.Update();
-    vars.Helper.MapPointers();
-
-    current.ActiveScene = vars.Helper["currentSceneName"].Current ?? current.ActiveScene;
+    current.ActiveScene = vars.Helper.Scenes.Active.Name ?? current.ActiveScene;
 
     // print("SYS Playtime is " + vars.ReadIntVariable("item: 1").ToString());
     // print("SYS Playtime is " + vars.ReadBoolVariable("item: shotgun").ToString());
     // print("SYS Playtime is " + vars.ReadFloatVariable("handgun strength").ToString());
-    // print("SYS Playtime is " + vars.ReadStringVariable("Glb ItemAction Name").ToString());
+    //print("SYS Playtime is " + vars.ReadStringVariable("Glb ItemAction Name").ToString());
 
     current.hasBronzeKey = vars.ReadIntVariable("item: 2") == 1;
     current.hasSilverKey = vars.ReadIntVariable("item: 3") == 1;
