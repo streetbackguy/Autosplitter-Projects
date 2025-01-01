@@ -51,6 +51,11 @@ start
     return current.LoadingScene && current.loadingScene != "MainMenu" && old.loadingScene == "MainMenu";
 }
 
+onStart
+{
+    vars.Splits.Clear();
+}
+
 isLoading
 {
     return current.LoadingScene;
