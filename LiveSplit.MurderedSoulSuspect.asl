@@ -3,7 +3,7 @@ state("Murdered")
     string255 Cutscene: 0x21549B8, 0x50, 0x0;
     string255 Credits: 0x217C2E0, 0x88, 0x30, 0x78, 0x100, 0xF88, 0x28, 0x240;
     bool Loads: 0x20328CC;
-    bool GameStart: 0x2173FB0;
+    int GameStart: 0x1F7BE74, 0x170, 0x44, 0x28, 0x68, 0xC;
 }
 
 init
@@ -59,7 +59,7 @@ split
 
 start
 {
-    return current.Cutscene == "ep01_010_Intro_m-sb" && current.GameStart;
+    return current.GameStart == 1 && old.GameStart == 2;
 }
 
 onStart
