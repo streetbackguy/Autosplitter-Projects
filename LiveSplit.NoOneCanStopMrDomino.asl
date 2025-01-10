@@ -22,7 +22,8 @@ init
     {
         emu.Make<short>("StageID", 0x800b2d98);
         emu.Make<short>("FinalStageLift", 0x800eb5a8);
-        
+        emu.Make<short>("LoadingScreen", 0x800ae9a8);
+
         return true;
     });
 
@@ -50,6 +51,11 @@ start
 onStart
 {
     vars.CompletedSplits.Clear();
+}
+
+isLoading
+{
+    return current.LoadingScreen == 1;
 }
 
 reset
