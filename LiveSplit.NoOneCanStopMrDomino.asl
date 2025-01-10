@@ -13,7 +13,7 @@ startup
         settings.Add("Stage3", true, "Grandpa's in the House");
         settings.Add("Stage4", true, "Tripping in the Park");
         settings.Add("Stage5", true, "Fun Park Massive");
-        settings.Add("Stage6", true, "No One Can Stop Mr. Domino");
+        settings.Add("Stage6", true, "No One Can Stop Mr. Domino"); // Currently unknown if this'll split, but other settings split fine on loading screens to the next stage
 }
 
 init
