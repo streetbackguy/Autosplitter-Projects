@@ -13,7 +13,7 @@ startup
         settings.Add("Stage3", true, "Grandpa's in the House");
         settings.Add("Stage4", true, "Tripping in the Park");
         settings.Add("Stage5", true, "Fun Park Massive");
-        settings.Add("Stage6", true, "No One Can Stop Mr. Domino"); // Currently unknown if this'll split, but other settings split fine on loading screens to the next stage
+        settings.Add("EndRun", true, "No One Can Stop Mr. Domino");
 }
 
 init
@@ -21,6 +21,7 @@ init
     vars.Helper.Load = (Func<dynamic, bool>)(emu => 
     {
         emu.Make<short>("StageID", 0x800b2d98);
+        emu.Make<short>("FinalStageLift", 0x800eb5a8);
         
         return true;
     });
@@ -33,6 +34,11 @@ split
     if(current.StageID == old.StageID + 1)
     {
         return settings["Stage" + old.StageID] && vars.CompletedSplits.Add("Stage" + old.StageID);
+    }
+
+    if(current.FinalStageLift == 1 && old.FinalStageLift == 0 && current.StageID == 6)
+    {
+        return settings["EndRun"] && vars.CompletedSplits.Add("EndRun");
     }
 }
 
