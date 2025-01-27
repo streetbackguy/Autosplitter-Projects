@@ -8,6 +8,10 @@ startup
     vars.Helper.GameName = "Magicraft";
     vars.Helper.LoadSceneManager = true;
     vars.Helper.AlertLoadless();
+
+    settings.Add("MC", true, "Magicraft Splits");
+        settings.Add("ELBO", false, "Split after each Elite and Boss room", "MC");
+        settings.Add("FINAL", true, "Split on the run end screen after defeating the final boss", "MC");
 }
 
 init
@@ -36,9 +40,14 @@ update
 
 split
 {
-    if(current.Stage == old.Stage +1 || current.FinishGame && current.IGT == old.IGT)
+    if(current.Stage == old.Stage + 1)
     {
-        return true;
+        return settings["ELBO"];
+    }
+
+    if(current.FinishGame && !old.FinishGame)
+    {
+        return settings["FINAL"];
     }
 }
 
