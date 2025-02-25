@@ -50,7 +50,7 @@ startup
 
     settings.Add("LADPY", true, "Like a Dragon: Pirate Yakuza in Hawaii");
 
-    settings.Add("CHAPTERS", true, "Chapter Card Splits", "LADPY");
+    settings.Add("CHAPTERS", true, "End of Chapter Splits", "LADPY");
         settings.Add("Chapter1", true, "Chapter 1: Shipwrecked", "CHAPTERS");
         settings.Add("Chapter2", true, "Chapter 2: Heart of Darkness", "CHAPTERS");
         settings.Add("Chapter3", true, "Chapter 3: The Old Man and the Sea", "CHAPTERS");
