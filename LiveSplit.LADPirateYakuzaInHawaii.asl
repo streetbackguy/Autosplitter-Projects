@@ -5,6 +5,7 @@ state("LikeADragonPirates", "Steam 1.10")
     bool NGPlusStarter: 0x48835A0, 0x764;
     int BlackFades: 0x385D258, 0x1D0, 0x138, 0x48, 0x124;
     int ChapterSavePrompt: 0x38930A0, 0xC4;
+    int BossHealth: 0x3856140, 0x30, 0x10, 0x0, 0x10, 0xC0, 0x0, 0x190;
 }
 
 init 
@@ -14,8 +15,6 @@ init
     using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
     MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
     print("Hash is: " + MD5Hash);
-
-    vars.Splits = new HashSet<string>();
 
     switch (MD5Hash)
         {
@@ -29,6 +28,8 @@ init
         }
 
     vars.EndofChapter = 0;
+    vars.Splits = new HashSet<string>();
+    vars.BossName = new HashSet<string>();
 }
 
 startup
@@ -68,6 +69,11 @@ update
     {
         vars.EndofChapter++;
     }
+
+    if(current.BossHealth == 90000)
+    {
+        vars.BossName.Add("Raymond");
+    }
 }
 
 start
@@ -78,7 +84,9 @@ start
 onStart
 {
     vars.Splits.Clear();
+    vars.BossName.Clear();
     vars.EndofChapter = 0;
+    timer.IsGameTimePaused = true;
 }
 
 split
@@ -86,6 +94,11 @@ split
     if(current.ChapterSavePrompt == 0 && old.ChapterSavePrompt == 1 && current.BlackFades != 0 && !vars.Splits.Contains("Chapter"+vars.EndofChapter))
     {
         return settings["Chapter" + vars.EndofChapter] && vars.Splits.Add("Chapter" + vars.EndofChapter);
+    }
+
+    if(current.BossHealth == 0 && old.BossHealth > 0 && vars.BossName.Contains("Raymond") && !vars.Splits.Contains("Chapter5"))
+    {
+        return settings["Chapter5"] && vars.Splits.Add("Chapter5");
     }
 }
 
