@@ -55,7 +55,7 @@ startup
         settings.Add("Chapter2", true, "Chapter 2: Heart of Darkness", "CHAPTERS");
         settings.Add("Chapter3", true, "Chapter 3: The Old Man and the Sea", "CHAPTERS");
         settings.Add("Chapter4", true, "Chapter 4: Treasure Island", "CHAPTERS");
-        settings.Add("Chapter5", true, "Final Chapter: Ya Gotta Keep Livin (Currently Not Working, Work in Progress)", "CHAPTERS");
+        settings.Add("Chapter5", true, "Final Chapter: White Whale", "CHAPTERS");
 }
 
 isLoading 
