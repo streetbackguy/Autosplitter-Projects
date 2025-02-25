@@ -4,7 +4,7 @@ state("LikeADragonPirates", "Steam 1.10")
     bool NGStarter: 0x387D520, 0x58, 0x60, 0xC4;
     bool NGPlusStarter: 0x48835A0, 0x764;
     int BlackFades: 0x385D258, 0x1D0, 0x138, 0x48, 0x124;
-    int ChapterSavePrompt: 0x3880378, 0x7D0;
+    int ChapterSavePrompt: 0x38930A0, 0xC4;
 }
 
 init 
@@ -54,7 +54,7 @@ startup
         settings.Add("Chapter2", true, "Chapter 2: Heart of Darkness", "CHAPTERS");
         settings.Add("Chapter3", true, "Chapter 3: The Old Man and the Sea", "CHAPTERS");
         settings.Add("Chapter4", true, "Chapter 4: Treasure Island", "CHAPTERS");
-        settings.Add("Chapter5", true, "Final Chapter: Ya Gotta Keep Livin", "CHAPTERS");
+        settings.Add("Chapter5", true, "Final Chapter: Ya Gotta Keep Livin (Currently Not Working, Work in Progress)", "CHAPTERS");
 }
 
 isLoading 
@@ -64,7 +64,7 @@ isLoading
 
 update
 {
-    if(current.ChapterSavePrompt == 0 && old.ChapterSavePrompt == 1)
+    if(current.ChapterSavePrompt == 0 && old.ChapterSavePrompt == 1 && current.BlackFades != 0)
     {
         vars.EndofChapter++;
     }
@@ -83,7 +83,7 @@ onStart
 
 split
 {
-    if(current.ChapterSavePrompt == 0 && old.ChapterSavePrompt == 1 && !vars.Splits.Contains("Chapter"+vars.EndofChapter))
+    if(current.ChapterSavePrompt == 0 && old.ChapterSavePrompt == 1 && current.BlackFades != 0 && !vars.Splits.Contains("Chapter"+vars.EndofChapter))
     {
         return settings["Chapter" + vars.EndofChapter] && vars.Splits.Add("Chapter" + vars.EndofChapter);
     }
