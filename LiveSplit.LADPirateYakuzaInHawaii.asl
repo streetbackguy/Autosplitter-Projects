@@ -8,6 +8,16 @@ state("LikeADragonPirates", "Steam 1.10")
     int BossHealth: 0x3856140, 0x30, 0x10, 0x0, 0x10, 0xC0, 0x0, 0x190;
 }
 
+state("LikeADragonPirates", "Steam 1.11")
+{
+    bool LoadScreens: 0x385E980;
+    bool NGStarter: 0x387ECE0, 0x58, 0x60, 0xC4;
+    bool NGPlusStarter: 0x4884D60, 0x764;
+    int BlackFades: 0x385EA18, 0x1D0, 0x138, 0x48, 0x124;
+    int ChapterSavePrompt: 0x3894860, 0xCC;
+    int BossHealth: 0x3857900, 0x30, 0x10, 0x0, 0x10, 0xC0, 0x0, 0x190;
+}
+
 init 
 {
     string MD5Hash;
@@ -20,6 +30,10 @@ init
         {
             case "57C71A81A1FDF4FD2B2C0B566712EFB9":
                 version = "Steam 1.10";
+                break;
+
+            case "AAA8CF6DE893628546FB626C8567DC8E":
+                version = "Steam 1.11";
                 break;
 
             default:
