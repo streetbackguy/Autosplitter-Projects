@@ -30,7 +30,8 @@ init
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         var gg = mono["GameGlobal"];
-        vars.Helper["EndSong"] = gg.Make<bool>("gGameMusic", 0x6D);
+        var gm = mono["GameMusic"];
+        vars.Helper["EndSong"] = gg.Make<bool>("gGameMusic", gm["m_IsEnd"]);
 
         return true;
     });
@@ -41,7 +42,6 @@ init
 update
 {
     current.ActiveScene = vars.Helper.Scenes.Active.Name ?? old.ActiveScene;
-    current.LoadingScene = vars.Helper.Scenes.Loaded[0].Name ?? old.LoadingScene;
 
     if(current.EndSong && !old.EndSong)
     {
