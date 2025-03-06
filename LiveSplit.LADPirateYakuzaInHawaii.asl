@@ -110,7 +110,7 @@ split
         return settings["Chapter" + vars.EndofChapter] && vars.Splits.Add("Chapter" + vars.EndofChapter);
     }
 
-    if(current.BossHealth == 0 && old.BossHealth > 0 && vars.BossName.Contains("Raymond") && !vars.Splits.Contains("Chapter5"))
+    if(current.BossHealth == 0 && old.BossHealth > 0 && vars.BossName.Contains("Raymond") && current.BlackFades != 0 && !vars.Splits.Contains("Chapter5"))
     {
         return settings["Chapter5"] && vars.Splits.Add("Chapter5");
     }
