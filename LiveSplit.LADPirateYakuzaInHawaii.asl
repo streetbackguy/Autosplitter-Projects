@@ -18,6 +18,16 @@ state("LikeADragonPirates", "Steam 1.11")
     int BossHealth: 0x3857900, 0x30, 0x10, 0x0, 0x10, 0xC0, 0x0, 0x190;
 }
 
+state("LikeADragonPirates", "Steam 1.12")
+{
+    bool LoadScreens: 0x3862980;
+    bool NGStarter: 0x387ECE0, 0x58, 0x60, 0xC4;
+    bool NGPlusStarter: 0x4888D60, 0x764;
+    int BlackFades: 0x3862A18, 0x1D0, 0x138, 0x48, 0x124;
+    int ChapterSavePrompt: 0x3898860, 0xCC;
+    int BossHealth: 0x385B900, 0x30, 0x10, 0x0, 0x10, 0xC0, 0x0, 0x190;
+}
+
 init 
 {
     string MD5Hash;
@@ -34,6 +44,10 @@ init
 
             case "AAA8CF6DE893628546FB626C8567DC8E":
                 version = "Steam 1.11";
+                break;
+
+            case "1A520982E9FA47744C330ADCBAB3F6AB":
+                version = "Steam 1.12";
                 break;
 
             default:
@@ -110,15 +124,10 @@ split
         return settings["Chapter" + vars.EndofChapter] && vars.Splits.Add("Chapter" + vars.EndofChapter);
     }
 
-    if(current.BossHealth == 0 && old.BossHealth > 0 && vars.BossName.Contains("Raymond") && current.BlackFades != 0 && !vars.Splits.Contains("Chapter5"))
+    if(current.BossHealth == 0 && old.BossHealth > 0 && vars.BossName.Contains("Raymond") && current.BlackFades == 0 && !vars.Splits.Contains("Chapter5"))
     {
         return settings["Chapter5"] && vars.Splits.Add("Chapter5");
     }
-}
-
-reset
-{
-
 }
 
 exit
