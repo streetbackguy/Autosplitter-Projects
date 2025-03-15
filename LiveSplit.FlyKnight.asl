@@ -31,7 +31,7 @@ init
 	// GWorld.Name
 	vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
 
-    //GEngine.GameInstance.[0]LocalPlayers.PlayerController.AcknowledgedPawn.CharacterMovement.Velocity.X/Velocity.Y
+    //GEngine.GameInstance.[0]LocalPlayers.PlayerController.AcknowledgedPawn.Current State
     vars.Helper["CurrentState"] = vars.Helper.Make<byte>(gEngine, 0xD28, 0x38, 0x0, 0x30, 0x2A0, 0x6C8);
 
 	vars.FNameToString = (Func<ulong, string>)(fName =>
