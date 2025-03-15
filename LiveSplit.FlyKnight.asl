@@ -87,3 +87,8 @@ split
         return settings[old.World] && vars.Splits.Add(old.World);
     }
 }
+
+onStart
+{
+    vars.Splits.Clear();
+}
