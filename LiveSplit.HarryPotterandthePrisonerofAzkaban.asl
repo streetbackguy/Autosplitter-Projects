@@ -15,7 +15,7 @@ startup
 
     settings.Add("HP3", true, "Harry Potter and the Prisoner of Azkaban");
         settings.Add("HP3_ADV1EXPRESS", true, "Finish Hogwarts Express", "HP3");
-        settings.Add("HP3_GROUNDSDADA", true, "Finish Hogwarts Grounds Cutscene", "HP3");
+        settings.Add("HP3_GROUNDSDADA", true, "Finish Defence Against the Dark Arts Cutscene", "HP3");
         settings.Add("HP3_CH1CARPERETRACTUM", true, "Finish Carpe Retractum Challenge (First Half)", "HP3");
         settings.Add("HP3_CH1CARPERETRACTUMB", true, "Finish Carpe Retractum Challenge (Second Half)", "HP3");
         settings.Add("HP3_CH2DRACONIFORS", true, "Finish Draconifors Challenge (First Half)", "HP3");
