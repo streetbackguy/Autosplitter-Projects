@@ -27,7 +27,7 @@ startup
         settings.Add("HP3_CH3GLACIUSB", true, "Finish Glacius Challenge (Second Half)", "HP3");
         settings.Add("HP3_BUCKYEXECUTED", true, "Finish Buckbeak's Execution", "HP3");
         settings.Add("HP3_WHOMPINGWILLOW", true, "Finish Whomping Willow", "HP3");
-        settings.Add("HP3_ADV5SHACK", true, "Finish Shack", "HP3");
+        settings.Add("HP3_ADV5SHACK", true, "Finish Shrieking Shack", "HP3");
         settings.Add("HP3_DEMENTORBATTLE", true, "Finish Dementor Battle", "HP3");
         settings.Add("HP3_ADV6PADDOCK", true, "Finish Paddock", "HP3");
         settings.Add("HP3_DARKTOWER", true, "Finish Dark Tower", "HP3");
