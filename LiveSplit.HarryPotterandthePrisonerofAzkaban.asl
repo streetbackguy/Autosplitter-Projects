@@ -61,7 +61,7 @@ isLoading
 
 start
 {
-    return vars.CurrentLevel == "HP3_ADV1EXPRESS" && current.Pauser == 0;
+    return vars.CurrentLevel == "HP3_ADV1EXPRESS" && current.Pauser == 0 && current.TimeSeconds == old.TimeSeconds;
 }
 
 split
@@ -76,9 +76,6 @@ onStart
 {
     timer.IsGameTimePaused = true;
     vars.Splits.Clear();
-}
-
-onReset
-{
-    vars.FinishedLevels = new List<string>();
+    vars.FinishedLevels.Clear();
+    refreshRate = 60;
 }
