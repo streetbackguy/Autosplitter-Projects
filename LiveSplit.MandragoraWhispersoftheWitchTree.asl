@@ -55,6 +55,18 @@ init
                 version = "Steam 1.2.6.2165";
                 break;
 
+            case "31E56F416C87CDF918723E2E6CB20713":
+                version = "Steam 1.2.7.2168";
+                break;
+
+            case "021B2902C662D2DA8EB5F1861948E5CA":
+                version = "Steam 1.2.8.2172";
+                break;
+
+            case "AFF4FFA31D81E17AEBAF542776A7E67D":
+                version = "Steam 1.2.9.2198";
+                break;
+
             default:
                 version = "Unknown";
                 break;
