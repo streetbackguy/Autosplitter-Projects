@@ -22,6 +22,38 @@ startup
             settings.Add("NoDirections_3", true, "An Unusual Alliance","MQUESTS");
             settings.Add("TheWitchCoven_3", true, "The Witch Coven","MQUESTS");
             settings.Add("TheCrimsonCity_3", true, "The Crimson City","MQUESTS");
+        settings.Add("BOSSES", true, "Splits for Defeating each Boss","MWOFWT");
+            settings.Add("BP_WargBoss_C", true, "Warg","BOSSES");
+            settings.Add("Corrupted Vermin", true, "Corrupted Vermin","BOSSES");
+            settings.Add("Bandit Captain", true, "Bandit Captain","BOSSES");
+            settings.Add("Caretaker", true, "Caretaker","BOSSES");
+            settings.Add("Pepper", true, "Pepper","BOSSES");
+            settings.Add("Blood Guardian", true, "Blood Guardian","BOSSES");
+            settings.Add("Necromancer", true, "Necromancer","BOSSES");
+            settings.Add("Fang Executioner", true, "Fang Executioner","BOSSES");
+            settings.Add("Forest Giant", true, "Forest Giant","BOSSES");
+            settings.Add("Mandrake Horror", true, "Mandrake Horror","BOSSES");
+            settings.Add("Wraith", true, "Wraith","BOSSES");
+            settings.Add("Bloodfiend", true, "Bloodfiend","BOSSES");
+            settings.Add("Paleweaver", true, "Paleweaver","BOSSES");
+            settings.Add("Ferryman", true, "Ferryman","BOSSES");
+            settings.Add("Dungeon Keeper", true, "Dungeon Keeper","BOSSES");
+            settings.Add("Slave Master", true, "Slave Master","BOSSES");
+            settings.Add("Lord Auberon", true, "Lord Auberon","BOSSES");
+            settings.Add("Marionettes", true, "Marionettes","BOSSES");
+            settings.Add("Tome Mistress", true, "Tome Mistress","BOSSES");
+            settings.Add("Jotun", true, "Jotun","BOSSES");
+            settings.Add("Expelled Court Mage", true, "Expelled Court Mage","BOSSES");
+            settings.Add("Cthonic Stalker", true, "Cthonic Stalker","BOSSES");
+            settings.Add("Entropic Wyrm", true, "Entropic Wyrm","BOSSES");
+            settings.Add("Darkfire Demon", true, "Darkfire Demon","BOSSES");
+            settings.Add("Matron Layla", true, "Matron Layla","BOSSES");
+            settings.Add("Entropic Shade", true, "Entropic Shade","BOSSES");
+            settings.Add("Sleepwalker", true, "Sleepwalker","BOSSES");
+            settings.Add("Kezka+Olen", true, "Inquisitors","BOSSES");
+            settings.Add("Darkfire Demon2", true, "Darkfire Demon (Crimson City)","BOSSES");
+            settings.Add("King Priest", true, "King Priest","BOSSES");
+            settings.Add("King Priest2", true, "King Priest Second Phase","BOSSES");
         settings.Add("SQUESTS", true, "Splits for Side Quest Completion","MWOFWT");
             settings.Add("LettheRightOneIn_3", true, "Let the Right One In","SQUESTS");
             settings.Add("ChartingtheUnknown_3", true, "Charting the Unknown","SQUESTS");
@@ -86,23 +118,19 @@ init
     // GWorld.FName
     vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
 
-    // Not used currently, the health one works but the name one doesn't for some reason
-    // GEngine.GameInstance.BP_HUD_C.WidgetTree.BP_AnimatedProgressBar_BossHP_C
-    // vars.Helper["BossName"] = vars.Helper.Make<ulong>(gEngine, 0xD38, 0x4B0, 0x780, 0xE8, 0x668, 0x768, 0x2E8);
-    // GEngine.GameInstance.BP_HUD_C.WidgetTree.BP_AnimatedProgressBar_BossHP_C
-    // vars.Helper["BossHP"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x4B0, 0x780, 0xE8, 0x668, 0x768, 0x33C);
+    // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.AttributeContainer.Health
+    vars.Helper["PlayerHealth"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0xA20, 0x3388);
 
-    // Below is for information in case it's needed
+    // GEngine.GameInstance.NewCharacterStartData.CharacterName
+    vars.Helper["NewGame"] = vars.Helper.Make<ulong>(gEngine, 0xD38, 0x1E8, 0x18);
 
-    // // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.DiscoveredQuests[0].questName
-    // vars.Helper["Slot1QuestName"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0, 0xC8);
-    // // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.DiscoveredQuests[0].QuestState
-    // vars.Helper["Slot1QuestState"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0, 0x168);
+    // GEngine.GameInstance.EngineEventHandler.LoadCount
+    vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x368, 0x40);
 
-    // // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.DiscoveredQuests[1].questName
-    // vars.Helper["Slot2QuestName"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x8, 0xC8);
-    // // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.DiscoveredQuests[1].QuestState
-    // vars.Helper["Slot2QuestState"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x8, 0x168);
+    // GEngine.GameViewportClient.World.AuthorityGameMode.CurrentBossFightClass.Name
+    vars.Helper["BossClass"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x1318, 0x18);
+    // GEngine.GameViewportClient.World.AuthorityGameMode.IsBossFightActive
+    vars.Helper["BossActive"] = vars.Helper.Make<bool>(gEngine, 0x780, 0x78, 0x118, 0x1539);
 
     vars.Helper["GSync"] = vars.Helper.Make<bool>(gSyncLoadCount);
 
@@ -124,6 +152,8 @@ init
     current.World = "";
     vars.MainMissions = new Dictionary<ulong, int>();
     vars.gEngine = gEngine;
+    current.Boss = "";
+    current.Start = "";
 }
 
 update
@@ -134,11 +164,19 @@ update
     var world = vars.FNameToString(current.GWorldName);
 	if (!string.IsNullOrEmpty(world) && world != "None")
 		current.World = world;
+
+    var boss = vars.FNameToString(current.BossClass);
+	if (!string.IsNullOrEmpty(boss) && boss != "None")
+		current.Boss = boss;
+
+    var ng = vars.FNameToString(current.NewGame);
+	if (!string.IsNullOrEmpty(ng) && ng != "None")
+		current.Start = ng;
 }
 
 start
 {
-    return current.World == "Tutorial_Persistent" && !current.GSync;
+    return current.Start.StartsWith("NewCharacterStartData");
 }
 
 onStart
@@ -150,7 +188,8 @@ split
 {
     string setting = "";
     
-    for (int i = 0; i < 32; i++){
+    for (int i = 0; i < 32; i++)
+    {
         ulong mission = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0 + (i * 0x8), 0xC8);
         int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0 + (i * 0x8), 0x168);
 
@@ -167,23 +206,28 @@ split
             
         // Debug. Comment out before release.
         //if (!string.IsNullOrEmpty(setting))
-        //vars.Log(setting);
+        //vars.Log(setting);1
         
         if (settings.ContainsKey(setting) && settings[setting] && vars.CompletedSplits.Add(setting))
         {
             return true && vars.Log("Split Complete: " + setting);
         }
     }
+
+    if(current.Boss != "" && !current.BossActive && current.PlayerHealth > 0)
+    {
+        return settings[current.Boss] && vars.CompletedSplits.Add(current.Boss) && vars.Log("Split Complete: " + current.Boss);
+    }
 }
 
 isLoading
 {
-    return current.GSync;
+    return current.GSync || current.LoadCount != 0;
 }
 
 reset
 {
-    return current.World == "MainMenu";
+    return current.World == "MainMenu" && old.LoadCount == 1 && !current.Start.StartsWith("NewCharacterStartData");
 }
 
 exit
