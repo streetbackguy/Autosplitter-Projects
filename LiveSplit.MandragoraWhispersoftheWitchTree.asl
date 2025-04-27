@@ -13,36 +13,83 @@ startup
     settings.Add("MWOFWT", true, "Mandragora: Whispers of the Witch Tree");
         settings.Add("MQUESTS", true, "Splits for Main Quest Completion","MWOFWT");
             settings.Add("WitchHunt_3", true, "Witch Hunt","MQUESTS");
+                settings.Add("Maddick_3", true, "Objective 1","WitchHunt_3");
+                settings.Add("SwampObj1_3", true, "Objective 2","WitchHunt_3");
+                settings.Add("AfterClayborn_3", true, "Objective 3","WitchHunt_3");
+                settings.Add("Capture1_3", true, "Objective 4","WitchHunt_3");
+                settings.Add("Capture2_3", true, "Objective 5","WitchHunt_3");
+                settings.Add("Capture3_3", true, "Objective 6","WitchHunt_3");
+                settings.Add("SwampObj2_3", true, "Objective 7","WitchHunt_3");
+                settings.Add("Seal1_3", true, "Objective 8","WitchHunt_3");
+                settings.Add("Seal2_3", true, "Objective 9","WitchHunt_3");
+                settings.Add("SwampObj3_3", true, "Objective 10","WitchHunt_3");
             settings.Add("WolfAttack_3", true, "Wolf Attack","MQUESTS");
-            settings.Add("ClaybornesRequest_3", true, "Clayborne's Request","MQUESTS");
-            settings.Add("ANoblesDeath_3", true, "A Noble's Death","MQUESTS");
+                settings.Add("WargQuest_Obj1_3", true, "Objective 1","WolfAttack_3");
+                settings.Add("WargQuest_Obj2_3", true, "Objective 2","WolfAttack_3");
+            settings.Add("Clayborne'sRequest_3", true, "Clayborne's Request","MQUESTS");
+                settings.Add("Sewers_Ob1_3", true, "Objective 1","Clayborne'sRequest_3");
+                settings.Add("Sewers_Ob2_3", true, "Objective 2","Clayborne'sRequest_3");
+            settings.Add("ANoble'sDeath_3", true, "A Noble's Death","MQUESTS");
+                settings.Add("Braer1_3", true, "Objective 1","ANoble'sDeath_3");
+                settings.Add("Braer4_3", true, "Objective 2","ANoble'sDeath_3");
+                settings.Add("Braer5_3", true, "Objective 3","ANoble'sDeath_3");
+                settings.Add("Feri1_3", true, "Objective 4","ANoble'sDeath_3");
+                settings.Add("Feri2_3", true, "Objective 5","ANoble'sDeath_3");
+                settings.Add("Feri3_3", true, "Objective 6","ANoble'sDeath_3");
+                settings.Add("Feri4_3", true, "Objective 7","ANoble'sDeath_3");
+                settings.Add("Braer2_3", true, "Objective 8","ANoble'sDeath_3");
+                settings.Add("Braer3_3", true, "Objective 9","ANoble'sDeath_3");
             settings.Add("FindaFriend_3", true, "Find a Friend","MQUESTS");
-            settings.Add("TomeMistress_3", true, "Tome Mistress","MQUESTS");
+                settings.Add("Friend1_3", true, "Objective 1","FindaFriend_3");
+                settings.Add("Friend2_3", true, "Objective 2","FindaFriend_3");
+            settings.Add("TheTomeMistress_3", true, "Tome Mistress","MQUESTS");
+                settings.Add("Tome1_3", true, "Objective 1","TheTomeMistress_3");
+                settings.Add("Tome2_3", true, "Objective 2","TheTomeMistress_3");
+                settings.Add("Tome3_3", true, "Objective 3","TheTomeMistress_3");
             settings.Add("DragonHeart_3", true, "Dragon Heart","MQUESTS");
+                settings.Add("Dragon1_3", true, "Objective 1","DragonHeart_3");
+                settings.Add("Dragon2_3", true, "Objective 2","DragonHeart_3");
+                settings.Add("Dragon3_3", true, "Objective 3","DragonHeart_3");
+                settings.Add("Dragon4_3", true, "Objective 4","DragonHeart_3");
+                settings.Add("Dragon5_3", true, "Objective 5","DragonHeart_3");
             settings.Add("NoDirections_3", true, "An Unusual Alliance","MQUESTS");
+                settings.Add("Direction1_3", true, "Objective 1","NoDirections_3");
+                settings.Add("Direction2_3", true, "Objective 2","NoDirections_3");
+                settings.Add("Direction3_3", true, "Objective 3","NoDirections_3");
             settings.Add("TheWitchCoven_3", true, "The Witch Coven","MQUESTS");
+                settings.Add("Coven1_3", true, "Objective 1","TheWitchCoven_3");
+                settings.Add("Coven2_3", true, "Objective 2","TheWitchCoven_3");
+                settings.Add("Coven3_3", true, "Objective 3","TheWitchCoven_3");
+                settings.Add("Coven4_3", true, "Objective 4","TheWitchCoven_3");
+                settings.Add("Coven5_3", true, "Objective 5","TheWitchCoven_3");
             settings.Add("TheCrimsonCity_3", true, "The Crimson City","MQUESTS");
+                settings.Add("Crimson_01_3", true, "Objective 1","TheCrimsonCity_3");
+                settings.Add("Crimson_02_3", true, "Objective 2","TheCrimsonCity_3");
+                settings.Add("Crimson1_3", true, "Objective 3","TheCrimsonCity_3");
+                settings.Add("Crimson2_3", true, "Objective 4","TheCrimsonCity_3");
+                settings.Add("Crimson3_3", true, "Objective 5","TheCrimsonCity_3");
         settings.Add("BOSSES", true, "Splits for Defeating each Boss","MWOFWT");
-            settings.Add("BP_WargBoss_C", true, "Warg","BOSSES");
-            settings.Add("Corrupted Vermin", true, "Corrupted Vermin","BOSSES");
-            settings.Add("Bandit Captain", true, "Bandit Captain","BOSSES");
-            settings.Add("Caretaker", true, "Caretaker","BOSSES");
-            settings.Add("Pepper", true, "Pepper","BOSSES");
-            settings.Add("Blood Guardian", true, "Blood Guardian","BOSSES");
-            settings.Add("Necromancer", true, "Necromancer","BOSSES");
-            settings.Add("Fang Executioner", true, "Fang Executioner","BOSSES");
+            settings.Add("BP_Warg_Boss_C", true, "Warg","BOSSES");
+            settings.Add("BP_VoidRat_C", true, "Corrupted Vermin","BOSSES");
+            settings.Add("BP_LarcenistMiniboss_C", true, "Bandit Captain","BOSSES");
+            settings.Add("BP_Caretaker_C", true, "Caretaker","BOSSES");
+            settings.Add("BP_BanditBruteBoss_C", true, "Pepper","BOSSES");
+            settings.Add("BP_SwampExplodingCaretaker2_C", true, "Blood Guardian","BOSSES");
+            settings.Add("BP_SwampPoisonCaretaker3_C", true, "Plague Guardian","BOSSES");
+            settings.Add("BP_Necromancer_C", true, "Necromancer","BOSSES");
+            settings.Add("BP_FangExecutioner_C", true, "Fang Executioner","BOSSES");
             settings.Add("Forest Giant", true, "Forest Giant","BOSSES");
             settings.Add("Mandrake Horror", true, "Mandrake Horror","BOSSES");
-            settings.Add("Wraith", true, "Wraith","BOSSES");
-            settings.Add("Bloodfiend", true, "Bloodfiend","BOSSES");
-            settings.Add("Paleweaver", true, "Paleweaver","BOSSES");
-            settings.Add("Ferryman", true, "Ferryman","BOSSES");
-            settings.Add("Dungeon Keeper", true, "Dungeon Keeper","BOSSES");
-            settings.Add("Slave Master", true, "Slave Master","BOSSES");
-            settings.Add("Lord Auberon", true, "Lord Auberon","BOSSES");
+            settings.Add("BP_Wraith_C", true, "Wraith","BOSSES");
+            settings.Add("BP_VampireBeastMinibossCharacter_C", true, "Bloodfiend","BOSSES");
+            settings.Add("BP_GiantAlbinoArachnid_C", true, "Paleweaver","BOSSES");
+            settings.Add("BP_Ferryman_C", true, "Ferryman","BOSSES");
+            settings.Add("BP_LaboratoryCaretaker4_C", true, "Dungeon Keeper","BOSSES");
+            settings.Add("BP_CogRoomCaretaker5_C", true, "Slave Master","BOSSES");
+            settings.Add("BP_VampireLord_C", true, "Lord Auberon","BOSSES");
             settings.Add("Marionettes", true, "Marionettes","BOSSES");
             settings.Add("Tome Mistress", true, "Tome Mistress","BOSSES");
-            settings.Add("Jotun", true, "Jotun","BOSSES");
+            settings.Add("BP_JotunForest_C", true, "Jotun","BOSSES");
             settings.Add("Expelled Court Mage", true, "Expelled Court Mage","BOSSES");
             settings.Add("Cthonic Stalker", true, "Cthonic Stalker","BOSSES");
             settings.Add("Entropic Wyrm", true, "Entropic Wyrm","BOSSES");
@@ -57,13 +104,13 @@ startup
         settings.Add("SQUESTS", true, "Splits for Side Quest Completion","MWOFWT");
             settings.Add("LettheRightOneIn_3", true, "Let the Right One In","SQUESTS");
             settings.Add("ChartingtheUnknown_3", true, "Charting the Unknown","SQUESTS");
-            settings.Add("PeppersRequest_3", true, "Pepper's Request","SQUESTS");
+            settings.Add("Pepper'sRequest_3", true, "Pepper's Request","SQUESTS");
             settings.Add("FreshAir_3", true, "Fresh Air","SQUESTS");
             settings.Add("BanditBoss_3", true, "Bandit Boss","SQUESTS");
             settings.Add("TheHauntedHouse_3", true, "The Haunted House","SQUESTS");
             settings.Add("FamilyReunion_3", true, "Family Reunion","SQUESTS");
-            settings.Add("BrothersVanbelleghemBj_3", true, "Dragon Heart","SQUESTS");
-            settings.Add("TheWitchsCall_3", true, "The Witch's Call","SQUESTS");
+            settings.Add("Brothers Vanbelleghem_3", true, "Dragon Heart","SQUESTS");
+            settings.Add("TheWitch' Call_3", true, "The Witch's Call","SQUESTS");
             settings.Add("StepIntotheSunlight_3", true, "Step into the Sunlight","SQUESTS");
             settings.Add("FreedomAtLast_3", true, "Freedom At Last","SQUESTS");
             settings.Add("TheTimelessTraveler_3", true, "The Timeless Traveler","SQUESTS");
@@ -121,14 +168,15 @@ init
     // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.AttributeContainer.Health
     vars.Helper["PlayerHealth"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0xA20, 0x3388);
 
-    // GEngine.GameInstance.NewCharacterStartData.CharacterName
-    vars.Helper["NewGame"] = vars.Helper.Make<ulong>(gEngine, 0xD38, 0x1E8, 0x18);
+    // GEngine.Controller.StateName
+    vars.Helper["StateName"] = vars.Helper.Make<ulong>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x250);
 
     // GEngine.GameInstance.EngineEventHandler.LoadCount
     vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x368, 0x40);
 
     // GEngine.GameViewportClient.World.AuthorityGameMode.CurrentBossFightClass.Name
     vars.Helper["BossClass"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x1318, 0x18);
+    
     // GEngine.GameViewportClient.World.AuthorityGameMode.IsBossFightActive
     vars.Helper["BossActive"] = vars.Helper.Make<bool>(gEngine, 0x780, 0x78, 0x118, 0x1539);
 
@@ -150,7 +198,8 @@ init
 	});
 
     current.World = "";
-    vars.MainMissions = new Dictionary<ulong, int>();
+    vars.Missions = new Dictionary<ulong, int>();
+    vars.MissionObjectives = new Dictionary<ulong, int>();
     vars.gEngine = gEngine;
     current.Boss = "";
     current.Start = "";
@@ -167,16 +216,24 @@ update
 
     var boss = vars.FNameToString(current.BossClass);
 	if (!string.IsNullOrEmpty(boss) && boss != "None")
-		current.Boss = boss;
+        current.Boss = boss;
 
-    var ng = vars.FNameToString(current.NewGame);
+    var ng = vars.FNameToString(current.StateName);
 	if (!string.IsNullOrEmpty(ng) && ng != "None")
 		current.Start = ng;
 }
 
 start
 {
-    return current.Start.StartsWith("NewCharacterStartData");
+    int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x8, 0x168);
+
+    if(complete == 3 && current.Start == "Playing" && current.LoadCount != 1 && current.World != "MainMenu")
+    {
+        return false;
+    } else if (complete !=3 && current.Start == "Playing" && current.LoadCount != 1 && current.World != "MainMenu")
+    {
+        return true;
+    }
 }
 
 onStart
@@ -194,7 +251,7 @@ split
         int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0 + (i * 0x8), 0x168);
 
         int oldComplete;
-        if (vars.MainMissions.TryGetValue(mission, out oldComplete))
+        if (vars.Missions.TryGetValue(mission, out oldComplete))
         {
             if (complete == 3 && oldComplete != 3)
             {
@@ -202,32 +259,58 @@ split
             }
         }
         
-        vars.MainMissions[mission] = complete;
+        vars.Missions[mission] = complete;
             
         // Debug. Comment out before release.
-        //if (!string.IsNullOrEmpty(setting))
-        //vars.Log(setting);1
+        if (!string.IsNullOrEmpty(setting))
+        vars.Log(setting);
         
-        if (settings.ContainsKey(setting) && settings[setting] && vars.CompletedSplits.Add(setting))
-        {
-            return true && vars.Log("Split Complete: " + setting);
-        }
+        if (settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
+		{
+			return settings[setting] && vars.CompletedSplits.Add(setting);
+		}
     }
 
-    if(current.Boss != "" && !current.BossActive && current.PlayerHealth > 0)
+    for (int i = 0; i < 32; i++)
     {
-        return settings[current.Boss] && vars.CompletedSplits.Add(current.Boss) && vars.Log("Split Complete: " + current.Boss);
+        ulong missionobj = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0 + (i * 0x8), 0x158, 0x0 + (i * 0x8), 0x78);
+        int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0 + (i * 0x8), 0x158, 0x0 + (i * 0x8), 0xC8);
+
+        int oldComplete;
+        if (vars.MissionObjectives.TryGetValue(missionobj, out oldComplete))
+        {
+            if (complete == 3 && oldComplete != 3)
+            {
+                setting = vars.FNameToString(missionobj) + "_" + complete;
+            }
+        }
+        
+        vars.MissionObjectives[missionobj] = complete;
+            
+        // Debug. Comment out before release.
+        if (!string.IsNullOrEmpty(setting))
+        vars.Log(setting);
+        
+        if (settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
+		{
+			return settings[setting] && vars.CompletedSplits.Add(setting);
+		}
+    }
+
+    if (!string.IsNullOrEmpty(old.Boss) && current.PlayerHealth > 0 && !current.BossActive && !vars.CompletedSplits.Contains(old.Boss))
+    {
+        return settings[old.Boss] && vars.CompletedSplits.Add(old.Boss);
     }
 }
 
 isLoading
 {
-    return current.GSync || current.LoadCount != 0;
+    return current.GSync || current.LoadCount != 0 || current.Start == "Inactive" || current.Start == "Spectating";
 }
 
 reset
 {
-    return current.World == "MainMenu" && old.LoadCount == 1 && !current.Start.StartsWith("NewCharacterStartData");
+    return current.World == "MainMenu" && current.Start == "Inactive";
 }
 
 exit
