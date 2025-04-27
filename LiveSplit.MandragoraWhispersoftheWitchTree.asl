@@ -78,8 +78,8 @@ startup
             settings.Add("BP_SwampPoisonCaretaker3_C", true, "Plague Guardian","BOSSES");
             settings.Add("BP_Necromancer_C", true, "Necromancer","BOSSES");
             settings.Add("BP_FangExecutioner_C", true, "Fang Executioner","BOSSES");
-            settings.Add("Forest Giant", true, "Forest Giant","BOSSES");
-            settings.Add("Mandrake Horror", true, "Mandrake Horror","BOSSES");
+            settings.Add("BP_JotunForest_C", true, "Forest Giant","BOSSES");
+            settings.Add("BP_Mandragora_C", true, "Mandrake Horror","BOSSES");
             settings.Add("BP_Wraith_C", true, "Wraith","BOSSES");
             settings.Add("BP_VampireBeastMinibossCharacter_C", true, "Bloodfiend","BOSSES");
             settings.Add("BP_GiantAlbinoArachnid_C", true, "Paleweaver","BOSSES");
@@ -87,17 +87,17 @@ startup
             settings.Add("BP_LaboratoryCaretaker4_C", true, "Dungeon Keeper","BOSSES");
             settings.Add("BP_CogRoomCaretaker5_C", true, "Slave Master","BOSSES");
             settings.Add("BP_VampireLord_C", true, "Lord Auberon","BOSSES");
-            settings.Add("Marionettes", true, "Marionettes","BOSSES");
-            settings.Add("Tome Mistress", true, "Tome Mistress","BOSSES");
-            settings.Add("BP_JotunForest_C", true, "Jotun","BOSSES");
+            settings.Add("BP_MarionetteFamily_C", true, "Marionettes","BOSSES");
+            settings.Add("BP_LibrarianBoss_C", true, "Tome Mistress","BOSSES");
+            settings.Add("BP_Jotun_C", true, "Jotun","BOSSES");
             settings.Add("Expelled Court Mage", true, "Expelled Court Mage","BOSSES");
             settings.Add("Cthonic Stalker", true, "Cthonic Stalker","BOSSES");
-            settings.Add("Entropic Wyrm", true, "Entropic Wyrm","BOSSES");
+            settings.Add("BP_Pyromancer_C", true, "Entropic Wyrm","BOSSES");
             settings.Add("Darkfire Demon", true, "Darkfire Demon","BOSSES");
-            settings.Add("Matron Layla", true, "Matron Layla","BOSSES");
-            settings.Add("Entropic Shade", true, "Entropic Shade","BOSSES");
-            settings.Add("Sleepwalker", true, "Sleepwalker","BOSSES");
-            settings.Add("Kezka+Olen", true, "Inquisitors","BOSSES");
+            settings.Add("BP_LycanthropeMatron_C", true, "Matron Layla","BOSSES");
+            settings.Add("BP_ForestJotunEntropic_C", true, "Entropic Shade","BOSSES");
+            settings.Add("BP_VoidWitch_C", true, "Sleepwalker","BOSSES");
+            settings.Add("BP_Inquisitor_C", true, "Inquisitors","BOSSES");
             settings.Add("Darkfire Demon2", true, "Darkfire Demon (Crimson City)","BOSSES");
             settings.Add("King Priest", true, "King Priest","BOSSES");
             settings.Add("King Priest2", true, "King Priest Second Phase","BOSSES");
@@ -118,6 +118,20 @@ startup
             settings.Add("ALifeLeftBehind_3", true, "A Life Left Behind","SQUESTS");
             settings.Add("OldRegrets_3", true, "Old Regrets","SQUESTS");
             settings.Add("TheTalkingSkull_3", true, "The Talking Skull","SQUESTS");
+            settings.Add("RelicHunters_3", true, "Relic Hunters","SQUESTS");
+            settings.Add("EchoesofaDistantLand_3", true, "Echoes of a Distant Land","SQUESTS");
+            settings.Add("OhSweet Memories_3", true, "Oh Sweet Memories","SQUESTS");
+            settings.Add("StrangeMaterial_3", true, "Strange Material","SQUESTS");
+            settings.Add("StrangeFabric_3", true, "Strange Fabric","SQUESTS");
+            settings.Add("MagicBook_3", true, "Magic Book","SQUESTS");
+            settings.Add("DangerousStudies_3", true, "Dangerous Studies","SQUESTS");
+            settings.Add("Thief_3", true, "Thief","SQUESTS");
+            settings.Add("MapofFaelduum_3", true, "Map of Faelduum","SQUESTS");
+            settings.Add("AGourmetMeal_3", true, "A Gourmet Meal","SQUESTS");
+            settings.Add("LostCompanion_3", true, "Lost Companion","SQUESTS");
+            settings.Add("TheBrilliant_3", true, "The Brilliant","SQUESTS");
+            settings.Add("TheAbandonedHouse_3", true, "The Abandoned House","SQUESTS");
+            settings.Add("Stradivarius_3", true, "Stradivarius","SQUESTS");
 }
 
 init
@@ -239,65 +253,80 @@ start
 onStart
 {
     vars.CompletedSplits.Clear();
+    vars.Missions.Clear();
+    vars.MissionObjectives.Clear();
 }
 
 split
-{
-    string setting = "";
-    
-    for (int i = 0; i < 32; i++)
-    {
-        ulong mission = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0 + (i * 0x8), 0xC8);
-        int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0 + (i * 0x8), 0x168);
-
-        int oldComplete;
-        if (vars.Missions.TryGetValue(mission, out oldComplete))
-        {
-            if (complete == 3 && oldComplete != 3)
-            {
-                setting = vars.FNameToString(mission) + "_" + complete;
-            }
-        }
-        
-        vars.Missions[mission] = complete;
-            
-        // Debug. Comment out before release.
-        if (!string.IsNullOrEmpty(setting))
-        vars.Log(setting);
-        
-        if (settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
-		{
-			return settings[setting] && vars.CompletedSplits.Add(setting);
-		}
-    }
+{    
+    bool shouldSplit = false;
 
     for (int i = 0; i < 32; i++)
     {
-        ulong missionobj = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0 + (i * 0x8), 0x158, 0x0 + (i * 0x8), 0x78);
-        int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0 + (i * 0x8), 0x158, 0x0 + (i * 0x8), 0xC8);
-
-        int oldComplete;
-        if (vars.MissionObjectives.TryGetValue(missionobj, out oldComplete))
+        // Missions
         {
-            if (complete == 3 && oldComplete != 3)
+            string setting = "";
+            ulong mission = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0xC8);
+            int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x168);
+
+            int oldComplete;
+            if (vars.Missions.TryGetValue(mission, out oldComplete))
             {
-                setting = vars.FNameToString(missionobj) + "_" + complete;
+                if (complete == 3 && oldComplete != 3)
+                {
+                    setting = vars.FNameToString(mission) + "_" + complete;
+                }
+            }
+
+            vars.Missions[mission] = complete;
+
+            if (!string.IsNullOrEmpty(setting) && settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
+            {
+                vars.CompletedSplits.Add(setting);
+                shouldSplit = true;
+                vars.Log("Split Complete: " + setting);
             }
         }
-        
-        vars.MissionObjectives[missionobj] = complete;
-            
-        // Debug. Comment out before release.
-        if (!string.IsNullOrEmpty(setting))
-        vars.Log(setting);
-        
-        if (settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
-		{
-			return settings[setting] && vars.CompletedSplits.Add(setting);
-		}
     }
 
-    if (!string.IsNullOrEmpty(old.Boss) && current.PlayerHealth > 0 && !current.BossActive && !vars.CompletedSplits.Contains(old.Boss))
+    for (int i = 0; i < 30; i++)
+    {
+        // Mission Objectives
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                string setting = "";
+
+                ulong missionobj = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x158, (j * 0x8), 0x78);
+                int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x158, (j * 0x8), 0xC8);
+
+                int oldComplete;
+                if (vars.MissionObjectives.TryGetValue(missionobj, out oldComplete))
+                {
+                    if (complete == 3 && oldComplete != 3)
+                    {
+                        setting = vars.FNameToString(missionobj) + "_" + complete;
+                    }
+                }
+
+                vars.MissionObjectives[missionobj] = complete;
+
+                if (!string.IsNullOrEmpty(setting) && settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
+                {
+                    vars.CompletedSplits.Add(setting);
+                    shouldSplit = true;
+                    vars.Log("Split Complete: " + setting);
+                }
+            }
+        }
+    }
+
+    if(shouldSplit)
+    {
+        return true;
+    }
+
+    if (!string.IsNullOrEmpty(old.Boss) && current.PlayerHealth > 0.0f && !current.BossActive && !vars.CompletedSplits.Contains(old.Boss))
     {
         return settings[old.Boss] && vars.CompletedSplits.Add(old.Boss);
     }
