@@ -209,11 +209,11 @@ init
 		return number == 0 ? name : name + "_" + number;
 	});
 
-    current.World = "";
     vars.Missions = new Dictionary<ulong, int>();
     vars.MissionObjectives = new Dictionary<ulong, int>();
     vars.FNameCache = new Dictionary<ulong, string>();
     vars.gEngine = gEngine;
+    current.World = "";
     current.Boss = "";
     current.Start = "";
 }
