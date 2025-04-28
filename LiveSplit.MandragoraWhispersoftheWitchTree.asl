@@ -213,7 +213,6 @@ init
     vars.Missions = new Dictionary<ulong, int>();
     vars.MissionObjectives = new Dictionary<ulong, int>();
     vars.FNameCache = new Dictionary<ulong, string>();
-    vars.FrameCounter = 0;
     vars.gEngine = gEngine;
     current.Boss = "";
     current.Start = "";
@@ -303,13 +302,13 @@ split
 
             ulong missionobj = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x158, (j * 0x8), 0x78);
             if (missionobj == 0)
-                continue; // empty slot
+                continue;
 
             int objcomplete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x158, (j * 0x8), 0xC8);
             int oldObjComplete = vars.MissionObjectives.ContainsKey(missionobj) ? vars.MissionObjectives[missionobj] : -1;
 
             if (objcomplete == oldObjComplete)
-                continue; // no change
+                continue;
 
             vars.MissionObjectives[missionobj] = objcomplete;
 
