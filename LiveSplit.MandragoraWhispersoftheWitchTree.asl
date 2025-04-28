@@ -91,7 +91,7 @@ startup
             settings.Add("BP_LibrarianBoss_C", true, "Tome Mistress","BOSSES");
             settings.Add("BP_Jotun_C", true, "Jotun","BOSSES");
             settings.Add("BP_ExpelledCourtMage_C", true, "Expelled Court Mage","BOSSES");
-            settings.Add("BP_CthonicStalker_C", true, "Cthonic Stalker","BOSSES");
+            settings.Add("BP_ChthonicStalker_C", true, "Cthonic Stalker","BOSSES");
             settings.Add("BP_Pyromancer_C", true, "Entropic Wyrm","BOSSES");
             settings.Add("BP_LycanthropeMatron_C", true, "Matron Layla","BOSSES");
             settings.Add("BP_ForestJotunEntropic_C", true, "Entropic Shade","BOSSES");
