@@ -192,9 +192,6 @@ init
     // GEngine.GameViewportClient.World.AuthorityGameMode.IsBossFightActive
     vars.Helper["BossActive"] = vars.Helper.Make<bool>(gEngine, 0x780, 0x78, 0x118, 0x1539);
 
-    // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.Name
-    vars.Helper["QuestName"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x18);
-
     vars.Helper["GSync"] = vars.Helper.Make<bool>(gSyncLoadCount);
 
     vars.FNameToString = (Func<ulong, string>)(fName =>
