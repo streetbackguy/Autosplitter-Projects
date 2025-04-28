@@ -99,7 +99,6 @@ startup
             settings.Add("BP_Kezka_C", true, "Inquisitors","BOSSES");
             settings.Add("BP_FireDemon_C", true, "Darkfire Demon","BOSSES");
             settings.Add("BP_KingPriest_C", true, "King Priest","BOSSES");
-            settings.Add("King Priest2", true, "King Priest Second Phase","BOSSES");
         settings.Add("SQUESTS", true, "Splits for Side Quest Completion","MWOFWT");
             settings.Add("LettheRightOneIn_3", true, "Let the Right One In","SQUESTS");
             settings.Add("ChartingtheUnknown_3", true, "Charting the Unknown","SQUESTS");
