@@ -24,8 +24,8 @@ startup
                 settings.Add("Seal2_3", true, "Objective 9","WitchHunt_3");
                 settings.Add("SwampObj3_3", true, "Objective 10","WitchHunt_3");
             settings.Add("WolfAttack_3", true, "Wolf Attack","MQUESTS");
-                settings.Add("WargQuest_Obj1_3", true, "Objective 1","WolfAttack_3");
-                settings.Add("WargQuest_Obj2_3", true, "Objective 2","WolfAttack_3");
+                settings.Add("Wargquest_Obj1_3", true, "Objective 1","WolfAttack_3");
+                settings.Add("Wargquest_Obj2_3", true, "Objective 2","WolfAttack_3");
             settings.Add("Clayborne'sRequest_3", true, "Clayborne's Request","MQUESTS");
                 settings.Add("Sewers_Ob1_3", true, "Objective 1","Clayborne'sRequest_3");
                 settings.Add("Sewers_Ob2_3", true, "Objective 2","Clayborne'sRequest_3");
@@ -90,16 +90,15 @@ startup
             settings.Add("BP_MarionetteFamily_C", true, "Marionettes","BOSSES");
             settings.Add("BP_LibrarianBoss_C", true, "Tome Mistress","BOSSES");
             settings.Add("BP_Jotun_C", true, "Jotun","BOSSES");
-            settings.Add("Expelled Court Mage", true, "Expelled Court Mage","BOSSES");
-            settings.Add("Cthonic Stalker", true, "Cthonic Stalker","BOSSES");
+            settings.Add("BP_ExpelledCourtMage_C", true, "Expelled Court Mage","BOSSES");
+            settings.Add("BP_CthonicStalker_C", true, "Cthonic Stalker","BOSSES");
             settings.Add("BP_Pyromancer_C", true, "Entropic Wyrm","BOSSES");
-            settings.Add("Darkfire Demon", true, "Darkfire Demon","BOSSES");
             settings.Add("BP_LycanthropeMatron_C", true, "Matron Layla","BOSSES");
             settings.Add("BP_ForestJotunEntropic_C", true, "Entropic Shade","BOSSES");
             settings.Add("BP_VoidWitch_C", true, "Sleepwalker","BOSSES");
-            settings.Add("BP_Inquisitor_C", true, "Inquisitors","BOSSES");
-            settings.Add("Darkfire Demon2", true, "Darkfire Demon (Crimson City)","BOSSES");
-            settings.Add("King Priest", true, "King Priest","BOSSES");
+            settings.Add("BP_Kezka_C", true, "Inquisitors","BOSSES");
+            settings.Add("BP_FireDemon_C", true, "Darkfire Demon","BOSSES");
+            settings.Add("BP_KingPriest_C", true, "King Priest","BOSSES");
             settings.Add("King Priest2", true, "King Priest Second Phase","BOSSES");
         settings.Add("SQUESTS", true, "Splits for Side Quest Completion","MWOFWT");
             settings.Add("LettheRightOneIn_3", true, "Let the Right One In","SQUESTS");
@@ -108,7 +107,7 @@ startup
             settings.Add("FreshAir_3", true, "Fresh Air","SQUESTS");
             settings.Add("BanditBoss_3", true, "Bandit Boss","SQUESTS");
             settings.Add("TheHauntedHouse_3", true, "The Haunted House","SQUESTS");
-            settings.Add("FamilyReunion_3", true, "Family Reunion","SQUESTS");
+            settings.Add("Family Reunion_3", true, "Family Reunion","SQUESTS");
             settings.Add("Brothers Vanbelleghem_3", true, "Dragon Heart","SQUESTS");
             settings.Add("TheWitch' Call_3", true, "The Witch's Call","SQUESTS");
             settings.Add("StepIntotheSunlight_3", true, "Step into the Sunlight","SQUESTS");
@@ -194,6 +193,9 @@ init
     // GEngine.GameViewportClient.World.AuthorityGameMode.IsBossFightActive
     vars.Helper["BossActive"] = vars.Helper.Make<bool>(gEngine, 0x780, 0x78, 0x118, 0x1539);
 
+    // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.Name
+    vars.Helper["QuestName"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x18);
+
     vars.Helper["GSync"] = vars.Helper.Make<bool>(gSyncLoadCount);
 
     vars.FNameToString = (Func<ulong, string>)(fName =>
@@ -214,6 +216,8 @@ init
     current.World = "";
     vars.Missions = new Dictionary<ulong, int>();
     vars.MissionObjectives = new Dictionary<ulong, int>();
+    vars.FNameCache = new Dictionary<ulong, string>();
+    vars.FrameCounter = 0;
     vars.gEngine = gEngine;
     current.Boss = "";
     current.Start = "";
@@ -261,62 +265,72 @@ split
 {    
     bool shouldSplit = false;
 
-    for (int i = 0; i < 32; i++)
+    for (int i = 0; i < 50; i++)
     {
+        string setting = "";
+
         // Missions
+        ulong mission = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0xC8);
+        if (mission == 0)
+            continue;
+
+        int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x168);
+        int oldComplete = vars.Missions.ContainsKey(mission) ? vars.Missions[mission] : -1;
+
+        // Early skip if already fully complete and no change
+        if (complete == oldComplete)
+            goto Objectives;
+
+        vars.Missions[mission] = complete;
+
+        if (complete == 3 && oldComplete != 3)
         {
-            string setting = "";
-            ulong mission = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0xC8);
-            int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x168);
-
-            int oldComplete;
-            if (vars.Missions.TryGetValue(mission, out oldComplete))
+            if (!vars.FNameCache.ContainsKey(mission))
             {
-                if (complete == 3 && oldComplete != 3)
-                {
-                    setting = vars.FNameToString(mission) + "_" + complete;
-                }
+                vars.FNameCache[mission] = vars.FNameToString(mission);
             }
-
-            vars.Missions[mission] = complete;
-
-            if (!string.IsNullOrEmpty(setting) && settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
-            {
-                vars.CompletedSplits.Add(setting);
-                shouldSplit = true;
-                vars.Log("Split Complete: " + setting);
-            }
+            setting = vars.FNameCache[mission] + "_" + complete;
         }
-    }
 
-    for (int i = 0; i < 30; i++)
-    {
-        // Mission Objectives
+        if (!string.IsNullOrEmpty(setting) && settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
         {
-            for (int j = 0; j < 10; j++)
+            vars.CompletedSplits.Add(setting);
+            shouldSplit = true;
+            vars.Log("Split Complete: " + setting);
+        }
+
+    Objectives:
+        // Mission Objectives
+        for (int j = 0; j < 10; j++)
+        {
+            string objSetting = "";
+
+            ulong missionobj = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x158, (j * 0x8), 0x78);
+            if (missionobj == 0)
+                continue; // empty slot
+
+            int objcomplete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x158, (j * 0x8), 0xC8);
+            int oldObjComplete = vars.MissionObjectives.ContainsKey(missionobj) ? vars.MissionObjectives[missionobj] : -1;
+
+            if (objcomplete == oldObjComplete)
+                continue; // no change
+
+            vars.MissionObjectives[missionobj] = objcomplete;
+
+            if (objcomplete == 3 && oldObjComplete != 3)
             {
-                string setting = "";
-
-                ulong missionobj = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x158, (j * 0x8), 0x78);
-                int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, (i * 0x8), 0x158, (j * 0x8), 0xC8);
-
-                int oldComplete;
-                if (vars.MissionObjectives.TryGetValue(missionobj, out oldComplete))
+                if (!vars.FNameCache.ContainsKey(missionobj))
                 {
-                    if (complete == 3 && oldComplete != 3)
-                    {
-                        setting = vars.FNameToString(missionobj) + "_" + complete;
-                    }
+                    vars.FNameCache[missionobj] = vars.FNameToString(missionobj);
                 }
+                objSetting = vars.FNameCache[missionobj] + "_" + objcomplete;
+            }
 
-                vars.MissionObjectives[missionobj] = complete;
-
-                if (!string.IsNullOrEmpty(setting) && settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
-                {
-                    vars.CompletedSplits.Add(setting);
-                    shouldSplit = true;
-                    vars.Log("Split Complete: " + setting);
-                }
+            if (!string.IsNullOrEmpty(objSetting) && settings.ContainsKey(objSetting) && settings[objSetting] && !vars.CompletedSplits.Contains(objSetting))
+            {
+                vars.CompletedSplits.Add(objSetting);
+                shouldSplit = true;
+                vars.Log("Split Complete: " + objSetting);
             }
         }
     }
