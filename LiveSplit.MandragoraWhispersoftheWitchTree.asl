@@ -345,11 +345,6 @@ isLoading
     return current.GSync || current.LoadCount != 0;
 }
 
-// reset
-// {
-//     return current.World == "MainMenu" && current.NewGameQuestsDiscovered == 0;
-// }
-
 exit
 {
     timer.IsGameTimePaused = true;
