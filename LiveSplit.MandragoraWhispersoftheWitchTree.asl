@@ -184,11 +184,16 @@ init
     // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.AttributeContainer.Health
     vars.Helper["PlayerHealth"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0xA20, 0x3388);
 
-    // GEngine.Controller.StateName
-    vars.Helper["StateName"] = vars.Helper.Make<ulong>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x250);
+    // GEngine.GameInstance.bFirstGameStart
+    vars.Helper["FirstGameStart"] = vars.Helper.Make<bool>(gEngine, 0xD38, 0x206);
 
     // GEngine.GameInstance.EngineEventHandler.LoadCount
-    vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x368, 0x40);
+    if(version == "Steam 1.2.10.2225")
+    {
+        vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x378, 0x40);
+    } else {
+        vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x368, 0x40);
+    }
 
     // GEngine.GameViewportClient.World.AuthorityGameMode.CurrentBossFightClass.Name
     vars.Helper["BossClass"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x1318, 0x18);
@@ -219,7 +224,6 @@ init
     vars.gEngine = gEngine;
     current.World = "";
     current.Boss = "";
-    current.Start = "";
 }
 
 update
@@ -234,20 +238,16 @@ update
     var boss = vars.FNameToString(current.BossClass);
 	if (!string.IsNullOrEmpty(boss) && boss != "None")
         current.Boss = boss;
-
-    var ng = vars.FNameToString(current.StateName);
-	if (!string.IsNullOrEmpty(ng) && ng != "None")
-		current.Start = ng;
 }
 
 start
 {
     int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x8, 0x168);
 
-    if(complete == 3 && current.Start == "Playing" && current.LoadCount != 1 && current.World != "MainMenu")
+    if(complete == 3 && !current.FirstGameStart && current.World != "MainMenu" && current.LoadCount != 1)
     {
         return false;
-    } else if (complete !=3 && current.Start == "Playing" && current.LoadCount != 1 && current.World != "MainMenu")
+    } else if (complete != 3 && !current.FirstGameStart && current.World != "MainMenu" && current.LoadCount != 1)
     {
         return true;
     }
@@ -347,12 +347,12 @@ split
 
 isLoading
 {
-    return current.GSync || current.LoadCount != 0 || current.Start == "Inactive" || current.Start == "Spectating";
+    return current.GSync || current.LoadCount != 0;
 }
 
 reset
 {
-    return current.World == "MainMenu" && current.Start == "Inactive";
+    return current.World == "MainMenu";
 }
 
 exit
