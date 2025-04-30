@@ -181,11 +181,11 @@ init
     // GWorld.FName
     vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
 
+    // GEngine.GameInstance.NewCharacterStartData.CharacterName
+    vars.Helper["NewGameQuestsDiscovered"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x0, 0x168); //Used to start the run when the Witch Hunt Quest becomes active
+
     // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.AttributeContainer.Health
     vars.Helper["PlayerHealth"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0xA20, 0x3388);
-
-    // GEngine.GameInstance.bFirstGameStart
-    vars.Helper["FirstGameStart"] = vars.Helper.Make<bool>(gEngine, 0xD38, 0x206);
 
     // GEngine.GameInstance.EngineEventHandler.LoadCount
     if(version == "Steam 1.2.10.2225")
@@ -194,6 +194,9 @@ init
     } else {
         vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x368, 0x40);
     }
+
+    // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.BP_CinematicGhost.bIsActive
+    vars.Helper["CinematicActive"] = vars.Helper.Make<bool>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0x1D20, 0x8A);
 
     // GEngine.GameViewportClient.World.AuthorityGameMode.CurrentBossFightClass.Name
     vars.Helper["BossClass"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x1318, 0x18);
@@ -242,15 +245,7 @@ update
 
 start
 {
-    int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14C0, 0x338, 0x150, 0x8, 0x168);
-
-    if(complete == 3 && !current.FirstGameStart && current.World != "MainMenu" && current.LoadCount != 1)
-    {
-        return false;
-    } else if (complete != 3 && !current.FirstGameStart && current.World != "MainMenu" && current.LoadCount != 1)
-    {
-        return true;
-    }
+    return current.NewGameQuestsDiscovered == 1;
 }
 
 onStart
@@ -352,7 +347,7 @@ isLoading
 
 reset
 {
-    return current.World == "MainMenu";
+    return current.World == "MainMenu" && current.NewGameQuestsDiscovered == 0;
 }
 
 exit
