@@ -195,9 +195,6 @@ init
         vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x368, 0x40);
     }
 
-    // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.BP_CinematicGhost.bIsActive
-    vars.Helper["CinematicActive"] = vars.Helper.Make<bool>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0x1D20, 0x8A);
-
     // GEngine.GameViewportClient.World.AuthorityGameMode.CurrentBossFightClass.Name
     vars.Helper["BossClass"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x1318, 0x18);
     
@@ -227,6 +224,7 @@ init
     vars.gEngine = gEngine;
     current.World = "";
     current.Boss = "";
+    current.Fade = "";
 }
 
 update
@@ -344,6 +342,11 @@ isLoading
 {
     return current.GSync || current.LoadCount != 0;
 }
+
+// reset
+// {
+//     return current.World == "MainMenu" && current.NewGameQuestsDiscovered == 0;
+// }
 
 exit
 {
