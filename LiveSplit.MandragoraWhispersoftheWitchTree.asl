@@ -245,7 +245,7 @@ update
 
 start
 {
-    return current.NewGameQuestsDiscovered == 1;
+    return current.NewGameQuestsDiscovered == 1 && old.World == "MainMenu";
 }
 
 onStart
