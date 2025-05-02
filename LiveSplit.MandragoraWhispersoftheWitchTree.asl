@@ -14,7 +14,7 @@ startup
         settings.Add("MQUESTS", true, "Splits for Main Quest Completion","MWOFWT");
             settings.Add("WitchHunt_3", true, "Witch Hunt","MQUESTS");
                 settings.Add("Maddick_3", true, "Objective 1","WitchHunt_3");
-                settings.Add("SwampObj1_3", false, "Objective 2","WitchHunt_3");
+                settings.Add("SwampObj1_3", truee, "Objective 2","WitchHunt_3");
                 settings.Add("AfterClayborn_3", true, "Objective 3","WitchHunt_3");
                 settings.Add("Capture1_3", true, "Objective 4","WitchHunt_3");
                 settings.Add("Capture2_3", true, "Objective 5","WitchHunt_3");
