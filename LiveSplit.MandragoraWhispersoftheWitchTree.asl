@@ -14,7 +14,7 @@ startup
         settings.Add("MQUESTS", true, "Splits for Main Quest Completion","MWOFWT");
             settings.Add("WitchHunt_3", true, "Witch Hunt","MQUESTS");
                 settings.Add("Maddick_3", true, "Talk to inquisitor Maddick","WitchHunt_3");
-                settings.Add("SwampObj1_3", true, "Find a way to Gravseep Swamp","WitchHunt_3");
+                //settings.Add("SwampObj1_3", true, "Find a way to Gravseep Swamp","WitchHunt_3");
                 settings.Add("AfterClayborn_3", true, "Pass through Old Wickham Monastery to reach the swamp","WitchHunt_3");
                 settings.Add("Capture1_3", true, "Search the dungeons beneath the swamp","WitchHunt_3");
                 settings.Add("Capture2_3", true, "Find a way to break through the shaky ground","WitchHunt_3");
@@ -28,20 +28,20 @@ startup
                 settings.Add("Wargquest_Obj2_3", true, "Talk to Ulfar","WolfAttack_3");
             settings.Add("Clayborne'sRequest_3", true, "Clayborne's Request","MQUESTS");
                 settings.Add("Sewers_Ob1_3", true, "Cleanse the ruins below Wickham","Clayborne'sRequest_3");
-                settings.Add("Sewers_Ob2_3", false, "Talk to commander Clayborne","Clayborne'sRequest_3");
+                //settings.Add("Sewers_Ob2_3", false, "Talk to commander Clayborne","Clayborne'sRequest_3");
             settings.Add("ANoble'sDeath_3", true, "A Noble's Death","MQUESTS");
                 settings.Add("Braer1_3", true, "Meet Branween at the Witch Tree","ANoble'sDeath_3");
                 settings.Add("Braer4_3", true, "Enter the corrupted portal","ANoble'sDeath_3");
                 settings.Add("Braer5_3", true, "Find a way out","ANoble'sDeath_3");
-                settings.Add("Feri1_3", true, "Find a way to reach Braer Island","ANoble'sDeath_3");
-                settings.Add("Feri2_3", false, "Meet the Ferryman","ANoble'sDeath_3");
-                settings.Add("Feri3_3", false, "Find the coin for the Ferryman","ANoble'sDeath_3");
+                //settings.Add("Feri1_3", true, "Find a way to reach Braer Island","ANoble'sDeath_3");
+                //settings.Add("Feri2_3", false, "Meet the Ferryman","ANoble'sDeath_3");
+                //settings.Add("Feri3_3", false, "Find the coin for the Ferryman","ANoble'sDeath_3");
                 settings.Add("Feri4_3", true, "Bring the coin to the Ferryman","ANoble'sDeath_3");
                 settings.Add("Braer2_3", true, "Travel to Braer Island","ANoble'sDeath_3");
                 settings.Add("Braer3_3", true, "Find Lord Auberon","ANoble'sDeath_3");
             settings.Add("FindaFriend_3", true, "Find a Friend","MQUESTS");
                 settings.Add("Friend1_3", true, "Find Rikter in Lochmuir Village","FindaFriend_3");
-                settings.Add("Friend2_3", false, "Talk to Killashandra","FindaFriend_3");
+                //settings.Add("Friend2_3", false, "Talk to Killashandra","FindaFriend_3");
             settings.Add("TheTomeMistress_3", true, "The Tome Mistress","MQUESTS");
                 settings.Add("Tome1_3", true, "Get to the right wing of Braer Castle","TheTomeMistress_3");
                 settings.Add("Tome2_3", true, "Meet the Tome Mistress","TheTomeMistress_3");
@@ -224,7 +224,6 @@ init
     vars.gEngine = gEngine;
     current.World = "";
     current.Boss = "";
-    current.Fade = "";
 }
 
 update
@@ -243,7 +242,7 @@ update
 
 start
 {
-    return current.NewGameQuestsDiscovered == 1 && current.World != "MainMenu";
+    return current.NewGameQuestsDiscovered == 1  && current.World != "MainMenu";
 }
 
 onStart
