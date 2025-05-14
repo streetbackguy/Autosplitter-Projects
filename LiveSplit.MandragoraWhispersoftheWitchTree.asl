@@ -164,7 +164,11 @@ init
 
             case "79959BABA9A1EF02EC0455E3718DBBCA":
                 version = "Steam 1.3.0.2241";
-                break;    
+                break;
+
+            case "8135E95410FF39D7EF6BC7562579B7B9":
+                version = "Steam 1.3.2.2274";
+                break;
 
             default:
                 version = "Unknown";
@@ -185,7 +189,7 @@ init
     // GWorld.FName
     vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
 
-    if(version == "Steam 1.3.0.2241")
+    if(version == "Steam 1.3.0.2241" || version == "Steam 1.3.2.2274")
     {
         // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.DiscoveredQuests[0].QuestState
         vars.Helper["NewGameQuestsDiscovered"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x14A0, 0x318, 0x130, 0x0, 0x148); //Used to start the run when the Witch Hunt Quest becomes active
@@ -278,7 +282,7 @@ split
 {    
     bool shouldSplit = false;
 
-    if(version == "Steam 1.3.0.2241")
+    if(version == "Steam 1.3.0.2241" || version == "Steam 1.3.2.2274")
     {
         for (int i = 0; i < 50; i++)
         {
