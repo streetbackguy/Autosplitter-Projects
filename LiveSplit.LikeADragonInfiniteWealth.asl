@@ -48,6 +48,14 @@ state("LikeADragon8", "Steam 1.20")
     uint NGPlusStarter: 0x5BAEB80;
 }
 
+state("LikeADragon8", "Steam 1.21")
+{
+    uint LoadingScreen: 0x38E2A10, 0x30, 0x0, 0x18, 0x24;
+    bool Transitions: 0x38F69C0, 0x50, 0x50, 0x104;
+    uint NGStarter: 0x38F69C0, 0x50, 0x50, 0xF4;
+    uint NGPlusStarter: 0x3184CC8;
+}
+
 init
 {
     string MD5Hash;
@@ -80,6 +88,10 @@ init
 
                 case "F56EEA9C676E2C00272D37425C6A9A02":
                     version = "Steam 1.20";
+                    break;
+
+                case "8814E7C07CAAD4079F82461E4D5C7E26":
+                    version = "Steam 1.21";
                     break;
 
                 default:
