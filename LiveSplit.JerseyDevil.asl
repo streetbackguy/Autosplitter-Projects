@@ -5,7 +5,7 @@ state("LiveSplit")
 
 startup
 {
-    Assembly.Load(File.ReadAllBytes("Components/emu-help-v2")).CreateInstance("PS1");
+    Assembly.Load(File.ReadAllBytes("Components/emu-help-v3")).CreateInstance("PS1");
 
     settings.Add("JD", true, "Jersey Devil (PS1) Splits");
         settings.Add("MuseumBoss", true, "Split on Museum Madness Boss", "JD");
