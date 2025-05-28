@@ -178,6 +178,10 @@ init
                 version = "Steam 1.5.0.2325";
                 break;
 
+            case "D1A3780A457E1EA628AA659F3CEC2D1A":
+                version = "Steam 1.5.1.2334";
+                break;
+
             default:
                 version = "Unknown";
                 break;
@@ -197,23 +201,20 @@ init
     // GWorld.FName
     vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
     
-    if(version == "Steam 1.5.0.2325")
-    {
-        // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.DiscoveredQuests[0].QuestState
-        vars.Helper["NewGameQuestsDiscovered"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, 0x0, 0x140); //Used to start the run when the Witch Hunt Quest becomes active
+    // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.DiscoveredQuests[0].QuestState
+    vars.Helper["NewGameQuestsDiscovered"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, 0x0, 0x140); //Used to start the run when the Witch Hunt Quest becomes active
 
-        // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.AttributeContainer.Health
-        vars.Helper["PlayerHealth"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0xA00, 0x3360);
+    // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.AttributeContainer.Health
+    vars.Helper["PlayerHealth"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0xA00, 0x3360);
 
-        // GEngine.GameInstance.EngineEventHandler.LoadCount
-        vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x380, 0x40);
+    // GEngine.GameInstance.EngineEventHandler.LoadCount
+    vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x380, 0x40);
 
-        // GEngine.GameViewportClient.World.AuthorityGameMode.CurrentBossFightClass.Name
-        vars.Helper["BossClass"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x1340, 0x18);
-        
-        // GEngine.GameViewportClient.World.AuthorityGameMode.IsBossFightActive
-        vars.Helper["BossActive"] = vars.Helper.Make<bool>(gEngine, 0x780, 0x78, 0x118, 0x1569);
-    }
+    // GEngine.GameViewportClient.World.AuthorityGameMode.CurrentBossFightClass.Name
+    vars.Helper["BossClass"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x1340, 0x18);
+    
+    // GEngine.GameViewportClient.World.AuthorityGameMode.IsBossFightActive
+    vars.Helper["BossActive"] = vars.Helper.Make<bool>(gEngine, 0x780, 0x78, 0x118, 0x1569);
 
     vars.Helper["GSync"] = vars.Helper.Make<bool>(gSyncLoadCount);
 
@@ -264,80 +265,80 @@ onStart
     vars.CompletedSplits.Clear();
     vars.Missions.Clear();
     vars.MissionObjectives.Clear();
+    current.World = "";
+    current.Boss = "";
 }
 
 split
 {    
     bool shouldSplit = false;
         
-    if(version == "Steam 1.5.0.2325"){
-        for (int i = 0; i < 50; i++)
-        {
-            string setting = "";
+    for (int i = 0; i < 50; i++)
+    {
+        string setting = "";
 
-            // Missions
-            ulong mission = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, (i * 0x8), 0xA0);
-            if (mission == 0)
+        // Missions
+        ulong mission = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, (i * 0x8), 0xA0);
+        if (mission == 0)
+            continue;
+
+        int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, (i * 0x8), 0x140);
+        int oldComplete = vars.Missions.ContainsKey(mission) ? vars.Missions[mission] : -1;
+
+        // Early skip if already fully complete and no change
+        if (complete == oldComplete)
+            goto Objectives;
+
+        vars.Missions[mission] = complete;
+
+        if (complete == 3 && oldComplete != 3)
+        {
+            if (!vars.FNameCache.ContainsKey(mission))
+            {
+                vars.FNameCache[mission] = vars.FNameToString(mission);
+            }
+            setting = vars.FNameCache[mission] + "_" + complete;
+        }
+
+        if (!string.IsNullOrEmpty(setting) && settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
+        {
+            vars.CompletedSplits.Add(setting);
+            shouldSplit = true;
+            vars.Log("Split Complete: " + setting);
+        }
+
+    Objectives:
+        // Mission Objectives
+        for (int j = 0; j < 10; j++)
+        {
+            string objSetting = "";
+
+            ulong missionobj = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, (i * 0x8), 0x130, (j * 0x8), 0x50);
+            if (missionobj == 0)
                 continue;
 
-            int complete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, (i * 0x8), 0x140);
-            int oldComplete = vars.Missions.ContainsKey(mission) ? vars.Missions[mission] : -1;
+            int objcomplete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, (i * 0x8), 0x130, (j * 0x8), 0xA0);
+            int oldObjComplete = vars.MissionObjectives.ContainsKey(missionobj) ? vars.MissionObjectives[missionobj] : -1;
 
-            // Early skip if already fully complete and no change
-            if (complete == oldComplete)
-                goto Objectives;
+            if (objcomplete == oldObjComplete)
+                continue;
 
-            vars.Missions[mission] = complete;
+            vars.MissionObjectives[missionobj] = objcomplete;
 
-            if (complete == 3 && oldComplete != 3)
+            if (objcomplete == 3 && oldObjComplete != 3)
             {
-                if (!vars.FNameCache.ContainsKey(mission))
+                if (!vars.FNameCache.ContainsKey(missionobj))
                 {
-                    vars.FNameCache[mission] = vars.FNameToString(mission);
+                    vars.FNameCache[missionobj] = vars.FNameToString(missionobj);
                 }
-                setting = vars.FNameCache[mission] + "_" + complete;
+                objSetting = vars.FNameCache[missionobj] + "_" + objcomplete;
             }
 
-            if (!string.IsNullOrEmpty(setting) && settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
+            if (!string.IsNullOrEmpty(objSetting) && settings.ContainsKey(objSetting) && settings[objSetting] && !vars.CompletedSplits.Contains(objSetting))
             {
-                vars.CompletedSplits.Add(setting);
+                vars.CompletedSplits.Add(objSetting);
                 shouldSplit = true;
-                vars.Log("Split Complete: " + setting);
-            }
-
-        Objectives:
-            // Mission Objectives
-            for (int j = 0; j < 10; j++)
-            {
-                string objSetting = "";
-
-                ulong missionobj = vars.Helper.Read<ulong>(vars.gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, (i * 0x8), 0x130, (j * 0x8), 0x50);
-                if (missionobj == 0)
-                    continue;
-
-                int objcomplete = vars.Helper.Read<int>(vars.gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, (i * 0x8), 0x130, (j * 0x8), 0xA0);
-                int oldObjComplete = vars.MissionObjectives.ContainsKey(missionobj) ? vars.MissionObjectives[missionobj] : -1;
-
-                if (objcomplete == oldObjComplete)
-                    continue;
-
-                vars.MissionObjectives[missionobj] = objcomplete;
-
-                if (objcomplete == 3 && oldObjComplete != 3)
-                {
-                    if (!vars.FNameCache.ContainsKey(missionobj))
-                    {
-                        vars.FNameCache[missionobj] = vars.FNameToString(missionobj);
-                    }
-                    objSetting = vars.FNameCache[missionobj] + "_" + objcomplete;
-                }
-
-                if (!string.IsNullOrEmpty(objSetting) && settings.ContainsKey(objSetting) && settings[objSetting] && !vars.CompletedSplits.Contains(objSetting))
-                {
-                    vars.CompletedSplits.Add(objSetting);
-                    shouldSplit = true;
-                    vars.Log("Split Complete: " + objSetting);
-                }
+                vars.Log("Split Complete: " + objSetting);
             }
         }
     }
