@@ -59,36 +59,6 @@ init
     // GEngine.GameInstance.LocalPlayer[0].PlayerController.CollectibleWidget
     vars.Helper["Collectibles"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0x890);
 
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.LocationDisplayWidget.Location
-    vars.Helper["Location"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0xCB0, 0x2E0, 0x188, 0x28, 0x0);
-
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.LocationDisplayWidget.Room
-    vars.Helper["Room"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0xCB0, 0x2E8, 0x188, 0x28, 0x0);
-
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.LocationDisplayWidget.Room
-    vars.Helper["Segmenttest"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0xCB0, 0x2F0, 0x30, 0x18);
-
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.Lever Interaction.TargetLever.Name
-    vars.Helper["TargetLever"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0x1F8, 0x18);
-
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.Instant Interaction.Name
-    vars.Helper["CurrentInteraction"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0x978, 0x18);
-
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.Single Effort Interaction.Name
-    vars.Helper["SingleEffortInteraction"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0x9F8, 0x18);
-
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.IsChaseSequenceActive
-    vars.Helper["ChaseTriggered"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0xD00);
-
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.IsMoving
-    vars.Helper["IsMoving"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0xCD8);
-
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.IsPassedOut
-    vars.Helper["IsPassedOut"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0xCDA);
-
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.IsDead
-    vars.Helper["IsDead"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0xD18);
-
     vars.FNameToString = (Func<ulong, string>)(fName =>
 	{
 		var nameIdx = (fName & 0x000000000000FFFF) >> 0x00;
