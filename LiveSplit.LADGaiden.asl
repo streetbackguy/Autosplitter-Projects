@@ -136,6 +136,7 @@ init
 
             switch (MD5Hash)
             {
+                case "BD3B72A318385BEF6719DA9B4ACED9F3": // Memory size: 416370688
                 case "A504AE35E0EB5254E40B494B6CB4C4F2": // Memory size: 433803264
                     version = "Steam 1.22";
                     vars.Cucco = 0x382A780;
