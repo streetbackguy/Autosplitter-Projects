@@ -24,8 +24,14 @@ state("LikeaDragonIshin-Win64-Shipping", "Steam 1.05")
 
 state("LikeaDragonIshin-Win64-Shipping", "Steam 1.06") 
 {
-    int Loads: 0x06281028, 0x780, 0x6C; 
+    int Loads: 0x06281028, 0x780, 0x6C;
     int Autostart: 0x6284960; //Version 1.06
+}
+
+state("LikeaDragonIshin-Win64-Shipping", "Steam 1.06a") 
+{
+    int Loads: 0x06282028, 0x780, 0x6C;
+    int Autostart: 0x6285960; //Version 1.06a
 }
 
 
@@ -77,13 +83,13 @@ init
         case 349364224:
             version = "Steam 1.04";
             break;
-        
-        case 0:
-            version = "Steam 1.05";
-            break;
 
         case 331259904:
             version = "Steam 1.06";
+            break;
+
+        case 339443712:
+            version = "Steam 1.06a";
             break;
     }
 
