@@ -14,13 +14,10 @@ startup
 
 init
 {
-    string MD5Hash;
-    using (var md5 = System.Security.Cryptography.MD5.Create())
-    using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-    MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
-    print("Hash is: " + MD5Hash);
+    string md5 = vars.Helper.GetMD5Hash();
+    print("Hash is: " + md5);
 
-    switch (MD5Hash)
+    switch (md5)
         {
             case "FA47F96DC8AF172A263CEE6777A5E54A":
                 version = "Steam 1.00";
