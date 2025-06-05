@@ -5,7 +5,7 @@ state("OutOfSight-Win64-Shipping")
 startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
-    vars.Helper.Settings.CreateFromXml("Components/OutofSight.Settings.xml");
+    // vars.Helper.Settings.CreateFromXml("Components/OutofSight.Settings.xml");
 	vars.Helper.GameName = "Out of Sight";
 	vars.Helper.AlertLoadless();
 
@@ -75,8 +75,8 @@ init
 	});
 
     current.World = "";
-    current.Segment = "";
-    current.Item = "";
+    // current.Segment = "";
+    // current.Item = "";
 }
 
 update
@@ -88,25 +88,25 @@ update
 	if (!string.IsNullOrEmpty(world) && world != "None")
 		current.World = world;
 
-    var item = vars.FNameToString(current.ItemHeld);
-	if (!string.IsNullOrEmpty(item) && item != "None")
-		current.Item = item;
+    // var item = vars.FNameToString(current.ItemHeld);
+	// if (!string.IsNullOrEmpty(item) && item != "None")
+		// current.Item = item;
 
-    var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-    vars.Watcher = new FileSystemWatcher()
-    {
-        Path = localAppData + @"\OutOfSight\Saved",
-        Filter = "*.sav",
-        IncludeSubdirectories = true,
-        EnableRaisingEvents = true
-    };
+    // var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    // vars.Watcher = new FileSystemWatcher()
+    // {
+        // Path = localAppData + @"\OutOfSight\Saved",
+        // Filter = "*.sav",
+        // IncludeSubdirectories = true,
+        // EnableRaisingEvents = true
+    // };
 
-    vars.Watcher.Created += new FileSystemEventHandler((sender, e) => 
-    {
-        FileInfo file = new FileInfo(e.FullPath);
-        vars.Log(file.Name.Substring(11));
-        current.Segment = file.Name.Substring(11);
-    });
+    // vars.Watcher.Created += new FileSystemEventHandler((sender, e) => 
+    // {
+        // FileInfo file = new FileInfo(e.FullPath);
+        // vars.Log(file.Name.Substring(11));
+        // current.Segment = file.Name.Substring(11);
+    // });
 }
 
 start
@@ -118,21 +118,21 @@ onStart
 {
     vars.CompletedSplits.Clear();
     current.World = "";
-    current.Segment = "";
-    current.Item = "";
+    // current.Segment = "";
+    // current.Item = "";
 }
 
 split
 {
-    if(current.Segment != old.Segment && !vars.CompletedSplits.Contains(old.Segment))
-    {
-        return settings[old.Segment] && vars.CompletedSplits.Add(old.Segment);
-    }
+    // if(current.Segment != old.Segment && !vars.CompletedSplits.Contains(old.Segment))
+    // {
+        // return settings[old.Segment] && vars.CompletedSplits.Add(old.Segment);
+    // }
 
-    if(current.Item != old.Item && !vars.CompletedSplits.Contains(current.Item))
-    {
-        return settings[current.Item] && vars.CompletedSplits.Add(current.Item);
-    }
+    // if(current.Item != old.Item && !vars.CompletedSplits.Contains(current.Item))
+    // {
+        // return settings[current.Item] && vars.CompletedSplits.Add(current.Item);
+    // }
 }
 
 isLoading
