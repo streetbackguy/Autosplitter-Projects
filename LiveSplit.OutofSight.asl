@@ -5,7 +5,7 @@ state("OutOfSight-Win64-Shipping")
 startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
-    // vars.Helper.Settings.CreateFromXml("Components/OutofSight.Settings.xml");
+    vars.Helper.Settings.CreateFromXml("Components/OutofSight.Settings.xml");
 	vars.Helper.GameName = "Out of Sight";
 	vars.Helper.AlertLoadless();
 
@@ -14,10 +14,13 @@ startup
 
 init
 {
-    string md5 = vars.Helper.GetMD5Hash();
-    print("Hash is: " + md5);
+    string MD5Hash;
+    using (var md5 = System.Security.Cryptography.MD5.Create())
+    using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+    MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
+    print("Hash is: " + MD5Hash);
 
-    switch (md5)
+    switch (MD5Hash)
         {
             case "FA47F96DC8AF172A263CEE6777A5E54A":
                 version = "Steam 1.00";
@@ -50,10 +53,13 @@ init
     // GEngine.TransitionType
     vars.Helper["TransitionType"] = vars.Helper.Make<int>(gEngine, 0xD0C);
 
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.Pawn.ItemComponent.ItemHeldByPlayer
-    vars.Helper["ItemHeld"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x2E8, 0x9C0, 0xA0, 0x18);
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.ItemComponent.ItemHeldByPlayer
+    vars.Helper["ItemHeld"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0x9C0, 0xA0, 0x18);
 
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.CollectibleWidget
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.WBP_FadeIn.FadeToBlack.DisplayLabel.Data
+    vars.Helper["EndFade"] = vars.Helper.MakeString(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0xAF8, 0x2D8, 0x88, 0x0);
+
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.CollectibleWidget
     vars.Helper["Collectibles"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0x890);
 
     vars.FNameToString = (Func<ulong, string>)(fName =>
@@ -72,8 +78,8 @@ init
 	});
 
     current.World = "";
-    // current.Segment = "";
-    // current.Item = "";
+    current.Segment = "";
+    current.Item = "";
 }
 
 update
@@ -85,25 +91,25 @@ update
 	if (!string.IsNullOrEmpty(world) && world != "None")
 		current.World = world;
 
-    // var item = vars.FNameToString(current.ItemHeld);
-	// if (!string.IsNullOrEmpty(item) && item != "None")
-		// current.Item = item;
+    var item = vars.FNameToString(current.ItemHeld);
+	if (!string.IsNullOrEmpty(item) && item != "None")
+		current.Item = item;
 
-    // var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-    // vars.Watcher = new FileSystemWatcher()
-    // {
-        // Path = localAppData + @"\OutOfSight\Saved",
-        // Filter = "*.sav",
-        // IncludeSubdirectories = true,
-        // EnableRaisingEvents = true
-    // };
+    var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    vars.Watcher = new FileSystemWatcher()
+    {
+        Path = localAppData + @"\OutOfSight\Saved",
+        Filter = "*.sav",
+        IncludeSubdirectories = true,
+        EnableRaisingEvents = true
+    };
 
-    // vars.Watcher.Created += new FileSystemEventHandler((sender, e) => 
-    // {
-        // FileInfo file = new FileInfo(e.FullPath);
-        // vars.Log(file.Name.Substring(11));
-        // current.Segment = file.Name.Substring(11);
-    // });
+    vars.Watcher.Created += new FileSystemEventHandler((sender, e) => 
+    {
+        FileInfo file = new FileInfo(e.FullPath);
+        vars.Log(file.Name.Substring(11));
+        current.Segment = file.Name.Substring(11);
+    });
 }
 
 start
@@ -115,21 +121,21 @@ onStart
 {
     vars.CompletedSplits.Clear();
     current.World = "";
-    // current.Segment = "";
-    // current.Item = "";
+    current.Segment = "";
+    current.Item = "";
 }
 
 split
 {
-    // if(current.Segment != old.Segment && !vars.CompletedSplits.Contains(old.Segment))
-    // {
-        // return settings[old.Segment] && vars.CompletedSplits.Add(old.Segment);
-    // }
+    if(current.Segment != old.Segment && !vars.CompletedSplits.Contains(old.Segment))
+    {
+        return settings[old.Segment] && vars.CompletedSplits.Add(old.Segment);
+    }
 
-    // if(current.Item != old.Item && !vars.CompletedSplits.Contains(current.Item))
-    // {
-        // return settings[current.Item] && vars.CompletedSplits.Add(current.Item);
-    // }
+    if(current.Item != old.Item && !vars.CompletedSplits.Contains(current.Item))
+    {
+        return settings[current.Item] && vars.CompletedSplits.Add(current.Item);
+    }
 }
 
 isLoading
