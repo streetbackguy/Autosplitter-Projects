@@ -41,10 +41,10 @@
       <Setting Id="Post Teddy Joy Ride.sav" Label="After Cage Puzzle" State="true" />
       <Setting Id="Machinery Room.sav" Label="Machinery Room Puzzle" State="true" />
       <Setting Id="BP_Key_Child_C_5" Label="Ritual Chamber Red Key" State="true" />
-      <Setting Id="Post Morgue Room.sav" Label="Machinery Room Puzzle Completed" State="true" />
+      <Setting Id="Post Machinery Room.sav" Label="Machinery Room Puzzle Completed" State="true" />
       <Setting Id="Morgue Room.sav" Label="Morgue Room" State="true" />
       <Setting Id="BP_Key_Child_C_3" Label="Ritual Chamber Yellow Key" State="true" />
-      <Setting Id="Post Morgue Room.sav2" Label="Morgue Room Completed" State="true" />
+      <Setting Id="Post Morgue Room.sav" Label="Morgue Room Completed" State="true" />
       <Setting Id="Gallery Chase.sav" Label="Gallery Chase" State="true" />
       <Setting Id="Segment 5 Start.sav" Label="Escape the Basement" State="true" />
       <Setting Id="Storage Room.sav" Label="Storage Room" State="true" />
@@ -75,7 +75,7 @@
       <Setting Id="BP_Hook_Key_Child_C_2" Label="Janna's Kitchen Key" State="true" />
       <Setting Id="Post Janna Evade Segment 8.sav" Label="Hallway after Kitchen" State="true" />
       <Setting Id="Janna Chase Segment 8.sav" Label="Escape from Janna" State="true" />
-      <Setting Id="Janna Confrontation.sav" Label="Janna Confrontation" State="true" />
+      <Setting Id="End" Label="Janna Confrontation (Currently Work in Progress)" State="true" />
     </Setting>
 
   </Settings>
