@@ -78,4 +78,8 @@
       <Setting Id="End" Label="Janna Confrontation (Currently Work in Progress)" State="true" />
     </Setting>
 
+    <Setting Label="Miscellaneous Splits" State="true">
+      <Setting Id="Flush" Label="Flush the Toilet in Sophies Room" State="true" />
+    </Setting>
+
   </Settings>
