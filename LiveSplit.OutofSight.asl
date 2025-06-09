@@ -62,6 +62,12 @@ init
     // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.CollectibleWidget
     vars.Helper["Collectibles"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0x890);
 
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.Pawn.InteractionComponents[0].InteractionTarget.Name
+    vars.Helper["CurrentInteract"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x2E8, 0x930, 0x0, 0x1F8, 0x18);
+
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.Pawn.InteractionComponents[0].InteractionTarget.ActivatedActors[0].CanFlush
+    vars.Helper["CurrentInteractTriggered"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x2E8, 0x930, 0x0, 0x1F8, 0x348, 0x0, 0x2C0);
+
     vars.FNameToString = (Func<ulong, string>)(fName =>
 	{
 		var nameIdx = (fName & 0x000000000000FFFF) >> 0x00;
@@ -80,6 +86,7 @@ init
     current.World = "";
     current.Segment = "";
     current.Item = "";
+    current.InteractTarget = "";
 }
 
 update
@@ -94,6 +101,10 @@ update
     var item = vars.FNameToString(current.ItemHeld);
 	if (!string.IsNullOrEmpty(item) && item != "None")
 		current.Item = item;
+
+    var interact = vars.FNameToString(current.CurrentInteract);
+	if (!string.IsNullOrEmpty(interact) && interact != "None")
+		current.InteractTarget = interact;
 
     var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     vars.Watcher = new FileSystemWatcher()
@@ -123,6 +134,7 @@ onStart
     current.World = "";
     current.Segment = "";
     current.Item = "";
+    current.InteractTarget = "";
 }
 
 split
@@ -135,6 +147,11 @@ split
     if(current.Item != old.Item && !vars.CompletedSplits.Contains(current.Item))
     {
         return settings[current.Item] && vars.CompletedSplits.Add(current.Item);
+    }
+
+    if(current.InteractTarget == "BP_PowerSwitch_Toilet_C_2" && !current.CurrentInteractTriggered && old.CurrentInteractTriggered && !vars.CompletedSplits.Contains("Flush"))
+    {
+        return settings["Flush"] && vars.CompletedSplits.Add("Flush");
     }
 }
 
