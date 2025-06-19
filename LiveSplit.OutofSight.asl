@@ -107,21 +107,21 @@ update
 	if (!string.IsNullOrEmpty(interact) && interact != "None")
 		current.InteractTarget = interact;
 
-    var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-    vars.Watcher = new FileSystemWatcher()
-    {
-        Path = localAppData + @"\OutOfSight\Saved",
-        Filter = "*.sav",
-        IncludeSubdirectories = true,
-        EnableRaisingEvents = true
-    };
+    // var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    // vars.Watcher = new FileSystemWatcher()
+    // {
+    //     Path = localAppData + @"\OutOfSight\Saved",
+    //     Filter = "*.sav",
+    //     IncludeSubdirectories = true,
+    //     EnableRaisingEvents = true
+    // };
 
-    vars.Watcher.Created += new FileSystemEventHandler((sender, e) => 
-    {
-        FileInfo file = new FileInfo(e.FullPath);
-        vars.Log(file.Name.Substring(11));
-        current.Segment = file.Name.Substring(11);
-    });
+    // vars.Watcher.Created += new FileSystemEventHandler((sender, e) => 
+    // {
+    //     FileInfo file = new FileInfo(e.FullPath);
+    //     vars.Log(file.Name.Substring(11));
+    //     current.Segment = file.Name.Substring(11);
+    // });
 }
 
 start
