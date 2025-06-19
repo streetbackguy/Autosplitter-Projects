@@ -30,6 +30,10 @@ init
                 version = "Steam 1.01";
                 break;
 
+            case "422088019C0D0A95673B89169272FC44":
+                version = "Steam 1.02";
+                break;
+
             default:
                 version = "Unknown";
                 break;
@@ -59,14 +63,11 @@ init
     // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.WBP_FadeIn.FadeToBlack.DisplayLabel.Data
     vars.Helper["EndFade"] = vars.Helper.MakeString(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0xAF8, 0x2D8, 0x88, 0x0);
 
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.BP_OurPlayer.CollectibleWidget
-    vars.Helper["Collectibles"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x860, 0x890);
-
     // GEngine.GameInstance.LocalPlayer[0].PlayerController.Pawn.InteractionComponents[0].InteractionTarget.Name
-    vars.Helper["CurrentInteract"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x2E8, 0x930, 0x0, 0x1F8, 0x18);
+    vars.Helper["CurrentInteract"] = vars.Helper.Make<ulong>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x2E8, 0x938, 0x0, 0x1F8, 0x18);
 
     // GEngine.GameInstance.LocalPlayer[0].PlayerController.Pawn.InteractionComponents[0].InteractionTarget.ActivatedActors[0].CanFlush
-    vars.Helper["CurrentInteractTriggered"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x2E8, 0x930, 0x0, 0x1F8, 0x348, 0x0, 0x2C0);
+    vars.Helper["CurrentInteractTriggered"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x2E8, 0x938, 0x0, 0x1F8, 0x348, 0x0, 0x2C0);
 
     vars.FNameToString = (Func<ulong, string>)(fName =>
 	{
