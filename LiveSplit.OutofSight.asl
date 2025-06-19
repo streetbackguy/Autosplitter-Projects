@@ -85,7 +85,7 @@ init
 	});
 
     current.World = "";
-    current.Segment = "";
+    // current.Segment = "";
     current.Item = "";
     current.InteractTarget = "";
 }
@@ -133,17 +133,17 @@ onStart
 {
     vars.CompletedSplits.Clear();
     current.World = "";
-    current.Segment = "";
+    // current.Segment = "";
     current.Item = "";
     current.InteractTarget = "";
 }
 
 split
 {
-    if(current.Segment != old.Segment && !vars.CompletedSplits.Contains(old.Segment))
-    {
-        return settings[old.Segment] && vars.CompletedSplits.Add(old.Segment);
-    }
+    // if(current.Segment != old.Segment && !vars.CompletedSplits.Contains(old.Segment))
+    // {
+    //     return settings[old.Segment] && vars.CompletedSplits.Add(old.Segment);
+    // }
 
     if(current.Item != old.Item && !vars.CompletedSplits.Contains(current.Item))
     {
