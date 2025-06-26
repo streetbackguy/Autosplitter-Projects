@@ -73,7 +73,7 @@ isLoading
 
 start
 {
-    if(current.activeScene == 16 && old.activeScene == 0)
+    if(current.activeScene != 1 && current.activeScene != 4 && current.activeScene != 0)
     {
         vars.StartDelay.Start();
     }
