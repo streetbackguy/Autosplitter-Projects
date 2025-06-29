@@ -78,7 +78,7 @@ start
         vars.StartDelay.Start();
     }
 
-    if(vars.StartDelay.ElapsedMilliseconds >= 7000)
+    if(vars.StartDelay.ElapsedMilliseconds >= 6000)
     {
         vars.StartDelay.Reset();
         return true;
