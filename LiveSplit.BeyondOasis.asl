@@ -15,6 +15,8 @@ startup
         emu.Make<short>("CurrentScreen", 0x10AE);
         emu.Make<short>("Cutscene", 0x1CFE);
         emu.Make<short>("Enemy1Status", 0x1CDC);
+        emu.Make<ushort>("PlayerHealth", 0x1A72);
+        emu.Make<short>("RunStart", 0x96);
 
 		return true;
 	});
@@ -38,7 +40,7 @@ init
 
 start
 {
-    return current.Cutscene == 768;
+    return current.PlayerHealth == 51200 && current.RunStart == 4096;
 }
 
 onStart
