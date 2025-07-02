@@ -1,0 +1,52 @@
+<Settings>
+
+    <Setting Label="Slitterhead" State="true">
+        <Setting Label="Split on completing Mission:" State="true">
+            <Setting Label="Prologue" State="true">
+                <Setting Id="PL_IN01" Label="Monster Introduction" State="true" />
+                <Setting Id="PL_IN02" Label="Combat Tutorial" State="true" />
+            </Setting>
+            <Setting Label="Prostitute Chapter" State="true">
+                <Setting Id="PL_PR01" Label="Lurking Parasite" State="true" />
+                <Setting Id="PL_PR01v2" Label="Lurking Parasite RE (2nd Loop)" State="true" />
+                <Setting Id="PL_PR02" Label="Sleepless Zone" State="true" />
+                <Setting Id="PL_PR02v2" Label="Sleepless Zone RE (2nd Loop)" State="true" />
+                <Setting Id="PL_PR03" Label="Missing Girl" State="true" />
+                <Setting Id="PL_PR03v2" Label="Missing Girl RE (2nd Loop)" State="true" />
+                <Setting Id="PL_PR04" Label="Mantis Trap" State="true" />
+            </Setting>
+            <Setting Label="Nurse Chapter" State="true">
+                <Setting Id="PL_NU01" Label="Black Payback" State="true" />
+                <Setting Id="PL_NU01v2" Label="Over Limit" State="true" />
+                <Setting Id="PL_NU02" Label="Ghost Family" State="true" />
+                <Setting Id="PL_NU02v2" Label="Ghost Family RE (2nd Loop)" State="true" />
+                <Setting Id="PL_NU02v3" Label="Ghost Family RE RE (3rd Loop)" State="true" />
+                <Setting Id="PL_NU03" Label="Insidious Sucker" State="true" />
+                <Setting Id="PL_NU03v2" Label="Insidious Sucker RE (2nd Loop)" State="true" />
+                <Setting Id="PL_NU04" Label="Undying Scorn" State="true" />
+                <Setting Id="PL_NU04v2" Label="Undying Scorn RE (2nd Loop)" State="true" />
+                <Setting Id="PL_NU05" Label="Drifting Devil" State="true" />
+            </Setting>
+            <Setting Label="Cult Chapter" State="true">
+                <Setting Id="PL_CU01" Label="Oppressive Force" State="true" />
+                <Setting Id="PL_CU01v2" Label="Oppressive Force RE (2nd Loop)" State="true" />
+                <Setting Id="PL_CU02" Label="Hidden Cave" State="true" />
+                <Setting Id="PL_CU02v2" Label="Hidden Cave RE (2nd Loop)" State="true" />
+                <Setting Id="PL_CU03" Label="Jar of Poison" State="true" />
+                <Setting Id="PL_CU03v2" Label="Jar of Poison RE  (2nd Loop)" State="true" />
+                <Setting Id="PL_CU04" Label="Drifting Devil" State="true" />
+            </Setting>
+            <Setting Label="Omega Chapter" State="true">
+                <Setting Id="PL_OM04" Label="The Duel" State="true" />
+            </Setting>
+            <Setting Label="Alpha Chapter" State="true">
+                <Setting Id="PL_AL01" Label="Black Payback REV (Mirror)" State="true" />
+                <Setting Id="PL_AL02" Label="Ghost Family REV (Mirror)" State="true" />
+                <Setting Id="PL_AL03" Label="Bind Break" State="true" />
+                <Setting Id="PL_AL04" Label="Last Duel" State="true" />
+                <Setting Id="PL_AL04v2" Label="Last Duel RE (2nd Loop)" State="true" />
+            </Setting>
+        </Setting>
+    </Setting>
+
+  </Settings>
