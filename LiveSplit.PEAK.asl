@@ -15,8 +15,6 @@ startup
         settings.Add("4", true, "Caldera", "PEAK");
         settings.Add("5", true, "The Kiln", "PEAK");
         settings.Add("END", true, "Helicopter Rescue", "PEAK");
-
-    vars.StartDelay = new Stopwatch();
 }
 
 init
@@ -33,11 +31,13 @@ init
 
     vars.CompletedSplits = new HashSet<string>();
     vars.CampfiresLit = 0;
+    vars.StartDelay = new Stopwatch();
+    vars.CampfireDelay = new Stopwatch();
 }
 
 split
 {
-    if(current.InteractionTime == 0 && old.InteractionTime > 1.97000f && old.InteractionName == "Campfire" && !vars.CompletedSplits.Contains(vars.CampfiresLit.ToString()))
+    if(current.InteractionTime == 0 && old.InteractionTime > 1.97000f && old.InteractionName == "Campfire" && vars.CampfireDelay.ElapsedMilliseconds >= 60000 && !vars.CompletedSplits.Contains(vars.CampfiresLit.ToString()))
     {
         return settings[vars.CampfiresLit.ToString()] && vars.CompletedSplits.Add(vars.CampfiresLit.ToString());
     }
@@ -58,6 +58,11 @@ update
     if(current.InteractionTime == 0 && old.InteractionTime > 1.97000f && old.InteractionName == "Campfire")
     {
         vars.CampfiresLit++;
+    }
+
+    if(current.InteractionTime == 0 && old.InteractionTime > 1.97000f && old.InteractionName == "Campfire")
+    {
+        vars.CampfireDelay.Restart();
     }
 
     current.SceneCount = vars.Helper.Scenes.Count;
@@ -89,11 +94,17 @@ onStart
 {
     vars.CompletedSplits.Clear();
     vars.CampfiresLit = 0;
+    vars.CampfireDelay.Start();
 }
 
 reset
 {
     return current.activeScene == 1 || current.activeScene == 4;
+}
+
+onReset
+{
+    vars.CampfireDelay.Reset();
 }
 
 exit
