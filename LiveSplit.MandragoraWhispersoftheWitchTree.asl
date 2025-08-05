@@ -134,58 +134,6 @@ startup
 
 init
 {
-    string MD5Hash;
-    using (var md5 = System.Security.Cryptography.MD5.Create())
-    using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-    MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
-    print("Hash is: " + MD5Hash);
-
-    switch (MD5Hash)
-        {
-            case "32D5CF1D9F2AF351BAC3B64523E670AE":
-                version = "Steam 1.2.6.2165";
-                break;
-
-            case "31E56F416C87CDF918723E2E6CB20713":
-                version = "Steam 1.2.7.2168";
-                break;
-
-            case "021B2902C662D2DA8EB5F1861948E5CA":
-                version = "Steam 1.2.8.2172";
-                break;
-
-            case "AFF4FFA31D81E17AEBAF542776A7E67D":
-                version = "Steam 1.2.9.2198";
-                break;
-
-            case "F6801423407A504E7070C230F3CC6703":
-                version = "Steam 1.2.10.2225";
-                break;
-
-            case "79959BABA9A1EF02EC0455E3718DBBCA":
-                version = "Steam 1.3.0.2241";
-                break;
-
-            case "8135E95410FF39D7EF6BC7562579B7B9":
-                version = "Steam 1.3.2.2274";
-                break;
-
-            case "762A1AF6FB9D25099B2DCA1396B7D0F3":
-                version = "Steam 1.4.1.2299";
-                break;
-
-            case "230D6164DD9CD78F064EC014693FEA78":
-                version = "Steam 1.5.0.2325";
-                break;
-
-            case "D1A3780A457E1EA628AA659F3CEC2D1A":
-                version = "Steam 1.5.1.2334";
-                break;
-
-            default:
-                version = "Unknown";
-                break;
-        }
 
     IntPtr gWorld = vars.Helper.ScanRel(3, "48 8B 05 ???????? 48 3B C? 48 0F 44 C? 48 89 05 ???????? E8");
 	IntPtr gEngine = vars.Helper.ScanRel(3, "48 89 05 ???????? 48 85 c9 74 ?? e8 ???????? 48 8d 4d");
@@ -202,19 +150,19 @@ init
     vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
     
     // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.DiscoveredQuests[0].QuestState
-    vars.Helper["NewGameQuestsDiscovered"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, 0x0, 0x140); //Used to start the run when the Witch Hunt Quest becomes active
+    vars.Helper["NewGameQuestsDiscovered"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, 0x0, 0x148); //Used to start the run when the Witch Hunt Quest becomes active
 
     // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.AttributeContainer.Health
-    vars.Helper["PlayerHealth"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0xA00, 0x3360);
+    vars.Helper["PlayerHealth"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0xA10, 0x3360);
 
     // GEngine.GameInstance.EngineEventHandler.LoadCount
     vars.Helper["LoadCount"] = vars.Helper.Make<int>(gEngine, 0xD38, 0x380, 0x40);
 
     // GEngine.GameViewportClient.World.AuthorityGameMode.CurrentBossFightClass.Name
-    vars.Helper["BossClass"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x1340, 0x18);
+    vars.Helper["BossClass"] = vars.Helper.Make<ulong>(gEngine, 0x780, 0x78, 0x118, 0x13A0, 0x18);
     
     // GEngine.GameViewportClient.World.AuthorityGameMode.IsBossFightActive
-    vars.Helper["BossActive"] = vars.Helper.Make<bool>(gEngine, 0x780, 0x78, 0x118, 0x1569);
+    vars.Helper["BossActive"] = vars.Helper.Make<bool>(gEngine, 0x780, 0x78, 0x118, 0x15D9);
 
     vars.Helper["GSync"] = vars.Helper.Make<bool>(gSyncLoadCount);
 
