@@ -59,13 +59,10 @@ init
     vars.Helper["Level"] = vars.Helper.Make<ulong>(gWorld, 0x18);
 
     // GEngine.GameInstance.LocalPlayer[0].PlayerController.Pawn.KaizenPlayerRespawn.RespawnState
-    vars.Helper["RespawnFade"] = vars.Helper.Make<int>(gEngine, 0xD48, 0x38, 0x0, 0x30, 0x250, 0xDD8, 0x120);
+    vars.Helper["RespawnFade"] = vars.Helper.Make<int>(gEngine, 0xD48, 0x38, 0x0, 0x30, 0x250, 0x1040, 0x120);
 
     // GEngine.GameViewport.World.PersistentLevel.LevelScriptActor.LoadingFade.bIsActive
     vars.Helper["LoadingScreenFade"] = vars.Helper.Make<bool>(gEngine, 0x7A0, 0x78, 0x30, 0xE8, 0x230, 0x26B);
-
-    // GEngine.GameViewport.World.CurrentLevelPendingVisibility
-    vars.Helper["Fades"] = vars.Helper.Make<bool>(gEngine, 0x7A0, 0x78, 0x98, 0x0);
 
     // GEngine.GameInstance.AgencySimulationManager.LevelingTable.CurrentLevel
     vars.Helper["AgencyLevel"] = vars.Helper.Make<int>(gEngine, 0xD48, 0xF0, 0x98, 0x88, 0xA8);
@@ -131,7 +128,7 @@ onStart
 
 isLoading
 {
-    return current.LoadingScreenFade || current.RespawnFade != 0 || current.Fades;
+    return current.LoadingScreenFade || current.RespawnFade != 0;
 }
 
 exit
