@@ -65,7 +65,7 @@ init
     vars.Helper["LoadingScreenFade"] = vars.Helper.Make<bool>(gEngine, 0x7A0, 0x78, 0x30, 0xE8, 0x230, 0x26B);
 
 	// GEngine.GameViewport.World.CurrentLevelPendingVisibility
-    vars.Helper["Fades"] = vars.Helper.Make<bool>(gEngine, 0x7A0, 0x78, 0x98, 0x0);
+    vars.Helper["Fades"] = vars.Helper.Make<bool>(gEngine, 0x7A0, 0x78, 0xD0, 0x0);
 
     // GEngine.GameInstance.AgencySimulationManager.LevelingTable.CurrentLevel
     vars.Helper["AgencyLevel"] = vars.Helper.Make<int>(gEngine, 0xD48, 0xF0, 0x98, 0x88, 0xA8);
@@ -138,6 +138,7 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
 
 
