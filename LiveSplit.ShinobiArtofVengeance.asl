@@ -13,15 +13,15 @@ startup
 
     settings.Add("AOV", true, "Shinobi: Art of Vengeance");
         settings.Add("Story", true, "Story Mode Splits", "AOV");
-            settings.Add("DEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "Story");
-            settings.Add("DEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Story");
-            settings.Add("DEMO_Temple_Scene_Gameplay", true, "Temple", "Story");
-            settings.Add("DEMO_Boss_Scene_Gameplay", true, "Kozaru", "Story");
+            settings.Add("StoryDEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "Story");
+            settings.Add("StoryDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Story");
+            settings.Add("StoryDEMO_Temple_Scene_Gameplay", true, "Temple", "Story");
+            settings.Add("StoryDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Story");
         settings.Add("Arcade", true, "Arcade Mode Splits", "AOV");
-            settings.Add("DEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "Arcade");
-            settings.Add("DEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Arcade");
-            settings.Add("DEMO_Temple_Scene_Gameplay", true, "Temple", "Arcade");
-            settings.Add("DEMO_Boss_Scene_Gameplay", true, "Kozaru", "Arcade");
+            settings.Add("ArcadeDEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "Arcade");
+            settings.Add("ArcadeDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Arcade");
+            settings.Add("ArcadeDEMO_Temple_Scene_Gameplay", true, "Temple", "Arcade");
+            settings.Add("ArcadeDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Arcade");
 
     vars.Splits = new HashSet<string>();
 }
@@ -74,7 +74,12 @@ split
 {
     if(!current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && !current.loadingScene.Contains("Gameplay"))
     {
-        return settings[old.activeScene] && vars.Splits.Add(old.activeScene);
+        return settings["Story"+old.activeScene] && vars.Splits.Add("Story"+old.activeScene);
+    }
+
+    if(!current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && !current.loadingScene.Contains("Gameplay") && vars.Splits.Contains("Story"+old.activeScene))
+    {
+        return settings["Arcade"+old.activeScene] && vars.Splits.Add("Arcade"+old.activeScene);
     }
 }
 
