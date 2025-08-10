@@ -13,15 +13,15 @@ startup
 
     settings.Add("AOV", true, "Shinobi: Art of Vengeance");
         settings.Add("Story", true, "Story Mode Splits", "AOV");
-            settings.Add("DEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "AOV");
-            settings.Add("DEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "AOV");
-            settings.Add("DEMO_Temple_Scene_Gameplay", true, "Temple", "AOV");
-            settings.Add("DEMO_Boss_Scene_Gameplay", true, "Kozaru", "AOV");
+            settings.Add("DEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "Story");
+            settings.Add("DEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Story");
+            settings.Add("DEMO_Temple_Scene_Gameplay", true, "Temple", "Story");
+            settings.Add("DEMO_Boss_Scene_Gameplay", true, "Kozaru", "Story");
         settings.Add("Arcade", true, "Arcade Mode Splits", "AOV");
-            settings.Add("DEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "AOV");
-            settings.Add("DEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "AOV");
-            settings.Add("DEMO_Temple_Scene_Gameplay", true, "Temple", "AOV");
-            settings.Add("DEMO_Boss_Scene_Gameplay", true, "Kozaru", "AOV");
+            settings.Add("DEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "Arcade");
+            settings.Add("DEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Arcade");
+            settings.Add("DEMO_Temple_Scene_Gameplay", true, "Temple", "Arcade");
+            settings.Add("DEMO_Boss_Scene_Gameplay", true, "Kozaru", "Arcade");
 
     vars.Splits = new HashSet<string>();
 }
