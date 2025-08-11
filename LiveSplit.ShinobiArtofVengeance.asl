@@ -1,5 +1,6 @@
 state("SHINOBI_AOV_DEMO")
 {
+    int CurrentGameMode: "GameAssembly.dll", 0x233A640, 0x198;
 }
 
 startup
@@ -13,33 +14,21 @@ startup
 
     settings.Add("AOV", true, "Shinobi: Art of Vengeance");
         settings.Add("Story", true, "Story Mode Splits", "AOV");
-            settings.Add("StoryDEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "Story");
+            settings.Add("StoryDEMO_Oboro_Village_Scene_Gameplay", true, "Oboro Village", "Story");
             settings.Add("StoryDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Story");
             settings.Add("StoryDEMO_Temple_Scene_Gameplay", true, "Temple", "Story");
-            settings.Add("StoryDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Story");
+            settings.Add("StoryEndDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Story");
         settings.Add("Arcade", true, "Arcade Mode Splits", "AOV");
-            settings.Add("ArcadeDEMO_Oboro_Village_Scene_Gameplay", true, "Orobo Village", "Arcade");
+            settings.Add("ArcadeDEMO_Oboro_Village_Scene_Gameplay", true, "Oboro Village", "Arcade");
             settings.Add("ArcadeDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Arcade");
             settings.Add("ArcadeDEMO_Temple_Scene_Gameplay", true, "Temple", "Arcade");
-            settings.Add("ArcadeDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Arcade");
+            settings.Add("ArcadeEndDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Arcade");
 
     vars.Splits = new HashSet<string>();
 }
 
-init
-{
-    vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
-    {
-
-        return true;
-    });
-}
-
 update
 {
-    vars.Helper.Update();
-    vars.Helper.MapPointers();
-
     current.SceneCount = vars.Helper.Scenes.Count;
     current.activeScene = vars.Helper.Scenes.Active.Name == null ? current.activeScene : vars.Helper.Scenes.Active.Name;
     current.loadingScene = vars.Helper.Scenes.Loaded[0].Name == null ? current.loadingScene : vars.Helper.Scenes.Loaded[0].Name;
@@ -62,7 +51,7 @@ isLoading
 
 start
 {
-    return current.activeScene == "Global" && old.activeScene == "MainMenu";
+    return current.activeScene == "DEMO_Oboro_Village_Scene_Gameplay" && old.activeScene == "MainMenu" || current.activeScene == "Global" && old.activeScene == "WorldMap";
 }
 
 onStart
@@ -72,14 +61,28 @@ onStart
 
 split
 {
-    if(!current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && !current.loadingScene.Contains("Gameplay"))
+    if(current.CurrentGameMode == 1 && !current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("Story"+old.activeScene))
     {
+        vars.Log("Story Mode Split");
         return settings["Story"+old.activeScene] && vars.Splits.Add("Story"+old.activeScene);
     }
 
-    if(!current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && !current.loadingScene.Contains("Gameplay") && vars.Splits.Contains("Story"+old.activeScene))
+    if(current.CurrentGameMode == 3 && !current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("Arcade"+old.activeScene))
     {
+        vars.Log("Arcade Mode Split");
         return settings["Arcade"+old.activeScene] && vars.Splits.Add("Arcade"+old.activeScene);
+    }
+
+    if(old.CurrentGameMode == 1 && !current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("StoryEnd"+old.activeScene))
+    {
+        vars.Log("Story Mode Split");
+        return settings["StoryEnd"+old.activeScene] && vars.Splits.Add("StoryEnd"+old.activeScene);
+    }
+
+    if(old.CurrentGameMode == 3 && !current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("ArcadeEnd"+old.activeScene))
+    {
+        vars.Log("Arcade Mode Split");
+        return settings["ArcadeEnd"+old.activeScene] && vars.Splits.Add("ArcadeEnd"+old.activeScene);
     }
 }
 
