@@ -79,7 +79,7 @@ split
         return settings["StoryEnd"+old.activeScene] && vars.Splits.Add("StoryEnd"+old.activeScene);
     }
 
-    if(old.CurrentGameMode == 3 && !current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("ArcadeEnd"+old.activeScene))
+    if(old.CurrentGameMode == 3 && current.activeScene == "WorldMap" && old.activeScene == "Global" && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("ArcadeEnd"+old.activeScene))
     {
         vars.Log("Arcade Mode Split");
         return settings["ArcadeEnd"+old.activeScene] && vars.Splits.Add("ArcadeEnd"+old.activeScene);
