@@ -1,16 +1,12 @@
 state("SHINOBI_AOV_DEMO")
 {
-    int CurrentGameMode: "GameAssembly.dll", 0x233A640, 0x198;
 }
 
 startup
 {
     vars.Log = (Action<object>)(output => print("[Shinobi: Art of Vengeance] " + output));
 
-    Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
-
-    vars.Helper.GameName = "Shinobi: Art of Vengeance";
-    vars.Helper.LoadSceneManager = true;
+    Assembly.Load(File.ReadAllBytes("Components/unity-help")).CreateInstance("Unity");
 
     settings.Add("AOV", true, "Shinobi: Art of Vengeance");
         settings.Add("Story", true, "Story Mode Splits", "AOV");
@@ -29,72 +25,53 @@ startup
 
 init
 {
-    // vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
-    // {
-    //     // var gmm = mono["GameManager"];
-    //     // vars.Helper["GameMode"] = gmm.Make<bool>("Instance", "_IsInCutscene");
-
-    //     // return true;
-    // });
+    vars.GameMode = vars.Helper.Make<int>("GameModeManager", 0, "Instance", "CurrentGameMode");
+    vars.Loading = vars.Helper.Make<int>("StageManager", 0, "Instance", "State");
+    vars.StageComplete = vars.Helper.Make<int>("BaseMenu", 0, "ResultMenuParams", "BackgroundSprite", "ValidateAsset");
 }
 
 update
 {
-    current.SceneCount = vars.Helper.Scenes.Count;
-    current.activeScene = vars.Helper.Scenes.Active.Name == null ? current.activeScene : vars.Helper.Scenes.Active.Name;
-    current.loadingScene = vars.Helper.Scenes.Loaded[0].Name == null ? current.loadingScene : vars.Helper.Scenes.Loaded[0].Name;
+    current.SceneName = vars.Helper.SceneManager.Current.Name;
 
-    if(current.activeScene != old.activeScene)
+    // print("Game Mode: " + vars.GameMode.Current.ToString());
+    // print("Loading Enum: " + vars.Loading.Current.ToString());
+    print("Stage Complete?: " + vars.StageComplete.Current.ToString());
+
+    if(current.SceneName != old.SceneName)
     {
-        vars.Log("Current Scene: " + current.activeScene + " <- " + old.activeScene);
+        print(current.SceneName);
     }
-
-    if(current.loadingScene != old.loadingScene)
-    {
-        vars.Log("Loading?: " + current.loadingScene);
-    }
-}
-
-isLoading
-{
-    return current.SceneCount <= 5 && current.activeScene == "Global";
 }
 
 start
 {
-    return current.GameMode != 0 && old.GameMode == 0 && current.activeScene != "MainMenu";
+    return vars.GameMode.Current != 0 && vars.GameMode.Old == 0 && current.SceneName == "Global";
+}
+
+split
+{
+    if(current.SceneName != old.SceneName && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
+    {
+        return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
+    }
+
+    if(current.SceneName != old.SceneName && vars.GameMode.Current == 3 && !vars.Splits.Contains("Arcade" + old.SceneName))
+    {
+        return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
+    }
+
+
+}
+
+isLoading
+{
+    return vars.Loading.Current > 1;
 }
 
 onStart
 {
     vars.Splits.Clear();
-}
-
-split
-{
-    if(current.CurrentGameMode == 1 && !current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("Story"+old.activeScene))
-    {
-        vars.Log("Story Mode Split");
-        return settings["Story"+old.activeScene] && vars.Splits.Add("Story"+old.activeScene);
-    }
-
-    if(current.CurrentGameMode == 3 && !current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("Arcade"+old.activeScene))
-    {
-        vars.Log("Arcade Mode Split");
-        return settings["Arcade"+old.activeScene] && vars.Splits.Add("Arcade"+old.activeScene);
-    }
-
-    if(old.CurrentGameMode == 1 && !current.activeScene.Contains("Gameplay") && old.activeScene.Contains("Gameplay") && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("StoryEnd"+old.activeScene))
-    {
-        vars.Log("Story Mode Split");
-        return settings["StoryEnd"+old.activeScene] && vars.Splits.Add("StoryEnd"+old.activeScene);
-    }
-
-    if(old.CurrentGameMode == 3 && current.activeScene == "WorldMap" && old.activeScene == "Global" && old.loadingScene.Contains("DEMO") && !vars.Splits.Contains("ArcadeEnd"+old.activeScene))
-    {
-        vars.Log("Arcade Mode Split");
-        return settings["ArcadeEnd"+old.activeScene] && vars.Splits.Add("ArcadeEnd"+old.activeScene);
-    }
 }
 
 exit
