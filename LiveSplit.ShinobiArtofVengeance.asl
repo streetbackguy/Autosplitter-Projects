@@ -27,7 +27,8 @@ init
 {
     vars.GameMode = vars.Helper.Make<int>("GameModeManager", 0, "Instance", "CurrentGameMode");
     vars.Loading = vars.Helper.Make<int>("StageManager", 0, "Instance", "State");
-    vars.StageComplete = vars.Helper.Make<int>("BaseMenu", 0, "ResultMenuParams", "BackgroundSprite", "ValidateAsset");
+    vars.StoryStageComplete = vars.Helper.Make<bool>("StageResultMenu", 0, "Visible");
+    vars.ArcadeStageComplete = vars.Helper.Make<bool>("ArcadeResultMenu", 0, "Visible");
 }
 
 update
@@ -36,7 +37,8 @@ update
 
     // print("Game Mode: " + vars.GameMode.Current.ToString());
     // print("Loading Enum: " + vars.Loading.Current.ToString());
-    print("Stage Complete?: " + vars.StageComplete.Current.ToString());
+    print("Story Stage Complete?: " + vars.StoryStageComplete.Current.ToString());
+    print("Arcade Stage Complete?: " + vars.ArcadeStageComplete.Current.ToString());
 
     if(current.SceneName != old.SceneName)
     {
