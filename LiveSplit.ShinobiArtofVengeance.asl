@@ -27,18 +27,17 @@ init
 {
     vars.GameMode = vars.Helper.Make<int>("GameModeManager", 0, "Instance", "CurrentGameMode");
     vars.Loading = vars.Helper.Make<int>("StageManager", 0, "Instance", "State");
-    vars.StoryStageComplete = vars.Helper.Make<bool>("StageResultMenu", 0, "Visible");
-    vars.ArcadeStageComplete = vars.Helper.Make<bool>("ArcadeResultMenu", 0, "Visible");
+    vars.StageComplete = vars.Helper.Make<int>("MenuManager", 0, "Instance", "MenuWithFocus");
 }
 
 update
 {
     current.SceneName = vars.Helper.SceneManager.Current.Name;
 
-    // print("Game Mode: " + vars.GameMode.Current.ToString());
+    print("Game Mode: " + vars.GameMode.Current.ToString());
     // print("Loading Enum: " + vars.Loading.Current.ToString());
-    print("Story Stage Complete?: " + vars.StoryStageComplete.Current.ToString());
-    print("Arcade Stage Complete?: " + vars.ArcadeStageComplete.Current.ToString());
+    print("Stage Complete?: " + vars.StageComplete.Current.ToString());
+    // print("Arcade Stage Complete?: " + vars.ArcadeStageComplete.Current.ToString());
 
     if(current.SceneName != old.SceneName)
     {
@@ -63,7 +62,15 @@ split
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
 
+    if(current.SceneName == "DEMO_Boss_Scene_Gameplay" && vars.GameMode.Current == 1 && vars.StageComplete.Current == 23 && !vars.Splits.Contains("StoryEnd" + old.SceneName))
+    {
+        return settings["StoryEnd" + old.SceneName] && vars.Splits.Add("StoryEnd" + old.SceneName);
+    }
 
+    if(current.SceneName == "DEMO_Boss_Scene_Gameplay" && vars.GameMode.Current == 3 && vars.StageComplete.Current == 22 && !vars.Splits.Contains("ArcadeEnd" + old.SceneName))
+    {
+        return settings["ArcadeEnd" + old.SceneName] && vars.Splits.Add("ArcadeEnd" + old.SceneName);
+    }
 }
 
 isLoading
