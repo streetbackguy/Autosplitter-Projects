@@ -27,6 +27,17 @@ startup
     vars.Splits = new HashSet<string>();
 }
 
+init
+{
+    // vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
+    // {
+    //     // var gmm = mono["GameManager"];
+    //     // vars.Helper["GameMode"] = gmm.Make<bool>("Instance", "_IsInCutscene");
+
+    //     // return true;
+    // });
+}
+
 update
 {
     current.SceneCount = vars.Helper.Scenes.Count;
@@ -51,7 +62,7 @@ isLoading
 
 start
 {
-    return current.activeScene == "DEMO_Oboro_Village_Scene_Gameplay" && old.activeScene == "MainMenu" || current.activeScene == "Global" && old.activeScene == "WorldMap";
+    return current.GameMode != 0 && old.GameMode == 0 && current.activeScene != "MainMenu";
 }
 
 onStart
