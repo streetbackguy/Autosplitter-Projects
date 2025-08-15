@@ -35,9 +35,7 @@ update
     current.SceneName = vars.Helper.SceneManager.Current.Name;
 
     print("Game Mode: " + vars.GameMode.Current.ToString());
-    // print("Loading Enum: " + vars.Loading.Current.ToString());
     print("Stage Complete?: " + vars.StageComplete.Current.ToString());
-    // print("Arcade Stage Complete?: " + vars.ArcadeStageComplete.Current.ToString());
 
     if(current.SceneName != old.SceneName)
     {
@@ -87,3 +85,4 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
