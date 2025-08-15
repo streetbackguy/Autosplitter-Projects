@@ -69,6 +69,11 @@ split
     {
         return settings["ArcadeEnd" + old.SceneName] && vars.Splits.Add("ArcadeEnd" + old.SceneName);
     }
+
+    if(old.SceneName == "DEMO_RIFT-01_TEMPLE_Gameplay" && current.SceneName != "DEMO_RIFT-01_TEMPLE_Gameplay" && !vars.Splits.Contains("AnkouRiftComplete"))
+    {
+        return settings["AnkouRiftComplete"] && vars.Splits.Add("AnkouRiftComplete");
+    }
 }
 
 isLoading
@@ -85,4 +90,5 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
