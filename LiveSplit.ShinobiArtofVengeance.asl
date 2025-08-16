@@ -15,12 +15,12 @@ startup
             settings.Add("StoryDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Story");
             settings.Add("StoryDEMO_Temple_Scene_Gameplay", true, "Temple", "Story");
             settings.Add("StoryEndDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Story");
+            settings.Add("DEMO_RIFT-01_TEMPLE_Gameplay", true, "Completed the Ankou Rift", "Story");
         settings.Add("Arcade", true, "Arcade Mode Splits", "AOV");
             settings.Add("ArcadeDEMO_Oboro_Village_Scene_Gameplay", true, "Oboro Village", "Arcade");
             settings.Add("ArcadeDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Arcade");
             settings.Add("ArcadeDEMO_Temple_Scene_Gameplay", true, "Temple", "Arcade");
             settings.Add("ArcadeEndDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Arcade");
-        settings.Add("AnkouRiftComplete", true, "Completed the Ankou Rift", "AOV");
             
     vars.Splits = new HashSet<string>();
 }
@@ -82,7 +82,7 @@ split
 
     if(old.SceneName == "DEMO_RIFT-01_TEMPLE_Gameplay" && current.SceneName != "DEMO_RIFT-01_TEMPLE_Gameplay" && !vars.Splits.Contains("AnkouRiftComplete"))
     {
-        return settings["AnkouRiftComplete"] && vars.Splits.Add("AnkouRiftComplete");
+        return settings["DEMO_RIFT-01_TEMPLE_Gameplay"] && vars.Splits.Add("DEMO_RIFT-01_TEMPLE_Gameplay");
     }
 }
 
@@ -100,5 +100,3 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
-
-
