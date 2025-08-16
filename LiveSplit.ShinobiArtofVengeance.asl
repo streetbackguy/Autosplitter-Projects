@@ -9,8 +9,8 @@ startup
     Assembly.Load(File.ReadAllBytes("Components/unity-help")).CreateInstance("Unity");
 
     settings.Add("AOV", true, "Shinobi: Art of Vengeance");
+        settings.Add("Setup", false, "Setup", "AOV");
         settings.Add("Story", true, "Story Mode Splits", "AOV");
-        settings.Add("Setup", true, "Setup", "AOV");
             settings.Add("StoryDEMO_Oboro_Village_Scene_Gameplay", true, "Oboro Village", "Story");
             settings.Add("StoryDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Story");
             settings.Add("StoryDEMO_Temple_Scene_Gameplay", true, "Temple", "Story");
@@ -100,3 +100,4 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
