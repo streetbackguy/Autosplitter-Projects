@@ -37,7 +37,7 @@ startup
         
         if (timingMessage == DialogResult.Yes)
         {
-            timer.CurrentTimingMethod = TimingMethod.GameTime;
+            timer.CurrentTimingMethod = TimingMethod.RealTime;
         }
     }
 }
@@ -103,3 +103,4 @@ exit
     timer.IsGameTimePaused = true;
 
 }
+
