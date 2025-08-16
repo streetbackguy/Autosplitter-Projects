@@ -19,6 +19,7 @@ startup
             settings.Add("ArcadeDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Arcade");
             settings.Add("ArcadeDEMO_Temple_Scene_Gameplay", true, "Temple", "Arcade");
             settings.Add("ArcadeEndDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Arcade");
+        settings.Add("AnkouRiftComplete", true, "Completed the Ankou Rift", "AOV");
 
     vars.Splits = new HashSet<string>();
 }
@@ -90,5 +91,6 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
 
