@@ -57,7 +57,7 @@ split
 {
     if(vars.GameMode.Current != 0 && vars.GameMode.Old == 0 && current.SceneName == "Global")
     {
-        return settings["Setup"] && vars.Splits.Add("Setup")
+        return settings["Setup"] && vars.Splits.Add("Setup");
     }
 
     if(current.SceneName != old.SceneName && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
@@ -100,4 +100,5 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
