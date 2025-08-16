@@ -24,6 +24,22 @@ startup
         settings.Add("ElectricDemon", true, "Beat Round 5: Electric Demon", "SHIN3");
         settings.Add("Traps", true, "Beat Round 6: Traps", "SHIN3");
         settings.Add("TheFinalConfrontation", true, "Beat Round 7: The Final Confrontation", "SHIN3");
+
+    if (timer.CurrentTimingMethod == TimingMethod.GameTime)
+    {        
+        var timingMessage = MessageBox.Show (
+            "This game uses Real Time as the main timing method.\n"+
+            "LiveSplit is currently set to show Game Time (LRT).\n"+
+            "Would you like to set the timing method to Real Time?",
+            "LiveSplit | Shinobi III",
+            MessageBoxButtons.YesNo,MessageBoxIcon.Question
+        );
+        
+        if (timingMessage == DialogResult.Yes)
+        {
+            timer.CurrentTimingMethod = TimingMethod.GameTime;
+        }
+    }
 }
 
 start
@@ -85,4 +101,5 @@ split
 exit
 {
     timer.IsGameTimePaused = true;
+
 }
