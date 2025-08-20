@@ -29,6 +29,16 @@ init
 {
     vars.GameMode = vars.Helper.Make<int>("GameModeManager", 0, "Instance", "CurrentGameMode");
     vars.Loading = vars.Helper.Make<int>("StageManager", 0, "Instance", "State");
+    vars.Ninjutsu = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_NinjutsuCount");
+    vars.Ninpo = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_NinpoCount");
+    vars.Ningi = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_NingiCount");
+    vars.NinpoCell = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_NinpoCellUpgradeCount");
+    vars.HealthUpgrade = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_HealthUpgradeCount");
+    vars.KunaiUpgrade = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_KunaiUpgradeCount");
+    vars.OboroRelic = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_OboroRelicCount");
+    vars.SecretKey = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_SecretKeyCount");
+    vars.DarkKatana = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_DarkKatanaCount");
+    vars.Checkpoint = vars.Helper.Make<int>("StageManager", 0, "Instance", "_SmallCheckpointID");
     vars.StageComplete = vars.Helper.Make<int>("MenuManager", 0, "Instance", "MenuWithFocus");
 }
 
@@ -40,11 +50,16 @@ update
     // print("Loading Enum: " + vars.Loading.Current.ToString());
     //print("Stage Complete?: " + vars.StageComplete.Current.ToString());
     // print("Arcade Stage Complete?: " + vars.ArcadeStageComplete.Current.ToString());
-    print("Stage: " + current.SceneName.ToString());
+    // print("Stage: " + current.SceneName.ToString());
 
     if(current.SceneName != old.SceneName)
     {
         print(current.SceneName);
+    }
+
+    if(vars.Checkpoint.Current != vars.Checkpoint.Old)
+    {
+        print(vars.Checkpoint.Current.ToString());
     }
 }
 
@@ -94,11 +109,10 @@ isLoading
 onStart
 {
     vars.Splits.Clear();
+    timer.IsGameTimePaused = true;
 }
 
 exit
 {
     timer.IsGameTimePaused = true;
 }
-
-
