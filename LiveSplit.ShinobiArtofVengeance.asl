@@ -82,7 +82,7 @@ split
 
     if(old.SceneName == "DEMO_RIFT-01_TEMPLE_Gameplay" && current.SceneName != "DEMO_RIFT-01_TEMPLE_Gameplay" && !vars.Splits.Contains("AnkouRiftComplete"))
     {
-        return settings["DEMO_RIFT-01_TEMPLE_Gameplay"] && vars.Splits.Add("DEMO_RIFT-01_TEMPLE_Gameplay");
+        return settings["AnkouRiftComplete"] && vars.Splits.Add("AnkouRiftComplete");
     }
 }
 
@@ -100,3 +100,5 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
+
