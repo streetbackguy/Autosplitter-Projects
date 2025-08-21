@@ -68,7 +68,7 @@ update
 
 start
 {
-    return vars.GameMode.Current != 0 && vars.GameMode.Old == 0 && current.SceneName == "Global";
+    return old.SceneName == "WorldMap" && current.SceneName == "Global" || old.SceneName == "MainMenu" && current.SceneName == "Global";
 }
 
 split
@@ -124,5 +124,6 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
 
