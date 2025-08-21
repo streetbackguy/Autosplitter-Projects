@@ -57,7 +57,6 @@ init
     vars.OboroRelic = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_OboroRelicCount");
     vars.SecretKey = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_SecretKeyCount");
     vars.DarkKatana = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_DarkKatanaCount");
-    vars.Checkpoint = vars.Helper.Make<int>("StageManager", 0, "Instance", "_SmallCheckpointID");
     vars.Menu = vars.Helper.Make<int>("MenuManager", 0, "Instance", "MenuWithFocus");
 }
 
@@ -74,11 +73,6 @@ update
     if(current.SceneName != old.SceneName)
     {
         print(current.SceneName);
-    }
-
-    if(vars.Checkpoint.Current != vars.Checkpoint.Old)
-    {
-        print(vars.Checkpoint.Current.ToString());
     }
 }
 
@@ -140,6 +134,7 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
 
 
