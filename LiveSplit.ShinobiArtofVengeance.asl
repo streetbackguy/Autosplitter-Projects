@@ -108,7 +108,7 @@ split
         return settings["ArcadeEnd" + old.SceneName] && vars.Splits.Add("ArcadeEnd" + old.SceneName);
     }
 
-    if(old.SceneName == "DEMO_RIFT-01_TEMPLE_Gameplay" && current.SceneName != "DEMO_RIFT-01_TEMPLE_Gameplay" && !vars.Splits.Contains(""Rift" + old.SceneName"))
+    if(old.SceneName == "DEMO_RIFT-01_TEMPLE_Gameplay" && current.SceneName != "DEMO_RIFT-01_TEMPLE_Gameplay" && !vars.Splits.Contains("Rift" + old.SceneName"))
     {
         return settings["Rift" + old.SceneName] && vars.Splits.Add("Rift" + old.SceneName);
     }
@@ -134,6 +134,7 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
 
 
