@@ -20,7 +20,7 @@ startup
             settings.Add("ArcadeDEMO_Temple_Scene_Gameplay", true, "Temple", "Arcade");
             settings.Add("ArcadeEndDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Arcade");
         settings.Add("DemoRifts", true, "Rift Splits", "AOV");
-                settings.Add("RiftDEMO_RIFT-01_TEMPLE_Gameplay", true, "Completed the Stage 1 Ankou Rift", "DemoRifts");
+                settings.Add("StoryDEMO_RIFT-01_TEMPLE_Gameplay", true, "Completed the Stage 1 Ankou Rift", "DemoRifts");
         settings.Add("EliteSquad", true, "Elite Squad Splits", "AOV");
                 settings.Add("StoryEliteSquadDEMO_Temple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple", "EliteSquad");
                 settings.Add("StoryEliteSquadDEMO_CaveTemple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple Cave", "EliteSquad");
@@ -114,11 +114,6 @@ split
         return settings["ArcadeEnd" + old.SceneName] && vars.Splits.Add("ArcadeEnd" + old.SceneName);
     }
 
-    if(old.SceneName == "DEMO_RIFT-01_TEMPLE_Gameplay" && current.SceneName != "DEMO_RIFT-01_TEMPLE_Gameplay" && !vars.Splits.Contains("Rift" + old.SceneName))
-    {
-        return settings["Rift" + old.SceneName] && vars.Splits.Add("Rift" + old.SceneName);
-    }
-
     if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 1 && vars.Menu.Current == 10 && vars.Menu.Old == 0 && !vars.Splits.Contains("Story" + "EliteSquad" + current.SceneName))
     {
         return settings["Story" + "EliteSquad" + current.SceneName] && vars.Splits.Add("Story" + "EliteSquad" + current.SceneName);
@@ -141,4 +136,5 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
