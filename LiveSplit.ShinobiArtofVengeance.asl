@@ -42,7 +42,7 @@ init
     vars.SecretKey = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_SecretKeyCount");
     vars.DarkKatana = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_DarkKatanaCount");
     vars.Checkpoint = vars.Helper.Make<int>("StageManager", 0, "Instance", "_SmallCheckpointID");
-    vars.StageComplete = vars.Helper.Make<int>("MenuManager", 0, "Instance", "MenuWithFocus");
+    vars.Menu = vars.Helper.Make<int>("MenuManager", 0, "Instance", "MenuWithFocus");
 }
 
 update
@@ -124,4 +124,5 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
