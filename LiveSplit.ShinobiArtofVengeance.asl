@@ -26,6 +26,7 @@ startup
                 settings.Add("StoryEliteSquadDEMO_CaveTemple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple Cave", "EliteSquad");
             
     vars.Splits = new HashSet<string>();
+    vars.EliteSquad = 0;
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {        
@@ -74,6 +75,16 @@ update
     {
         print(current.SceneName);
     }
+
+    if(vars.Menu.Old == 0 && vars.Menu.Current == 9)
+    {
+        vars.EliteSquad++;
+    }
+
+    if(old.SceneName != current.SceneName)
+    {
+        vars.EliteSquad = 0;
+    }
 }
 
 start
@@ -83,12 +94,12 @@ start
 
 split
 {
-    if(current.SceneName != old.SceneName && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
+    if(current.SceneName != old.SceneName && vars.GameMode.Current == 1 && vars.Menu.Old != 20 && !vars.Splits.Contains("Story" + old.SceneName))
     {
         return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
 
-    if(current.SceneName != old.SceneName && vars.GameMode.Current == 3 && !vars.Splits.Contains("Arcade" + old.SceneName))
+    if(current.SceneName != old.SceneName && vars.GameMode.Current == 3 && vars.Menu.Old != 20 && !vars.Splits.Contains("Arcade" + old.SceneName))
     {
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
@@ -123,9 +134,11 @@ onStart
 {
     vars.Splits.Clear();
     timer.IsGameTimePaused = true;
+    vars.EliteSquad = 0;
 }
 
 exit
 {
     timer.IsGameTimePaused = true;
 }
+
