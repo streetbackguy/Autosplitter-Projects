@@ -23,7 +23,8 @@ startup
         settings.Add("DemoRifts", true, "Rift Splits", "AOV");
                 settings.Add("RiftDEMO_RIFT-01_TEMPLE_Gameplay", true, "Completed the Stage 1 Ankou Rift", "DemoRifts");
         settings.Add("EliteSquad", true, "Elite Squad Splits", "AOV");
-                settings.Add("StoryEliteSquad04_Temple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple", "EliteSquad");
+                settings.Add("StoryEliteSquadDEMO_Temple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple", "DemoEliteSquad");
+                settings.Add("StoryEliteSquadDEMO_CaveTemple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple Cave", "DemoEliteSquad");
             
     vars.Splits = new HashSet<string>();
 
@@ -140,6 +141,7 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
 
 
