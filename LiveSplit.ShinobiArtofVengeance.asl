@@ -98,12 +98,12 @@ split
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
 
-    if(current.SceneName == "DEMO_Boss_Scene_Gameplay" && vars.GameMode.Current == 1 && vars.StageComplete.Current == 23 && !vars.Splits.Contains("StoryEnd" + old.SceneName))
+    if(current.SceneName == "DEMO_Boss_Scene_Gameplay" && vars.GameMode.Current == 1 && vars.Menu.Current == 23 && !vars.Splits.Contains("StoryEnd" + old.SceneName))
     {
         return settings["StoryEnd" + old.SceneName] && vars.Splits.Add("StoryEnd" + old.SceneName);
     }
 
-    if(current.SceneName == "DEMO_Boss_Scene_Gameplay" && vars.GameMode.Current == 3 && vars.StageComplete.Current == 22 && !vars.Splits.Contains("ArcadeEnd" + old.SceneName))
+    if(current.SceneName == "DEMO_Boss_Scene_Gameplay" && vars.GameMode.Current == 3 && vars.Menu.Current == 22 && !vars.Splits.Contains("ArcadeEnd" + old.SceneName))
     {
         return settings["ArcadeEnd" + old.SceneName] && vars.Splits.Add("ArcadeEnd" + old.SceneName);
     }
@@ -134,6 +134,7 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
 
 
