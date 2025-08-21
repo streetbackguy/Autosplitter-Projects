@@ -26,6 +26,22 @@ startup
                 settings.Add("StoryEliteSquad04_Temple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple", "EliteSquad");
             
     vars.Splits = new HashSet<string>();
+
+    if (timer.CurrentTimingMethod == TimingMethod.RealTime)
+    {        
+        var timingMessage = MessageBox.Show (
+            "This game uses Time without Loads (Game Time) as the main timing method.\n"+
+            "LiveSplit is currently set to show Real Time (RTA).\n"+
+            "Would you like to set the timing method to Game Time?",
+            "LiveSplit | Shinobi: Art of Vengeance",
+            MessageBoxButtons.YesNo,MessageBoxIcon.Question
+        );
+        
+        if (timingMessage == DialogResult.Yes)
+        {
+            timer.CurrentTimingMethod = TimingMethod.GameTime;
+        }
+    }
 }
 
 init
@@ -124,6 +140,7 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
 
 
