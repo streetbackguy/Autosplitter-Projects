@@ -15,12 +15,15 @@ startup
             settings.Add("StoryDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Story");
             settings.Add("StoryDEMO_Temple_Scene_Gameplay", true, "Temple", "Story");
             settings.Add("StoryEndDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Story");
-            settings.Add("DEMO_RIFT-01_TEMPLE_Gameplay", true, "Completed the Ankou Rift", "Story");
         settings.Add("Arcade", true, "Arcade Mode Splits", "AOV");
             settings.Add("ArcadeDEMO_Oboro_Village_Scene_Gameplay", true, "Oboro Village", "Arcade");
             settings.Add("ArcadeDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "Arcade");
             settings.Add("ArcadeDEMO_Temple_Scene_Gameplay", true, "Temple", "Arcade");
             settings.Add("ArcadeEndDEMO_Boss_Scene_Gameplay", true, "Kozaru", "Arcade");
+        settings.Add("DemoRifts", true, "Rift Splits", "AOV");
+                settings.Add("RiftDEMO_RIFT-01_TEMPLE_Gameplay", true, "Completed the Stage 1 Ankou Rift", "DemoRifts");
+        settings.Add("EliteSquad", true, "Elite Squad Splits", "AOV");
+                settings.Add("StoryEliteSquad04_Temple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple", "EliteSquad");
             
     vars.Splits = new HashSet<string>();
 }
@@ -99,6 +102,11 @@ split
     {
         return settings["AnkouRiftComplete"] && vars.Splits.Add("AnkouRiftComplete");
     }
+
+    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 1 && vars.Menu.Current == 10 && vars.Menu.Old == 0 && !vars.Splits.Contains("Story" + "EliteSquad" + current.SceneName))
+    {
+        return settings["Story" + "EliteSquad" + current.SceneName] && vars.Splits.Add("Story" + "EliteSquad" + current.SceneName);
+    }
 }
 
 isLoading
@@ -116,3 +124,4 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
