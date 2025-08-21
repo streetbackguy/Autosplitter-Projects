@@ -129,17 +129,3 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
