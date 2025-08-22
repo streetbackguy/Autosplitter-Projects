@@ -114,7 +114,7 @@ split
         return settings["ArcadeEnd" + old.SceneName] && vars.Splits.Add("ArcadeEnd" + old.SceneName);
     }
 
-    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 1 && vars.Menu.Current == 10 && vars.Menu.Old == 0 && !vars.Splits.Contains("Story" + "EliteSquad" + current.SceneName))
+    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 1 && vars.Menu.Current == 9 && vars.Menu.Old == 0 && !vars.Splits.Contains("Story" + "EliteSquad" + current.SceneName))
     {
         return settings["Story" + "EliteSquad" + current.SceneName] && vars.Splits.Add("Story" + "EliteSquad" + current.SceneName);
     }
@@ -136,5 +136,6 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
 
 
