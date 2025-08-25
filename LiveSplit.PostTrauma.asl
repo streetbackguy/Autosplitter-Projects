@@ -41,8 +41,7 @@ init
     // GWorld.FName
     vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
 
-    vars.Helper["GSync"] = vars.Helper.Make<bool
-    >(gSyncLoadCount);
+    vars.Helper["GSync"] = vars.Helper.Make<bool>(gSyncLoadCount);
 
     vars.FNameToString = (Func<ulong, string>)(fName =>
 	{
@@ -103,4 +102,5 @@ isLoading
 exit
 {
     timer.IsGameTimePaused = true;
+
 }
