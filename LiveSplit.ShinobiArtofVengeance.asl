@@ -1,8 +1,8 @@
-state("SHINOBI_AOV")
+state("SHINOBI_AOV", "Full Game")
 {
 }
 
-state("SHINOBI_AOV_DEMO")
+state("SHINOBI_AOV_DEMO", "Demo")
 {
 }
 
@@ -38,7 +38,6 @@ startup
                     settings.Add("StoryLevel-04_Sidepath_Gameplay", true, "Sidepath", "FullSStage4");
                 settings.Add("FullSStage5", true, "Stage 5", "FullStory");
                     settings.Add("Story01_CITY_District_Left_Scene_Gameplay", true, "West City District", "FullSStage5");
-                    settings.Add("Story02_CITY_District_Central_Scene_Gameplay", true, "Central City District", "FullSStage5");
                     settings.Add("Story03_CITY_District_Right_Scene_Gameplay", true, "East City District", "FullSStage5");
                 settings.Add("FullStage6", true, "Submarine Base", "FullStory");
                     settings.Add("StoryFloor_1_Scene_Gameplay", true, "Floor 0", "FullStage6");
@@ -92,13 +91,9 @@ startup
                 settings.Add("StoryEliteSquad04_Temple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple", "EliteSquad");
                 settings.Add("StoryEliteSquad01_MOUNTAIN_Scene_Gameplay", true, "Defeat the Elite Squad in The Mountainside", "EliteSquad");
                 settings.Add("StoryEliteSquad03_EXCAVATION_Scene_Gameplay", true, "Defeat the Elite Squad in The Canyon", "EliteSquad");
-                settings.Add("4", true, "Completed the Stage 4 Ankou Rift", "EliteSquad");
                 settings.Add("StoryEliteSquad03_CITY_District_Right_Scene_Gameplay", true, "Defeat the Elite Squad in East City District", "EliteSquad");
                 settings.Add("StoryEliteSquadLevel-02_Containers_Gameplay", true, "Defeat the Elite Squad in The Docks", "EliteSquad");
                 settings.Add("StoryEliteSquadFloor_1_Scene_Gameplay", true, "Defeat the Elite Squad in Floor 0", "EliteSquad");
-                settings.Add("8", true, "Completed the Stage 9 Ankou Rift", "EliteSquad");
-                settings.Add("9", true, "Completed the Stage 10 Ankou Rift", "EliteSquad");
-                settings.Add("10", true, "Completed the Stage 11 Ankou Rift", "EliteSquad");
             settings.Add("BossRush", true, "Boss Rush Splits", "FullGame");
                 settings.Add("BR1_Monkey_Gameplay", true, "Defeat Kozaru", "BossRush");
                 settings.Add("BR2_Mandara_Gameplay", true, "Defeat Mandara", "BossRush");
@@ -111,7 +106,7 @@ startup
                 settings.Add("BR9_Kijima2_Gameplay", true, "Defeat Kijima", "BossRush");
                 settings.Add("BR10_Ruse_Gameplay", true, "Defeat Ruse", "BossRush");
                 settings.Add("BR11_FusedRuse_Gameplay", true, "Defeat Fused Ruse", "BossRush");
-        settings.Add("Demo", true, "Demo Splits", "AOV");
+        settings.Add("Demo", false, "Demo Splits", "AOV");
             settings.Add("DemoStory", true, "Story Mode Splits", "Demo");
                 settings.Add("StoryDEMO_Oboro_Village_Scene_Gameplay", true, "Oboro Village", "DemoStory");
                 settings.Add("StoryDEMO_Bamboo_Forest_Scene_Gameplay", true, "Bamboo Forest", "DemoStory");
@@ -163,22 +158,42 @@ init
     vars.DarkKatana = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_DarkKatanaCount");
     vars.Checkpoint = vars.Helper.Make<int>("StageManager", 0, "Instance", "_SmallCheckpointID");
     vars.Menu = vars.Helper.Make<int>("MenuManager", 0, "Instance", "MenuWithFocus");
-    vars.BossHealth = vars.Helper.Make<float>("BossWidget", 0, "Instance", "MainBar", "HealthModule", "Health");
+
+    string MD5Hash;
+    using (var md5 = System.Security.Cryptography.MD5.Create())
+    using (var s = File.Open(modules.First().FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+    MD5Hash = md5.ComputeHash(s).Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
+    print("Hash is: " + MD5Hash);
+
+    switch (MD5Hash)
+        {
+            case "A6127A8917ABD0AA7ECB9D87250C8FC3":
+                version = "Demo";
+                break;
+
+            default:
+                version = "Full Game";
+                break;
+        }
 }
 
 update
 {
     current.SceneName = vars.Helper.SceneManager.Current.Name;
 
-    current.BossHealth = vars.BossHealth.Current;
+    current.Menu = vars.Menu.Current;
 
     //print("Game Mode: " + vars.GameMode.Current.ToString());
     // print("Loading Enum: " + vars.Loading.Current.ToString());
-    // print("Menu Active: " + vars.Menu.Current.ToString());
 
     if(current.SceneName != old.SceneName)
     {
         print(current.SceneName);
+    }
+
+    if(vars.Menu.Current != vars.Menu.Old)
+    {
+        print("Menu: " + vars.Menu.Current.ToString());
     }
 
     if(vars.Menu.Old == 0 && vars.Menu.Current == 9)
@@ -190,8 +205,6 @@ update
     {
         vars.EliteSquad = 0;
     }
-
-    // print(vars.BossHealth.Current.ToString());
 }
 
 start
@@ -201,12 +214,7 @@ start
 
 split
 {
-    if(vars.GameMode.Current != 0 && vars.GameMode.Old == 0 && current.SceneName == "Global")
-    {
-        return settings["Setup"] && vars.Splits.Add("Setup");
-    }
-
-    if(current.SceneName != old.SceneName && !current.SceneName.Contains("02_CITY_District") && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
+    if(current.SceneName != old.SceneName && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
     {
         return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
@@ -236,9 +244,9 @@ split
         return settings["Story" + "EliteSquad" + current.SceneName] && vars.Splits.Add("Story" + "EliteSquad" + current.SceneName);
     }
 
-    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 1 && vars.Menu.Current == 9 && vars.Menu.Old == 0 && !vars.Splits.Contains("Story" + "EliteSquad" + current.SceneName))
+    if(current.SceneName != old.SceneName && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
     {
-        return settings["Story" + "EliteSquad" + current.SceneName] && vars.Splits.Add("Story" + "EliteSquad" + current.SceneName);
+        return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
 }
 
