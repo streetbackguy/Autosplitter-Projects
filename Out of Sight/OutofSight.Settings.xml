@@ -1,0 +1,85 @@
+<Settings>
+
+    <Setting Label="Split on completing segment:" State="true">
+      <Setting Id="Sophies Bathroom.sav" Label="Sophie's Room" State="true" />
+      <Setting Id="Play Castle.sav" Label="Play Castle" State="true" />
+      <Setting Id="Black board ramp &amp; Hatch.sav" Label="Blackboard Room" State="true" />
+      <Setting Id="Post Black board ramp &amp; Hatch.sav" Label="Hallway after Blackboard Room" State="true" />
+      <Setting Id="Clown Room.sav" Label="Clown Room" State="true" />
+      <Setting Id="Post Clown Room.sav" Label="Crawlspace after Clown Room" State="true" />
+      <Setting Id="Bed Push.sav" Label="Attic Bed Push" State="true" />
+      <Setting Id="Attic with window.sav" Label="Attic" State="true" />
+      <Setting Id="Post Segment 1.sav" Label="Attic Fall" State="true" />
+      <Setting Id="FirstObstacle.sav" Label="Pressure Plate Room" State="true" />
+      <Setting Id="Post FirstObstacle.sav" Label="Hallway after Pressure Plate Room" State="true" />
+      <Setting Id="Switch.sav" Label="Hallway Switch" State="true" />
+      <Setting Id="Post Switch.sav" Label="After Hallway Switch" State="true" />
+      <Setting Id="Teddy Move Box.sav" Label="Trapped Switch" State="true" />
+      <Setting Id="Segment 3 Start.sav" Label="Hallway after Trapped Switch" State="true" />
+      <Setting Id="Closet Hide.sav" Label="First Hiding Spot" State="true" />
+      <Setting Id="BP_Hook_Key_Child_C_2" Label="Hallway Key" State="true" />
+      <Setting Id="Claytons Bathroom.sav" Label="Claytons Bathroom" State="true" />
+      <Setting Id="BP_Key_Child_C_1" Label="Dumbwaiter Puzzle Key" State="true" />
+      <Setting Id="Dumbwaiter.sav" Label="Dumbwaiter Puzzle" State="true" />
+      <Setting Id="Painting Push.sav" Label="Painting Push" State="true" />
+      <Setting Id="Crawlspace Drop.sav" Label="Escape Clayton" State="true" />
+      <Setting Id="Post camera Event.sav" Label="Crawlspace after Escaping Clayton" State="true" />
+      <Setting Id="Pre Stare Onboarding.sav" Label="Encounter with Shadow in Crawlspace" State="true" />
+      <Setting Id="First Stare.sav" Label="Use Stare for the First Time" State="true" />
+      <Setting Id="PostStareOnboarding.sav" Label="Box Stare Crawlspace" State="true" />
+      <Setting Id="Lever Intro.sav" Label="First Lever Puzzle" State="true" />
+      <Setting Id="Clayton Hallway Evade.sav" Label="Evade Clayton in the Hallway after Lever" State="true" />
+      <Setting Id="DoorToBasement.sav" Label="Door to Basement Puzzle" State="true" />
+      <Setting Id="Segment 4 Start.sav" Label="Enter the Basement" State="true" />
+      <Setting Id="Preperation Room.sav" Label="Preperation Room" State="true" />
+      <Setting Id="Cage Trap.sav" Label="Cage Trap" State="true" />
+      <Setting Id="Post Cage Trap.sav" Label="Escape the Cage Trap" State="true" />
+      <Setting Id="Ritual Hub.sav" Label="Ritual Chamber" State="true" />
+      <Setting Id="BP_Key_Child_C_4" Label="Ritual Chamber Pink Key" State="true" />
+      <Setting Id="Teddy Joy Ride.sav" Label="Blue Key Cage Puzzle" State="true" />
+      <Setting Id="BP_Key_Child_C_6" Label="Ritual Chamber Blue Key" State="true" />
+      <Setting Id="Post Teddy Joy Ride.sav" Label="After Cage Puzzle" State="true" />
+      <Setting Id="Machinery Room.sav" Label="Machinery Room Puzzle" State="true" />
+      <Setting Id="BP_Key_Child_C_5" Label="Ritual Chamber Red Key" State="true" />
+      <Setting Id="Post Machinery Room.sav" Label="Machinery Room Puzzle Completed" State="true" />
+      <Setting Id="Morgue Room.sav" Label="Morgue Room" State="true" />
+      <Setting Id="BP_Key_Child_C_3" Label="Ritual Chamber Yellow Key" State="true" />
+      <Setting Id="Post Morgue Room.sav" Label="Morgue Room Completed" State="true" />
+      <Setting Id="Gallery Chase.sav" Label="Gallery Chase" State="true" />
+      <Setting Id="Segment 5 Start.sav" Label="Escape the Basement" State="true" />
+      <Setting Id="Storage Room.sav" Label="Storage Room" State="true" />
+      <Setting Id="Post Storage Room.sav" Label="Escape the Storage Room" State="true" />
+      <Setting Id="Painting Room.sav" Label="Painting Room" State="true" />
+      <Setting Id="BP_SwitchHandle_Child_C_4" Label="Painting Room Switch Handle" State="true" />
+      <Setting Id="Post Painting Room.sav" Label="Painting Room Completed" State="true" />
+      <Setting Id="Clayton Chase.sav" Label="Clayton Chase" State="true" />
+      <Setting Id="Post Clayton Chase.sav" Label="Escape from Clayton after Teddy Chase" State="true" />
+      <Setting Id="Segment 6 Start.sav" Label="Reach the Upper Floors" State="true" />
+      <Setting Id="Archive Room.sav" Label="Archive Room" State="true" />
+      <Setting Id="Teddy Top Down.sav" Label="Archive Room Completed" State="true" />
+      <Setting Id="BP_SwitchHandle_Child_C_2" Label="Shrine Room Switch Handle" State="true" />
+      <Setting Id="Jannas Room.sav" Label="Janna's Room" State="true" />
+      <Setting Id="BP_Hook_Key_Child_C_2147366362" Label="Janna's Room Key" State="true" />
+      <Setting Id="Elevator Puzzle.sav" Label="Elevator Puzzle" State="true" />
+      <Setting Id="Hatch Hide.sav" Label="Hide in the Hatch" State="true" />
+      <Setting Id="Banquet Evade.sav" Label="Evade Capture in the Crawlspace" State="true" />
+      <Setting Id="Moveabhle boing box.sav" Label="Wine Room" State="true" />
+      <Setting Id="Evade End Room.sav" Label="Evade Capture in the Banquet Hall" State="true" />
+      <Setting Id="Laundry Room.sav" Label="Laundry Room" State="true" />
+      <Setting Id="Post Laundry Room.sav" Label="Laundry Room Completed" State="true" />
+      <Setting Id="Segment 8 Start.sav" Label="Reach the Old Wing" State="true" />
+      <Setting Id="ClaytonEvade.sav" Label="Evade Capture in the Old Wing" State="true" />
+      <Setting Id="Switch Picked Up.sav" Label="Hallway after Clayton Chase" State="true" />
+      <Setting Id="Stairs scares.sav" Label="Attic Staircase" State="true" />
+      <Setting Id="Janna Evade Segment 8.sav" Label="Evade Capture in the Kitchen" State="true" />
+      <Setting Id="BP_Hook_Key_Child_C_2" Label="Janna's Kitchen Key" State="true" />
+      <Setting Id="Post Janna Evade Segment 8.sav" Label="Hallway after Kitchen" State="true" />
+      <Setting Id="Janna Chase Segment 8.sav" Label="Escape from Janna" State="true" />
+      <Setting Id="End" Label="Janna Confrontation (Currently Work in Progress)" State="true" />
+    </Setting>
+
+    <Setting Label="Miscellaneous Splits" State="true">
+      <Setting Id="Flush" Label="Flush the Toilet in Sophies Room" State="true" />
+    </Setting>
+
+  </Settings>
