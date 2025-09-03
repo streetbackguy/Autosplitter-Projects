@@ -181,8 +181,6 @@ update
 {
     current.SceneName = vars.Helper.SceneManager.Current.Name;
 
-    current.Menu = vars.Menu.Current;
-
     //print("Game Mode: " + vars.GameMode.Current.ToString());
     // print("Loading Enum: " + vars.Loading.Current.ToString());
 
@@ -266,3 +264,4 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
