@@ -1,0 +1,112 @@
+<Settings>
+
+    <Setting Label="Split on collecting item:" State="false">
+      <!-- <Setting Id="i-item: 1-1" Label="ID Card" State="true" /> -->
+      <Setting Id="i-item: 2-1" Label="Bronze Key" State="true" />
+      <Setting Id="i-item: 3-1" Label="Silver Key" State="true" />
+      <Setting Id="i-item: 4-1" Label="Gold Key" State="true" />
+      <Setting Id="i-item: 5-1" Label="Crank" State="true" />
+      <Setting Id="i-item: 6-1" Label="Gemstone" State="true" />
+      <Setting Id="i-item: 7-1" Label="Chain" State="true" />
+      <Setting Id="i-item: 8-1" Label="Woeful Mask" State="true" />
+      <Setting Id="i-item: 9-1" Label="Trident" State="true" />
+      <Setting Id="i-item: 10-1" Label="Data Disk" State="true" />
+      <Setting Id="i-item: 11-1" Label="Acid bottle" State="true" />
+      <Setting Id="i-item: 12-1" Label="Large Battery" State="true" />
+      <Setting Id="i-item: 13-1" Label="Glass Vials" State="true" />
+      <Setting Id="i-item: 14-1" Label="Paper from Edward Crow" State="true" />
+    </Setting>
+    
+    <Setting Label="Split on collecting Weapon:" State="false">
+      <Setting Id="i-item: shotgun-1" Label="Shotgun" State="true" />
+      <Setting Id="i-item: flamethrower-1" Label="Flamethrower" State="true" />
+      <Setting Id="i-item: magnum-1" Label="Magnum" State="true" />
+    </Setting>
+
+    <Setting Label="Split on leaving area:" State="false">
+      <Setting Id="ac-Roadside" Label="Roadside" State="true" />
+      <Setting Id="ac-Entrance" Label="Entrance" State="true" />
+      <Setting Id="ac-Toilet" Label="Toilet" State="true" />
+      <Setting Id="ac-Station Square" Label="Station Square" State="true" />
+      <Setting Id="ac-Fairy Forest" Label="Fairy Forest" State="true" />
+      <Setting Id="ac-Cosmic Cosmos" Label="Cosmic Cosmos" State="true" />
+      <Setting Id="ac-Corridor S" Label="Corridor S" State="true" />
+      <Setting Id="ac-Fairy Pool" Label="Fairy Pool" State="true" />
+      <Setting Id="ac-Corridor A" Label="Corridor A" State="true" />
+      <Setting Id="ac-Dig Site" Label="Dig Site" State="true" />
+      <Setting Id="ac-Swan Boats" Label="Swan Boats" State="true" />
+      <Setting Id="ac-Railway" Label="Railway" State="true" />
+      <Setting Id="ac-Gift Shop" Label="Gift Shop" State="true" />
+      <Setting Id="ac-Haunted Hilltop" Label="Haunted Hilltop" State="true" />
+      <Setting Id="ac-Dungeon" Label="Dungeon" State="true" />
+      <Setting Id="ac-Corridor B" Label="Corridor B" State="true" />
+      <Setting Id="ac-Crypt" Label="Crypt" State="true" />
+      <Setting Id="ac-Corridor D" Label="Corridor D" State="true" />
+      <Setting Id="ac-Machine SE" Label="Machine SE" State="true" />
+      <Setting Id="ac-Cell" Label="Cell" State="true" />
+      <Setting Id="ac-Mansion" Label="Mansion" State="true" />
+      <Setting Id="ac-Office Pike" Label="Office Pike" State="true" />
+      <Setting Id="ac-Theatre" Label="Theatre" State="true" />
+      <Setting Id="ac-Mushroom" Label="Mushroom" State="true" />
+      <Setting Id="ac-Ocean Kingdom" Label="Ocean Kingdom" State="true" />
+      <Setting Id="ac-Arcade" Label="Arcade" State="true" />
+      <Setting Id="ac-Submarine" Label="Submarine" State="true" />
+      <Setting Id="ac-Storeroom" Label="Storeroom" State="true" />
+      <Setting Id="ac-Witchwood" Label="Witchwood" State="true" />
+      <Setting Id="ac-Restaurant" Label="Restaurant" State="true" />
+      <Setting Id="ac-Office Tolman" Label="Office Tolman" State="true" />
+      <Setting Id="ac-Underground NW" Label="Underground NW" State="true" />
+      <Setting Id="ac-Break Room" Label="Break Room" State="true" />
+      <Setting Id="ac-Underground NE" Label="Underground NE" State="true" />
+      <Setting Id="ac-Root Sun" Label="Root Sun" State="true" />
+      <Setting Id="ac-Underground SE" Label="Underground SE" State="true" />
+      <Setting Id="ac-Control Room" Label="Control Room" State="true" />
+      <Setting Id="ac-Office Crow" Label="Office Crow" State="true" />
+      <Setting Id="ac-Root Sat" Label="Root Sat" State="true" />
+      <Setting Id="ac-Root Fri" Label="Root Fri" State="true" />
+      <Setting Id="ac-Underground SW" Label="Underground SW" State="true" />
+      <Setting Id="ac-Root Thu" Label="Root Thu" State="true" />
+      <Setting Id="ac-Corridor C" Label="Corridor C" State="truee" />
+      <Setting Id="ac-Machine SW" Label="Machine SW" State="true" />
+      <Setting Id="ac-Boat Ride Dock" Label="Boat Ride Dock" State="true" />
+      <Setting Id="ac-Boat Ride" Label="Boat Ride" State="true" />
+      <Setting Id="ac-Root Wed" Label="Root Wed" State="true" />
+      <Setting Id="ac-Root Tue" Label="Root Tue" State="true" />
+      <Setting Id="ac-Root Mon" Label="Root Mon" State="true" />
+      <Setting Id="ac-Pre Machine Centre" Label="Pre Machine Centre" State="true" />
+      <Setting Id="ac-Machine Centre" Label="Machine Centre" State="true" />
+      <Setting Id="ac-Mid" Label="Mid" State="true" />
+      <Setting Id="ac-Underground Centre" Label="Underground Centre" State="true" />
+      <Setting Id="ac-Ladder" Label="Ladder" State="true" />
+      <Setting Id="ac-Underground Lab" Label="Underground Lab" State="true" />
+      <Setting Id="ac-Pool" Label="Pool" State="true" />
+      <Setting Id="b-Game End-1" Label="split on Defeating Edward Crow" State="true" />
+      <Setting Id="end-input-0" Label="split on Final Input" State="true" />
+    </Setting>
+    
+    <Setting Label="Split on collecting Secret:" State="false">
+      <Setting Id="b-WearingTrainers-1" Label="Running Boots" State="true" />
+      <Setting Id="b-Handgun Laser-1" Label="Handgun Laser" State="true" />
+      <Setting Id="f-handgun strength-0.8" Label="Handgun Power" State="true" />
+      <Setting Id="b-Shotgun Laser-1" Label="Shotgun Laser" State="true" />
+      <Setting Id="i-Shotgun in Clip MAX-4" Label="Shotgun Capacity" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Range Increased" Label="Flamethrower Range" State="true" />
+      <Setting Id="b-Magnum Laser-1" Label="Magnum Laser" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Gold Plated" Label="Magnum Power" State="true" />
+      <Setting Id="b-First Aid knowledge-1" Label="Med Kit Improvement" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Toilet" Label="Magnum Ammo found in Toilet" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Haunted Hilltop" Label="Magnum Ammo found in Haunted Hilltop" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Storeroom" Label="Magnum Ammo found in Storeroom" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Witchwood" Label="Magnum Ammo found in Witchwood" State="true" />
+      <Setting Id="s-Glb ItemAction Name-Magnum Ammo-Corridor B" Label="Magnum Ammo found in Crow Office Corridor" State="true" />
+      <Setting Id="i-CrystalCrows-42" Label="42 Crystal Crows" State="true" />
+    </Setting>
+    
+    <Setting Label="Misc. Splits" State="false">
+      <Setting Id="b-light found-1" Label="Flashlight" State="true" />
+      <Setting Id="b-clock1bool-1" Label="Clock Puzzle 1" State="true" />
+      <Setting Id="b-clock2bool-1" Label="Clock Puzzle 2" State="true" />
+      <Setting Id="b-mascotwalk-1" Label="Clockwork Crow" State="true" />
+    </Setting>
+
+  </Settings>
