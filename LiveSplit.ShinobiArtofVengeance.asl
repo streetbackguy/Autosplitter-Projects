@@ -10,7 +10,7 @@ startup
 {
     vars.Log = (Action<object>)(output => print("[Shinobi: Art of Vengeance] " + output));
 
-    Assembly.Load(File.ReadAllBytes("Components/unity-help")).CreateInstance("Unity");
+    Assembly.Load(File.ReadAllBytes("Components/unity-help-shinobi")).CreateInstance("Unity");
 
     settings.Add("AOV", true, "Shinobi: Art of Vengeance");
         settings.Add("FullGame", true, "Full Game Splits", "AOV");
@@ -239,14 +239,9 @@ split
         return settings["Rift" + old.SceneName] && vars.Splits.Add("Rift" + old.SceneName);
     }
 
-    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 1 && vars.Menu.Current == 9 && vars.Menu.Old == 0 && !vars.Splits.Contains("Story" + "EliteSquad" + current.SceneName))
+    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 1 && vars.Menu.Current == 9 && vars.Menu.Old == 0 && vars.EliteSquad == 2 && !vars.Splits.Contains("Story" + "EliteSquad" + current.SceneName))
     {
         return settings["Story" + "EliteSquad" + current.SceneName] && vars.Splits.Add("Story" + "EliteSquad" + current.SceneName);
-    }
-
-    if(current.SceneName != old.SceneName && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
-    {
-        return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
 }
 
