@@ -29,35 +29,51 @@ startup
     vars.Canoes = vars.Helper.Make<byte>(0x800100ee);
     vars.Rats = vars.Helper.Make<byte>(0x800100fe);
 
-    settings.Add("TGPS1", true, "The Grinch (PS1) Splits");
-        settings.Add("LEVEL", true, "Room/Level Splits", "TGPS1");
-        settings.Add("MISSION", true, "Mission Splits", "TGPS1");
+    settings.Add("TG", true, "The Grinch (PS1) Splits");
+        settings.Add("ANY", true, "Any% Splits", "TG");
+        settings.Add("100", false, "100% Splits", "TG");
 
-    vars.Levels = new Dictionary<byte, string>
+    vars.LevelsAny = new Dictionary<string, string>
     {
-        { 0, "Title Screen" },
-        { 2, "Language Select" },
-        { 5, "Mt. Crumpit" },
-        { 7, "Downtown Whoville" },
-        { 8, "Whoville City Hall" },
-        { 9, "Countdown to Christmas Tower" },
-        { 10, "Whoville Post Office" },
-        { 11, "Whoforest" },
-        { 12, "Mountain Ski Resort" },
-        { 13, "Mountain Civic Center" },
-        { 14, "Whoville Dump" },
-        { 15, "Generator Building" },
-        { 16, "Whoville Power Plant" },
-        { 17, "Minefield" },
-        { 18, "Wholake South Shore" },
-        { 19, "Lakemaster's Cabin" },
-        { 20, "Wholake North Shore" },
-        { 22, "Mayor's Villa" },
-        { 23, "Wholake Submarine World" },
-        { 25, "Sleigh Ride" },
+        { "AnyTutorial", "Finish Mt. Crumpit Tutorial" },
+        { "AnyDW1", "First Visit to Downtown Whoville" },
+        { "AnyRE", "Obtain Rotten Egg Lanucher and Enter Whoforest" },
+        { "AnyWF1", "First Visit to Whoforest" },
+        { "AnyRS", "Obtain Rocket Spring and Enter Whoforest" },
+        { "AnyWF2", "Second Visit to Whoforest" },
+        { "AnyDG", "Dump Guardian Shaved" },
+        { "AnyD1", "First Visit to Dump" },
+        { "AnySS1", "Enter Wholake's North Shore" },
+        { "AnyNS1", "First Visit to Wholake's North Shore" },
+        { "AnyMM", "Obtain Marine Mobile and Enter Downtown Whoville" },
+        { "AnySS", "All Sleigh Parts" },
+        { "AnySanta", "Santa Defeated" }
     };
 
-    vars.Missions = new Dictionary<string, string>
+    // vars.Levels100 = new Dictionary<string, string>
+    // {
+    //     { "Tutorial", "Finish Mt. Crumpit Tutorial" },
+    //     { "DW1", "First Visit to Downtown Whoville" },
+    //     { "RE", "Obtain Rotten Egg Launcher" },
+    //     { 9, "Countdown to Christmas Tower" },
+    //     { 10, "Whoville Post Office" },
+    //     { 11, "Whoforest" },
+    //     { 12, "Mountain Ski Resort" },
+    //     { 13, "Mountain Civic Center" },
+    //     { 14, "Whoville Dump" },
+    //     { 15, "Generator Building" },
+    //     { 16, "Whoville Power Plant" },
+    //     { 17, "Minefield" },
+    //     { 18, "Wholake South Shore" },
+    //     { 19, "Lakemaster's Cabin" },
+    //     { 20, "Wholake North Shore" },
+    //     { 22, "Mayor's Villa" },
+    //     { 23, "Wholake Submarine World" },
+    //     { 25, "Sleigh Ride" },
+    //     { "Santa", "Santa Defeated" }
+    // };
+
+    vars.Missions100 = new Dictionary<string, string>
     {
         { "Mail", "Shuffling The Mail" },
         { "Snowmen", "Smashing Snowmen" },
@@ -89,17 +105,26 @@ startup
         { "Santa", "Santa Defeated" }
     };
 
-    foreach (var Tag in vars.Levels)
+    foreach (var Tag in vars.LevelsAny)
 		{
-			settings.Add(Tag.Key.ToString(), true, Tag.Value, "LEVEL");
+			settings.Add(Tag.Key.ToString(), true, Tag.Value, "ANY");
     	};
 
-    foreach (var Tag in vars.Missions)
+    // foreach (var Tag in vars.Levels100)
+	// 	{
+    //         settings.Add(Tag.Key.ToString(), true, Tag.Value, "100");
+    // 	};
+
+    foreach (var Tag in vars.Missions100)
 		{
-			settings.Add(Tag.Key, true, Tag.Value, "MISSION");
+			settings.Add(Tag.Key, true, Tag.Value, "100");
     	};
 
     vars.Splits = new HashSet<string>();
+    vars.WhovilleVisits = 0;
+    vars.WhoforestVisits = 0;
+    vars.DumpVisits = 0;
+    vars.WholakeVisits = 0;
 }
 
 init
@@ -123,22 +148,92 @@ update
     {
         vars.Log("Missions 2: " + vars.Missions2.Current.ToString());
     }
+
+    if(vars.Map.Current == 7 && vars.Map.Old == 5)
+    {
+        vars.WhovilleVisits++;
+    }
+
+    if(vars.Map.Current == 11 && vars.Map.Old == 5)
+    {
+        vars.WhoforestVisits++;
+    }
+
+    if(vars.Map.Current == 14 && vars.Map.Old == 5)
+    {
+        vars.DumpVisits++;
+    }
+
+    if(vars.Map.Current == 18 && vars.Map.Old == 5)
+    {
+        vars.WholakeVisits++;
+    }
 }
 
 split
 {
     // Split when accessing a new area/map
-    if(vars.Map.Current != vars.Map.Old && vars.Map.Old == 7 && vars.Map.Current == 8 ||
-    vars.Map.Current != vars.Map.Old && vars.Map.Old == 7 && vars.Map.Current == 9 ||
-    vars.Map.Current != vars.Map.Old && vars.Map.Old == 7 && vars.Map.Current == 10 ||
-    vars.Map.Current != vars.Map.Old && vars.Map.Old == 11 && vars.Map.Current == 12 ||
-    vars.Map.Current != vars.Map.Old && vars.Map.Old == 11 && vars.Map.Current == 13 ||
-    vars.Map.Current != vars.Map.Old && vars.Map.Old == 11 && vars.Map.Current == 35 ||
-    vars.Map.Current != vars.Map.Old && vars.Map.Old == 14 && vars.Map.Current == 15 ||
-    vars.Map.Current != vars.Map.Old && vars.Map.Old == 14 && vars.Map.Current == 16 ||
-    vars.Map.Current != vars.Map.Old && vars.Map.Old == 14 && vars.Map.Current == 17)
+    if(vars.Map.Current != vars.Map.Old && settings["ANY"])
     {
-        return settings[vars.Map.Current.ToString()];
+        if(vars.Map.Current != vars.Map.Old && vars.Map.Old == 5 && vars.Map.Current != 6 && vars.Map.Current == 7 && !vars.Splits.Contains("AnyTutorial"))
+        {
+            return settings["AnyTutorial"] && vars.Splits.Add("AnyTutorial");
+        }
+
+        if(vars.Map.Current == 5 && vars.Map.Old == 7 && vars.WhovilleVisits == 1 && vars.WhovilleVisits == 1 && !vars.Splits.Contains("AnyDW1"))
+        {
+            return settings["AnyDW1"] && vars.Splits.Add("AnyDW1");
+        }
+        
+        if(vars.Map.Current == 11 && vars.Map.Old == 5 && !vars.Splits.Contains("AnyRE"))
+        {
+            return settings["AnyRE"] && vars.Splits.Add("AnyRE");
+        }
+
+        if(vars.Map.Current == 5 && vars.Map.Old == 11 && vars.WhoforestVisits == 1 && !vars.Splits.Contains("AnyWF1"))
+        {
+            return settings["AnyWF1"] && vars.Splits.Add("AnyWF1");
+        }
+        
+        if(vars.Map.Current == 11 && vars.Map.Old == 5 && vars.WhoforestVisits == 2 && !vars.Splits.Contains("AnyRS"))
+        {
+            return settings["AnyRS"] && vars.Splits.Add("AnyRS");
+        }
+
+        if(vars.Map.Current == 17 && vars.Map.Old == 14 && vars.Missions2.Current == vars.Missions2.Old+1 && !vars.Splits.Contains("AnyDG"))
+        {
+            return settings["AnyDG"] && vars.Splits.Add("AnyDG");
+        }
+
+        if(vars.Map.Current == 5 && vars.Map.Old == 14 && vars.DumpVisits == 1 && !vars.Splits.Contains("AnyD1"))
+        {
+            return settings["AnyD1"] && vars.Splits.Add("AnyD1");
+        }
+
+        if(vars.Map.Current == 20 && vars.Map.Old == 18 && vars.WholakeVisits == 1 && !vars.Splits.Contains("AnySS1"))
+        {
+            return settings["AnySS1"] && vars.Splits.Add("AnySS1");
+        }
+
+        if(vars.Map.Current == 5 && vars.Map.Old == 20 && vars.WholakeVisits == 1 && !vars.Splits.Contains("AnyNS1"))
+        {
+            return settings["AnyNS1"] && vars.Splits.Add("AnyNS1");
+        }
+
+        if(vars.Map.Current == 7 && vars.Map.Old == 5 && vars.WholakeVisits == 1 && !vars.Splits.Contains("AnyMM"))
+        {
+            return settings["AnyMM"] && vars.Splits.Add("AnyMM");
+        }
+
+        if(vars.Map.Current == 5 && vars.Map.Old == 18 && vars.WholakeVisits == 2 && !vars.Splits.Contains("AnySP"))
+        {
+            return settings["AnySP"] && vars.Splits.Add("AnySP");
+        }
+
+        if(vars.Map.Current == 25 && vars.SantaHealth.Current == 0 && vars.SantaHealth.Old > 0 && !vars.Splits.Contains("AnySanta"))
+        {
+            return settings["AnySanta"] && vars.Splits.Add("AnySanta");
+        }
     }
 
     // Mission Splits that require multiple things
@@ -253,9 +348,13 @@ isLoading
 onStart
 {
     vars.Splits.Clear();
+    vars.WhovilleVisits = 0;
+    vars.WhoforestVisits = 0;
+    vars.DumpVisits = 0;
+    vars.WholakeVisits = 0;
 }
 
 reset
 {
-    return vars.Map.Current == 0 && vars.Map.Old != 0;
+    return vars.Map.Current == 64 && vars.Map.Old == 0;
 }
