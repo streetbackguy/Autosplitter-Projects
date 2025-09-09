@@ -44,9 +44,9 @@ startup
                     settings.Add("StoryFloor_2_Scene_Gameplay", true, "Floor B2", "FullStage6");
                     settings.Add("StoryFloor_3_Scene_Gameplay", true, "Floor B3", "FullStage6");
                 settings.Add("FullSStage8", true, "Stage 8", "FullStory");
-                    settings.Add("Story01_MERCHANDISE_Scene_Gameplay", true, "Merchandise Car", "FullSStage8");
-                    settings.Add("Story02_PASSENGERS_Scene_Gameplay", true, "Passenger Car", "FullSStage8");
-                    settings.Add("Story03_LOCO_Scene_Gameplay", true, "Engine Car", "FullSStage8");
+                    settings.Add("Story01_MERCHANDISE_Scene_Gameplay", true, "Freight Cars", "FullSStage8");
+                    settings.Add("Story02_PASSENGERS_Scene_Gameplay", true, "Passenger Cars", "FullSStage8");
+                    settings.Add("Story03_LOCO_Scene_Gameplay", true, "Armored Cars", "FullSStage8");
                 settings.Add("FullSStage9", true, "Stage 9", "FullStory");
                     settings.Add("Story01_DESERT_Scene_Gameplay", true, "Desert", "FullSStage9");
                     settings.Add("Story02_RUINS_Scene_Gameplay", true, "Ruins", "FullSStage9");
@@ -94,6 +94,9 @@ startup
                 settings.Add("StoryEliteSquad03_CITY_District_Right_Scene_Gameplay", true, "Defeat the Elite Squad in East City District", "EliteSquad");
                 settings.Add("StoryEliteSquadLevel-02_Containers_Gameplay", true, "Defeat the Elite Squad in The Docks", "EliteSquad");
                 settings.Add("StoryEliteSquadFloor_1_Scene_Gameplay", true, "Defeat the Elite Squad in Floor 0", "EliteSquad");
+                settings.Add("StoryEliteSquad01_MERCHANDISE_Scene_Gameplay", true, "Defeat the Elite Squad in Freight Cars", "EliteSquad");
+                settings.Add("StoryEliteSquad02_PASSENGERS_Scene_Gameplay", true, "Defeat the Elite Squad in Passenger Cars", "EliteSquad");
+                settings.Add("StoryEliteSquad03_LOCO_Scene_Gameplay", true, "Defeat the Elite Squad in Armored Cars", "EliteSquad");
             settings.Add("BossRush", true, "Boss Rush Splits", "FullGame");
                 settings.Add("BR1_Monkey_Gameplay", true, "Defeat Kozaru", "BossRush");
                 settings.Add("BR2_Mandara_Gameplay", true, "Defeat Mandara", "BossRush");
@@ -125,6 +128,7 @@ startup
             
     vars.Splits = new HashSet<string>();
     vars.EliteSquad = 0;
+    vars.EndGameCutscene = 0;
 
     if (timer.CurrentTimingMethod == TimingMethod.RealTime)
     {        
@@ -199,6 +203,11 @@ update
         vars.EliteSquad++;
     }
 
+    if(vars.Menu.Old == 0 && vars.Menu.Current == 11 && current.SceneName == "Story01_LastFight_Scene_Gameplay.")
+    {
+        vars.EndGameCutscene++;
+    }
+
     if(old.SceneName != current.SceneName)
     {
         vars.EliteSquad = 0;
@@ -241,6 +250,11 @@ split
     {
         return settings["Story" + "EliteSquad" + current.SceneName] && vars.Splits.Add("Story" + "EliteSquad" + current.SceneName);
     }
+
+    if(current.SceneName == "01_LastFight_Scene_Gameplay." && vars.GameMode.Current == 1 && vars.Menu.Current == 11 && vars.Menu.Old == 0 && vars.EndGameCutscene == 3 && !vars.Splits.Contains("Story01_LastFight_Scene_Gameplay."))
+    {
+        return settings["Story01_LastFight_Scene_Gameplay."] && vars.Splits.Add("Story01_LastFight_Scene_Gameplay.");
+    }
 }
 
 isLoading
@@ -253,6 +267,7 @@ onStart
     vars.Splits.Clear();
     timer.IsGameTimePaused = true;
     vars.EliteSquad = 0;
+    vars.EndGameCutscene = 0;
 }
 
 reset
