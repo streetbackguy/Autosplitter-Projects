@@ -150,7 +150,7 @@ init
     vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
     
     // GEngine.GameViewportClient.World.AuthorityGameMode.PersistentHeroData.QuestManager.DiscoveredQuests[0].QuestState
-    vars.Helper["NewGameQuestsDiscovered"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x14F0, 0x328, 0x128, 0x0, 0x148); //Used to start the run when the Witch Hunt Quest becomes active
+    vars.Helper["NewGameQuestsDiscovered"] = vars.Helper.Make<int>(gEngine, 0x780, 0x78, 0x118, 0x1550, 0x348, 0x128, 0x0, 0x148); //Used to start the run when the Witch Hunt Quest becomes active
 
     // GEngine.GameInstance.LocalPlayers[0].PlayerController.Pawn.AttributeContainer.Health
     vars.Helper["PlayerHealth"] = vars.Helper.Make<float>(gEngine, 0xD38, 0x38, 0x0, 0x30, 0x258, 0xA10, 0x3360);
@@ -187,6 +187,8 @@ init
     vars.gEngine = gEngine;
     current.World = "";
     current.Boss = "";
+    current.startLoadCount = 0;
+    current.autostartReady = false;
 }
 
 update
@@ -201,11 +203,22 @@ update
     var boss = vars.FNameToString(current.BossClass);
 	if (!string.IsNullOrEmpty(boss) && boss != "None")
         current.Boss = boss;
+
+    if (current.LoadCount != old.LoadCount) { current.startLoadCount ++; }
+    if (current.World == "MainMenu") { current.startLoadCount = 0; }
+    if (current.NewGameQuestsDiscovered == 1 && current.World != "MainMenu") { current.autostartReady = true;}
+
+    vars.Log("NGQuestsDiscovered: " + (current.NewGameQuestsDiscovered) + " LoadCount: " + (current.LoadCount) + " TrueCount " + (current.startLoadCount));
 }
 
 start
 {
-    return current.NewGameQuestsDiscovered == 1  && current.World != "MainMenu";
+    if (current.autostartReady == true && current.startLoadCount == 3)
+    {
+        current.startLoadCount = 0;
+        current.autostartReady = false;
+        return true;
+    }
 }
 
 onStart
@@ -215,6 +228,8 @@ onStart
     vars.MissionObjectives.Clear();
     current.World = "";
     current.Boss = "";
+    current.startLoadCount = 0;
+    current.autostartReady = false;
 }
 
 split
