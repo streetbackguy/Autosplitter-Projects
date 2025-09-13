@@ -32,8 +32,6 @@ update
 {
     current.activeScene = vars.Helper.Scenes.Active.Name ?? old.activeScene;
     current.loadingScene = vars.Helper.Scenes.Loaded[0].Name ?? old.loadingScene;
-
-    
 }
 
 start
@@ -68,3 +66,4 @@ gameTime
     
     return vars.TotalTime + TimeSpan.FromSeconds(current.LevelTimeTotal);
 }
+
