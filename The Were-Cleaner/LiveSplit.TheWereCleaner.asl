@@ -22,8 +22,6 @@ init
     {
         vars.Helper["LevelStart"] = mono.Make<bool>("GameManager", "instance", "clockInScript", "levelDoorController", "isInteractable");
         vars.Helper["LevelEnd"] = mono.Make<bool>("GameManager", "instance", "levelEndStarted");
-        vars.Helper["LevelEndFade"] = mono.Make<bool>("GameManager", "instance", "screenTransitions", "isTransitioning");
-        vars.Helper["LevelTimer"] = mono.Make<float>("GameManager", "instance", "timer");
         vars.Helper["LevelTimeTotal"] = mono.Make<float>("GameManager", "instance", "timeSinceLevelStart");
         
         return true;
@@ -34,6 +32,8 @@ update
 {
     current.activeScene = vars.Helper.Scenes.Active.Name ?? old.activeScene;
     current.loadingScene = vars.Helper.Scenes.Loaded[0].Name ?? old.loadingScene;
+
+    
 }
 
 start
@@ -54,10 +54,10 @@ split
     };
 }
 
-// isLoading
-// {
-//     return current.loadingScene == "LevelLoader" || current.LevelEndFade;
-// }
+isLoading
+{
+    return current.LevelTimeTotal == 0 || current.LevelTimeTotal == old.LevelTimeTotal;
+}
 
 gameTime
 {
