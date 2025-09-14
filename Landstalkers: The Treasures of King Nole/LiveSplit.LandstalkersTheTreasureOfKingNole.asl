@@ -100,11 +100,6 @@ startup
     vars.Splits = new HashSet<string>();
 }
 
-init
-{
-
-}
-
 update
 {
     if(vars.Map.Current != vars.Map.Old)
@@ -304,9 +299,4 @@ split
 onStart
 {
     vars.Splits.Clear();
-}
-
-reset
-{
-
 }
