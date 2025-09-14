@@ -112,9 +112,9 @@ update
         vars.Log("Map: " + vars.Map.Current);
     }
 
-    if(vars.DeathStatue.Current != vars.DeathStatue.Old)
+    if(vars.SwordofGaiaFireproofBoots.Current != vars.SwordofGaiaFireproofBoots.Old)
     {
-        vars.Log("Item: " + vars.DeathStatue.Current);
+        vars.Log("Item: " + vars.SwordofGaiaFireproofBoots.Current);
     }
 }
 
@@ -241,7 +241,7 @@ split
     }
 
     // Sword of Gaia
-    if(vars.SwordofGaiaFireproofBoots.Current == 32 && vars.Map.Current == 363 && !vars.Splits.Contains("SwordOfGaia"))
+    if(vars.SwordofGaiaFireproofBoots.Current == 2 && vars.Map.Current == 363 && !vars.Splits.Contains("SwordOfGaia"))
     {
         return settings["SwordOfGaia"] && vars.Splits.Add("SwordOfGaia");
     }
@@ -299,16 +299,6 @@ split
     {
         return settings["Gola"] && vars.Splits.Add("Gola");
     }
-}
-
-start
-{
-
-}
-
-isLoading
-{
-
 }
 
 onStart
