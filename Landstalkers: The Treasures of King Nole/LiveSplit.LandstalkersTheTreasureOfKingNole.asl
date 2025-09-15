@@ -10,7 +10,7 @@ startup
     vars.RedJewel = vars.Helper.Make<byte>(0x1054);
     vars.Lithograph = vars.Helper.Make<byte>(0x1086);
     vars.SafetyPass = vars.Helper.Make<byte>(0x1059);
-    vars.MagicSword = vars.Helper.Make<byte>(0x1092);
+    vars.MagicSword = vars.Helper.Make<byte>(0x1197);
     vars.SteelBreastplate = vars.Helper.Make<byte>(0xf9a);
     vars.EinsteinWhistle = vars.Helper.Make<byte>(0x1050);
     vars.SunStone = vars.Helper.Make<byte>(0x104f);
@@ -29,8 +29,9 @@ startup
     vars.GolaFangHorn = vars.Helper.Make<byte>(0x1090);
     vars.DeathStatue = vars.Helper.Make<byte>(0x1056);
     vars.Map = vars.Helper.Make<short>(0x1204);
-    vars.GolaHealth = vars.Helper.Make<byte>(0x553f);
-    vars.KingNoleHealth = vars.Helper.Make<short>(0x576);
+    vars.GolaHealth = vars.Helper.Make<byte>(0x553e);
+    vars.KingNoleHealth = vars.Helper.Make<short>(0x55bd);
+    vars.NewGame = vars.Helper.Make<byte>(0x505);
 
     settings.Add("LTTOKN", true, "Landstalkers: The Treasure of King Nole (Genesis) Splits");
         settings.Add("ANY", true, "Any% Splits", "LTTOKN");
@@ -107,9 +108,9 @@ update
         vars.Log("Map: " + vars.Map.Current);
     }
 
-    if(vars.SwordofGaiaFireproofBoots.Current != vars.SwordofGaiaFireproofBoots.Old)
+    if(vars.GolaHealth.Current != vars.GolaHealth.Old)
     {
-        vars.Log("Item: " + vars.SwordofGaiaFireproofBoots.Current);
+        vars.Log("Item: " + vars.GolaHealth.Current);
     }
 }
 
@@ -140,7 +141,7 @@ split
     }
 
     // // Magic Sword
-    if(vars.MagicSword.Current == 2 && vars.Map.Current == 475 && !vars.Splits.Contains("MagicSword"))
+    if(vars.MagicSword.Current == 1 && vars.Map.Current == 475 && !vars.Splits.Contains("MagicSword"))
     {
         return settings["MagicSword"] && vars.Splits.Add("MagicSword");
     }
@@ -284,16 +285,21 @@ split
     }
 
     // King Nole
-    if(vars.KingNoleHealth.Current == 0 && vars.Map.Current == 111 && !vars.Splits.Contains("KingNole"))
+    if(vars.KingNoleHealth.Current < 100 && vars.KingNoleHealth.Old >= 100 && vars.Map.Current == 111 && !vars.Splits.Contains("KingNole"))
     {
         return settings["KingNole"] && vars.Splits.Add("KingNole");
     }
 
     // Gola
-    if(vars.GolaHealth.Current < 239 && vars.GolaHealth.Old >= 239 && vars.Map.Current == 112)
+    if(vars.GolaHealth.Current < 100 && vars.GolaHealth.Old >= 100 && vars.Map.Current == 112)
     {
         return settings["Gola"] && vars.Splits.Add("Gola");
     }
+}
+
+start
+{
+    return vars.NewGame.Current != 0 && vars.NewGame.Old == 0;
 }
 
 onStart
