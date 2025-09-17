@@ -15,7 +15,7 @@ startup
     vars.NTSCPlayerCharacter = vars.Helper.Make<int>(0x08ab4354, 0x220);
     vars.NTSCCurrentLevel = vars.Helper.Make<byte>(0x08a02804);
     vars.NTSCDemoMode = vars.Helper.Make<byte>(0x08ac4a29);
-    vars.NTSCLevelSelect = vars.Helper.Make<byte>(0x089e9255);
+    vars.NTSCLevelSelect = vars.Helper.Make<byte>(0x08a017b5);
 
     vars.NTSCTotalTime = new TimeSpan();
     vars.Splits = new HashSet<string>();
@@ -153,7 +153,7 @@ update
 
 start
 {
-        return vars.NTSCLevelSelect.Current == 64 && vars.NTSCCurrentLevel.Current == 0 && vars.NTSCPlayerCharacter.Current == 0;
+        return vars.NTSCLevelSelect.Current == 64 && vars.NTSCCurrentLevel.Current != 0 && vars.NTSCPlayerCharacter.Current == 0;
 }
 
 onStart
