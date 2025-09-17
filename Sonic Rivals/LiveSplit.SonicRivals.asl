@@ -8,29 +8,16 @@ startup
     Assembly.Load(File.ReadAllBytes("Components/emu-help-v3")).CreateInstance("PSP");
     vars.Log = (Action<object>)(output => print("[Sonic Rivals] " + output));
 
-    vars.Timer = vars.Helper.Make<float>(0x08a6db50);
-    vars.PlayerWinFlag = vars.Helper.Make<int>(0x08a9c3d4, 0x868);
-    vars.PlayerCharacter = vars.Helper.Make<int>(0x08a9c3d4, 0x220);
-    vars.PlayerPlacement = vars.Helper.Make<int>(0x08a9c3d4, 0x9ec);
-    vars.CurrentAct = vars.Helper.Make<int>(0x08aaf81c);
-    vars.CurrentLevel = vars.Helper.Make<byte>(0x08a729b6);
-    vars.CurrentCup = vars.Helper.Make<int>(0x08a72994);
-    vars.DemoMode = vars.Helper.Make<byte>(0x08ac4a29);
-    vars.SonicStory1 = vars.Helper.Make<byte>(0x08a65f94);
-    vars.SonicStory2 = vars.Helper.Make<byte>(0x08a65f95);
-    vars.SonicStory3 = vars.Helper.Make<byte>(0x08a65f96);
-    vars.ShadowStory1 = vars.Helper.Make<byte>(0x08a65f98);
-    vars.ShadowStory2 = vars.Helper.Make<byte>(0x08a65f99);
-    vars.ShadowStory3 = vars.Helper.Make<byte>(0x08a65f9a);
-    vars.KnucklesStory1 = vars.Helper.Make<byte>(0x08a65f9c);
-    vars.KnucklesStory2 = vars.Helper.Make<byte>(0x08a65f9d);
-    vars.KnucklesStory3 = vars.Helper.Make<byte>(0x08a65f9e);
-    vars.SilverStory1 = vars.Helper.Make<byte>(0x08a65fa0);
-    vars.SilverStory2 = vars.Helper.Make<byte>(0x08a65fa1);
-    vars.SilverStory3 = vars.Helper.Make<byte>(0x08a65fa2);
-    vars.LevelSelect = vars.Helper.Make<byte>(0x08a01c35);
+    // PAL Codes
+    vars.PALSerial = vars.Helper.MakeString(9, 0x08955c44);
+    vars.PALTimer = vars.Helper.Make<float>(0x08a6db50);
+    vars.PALPlayerWinFlag = vars.Helper.Make<int>(0x08a9c3d4, 0x868);
+    vars.PALPlayerCharacter = vars.Helper.Make<int>(0x08a9c3d4, 0x220);
+    vars.PALCurrentLevel = vars.Helper.Make<byte>(0x08a729b6);
+    vars.PALDemoMode = vars.Helper.Make<byte>(0x08ac4a29);
+    vars.PALLevelSelect = vars.Helper.Make<byte>(0x08a01c35);
 
-    vars.TotalTime = new TimeSpan();
+    vars.PALTotalTime = new TimeSpan();
     vars.Splits = new HashSet<string>();
 
     settings.Add("SR", true, "Sonic Rivals");
@@ -146,30 +133,30 @@ startup
 
 update
 {
-    if(vars.PlayerWinFlag.Current != vars.PlayerWinFlag.Old)
+    if(vars.PALPlayerWinFlag.Current != vars.PALPlayerWinFlag.Old)
     {
-        vars.Log("Win?: " + vars.PlayerWinFlag.Current);
+        vars.Log("Win?: " + vars.PALPlayerWinFlag.Current);
     }
 
-    if(vars.CurrentLevel.Current != vars.CurrentLevel.Old)
+    if(vars.PALCurrentLevel.Current != vars.PALCurrentLevel.Old)
     {
-        vars.Log("Level: " + vars.CurrentLevel.Current);
+        vars.Log("Level: " + vars.PALCurrentLevel.Current);
     }
 
-    if(vars.PlayerCharacter.Current != vars.PlayerCharacter.Old)
+    if(vars.PALPlayerCharacter.Current != vars.PALPlayerCharacter.Old)
     {
-        vars.Log("Character: " + vars.PlayerCharacter.Current);
+        vars.Log("Character: " + vars.PALPlayerCharacter.Current);
     }
 }
 
 start
 {
-    return vars.LevelSelect.Current == 64 && vars.CurrentLevel.Current == 0 && vars.PlayerCharacter.Current == 0;
+    return vars.PALLevelSelect.Current == 64 && vars.PALCurrentLevel.Current == 0 && vars.PALPlayerCharacter.Current == 0;
 }
 
 onStart
 {
-    vars.TotalTime = TimeSpan.Zero;
+    vars.PALTotalTime = TimeSpan.Zero;
     vars.Splits.Clear();
 }
 
@@ -180,23 +167,23 @@ isLoading
 
 split
 {
-    if(vars.PlayerWinFlag.Current == 1 && vars.DemoMode.Current == 0 && !vars.Splits.Contains(vars.PlayerCharacter.Current.ToString() + vars.CurrentLevel.Current.ToString() + "won"))
+    if(vars.PALPlayerWinFlag.Current == 1 && !vars.Splits.Contains(vars.PALPlayerCharacter.Current.ToString() + vars.PALCurrentLevel.Current.ToString() + "won"))
     {
-        return settings[vars.PlayerCharacter.Current.ToString() + vars.CurrentLevel.Current.ToString() + "won"] && vars.Splits.Add(vars.PlayerCharacter.Current.ToString() + vars.CurrentLevel.Current.ToString() + "won");
+        return settings[vars.PALPlayerCharacter.Current.ToString() + vars.PALCurrentLevel.Current.ToString() + "won"] && vars.Splits.Add(vars.PALPlayerCharacter.Current.ToString() + vars.PALCurrentLevel.Current.ToString() + "won");
     }
 }
 
 gameTime
 {
-    if(vars.Timer.Old > vars.Timer.Current)
+    if(vars.PALTimer.Old > vars.PALTimer.Current && vars.PALPlayerWinFlag.Current == 0)
     {
-        vars.TotalTime += TimeSpan.FromSeconds(vars.Timer.Old);
+        vars.PALTotalTime += TimeSpan.FromSeconds(vars.PALTimer.Old);
     }
     
-    return vars.TotalTime + TimeSpan.FromSeconds(vars.Timer.Current);
+    return vars.PALTotalTime + TimeSpan.FromSeconds(vars.PALTimer.Current);
 }
 
 reset
 {
-    return vars.CurrentLevel.Current == 0 && vars.LevelSelect.Old == 64 && vars.LevelSelect.Current == 0 && vars.PlayerCharacter.Current == 0;
+    return vars.PALCurrentLevel.Current == 0 && vars.PALLevelSelect.Old == 64 && vars.PALLevelSelect.Current == 0 && vars.PALPlayerCharacter.Current == 0;
 }
