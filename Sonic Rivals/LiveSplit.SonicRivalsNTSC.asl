@@ -147,8 +147,6 @@ update
     {
         vars.Log("Character: " + vars.NTSCPlayerCharacter.Current);
     }
-
-    vars.Log(vars.NTSCLevelSelect.Current.ToString());
 }
 
 start
@@ -189,3 +187,4 @@ reset
 {
     return vars.NTSCCurrentLevel.Current == 0 && vars.NTSCLevelSelect.Old == 64 && vars.NTSCLevelSelect.Current == 0 && vars.NTSCPlayerCharacter.Current == 0;
 }
+
