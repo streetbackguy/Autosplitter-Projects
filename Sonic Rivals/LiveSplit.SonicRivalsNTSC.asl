@@ -185,6 +185,5 @@ gameTime
 
 reset
 {
-    return vars.NTSCCurrentLevel.Current == 0 && vars.NTSCLevelSelect.Old == 64 && vars.NTSCLevelSelect.Current == 0 && vars.NTSCPlayerCharacter.Current == 0;
+    return vars.NTSCCurrentLevel.Current == 116 && vars.NTSCLevelSelect.Old == 64 && vars.NTSCLevelSelect.Current == 0 && vars.NTSCPlayerCharacter.Current == 0;
 }
-
