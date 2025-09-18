@@ -48,7 +48,7 @@ update
 
 start
 {
-    return vars.TotalTime.Current > 0.0f && vars.TotalTime.Old == 0 && !current.SceneName.Contains("MenuScreen");
+    return vars.IGT.Current > 0.0f && !current.SceneName.Contains("MenuScreen");
 }
 
 split
