@@ -67,7 +67,7 @@ isLoading
 
 gameTime
 {
-    if (vars.IGT.Old > vars.IGT.Current)
+    if (vars.IGT.Old > vars.IGT.Current && !current.SceneName.Contains("MenuScreen") || vars.IGT.Old > vars.IGT.Current && !current.SceneName.Contains("SplashScreen"))
     {
         vars.TotalTime += TimeSpan.FromSeconds(vars.IGT.Old);
     }
@@ -90,5 +90,3 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
-
-
