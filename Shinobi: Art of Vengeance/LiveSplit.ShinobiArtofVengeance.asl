@@ -93,7 +93,7 @@ startup
                 settings.Add("RIFT-10_LABO_Gameplay", true, "Completed the Stage 10 Ankou Rift", "FullRifts");
                     settings.Add("DKRIFT-10_LABO_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 10 Ankou Rift", "RIFT-10_LABO_Gameplay");
                 settings.Add("RIFT-11_KAIJU_Gameplay", true, "Completed the Stage 11 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-11_KAIJU_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 1 Ankou Rift", "RIFT-11_KAIJU_Gameplay");
+                    settings.Add("DKRIFT-11_KAIJU_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 11 Ankou Rift", "RIFT-11_KAIJU_Gameplay");
             settings.Add("Bonus", true, "Bonus Stage Splits", "FullGame");
                 settings.Add("BonusStage_01_Gameplay", true, "Completed the first Bonus Stage", "Bonus");
                 settings.Add("BonusStage_Surf_Scene_Gameplay", true, "Completed the second Bonus Stage", "Bonus");
@@ -294,3 +294,4 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
+
