@@ -148,11 +148,16 @@ update
     {
         vars.Log("Character: " + vars.NTSCPlayerCharacter.Current);
     }
+
+    if(vars.NTSCLevelSelect.Current != vars.NTSCLevelSelect.Old)
+    {
+        vars.Log("LevelSelect: " + vars.NTSCLevelSelect.Current);
+    }
 }
 
 start
 {
-        return vars.NTSCLevelSelect.Current == 64 && vars.NTSCCurrentLevel.Current != 0 && vars.NTSCPlayerCharacter.Current == 0;
+    return vars.NTSCLevelSelect.Current == 64 && vars.NTSCPlayerCharacter.Current == 0;
 }
 
 onStart
@@ -196,5 +201,5 @@ gameTime
 
 reset
 {
-    return vars.NTSCCurrentLevel.Current == 32 && vars.NTSCLevelSelect.Old == 64 && vars.NTSCLevelSelect.Current == 0 && vars.NTSCPlayerCharacter.Current == 0;
+    return vars.NTSCCurrentLevel.Current == 0 && vars.NTSCLevelSelect.Old == 64 && vars.NTSCLevelSelect.Current == 0 && vars.NTSCPlayerCharacter.Current == 0;
 }
