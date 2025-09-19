@@ -13,6 +13,7 @@ startup
     vars.NTSCTimer = vars.Helper.Make<float>(0x08a85ad0);
     vars.NTSCPlayerWinFlag = vars.Helper.Make<int>(0x08ab4354, 0x868);
     vars.NTSCPlayerCharacter = vars.Helper.Make<int>(0x08ab4354, 0x220);
+    vars.NTSCPlayerFinishTime = vars.Helper.Make<float>(0x08ab4354, 0x920);
     vars.NTSCCurrentLevel = vars.Helper.Make<byte>(0x08a02804);
     vars.NTSCDemoMode = vars.Helper.Make<byte>(0x08ac4a29);
     vars.NTSCLevelSelect = vars.Helper.Make<byte>(0x08a017b5);
@@ -147,6 +148,8 @@ update
     {
         vars.Log("Character: " + vars.NTSCPlayerCharacter.Current);
     }
+
+    vars.Log(vars.NTSCPlayerFinishTime.Current.ToString());
 }
 
 start
