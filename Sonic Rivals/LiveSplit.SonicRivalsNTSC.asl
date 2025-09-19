@@ -14,7 +14,7 @@ startup
     vars.NTSCPlayerWinFlag = vars.Helper.Make<int>(0x08ab4354, 0x868);
     vars.NTSCPlayerCharacter = vars.Helper.Make<int>(0x08ab4354, 0x220);
     vars.NTSCPlayerFinishTime = vars.Helper.Make<float>(0x08ab4354, 0x920);
-    vars.NTSCCurrentLevel = vars.Helper.Make<byte>(0x08a02804);
+    vars.NTSCCurrentLevel = vars.Helper.Make<byte>(0x08a8a936);
     vars.NTSCDemoMode = vars.Helper.Make<byte>(0x08ac4a29);
     vars.NTSCLevelSelect = vars.Helper.Make<byte>(0x08a017b5);
 
@@ -148,8 +148,6 @@ update
     {
         vars.Log("Character: " + vars.NTSCPlayerCharacter.Current);
     }
-
-    vars.Log(vars.NTSCPlayerFinishTime.Current.ToString());
 }
 
 start
@@ -188,10 +186,15 @@ gameTime
         return vars.NTSCTotalTime + TimeSpan.FromSeconds(vars.NTSCTimer.Current - 0.03f);
     }
 
+    if(vars.NTSCCurrentLevel.Current != vars.NTSCCurrentLevel.Old && vars.NTSCCurrentLevel.Old != 30 && vars.NTSCCurrentLevel.Old != 0)
+    {
+        vars.NTSCTotalTime.Subtract(5);
+    }
+
     return vars.NTSCTotalTime + TimeSpan.FromSeconds(vars.NTSCTimer.Current);
 }
 
 reset
 {
-    return vars.NTSCCurrentLevel.Current == 116 && vars.NTSCLevelSelect.Old == 64 && vars.NTSCLevelSelect.Current == 0 && vars.NTSCPlayerCharacter.Current == 0;
+    return vars.NTSCCurrentLevel.Current == 32 && vars.NTSCLevelSelect.Old == 64 && vars.NTSCLevelSelect.Current == 0 && vars.NTSCPlayerCharacter.Current == 0;
 }
