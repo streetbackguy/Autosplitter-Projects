@@ -175,9 +175,14 @@ split
 
 gameTime
 {
-    if(vars.NTSCTimer.Old > vars.NTSCTimer.Current && vars.NTSCPlayerWinFlag.Current == 0)
+    if(vars.NTSCTimer.Old > vars.NTSCTimer.Current)
     {
-        vars.NTSCTotalTime += TimeSpan.FromSeconds(vars.NTSCTimer.Old);
+        return vars.NTSCTotalTime += TimeSpan.FromSeconds(vars.NTSCTimer.Old);
+    }
+
+    if(vars.NTSCPlayerWinFlag.Current == 1 && vars.NTSCPlayerFinishTime.Old == 1000000 && !vars.Splits.Contains(vars.NTSCPlayerCharacter.Current.ToString() + vars.NTSCCurrentLevel.Current.ToString() + "won"))
+    {
+        return vars.NTSCTotalTime + TimeSpan.FromSeconds(vars.NTSCTimer.Current - 0.03f);
     }
 
     return vars.NTSCTotalTime + TimeSpan.FromSeconds(vars.NTSCTimer.Current);
