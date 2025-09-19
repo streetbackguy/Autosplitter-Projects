@@ -13,6 +13,7 @@ startup
     vars.PALTimer = vars.Helper.Make<float>(0x08a6db50);
     vars.PALPlayerWinFlag = vars.Helper.Make<int>(0x08a9c3d4, 0x868);
     vars.PALPlayerCharacter = vars.Helper.Make<int>(0x08a9c3d4, 0x220);
+    vars.PALPlayerFinishTime = vars.Helper.Make<float>(0x08a9c3d4, 0x920);
     vars.PALCurrentLevel = vars.Helper.Make<byte>(0x08a729b6);
     vars.PALDemoMode = vars.Helper.Make<byte>(0x08ac4a29);
     vars.PALLevelSelect = vars.Helper.Make<byte>(0x08a01c35);
@@ -147,6 +148,11 @@ update
     {
         vars.Log("Character: " + vars.PALPlayerCharacter.Current);
     }
+
+    if(vars.PALPlayerFinishTime.Current != vars.PALPlayerFinishTime.Old)
+    {
+        vars.Log("Finish Time: " + vars.PALPlayerFinishTime.Current);
+    }
 }
 
 start
@@ -167,7 +173,7 @@ isLoading
 
 split
 {
-    if(vars.PALPlayerWinFlag.Current == 1 && !vars.Splits.Contains(vars.PALPlayerCharacter.Current.ToString() + vars.PALCurrentLevel.Current.ToString() + "won"))
+    if(vars.PALPlayerWinFlag.Current == 1 && vars.PALPlayerFinishTime.Old == 1000000 && !vars.Splits.Contains(vars.PALPlayerCharacter.Current.ToString() + vars.PALCurrentLevel.Current.ToString() + "won"))
     {
         return settings[vars.PALPlayerCharacter.Current.ToString() + vars.PALCurrentLevel.Current.ToString() + "won"] && vars.Splits.Add(vars.PALPlayerCharacter.Current.ToString() + vars.PALCurrentLevel.Current.ToString() + "won");
     }
@@ -175,11 +181,16 @@ split
 
 gameTime
 {
-    if(vars.PALTimer.Old > vars.PALTimer.Current && vars.PALPlayerWinFlag.Current == 0)
+    if(vars.PALTimer.Old > vars.PALTimer.Current)
     {
-        vars.PALTotalTime += TimeSpan.FromSeconds(vars.PALTimer.Old);
+        return vars.PALTotalTime += TimeSpan.FromSeconds(vars.PALTimer.Old);
     }
-    
+
+    if(vars.PALPlayerWinFlag.Current == 1 && vars.PALPlayerFinishTime.Old == 1000000 && !vars.Splits.Contains(vars.PALPlayerCharacter.Current.ToString() + vars.PALCurrentLevel.Current.ToString() + "won"))
+    {
+        return vars.PALTotalTime + TimeSpan.FromSeconds(vars.PALTimer.Current - 0.03f);
+    }
+
     return vars.PALTotalTime + TimeSpan.FromSeconds(vars.PALTimer.Current);
 }
 
