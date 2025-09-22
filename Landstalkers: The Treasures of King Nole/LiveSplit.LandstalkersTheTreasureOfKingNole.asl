@@ -8,7 +8,6 @@ startup
     vars.Log = (Action<object>)(output => print("[LandStalkers - The Treasure of King Nole] " + output));
 
     vars.RedJewel = vars.Helper.Make<byte>(0x1054);
-    vars.Lithograph = vars.Helper.Make<byte>(0x1086);
     vars.SafetyPass = vars.Helper.Make<byte>(0x1059);
     vars.MagicSword = vars.Helper.Make<byte>(0x1197);
     vars.SteelBreastplate = vars.Helper.Make<byte>(0xf9a);
@@ -27,6 +26,7 @@ startup
     vars.VenusStone = vars.Helper.Make<byte>(0x1048);
     vars.SnowSpikes = vars.Helper.Make<byte>(0x1044);
     vars.GolaFangHorn = vars.Helper.Make<byte>(0x1090);
+    vars.Logs = vars.Helper.Make<byte>(0x11a1);
     vars.DeathStatue = vars.Helper.Make<byte>(0x1056);
     vars.Map = vars.Helper.Make<short>(0x1204);
     vars.GolaHealth = vars.Helper.Make<byte>(0x553e);
@@ -44,7 +44,6 @@ startup
         { "5433", "Leave Swamp Shrine" },
         { "RedJewel", "Obtain Red Jewel"},
         { "183185", "Enter Hideout" },
-        { "Lithograph", "Obtain Lithograph" },
         { "186183", "Leave Hideout" },
         { "SafetyPass", "Obtain Safety Pass" },
         { "533815", "Enter Tibor" },
@@ -54,7 +53,7 @@ startup
         { "781475", "Leave Mirs Tower" },
         { "8091", "Enter Castle Dungeon" },
         { "11035", "Leave Castle Dungeon" },
-        { "SteelBreastplate", "Obtain Steel Breastplate" },
+        { "679635", "Obtain Steel Breastplate" },
         { "DeathStatue", "Obtain Death Statue" },
         { "EinsteinWhistle", "Obtain Einstein Whistle" },
         { "SunStone", "Obtain Sun Stone" },
@@ -76,17 +75,18 @@ startup
         { "FireproofBoots", "Obtain Fireproof Boots" },
         { "441480", "Enter Witch Helga's Hut" },
         { "SaturnStone", "Obtain Saturn Stone" },
-        { "GolaEye", "Obtain Gola's Eye" },
+        { "492487", "Obtain Gola's Eye" },
         { "MoonStone", "Obtain Moon Stone" },
         { "737738", "Enter Last Dungeon" },
         { "SwordOfGaia", "Obtain Sword of Gaia" },
         { "IronBoots", "Obtain Iron Boots" },
-        { "GolaNail", "Obtain Gola's Nail" },
+        { "404403", "Obtain Gola's Nail" },
         { "VenusStone", "Obtain Venus Stone" },
         { "SnowSpikes", "Obtain Snow Spikes" },
-        { "GolaFang", "Obtain Gola's Fang" },
+        { "Logs", "Obtain Logs" },
+        { "410411", "Obtain Gola's Fang" },
         { "HyperBreastplate", "Obtain Hyper Breastplate" },
-        { "GolaHorn", "Obtain Gola's Horn" },
+        { "417422", "Obtain Gola's Horn" },
         { "422122", "Enter Nole's Palace" },
         { "121114", "Finished Nole's Palace" },
         { "KingNole", "King Nole's Death" },
@@ -108,9 +108,9 @@ update
         vars.Log("Map: " + vars.Map.Current);
     }
 
-    if(vars.GolaHealth.Current != vars.GolaHealth.Old)
+    if(vars.SteelBreastplate.Current != vars.SteelBreastplate.Old)
     {
-        vars.Log("Item: " + vars.GolaHealth.Current);
+        vars.Log("Item: " + vars.SteelBreastplate.Current);
     }
 }
 
@@ -123,165 +123,135 @@ split
     }
 
     // Red Jewel
-    if(vars.RedJewel.Current == 2 && vars.Map.Current == 593 && !vars.Splits.Contains("RedJewel"))
+    if(vars.RedJewel.Current != vars.RedJewel.Old && vars.Map.Current == 593 && !vars.Splits.Contains("RedJewel"))
     {
         return settings["RedJewel"] && vars.Splits.Add("RedJewel");
     }
 
-    // Lithograph
-    if(vars.Lithograph.Current == 216 && vars.Map.Current == 224 && !vars.Splits.Contains("Lithograph"))
-    {
-        return settings["Lithograph"] && vars.Splits.Add("Lithograph");
-    }
-
     // // Safety Pass
-    if(vars.SafetyPass.Current == 35 && vars.Map.Current == 622 && !vars.Splits.Contains("SafetyPass"))
+    if(vars.SafetyPass.Current != vars.SafetyPass.Old && vars.Map.Current == 622 && !vars.Splits.Contains("SafetyPass"))
     {
         return settings["SafetyPass"] && vars.Splits.Add("SafetyPass");
     }
 
     // // Magic Sword
-    if(vars.MagicSword.Current == 1 && vars.Map.Current == 475 && !vars.Splits.Contains("MagicSword"))
+    if(vars.MagicSword.Current != vars.MagicSword.Old && vars.Map.Current == 475 && !vars.Splits.Contains("MagicSword"))
     {
         return settings["MagicSword"] && vars.Splits.Add("MagicSword");
     }
 
-    // Steel Breastplate
-    if(vars.SteelBreastplate.Current == 2 && vars.Map.Current == 679 && !vars.Splits.Contains("SteelBreastplate"))
-    {
-        return settings["SteelBreastplate"] && vars.Splits.Add("SteelBreastplate");
-    }
-
     // Death Statue
-    if(vars.DeathStatue.Current == 2 && vars.Map.Current == 697 && !vars.Splits.Contains("DeathStatue"))
+    if(vars.DeathStatue.Current != vars.DeathStatue.Old && vars.Map.Current == 697 && !vars.Splits.Contains("DeathStatue"))
     {
         return settings["DeathStatue"] && vars.Splits.Add("DeathStatue");
     }
 
     // Einstein Whistle
-    if(vars.EinsteinWhistle.Current == 2 && vars.Map.Current == 560 && !vars.Splits.Contains("EinsteinWhistle"))
+    if(vars.EinsteinWhistle.Current != vars.EinsteinWhistle.Old && vars.Map.Current == 560 && !vars.Splits.Contains("EinsteinWhistle"))
     {
         return settings["EinsteinWhistle"] && vars.Splits.Add("EinsteinWhistle");
     }
     
     // Sun Stone
-    if(vars.SunStone.Current == 2 && vars.Map.Current == 564 && !vars.Splits.Contains("SunStone"))
+    if(vars.SunStone.Current != vars.SunStone.Old && vars.Map.Current == 564 && !vars.Splits.Contains("SunStone"))
     {
         return settings["SunStone"] && vars.Splits.Add("SunStone");
     }
 
-    // // Chrome Breastplate
+    // Chrome Breastplate
     if(vars.ChromeShellBreastplate.Current != vars.ChromeShellBreastplate.Old && vars.Map.Current == 263 && !vars.Splits.Contains("ChromeShellBreastplate"))
     {
         return settings["ChromeShellBreastplate"] && vars.Splits.Add("ChromeShellBreastplate");
     }
 
     // Mars Stone
-    if(vars.MarsStoneHyperBreastplate.Current == 32 && vars.Map.Current == 483 && !vars.Splits.Contains("MarsStone"))
+    if(vars.MarsStoneHyperBreastplate.Current != vars.MarsStoneHyperBreastplate.Old && vars.Map.Current == 483 && !vars.Splits.Contains("MarsStone"))
     {
         return settings["MarsStone"] && vars.Splits.Add("MarsStone");
     }
 
     // Healing Boots
-    if(vars.IronHealingBoots.Current == 32 && vars.Map.Current == 288 && !vars.Splits.Contains("HealingBoots"))
+    if(vars.IronHealingBoots.Current != vars.IronHealingBoots.Old && vars.Map.Current == 288 && !vars.Splits.Contains("HealingBoots"))
     {
         return settings["HealingBoots"] && vars.Splits.Add("HealingBoots");
     }
 
     // Sword of Ice
-    if(vars.SwordofIce.Current == 2 && vars.Map.Current == 345 && !vars.Splits.Contains("SwordofIce"))
+    if(vars.SwordofIce.Current != vars.SwordofIce.Old && vars.Map.Current == 345 && !vars.Splits.Contains("SwordofIce"))
     {
         return settings["SwordofIce"] && vars.Splits.Add("SwordofIce");
     }
 
-    // // Shell Breastplate
-    if(vars.ChromeShellBreastplate.Current == 32 && vars.Map.Current == 333 && !vars.Splits.Contains("ShellBreastplate"))
+    // Shell Breastplate
+    if(vars.ChromeShellBreastplate.Current != vars.ChromeShellBreastplate.Old && vars.Map.Current == 333 && !vars.Splits.Contains("ShellBreastplate"))
     {
         return settings["ShellBreastplate"] && vars.Splits.Add("ShellBreastplate");
     }
 
     // Axe Magic
-    if(vars.AxeMagic.Current == 32 && vars.Map.Current == 784 && !vars.Splits.Contains("AxeMagic"))
+    if(vars.AxeMagic.Current != vars.AxeMagic.Old && vars.Map.Current == 784 && !vars.Splits.Contains("AxeMagic"))
     {
         return settings["AxeMagic"] && vars.Splits.Add("AxeMagic");
     }
 
     // Thunder Sword
-    if(vars.ThunderSword.Current == 101 && vars.Map.Current == 712 && !vars.Splits.Contains("ThunderSword"))
+    if(vars.ThunderSword.Current != vars.ThunderSword.Old && vars.Map.Current == 712 && !vars.Splits.Contains("ThunderSword"))
     {
         return settings["ThunderSword"] && vars.Splits.Add("ThunderSword");
     }
 
     // Fireproof Boots
-    if(vars.SwordofGaiaFireproofBoots.Current == 32 && vars.Map.Current == 807 && !vars.Splits.Contains("FireproofBoots"))
+    if(vars.SwordofGaiaFireproofBoots.Current != vars.SwordofGaiaFireproofBoots.Old && vars.Map.Current == 807 && !vars.Splits.Contains("FireproofBoots"))
     {
         return settings["FireproofBoots"] && vars.Splits.Add("FireproofBoots");
     }
 
-    // // Saturn Stone
-    if(vars.SaturnMoonStone.Current == 32 && vars.Map.Current == 479 && !vars.Splits.Contains("SaturnStone"))
+    // Saturn Stone
+    if(vars.SaturnMoonStone.Current != vars.SaturnMoonStone.Old && vars.Map.Current == 479 && !vars.Splits.Contains("SaturnStone"))
     {
         return settings["SaturnStone"] && vars.Splits.Add("SaturnStone");
     }
 
-    // Gola's Eye
-    if(vars.GolaEye.Current == 33 && vars.Map.Current == 492 && !vars.Splits.Contains("GolaEye"))
-    {
-        return settings["GolaEye"] && vars.Splits.Add("GolaEye");
-    }
-
     // Moon Stone
-    if(vars.SaturnMoonStone.Current == 34 && vars.Map.Current == 553 && !vars.Splits.Contains("MoonStone"))
+    if(vars.SaturnMoonStone.Current != vars.SaturnMoonStone.Old && vars.Map.Current == 553 && !vars.Splits.Contains("MoonStone"))
     {
         return settings["MoonStone"] && vars.Splits.Add("MoonStone");
     }
 
     // Sword of Gaia
-    if(vars.SwordofGaiaFireproofBoots.Current == 2 && vars.Map.Current == 363 && !vars.Splits.Contains("SwordOfGaia"))
+    if(vars.SwordofGaiaFireproofBoots.Current != vars.SwordofGaiaFireproofBoots.Old && vars.Map.Current == 363 && !vars.Splits.Contains("SwordOfGaia"))
     {
         return settings["SwordOfGaia"] && vars.Splits.Add("SwordOfGaia");
     }
 
     // Iron Boots
-    if(vars.IronHealingBoots.Current == 2 && vars.Map.Current == 374 && !vars.Splits.Contains("IronBoots"))
+    if(vars.IronHealingBoots.Current != vars.IronHealingBoots.Old && vars.Map.Current == 374 && !vars.Splits.Contains("IronBoots"))
     {
         return settings["IronBoots"] && vars.Splits.Add("IronBoots");
     }
 
-    // Gola's Nail
-    if(vars.GolaNail.Current == 28 && vars.Map.Current == 404 && !vars.Splits.Contains("GolaNail"))
-    {
-        return settings["GolaNail"] && vars.Splits.Add("GolaNail");
-    }
-
     // Venus Stone
-    if(vars.VenusStone.Current == 2 && vars.Map.Current == 399 && !vars.Splits.Contains("VenusStone"))
+    if(vars.VenusStone.Current != vars.VenusStone.Old && vars.Map.Current == 399 && !vars.Splits.Contains("VenusStone"))
     {
         return settings["VenusStone"] && vars.Splits.Add("VenusStone");
     }
 
     // Snow Spikes
-    if(vars.SnowSpikes.Current == 2 && vars.Map.Current == 418 && !vars.Splits.Contains("VenusStone"))
+    if(vars.SnowSpikes.Current != vars.SnowSpikes.Old && vars.Map.Current == 418 && !vars.Splits.Contains("VenusStone"))
     {
         return settings["SnowSpikes"] && vars.Splits.Add("SnowSpikes");
     }
 
-    // Gola's Fang
-    if(vars.GolaFangHorn.Current == 226 && vars.Map.Current == 410 && !vars.Splits.Contains("GolaFang"))
+    // Log's
+    if(vars.Logs.Current != vars.Logs.Old && vars.Map.Current == 415 && !vars.Splits.Contains("Logs"))
     {
-        return settings["GolaFang"] && vars.Splits.Add("GolaFang");
+        return settings["Logs"] && vars.Splits.Add("Logs");
     }
 
     // Hyper Breastplate
-    if(vars.MarsStoneHyperBreastplate.Current == 2 && vars.Map.Current == 411 && !vars.Splits.Contains("HyperBreastplate"))
+    if(vars.MarsStoneHyperBreastplate.Current != vars.MarsStoneHyperBreastplate.Old && vars.Map.Current == 411 && !vars.Splits.Contains("HyperBreastplate"))
     {
         return settings["HyperBreastplate"] && vars.Splits.Add("HyperBreastplate");
-    }
-
-    // Gola's Horn
-    if(vars.GolaFangHorn.Current == 246 && vars.Map.Current == 417 && !vars.Splits.Contains("GolaHorn"))
-    {
-        return settings["GolaHorn"] && vars.Splits.Add("GolaHorn");
     }
 
     // King Nole
