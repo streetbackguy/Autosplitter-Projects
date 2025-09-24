@@ -5,12 +5,10 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
     Assembly.Load(File.ReadAllBytes("Components/uhara9")).CreateInstance("Main");
-    // vars.Helper.Settings.CreateFromXml("Components/SilentHillf.Settings.xml");
+    vars.Helper.Settings.CreateFromXml("Components/SilentHillf.Settings.xml");
     vars.Helper.GameName = "Silent Hill f";
     vars.Helper.AlertLoadless();
     vars.Uhara.EnableDebug();
-
-    settings.Add("CapsuleBox_1", true, "test");
 }
 
 init
@@ -207,18 +205,6 @@ split
 			// vars.Log(setting);
 		}
 	}
-
-    // if(!string.IsNullOrEmpty(current.Cutscene) && string.IsNullOrEmpty(old.Cutscene))
-    // {
-    //     string cutscenesetting = current.Cutscene;
-    //     vars.SplitsToComplete.Add(current.Cutscene);
-        
-    //     if (settings.ContainsKey(cutscenesetting) && settings[cutscenesetting] && vars.CompletedSplits.Add(cutscenesetting) && vars.SplitsToComplete.Contains(cutscenesetting))
-    //     {
-    //         vars.SplitsToComplete.Clear();
-    //         return true;
-    //     }
-    // }
 }
 
 isLoading
