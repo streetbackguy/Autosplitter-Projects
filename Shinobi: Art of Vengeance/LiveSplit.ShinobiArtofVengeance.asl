@@ -256,7 +256,7 @@ split
         return settings["Rift" + old.SceneName] && vars.Splits.Add("Rift" + old.SceneName);
     }
 
-    if(current.SceneName.Contains("RIFT-") && vars.Menu.Current == 5 && !vars.Splits.Contains("DK" + current.SceneName))
+    if(current.SceneName.Contains("RIFT-") && vars.DarkKatana.Current == vars.DarkKatana.Old + 1 && !vars.Splits.Contains("DK" + current.SceneName))
     {
         return settings["DK" + current.SceneName] && vars.Splits.Add("DK" + current.SceneName);
     }
@@ -294,4 +294,3 @@ exit
 {
     timer.IsGameTimePaused = true;
 }
-
