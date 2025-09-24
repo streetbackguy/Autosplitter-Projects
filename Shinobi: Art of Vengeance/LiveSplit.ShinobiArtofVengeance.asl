@@ -231,12 +231,12 @@ start
 
 split
 {
-    if(current.SceneName != old.SceneName && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
+    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
     {
         return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
 
-    if(current.SceneName != old.SceneName && vars.GameMode.Current == 3 && !vars.Splits.Contains("Arcade" + old.SceneName))
+    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 3 && !vars.Splits.Contains("Arcade" + old.SceneName))
     {
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
