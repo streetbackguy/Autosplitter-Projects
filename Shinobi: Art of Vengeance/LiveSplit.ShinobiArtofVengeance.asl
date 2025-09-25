@@ -74,26 +74,26 @@ startup
                     settings.Add("Arcade04_Temple_Scene_Gameplay", true, "Temple", "FullAStage1");
                     settings.Add("Arcade05_Boss_Scene_Gameplay", true, "Kozaru", "FullAStage1");
             settings.Add("FullRifts", true, "Rift Splits", "FullGame");
-                settings.Add("RIFT-01_TEMPLE_Gameplay", true, "Completed the Stage 1 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-01_TEMPLE_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 1 Ankou Rift", "RIFT-01_TEMPLE_Gameplay");
-                settings.Add("RIFT-02_FACTORY_Gameplay", true, "Completed the Stage 2 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-02_FACTORY_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 2 Ankou Rift", "RIFT-02_FACTORY_Gameplay");
-                settings.Add("RIFT-03_VILLAGE_Gameplay", true, "Completed the Stage 3 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-03_VILLAGE_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 3 Ankou Rift", "RIFT-03_VILLAGE_Gameplay");
-                settings.Add("RIFT-04_HARBOR_Gameplay", true, "Completed the Stage 4 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-04_HARBOR_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 4 Ankou Rift", "RIFT-04_HARBOR_Gameplay");
-                settings.Add("RIFT-05_CITY_Gameplay", true, "Completed the Stage 5 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-05_CITY_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 5 Ankou Rift", "RIFT-05_CITY_Gameplay");
-                settings.Add("RIFT-07_MILITARY_Gameplay", true, "Completed the Stage 7 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-07_MILITARY_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 7 Ankou Rift", "RIFT-07_MILITARY_Gameplay");
-                settings.Add("RIFT-08_TRAIN_Gameplay", true, "Completed the Stage 8 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-08_TRAIN_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 8 Ankou Rift", "RIFT-08_TRAIN_Gameplay");
-                settings.Add("RIFT-09_DESERT_Gameplay", true, "Completed the Stage 9 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-09_DESERT_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 9 Ankou Rift", "RIFT-09_DESERT_Gameplay");
-                settings.Add("RIFT-10_LABO_Gameplay", true, "Completed the Stage 10 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-10_LABO_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 10 Ankou Rift", "RIFT-10_LABO_Gameplay");
-                settings.Add("RIFT-11_KAIJU_Gameplay", true, "Completed the Stage 11 Ankou Rift", "FullRifts");
-                    settings.Add("DKRIFT-11_KAIJU_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 11 Ankou Rift", "RIFT-11_KAIJU_Gameplay");
+                settings.Add("RiftRIFT-01_TEMPLE_Gameplay", true, "Completed the Stage 1 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-01_TEMPLE_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 1 Ankou Rift", "RiftRIFT-01_TEMPLE_Gameplay");
+                settings.Add("RiftRIFT-02_FACTORY_Gameplay", true, "Completed the Stage 2 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-02_FACTORY_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 2 Ankou Rift", "RiftRIFT-02_FACTORY_Gameplay");
+                settings.Add("RiftRIFT-03_VILLAGE_Gameplay", true, "Completed the Stage 3 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-03_VILLAGE_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 3 Ankou Rift", "RiftRIFT-03_VILLAGE_Gameplay");
+                settings.Add("RiftRIFT-04_HARBOR_Gameplay", true, "Completed the Stage 4 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-04_HARBOR_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 4 Ankou Rift", "RiftRIFT-04_HARBOR_Gameplay");
+                settings.Add("RiftRIFT-05_CITY_Gameplay", true, "Completed the Stage 5 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-05_CITY_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 5 Ankou Rift", "RiftRIFT-05_CITY_Gameplay");
+                settings.Add("RiftRIFT-07_MILITARY_Gameplay", true, "Completed the Stage 7 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-07_MILITARY_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 7 Ankou Rift", "RiftRIFT-07_MILITARY_Gameplay");
+                settings.Add("RiftRIFT-08_TRAIN_Gameplay", true, "Completed the Stage 8 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-08_TRAIN_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 8 Ankou Rift", "RiftRIFT-08_TRAIN_Gameplay");
+                settings.Add("RiftRIFT-09_DESERT_Gameplay", true, "Completed the Stage 9 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-09_DESERT_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 9 Ankou Rift", "RiftRIFT-09_DESERT_Gameplay");
+                settings.Add("RiftRIFT-10_LABO_Gameplay", true, "Completed the Stage 10 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-10_LABO_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 10 Ankou Rift", "RiftRIFT-10_LABO_Gameplay");
+                settings.Add("RiftRIFT-11_KAIJU_Gameplay", true, "Completed the Stage 11 Ankou Rift", "FullRifts");
+                    settings.Add("DKRIFT-11_KAIJU_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 11 Ankou Rift", "RiftRIFT-11_KAIJU_Gameplay");
             settings.Add("Bonus", true, "Bonus Stage Splits", "FullGame");
                 settings.Add("StoryBonusStage_01_Gameplay", true, "Completed the first Bonus Stage", "Bonus");
                 settings.Add("StoryBonusStage_Surf_Scene_Gameplay", true, "Completed the second Bonus Stage", "Bonus");
@@ -263,7 +263,7 @@ split
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
 
-    if(old.SceneName.Contains("RIFT-") && current.SceneName.Contains("RIFT-") && !vars.Splits.Contains("Rift" + old.SceneName))
+    if(old.SceneName.Contains("RIFT-") && !current.SceneName.Contains("RIFT-") && !vars.Splits.Contains("Rift" + old.SceneName))
     {
         return settings["Rift" + old.SceneName] && vars.Splits.Add("Rift" + old.SceneName);
     }
@@ -305,4 +305,4 @@ reset
 exit
 {
     timer.IsGameTimePaused = true;
-}s
+}
