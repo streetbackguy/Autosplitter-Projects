@@ -172,6 +172,7 @@ init
     vars.DarkKatana = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_DarkKatanaCount");
     vars.Checkpoint = vars.Helper.Make<int>("StageManager", 0, "Instance", "_SmallCheckpointID");
     vars.Menu = vars.Helper.Make<int>("MenuManager", 0, "Instance", "MenuWithFocus");
+    vars.Respawning = vars.Helper.Make<bool>("StageManager", 0, "Instance", "IsRespawning");
 
     string MD5Hash;
     using (var md5 = System.Security.Cryptography.MD5.Create())
@@ -208,6 +209,11 @@ update
         print("Menu: " + vars.Menu.Current.ToString());
     }
 
+    if(vars.Respawning.Current != vars.Respawning.Old)
+    {
+        print("Respawning: " + vars.Respawning.Current.ToString());
+    }
+
     if(vars.Menu.Old == 0 && vars.Menu.Current == 9)
     {
         vars.EliteSquad++;
@@ -231,12 +237,12 @@ start
 
 split
 {
-    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 1 && vars.Menu.Old != 20 && !vars.Splits.Contains("Story" + old.SceneName))
+    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 1 && vars.Menu.Old != 20 && !vars.Respawning && !vars.Splits.Contains("Story" + old.SceneName))
     {
         return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
 
-    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 3 && vars.Menu.Old != 20 && !vars.Splits.Contains("Arcade" + old.SceneName))
+    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 3 && vars.Menu.Old != 20 && !vars.Respawning && !vars.Splits.Contains("Arcade" + old.SceneName))
     {
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
