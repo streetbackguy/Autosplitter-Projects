@@ -241,8 +241,8 @@ split
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
 
-    if(old.SceneName == "BonusStage_01_Gameplay" && vars.GameMode.Current == 1 && current.SceneName == "Global" && !vars.Splits.Contains("Story" + old.SceneName) ||
-    old.SceneName == "BonusStage_Surf_Scene_Gameplay" && vars.GameMode.Current == 1 && current.SceneName == "Global" && !vars.Splits.Contains("Story" + old.SceneName))
+    if(old.SceneName == "BonusStage_01_Gameplay" && current.SceneName == "Global" && !vars.Splits.Contains("Story" + old.SceneName) ||
+    old.SceneName == "BonusStage_Surf_Scene_Gameplay" && current.SceneName == "Global" && !vars.Splits.Contains("Story" + old.SceneName))
     {
         return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
