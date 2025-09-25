@@ -95,8 +95,8 @@ startup
                 settings.Add("RIFT-11_KAIJU_Gameplay", true, "Completed the Stage 11 Ankou Rift", "FullRifts");
                     settings.Add("DKRIFT-11_KAIJU_Gameplay", true, "Obtain the Dark Katana Fragment in Stage 11 Ankou Rift", "RIFT-11_KAIJU_Gameplay");
             settings.Add("Bonus", true, "Bonus Stage Splits", "FullGame");
-                settings.Add("BonusStage_01_Gameplay", true, "Completed the first Bonus Stage", "Bonus");
-                settings.Add("BonusStage_Surf_Scene_Gameplay", true, "Completed the second Bonus Stage", "Bonus");
+                settings.Add("StoryBonusStage_01_Gameplay", true, "Completed the first Bonus Stage", "Bonus");
+                settings.Add("StoryBonusStage_Surf_Scene_Gameplay", true, "Completed the second Bonus Stage", "Bonus");
             settings.Add("EliteSquad", true, "Elite Squad Splits", "FullGame");
                 settings.Add("StoryEliteSquad04_Temple_Scene_Gameplay", true, "Defeat the Elite Squad in the Temple", "EliteSquad");
                 settings.Add("StoryEliteSquad01_MOUNTAIN_Scene_Gameplay", true, "Defeat the Elite Squad in The Mountainside", "EliteSquad");
@@ -231,22 +231,28 @@ start
 
 split
 {
-    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 1 && !vars.Splits.Contains("Story" + old.SceneName))
+    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 1 && vars.Menu.Old != 20 && !vars.Splits.Contains("Story" + old.SceneName))
     {
         return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
 
-    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 3 && !vars.Splits.Contains("Arcade" + old.SceneName))
+    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 3 && vars.Menu.Old != 20 && !vars.Splits.Contains("Arcade" + old.SceneName))
     {
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
 
-    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 1 && vars.Menu.Current == 23 && !vars.Splits.Contains("Story" + old.SceneName))
+    if(old.SceneName == "BonusStage_01_Gameplay" && vars.GameMode.Current == 1 && current.SceneName == "Global" && !vars.Splits.Contains("Story" + old.SceneName) ||
+    old.SceneName == "BonusStage_Surf_Scene_Gameplay" && vars.GameMode.Current == 1 && current.SceneName == "Global" && !vars.Splits.Contains("Story" + old.SceneName))
     {
         return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
 
-    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 3 && vars.Menu.Current == 22 && !vars.Splits.Contains("Arcade" + old.SceneName))
+    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 1 && vars.Menu.Current == 23 && vars.Menu.Old != 20 && !vars.Splits.Contains("Story" + old.SceneName))
+    {
+        return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
+    }
+
+    if(current.SceneName.Contains("Gameplay") && vars.GameMode.Current == 3 && vars.Menu.Current == 22 && vars.Menu.Old != 20 && !vars.Splits.Contains("Arcade" + old.SceneName))
     {
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
