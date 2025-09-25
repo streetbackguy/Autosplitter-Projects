@@ -169,7 +169,6 @@ init
     vars.KunaiUpgrade = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_KunaiUpgradeCount");
     vars.OboroRelic = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_OboroRelicCount");
     vars.SecretKey = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_SecretKeyCount");
-    vars.DarkKatana = vars.Helper.Make<int>("CharacterUpgradeManager", 0, "Instance", "_DarkKatanaCount");
     vars.Checkpoint = vars.Helper.Make<int>("StageManager", 0, "Instance", "_SmallCheckpointID");
     vars.Menu = vars.Helper.Make<int>("MenuManager", 0, "Instance", "MenuWithFocus");
     vars.Respawning = vars.Helper.Make<bool>("StageManager", 0, "Instance", "IsRespawning");
@@ -268,7 +267,7 @@ split
         return settings["Rift" + old.SceneName] && vars.Splits.Add("Rift" + old.SceneName);
     }
 
-    if(current.SceneName.Contains("RIFT-") && vars.DarkKatana.Current == vars.DarkKatana.Old + 1 && !vars.Splits.Contains("DK" + current.SceneName))
+    if(current.SceneName.Contains("RIFT-") && vars.Menu.Current == 5 && !vars.Splits.Contains("DK" + current.SceneName))
     {
         return settings["DK" + current.SceneName] && vars.Splits.Add("DK" + current.SceneName);
     }
