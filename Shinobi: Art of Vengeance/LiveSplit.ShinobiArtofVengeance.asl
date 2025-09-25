@@ -208,11 +208,6 @@ update
         print("Menu: " + vars.Menu.Current.ToString());
     }
 
-    if(vars.DarkKatana.Current != vars.DarkKatana.Old)
-    {
-        print("DarkKatana: " + vars.DarkKatana.Current.ToString());
-    }
-
     if(vars.Menu.Old == 0 && vars.Menu.Current == 9)
     {
         vars.EliteSquad++;
