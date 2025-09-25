@@ -209,9 +209,9 @@ update
         print("Menu: " + vars.Menu.Current.ToString());
     }
 
-    if(vars.Respawning.Current != vars.Respawning.Old)
+    if(vars.DarkKatana.Current != vars.DarkKatana.Old)
     {
-        print("Respawning: " + vars.Respawning.Current.ToString());
+        print("DarkKatana: " + vars.DarkKatana.Current.ToString());
     }
 
     if(vars.Menu.Old == 0 && vars.Menu.Current == 9)
@@ -237,12 +237,12 @@ start
 
 split
 {
-    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 1 && vars.Menu.Old != 20 && !vars.Respawning && !vars.Splits.Contains("Story" + old.SceneName))
+    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 1 && vars.Menu.Old != 20 && !vars.Respawning.Current && !vars.Splits.Contains("Story" + old.SceneName))
     {
         return settings["Story" + old.SceneName] && vars.Splits.Add("Story" + old.SceneName);
     }
 
-    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 3 && vars.Menu.Old != 20 && !vars.Respawning && !vars.Splits.Contains("Arcade" + old.SceneName))
+    if(current.SceneName != old.SceneName && !current.SceneName.Contains("RIFT-") && vars.GameMode.Current == 3 && vars.Menu.Old != 20 && !vars.Respawning.Current && !vars.Splits.Contains("Arcade" + old.SceneName))
     {
         return settings["Arcade" + old.SceneName] && vars.Splits.Add("Arcade" + old.SceneName);
     }
@@ -305,4 +305,4 @@ reset
 exit
 {
     timer.IsGameTimePaused = true;
-}
+}s
