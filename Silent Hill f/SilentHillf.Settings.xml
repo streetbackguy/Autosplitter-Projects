@@ -1,129 +1,185 @@
 <Settings>
 
-    <Setting Label="Split on completing Chapter" State="true">
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tagm" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-      <Setting Id="" Label="Progress Tag" State="true" />
-    </Setting>
+	<Setting Id="Game" Label="Game Splits" State="false">
+		<Setting Id="Chapter1" Label="Chapter 1" State="true">
+			<Setting Id="CH1P" Label="Progress" State="true">
+                <Setting Id="CH1C" Label="Cutscenes" State="false">
+                    <Setting Id="LS_SC0102_L1_M" Label="Head Down into Ebisugaoka" State="false"/>
+                    <Setting Id="LS_SC0107_L1_M" Label="Talking to Sakuko in the Window" State="false"/>
+                    <Setting Id="LS_SC0103_L1_M" Label="Reach General Store and meet Shu" State="false"/>
+                    <Setting Id="LS_SC0104_L1_M" Label="Escape the Fog Monster" State="false"/>
+                    <Setting Id="LS_LQ0104_L1_M" Label="First Enemy Encounter" State="false"/>
+                    <Setting Id="LS_LQ0105_L1_M" Label="Combat Introduction" State="false"/>
+                    <Setting Id="LS_SC0105_L1_M" Label="Find Sakuko's Corpse" State="false"/>
+                    <Setting Id="LS_SC0106_L1_M" Label="Enemies at Chizuruyu Store defeated" State="false"/>
+                <Setting Id="CH1KIC" Label="Key Item Collected" State="true">
+                    <Setting Id="ALW_SimpleKeyBlood_1" Label="Bloody Key" State="true" />
+                    <Setting Id="ALW_OutdoorKey_1" Label="Back Door Key" State="true" />
+            <Setting Id="Chapter2" Label="Chapter 2" State="true">
+                <Setting Id="CH2P" Label="Progress" State="true">
+                    <Setting Id="CH2C" Label="Cutscenes" State="false">
+                        <Setting Id="LS_SC0202_L1_M" Label="Exit the Grand Hall" State="false"/>
+                        <Setting Id="LS_LQ0202_L1_M" Label="Find the Kaiken" State="false"/>
+                        <Setting Id="LS_LQ0204_L1_M" Label="Find the Doll" State="false"/>
+                        <Setting Id="LS_SC0203_L1_M" Label="Escape Monsters and reach Inari Statue" State="false"/>
+                    <Setting Id="CH2KIC" Label="Key Item Collected" State="true">
+                        <Setting Id="TOR_StoneKey_1" Label="Stone Key" State="true" />
+                        <Setting Id="ALW_OutdoorKey_1" Label="Back Door Key" State="true" />
+                    <Setting Id="CH2PUZ" Label="Puzzles Completed" State="true">
+                        <Setting Id="Progress.Story.Ch02.0210_EntranceHall.0212_LightUp" Label="Altar Puzzle" State="true" />
+                        <Setting Id="Progress.Story.Ch02.0220_Torii.0224_FindPassword.04" Label="EMA Vault Key Missing Lock Piece" State="true" />
+                        <Setting Id="Progress.Story.Ch02.0220_Torii.0224_FindPassword.05" Label="EMA Vault Key Dial Lock" State="true" />
+            <Setting Id="Chapter3" Label="Chapter 3" State="true">
+                <Setting Id="CH3P" Label="Progress" State="true">
+                    <Setting Id="CH3C" Label="Cutscenes" State="false">
+                        <Setting Id="LS_SC0302_L1_M" Label="Catch up to Shu" State="false"/>
+                        <Setting Id="Progress.Story.Ch03.0310_WalkToFields.07" Label="Defeat Ara-Abare Mini-Boss" State="false"/>
+                        <Setting Id="LS_LQ0302_L1_M" Label="Escape through Storehouse Window" State="false"/>
+                        <Setting Id="LS_SC0304_L1_M" Label="Riverside Reminisce with Shu" State="false"/>
+                        <Setting Id="LS_SC0303_L1_M" Label="Reach Rinko's House" State="false"/>
+                    <Setting Id="CH3KIC" Label="Key Item Collected" State="true">
+                        <Setting Id="OCR_StorageKey_1" Label="Storehouse Key" State="true" />
+                        <Setting Id="ALW_OutdoorKey_1" Label="Back Door Key" State="true" />
+                    <Setting Id="CH3PUZ" Label="Puzzles Completed" State="true">
+                        <Setting Id="Progress.Story.Ch03.0320_FieldMaze.10" Label="Scarecrow Field Maze" State="true" />
 
-    <Setting Label="Key Item Collected Splits" State="true">
-      <Setting Id="CapsuleBox_1" Label="Capsule Box" State="true" />
-      <Setting Id="HoteiSama_1" Label="Hotei Sama" State="true" />
-      <Setting Id="ALW_OutdoorKey_1" Label="Outdoor Key" State="true" />
-      <Setting Id="SCL_HallKey_1" Label="Hall Key" State="true" />
-      <Setting Id="OCR_DoorParts_1" Label="Door Parts" State="true" />
-      <Setting Id="OCR_StoneOrb_1" Label="Stone Orb" State="true" />
-      <Setting Id="OCR_StorageKey_1" Label="Storage Key" State="true" />
-      <Setting Id="TOR_StoneKey_1" Label="Stone Key" State="true" />
-      <Setting Id="OSF_DrawerKey_1" Label="Drawer Key" State="true" />
-      <Setting Id="WHL_MarkKeySayu_1" Label="Mark Key (Sayu)" State="true" />
-      <Setting Id="WHL_MarkKeyRinko_1" Label="Mark Key (Rinko)" State="true" />
-      <Setting Id="WHL_FoxStatue_000_1" Label="Fox Statue 1" State="true" />
-      <Setting Id="WHL_FoxStatue_001_1" Label="Fox Statue 2" State="true" />
-      <Setting Id="WHL_FoxStatue_002_1" Label="Fox Statue 3" State="true" />
-      <Setting Id="WHL_Comic_1" Label="Comic" State="true" />
-      <Setting Id="OSF_DepotKey_1" Label="Depot Key" State="true" />
-      <Setting Id="ALW_SimpleKeyBlood_1" Label="Bloody Key" State="true" />
-      <Setting Id="SMZ_Block_000_1" Label="Block 1" State="true" />
-      <Setting Id="SMZ_Block_001_1" Label="Block 2" State="true" />
-      <Setting Id="SMZ_Block_002_1" Label="Block 3" State="true" />
-      <Setting Id="OSF_MailboxKey_1" Label="Mailbox Key" State="true" />
-      <Setting Id="SCL_Hairpin_1" Label="Hairpin" State="true" />
-      <Setting Id="SCL_MountainKey_1" Label="Mountain Key" State="true" />
-      <Setting Id="SMZ_Frame_1" Label="Frame" State="true" />
-      <Setting Id="SCL_KeyBoxKey_1" Label="Key Box Key" State="true" />
-      <Setting Id="SCL_StairsKey_1" Label="Stairs Key" State="true" />
-      <Setting Id="SCL_ClassKey_1" Label="Classroom Key" State="true" />
-      <Setting Id="THS_BSparrowBadge_1" Label="Black Sparrow Badge" State="true" />
-      <Setting Id="THS_WSparrowBadge_1" Label="White Sparrow Badge" State="true" />
-      <Setting Id="THS_FoxBadge_1" Label="Fox Badge" State="true" />
-      <Setting Id="SMZ_Calendar_1" Label="Calendar 1" State="true" />
-      <Setting Id="SMZ_Wax_1" Label="Wax" State="true" />
-      <Setting Id="SMZ_BirdKey_1" Label="Bird Key" State="true" />
-      <Setting Id="SMZ_GorgeousKey_1" Label="Gorgeous Key" State="true" />
-      <Setting Id="SMZ_GasPipe_1" Label="Gas Pipe" State="true" />
-      <Setting Id="SMZ_DrawerKey_1" Label="Drawer Key" State="true" />
-      <Setting Id="MTN_IronKey_1" Label="Iron Key" State="true" />
-      <Setting Id="SCL_ComicNote_1" Label="Comic Note" State="true" />
-      <Setting Id="SMZ_Calendar02_1" Label="Calendar 2" State="true" />
-      <Setting Id="CMN_PocketA_1" Label="Pocket Upgrade 1" State="true" />
-      <Setting Id="CMN_PocketB_1" Label="Pocket Upgrade 2" State="true" />
-      <Setting Id="CMN_PocketC_1" Label="Pocket Upgrade 3" State="true" />
-      <Setting Id="CMN_PocketD_1" Label="Pocket Upgrade 4" State="true" />
-      <Setting Id="CMN_PocketE_1" Label="Pocket Upgrade 5" State="true" />
-      <Setting Id="CMN_PocketF_1" Label="Pocket Upgrade 6" State="true" />
-      <Setting Id="MTN_ShuHouseKey_1" Label="Shu House Key" State="true" />
-      <Setting Id="HLS_TreasureHuntKey_1" Label="Treasure Hunt Key" State="true" />
-      <Setting Id="CMN_Brooch_1" Label="Brooch" State="true" />
-      <Setting Id="WHL_Portrait_1" Label="Portrait" State="true" />
-      <Setting Id="WHL_LightGun_1" Label="Light Gun" State="true" />
-      <Setting Id="HLS_BalconyKey_1" Label="Balcony Key" State="true" />
-      <Setting Id="WHL_RabbitBirdLantern_1" Label="Rabbit Bird Lantern" State="true" />
-      <Setting Id="WHL_RabbitFoxLantern_1" Label="Rabbit Fox Lantern" State="true" />
-      <Setting Id="SMZ_CalendarEndC_1" Label="Calendar 3" State="true" />
-      <Setting Id="SCL_LockerRoomKey_1" Label="Locker Room Key" State="true" />
-      <Setting Id="TOR_LockPart_1" Label="Lock Part" State="true" />
-      <Setting Id="SwordNotePicture_01_1" Label="Sword Note Picture 1" State="true" />
-      <Setting Id="SwordNotePicture_02_1" Label="Sword Note Picture 2" State="true" />
-      <Setting Id="SwordNotePicture_03_1" Label="Sword Note Picture 3" State="true" />
-      <Setting Id="SwordNotePicture_04_1" Label="Sword Note Picture 4" State="true" />
-      <Setting Id="SwordNotePicture_05_1" Label="Sword Note Picture 5" State="true" />
-    </Setting>
+	<Setting Label="Split on completing Chapter" State="true">
+		<Setting Id="Progress.Story.Ch02" Label="Chapter 1" State="true" />
+		<Setting Id="Progress.Story.Ch03" Label="Chapter 2" State="true" />
+		<Setting Id="Progress.Story.Ch04" Label="Chapter 3" State="true" />
+		<Setting Id="Progress.Story.Ch05" Label="Chapter 4" State="true" />
+		<Setting Id="Progress.Story.Ch06" Label="Chapter 5" State="true" />
+		<Setting Id="Progress.Story.Ch07" Label="Chapter 6" State="true" />
+		<Setting Id="Progress.Story.Ch08" Label="Chapter 7" State="true" />
+		<Setting Id="Progress.Story.Ch09" Label="Chapter 8" State="true" />
+		<Setting Id="Progress.Story.Ch10" Label="Chapter 9" State="true" />
+		<Setting Id="Progress.Story.Ch11" Label="Chapter 10" State="true" />
+		<Setting Id="Progress.Story.Ch12" Label="Chapter 11" State="true" />
+		<Setting Id="Progress.Story.Ch13" Label="Chapter 12" State="true" />
+		<Setting Id="Progress.Story.Ch14" Label="Chapter 13" State="true" />
+		<Setting Id="Progress.Story.Ch15" Label="Chapter 14" State="true" />
+		<Setting Id="Progress.Story.Ch16" Label="Chapter 15" State="true" />
+	</Setting>
 
-    <Setting Label="Omamori Collected Splits" State="true">
-      <Setting Id="Mustela_1" Label="Mustela" State="true" />
-      <Setting Id="Snake_1" Label="Snake" State="true" />
-      <Setting Id="Cat_1" Label="Cat" State="true" />
-      <Setting Id="Mirage_1" Label="Mirage" State="true" />
-      <Setting Id="Eagle_1" Label="Eagle" State="true" />
-      <Setting Id="Owl_1" Label="Owl" State="true" />
-      <Setting Id="Matsu_1" Label="Matsu" State="true" />
-      <Setting Id="Take_1" Label="Take" State="true" />
-      <Setting Id="Ume_1" Label="Ume" State="true" />
-      <Setting Id="Kuzunoha_1" Label="Kuzunoha" State="true" />
-      <Setting Id="Boar_1" Label="Boar" State="true" />
-      <Setting Id="Rabbit_1" Label="Rabbit" State="true" />
-      <Setting Id="Horse_1" Label="Horse" State="true" />
-      <Setting Id="Crow_1" Label="Crow" State="true" />
-      <Setting Id="Dog_1" Label="Dog" State="true" />
-      <Setting Id="Swallow_1" Label="Swallow" State="true" />
-      <Setting Id="Bear_1" Label="Bear" State="true" />
-      <Setting Id="Wolf_1" Label="Wolf" State="true" />
-      <Setting Id="Spider_1" Label="Spider" State="true" />
-      <Setting Id="Swordfish_1" Label="Swordfish" State="true" />
-      <Setting Id="Goat_1" Label="Goat" State="true" />
-      <Setting Id="Turtle_1" Label="Turtle" State="true" />
-      <Setting Id="Elephant_1" Label="Elephant" State="true" />
-      <Setting Id="StagBeetle_1" Label="Stag Beetle" State="true" />
-      <Setting Id="Butterfly_1" Label="Butterfly" State="true" />
-      <Setting Id="Suzuran_1" Label="Suzuran" State="true" />
-      <Setting Id="Dolphin_1" Label="Dolphin" State="true" />
-      <Setting Id="Camel_1" Label="Camel" State="true" />
-      <Setting Id="Ox_1" Label="Ox" State="true" />
-      <Setting Id="Raccoon_1" Label="Raccoon" State="true" />
-      <Setting Id="Willow_1" Label="Willow" State="true" />
-      <Setting Id="Cuckoo_1" Label="Cuckoo" State="true" />
-      <Setting Id="Shrew_1" Label="Shrew" State="true" />
-      <Setting Id="Tanuki_1" Label="Tanuki" State="true" />
-      <Setting Id="Crab_1" Label="Crab" State="true" />
-      <Setting Id="Sakura_1" Label="Sakura" State="true" />
-      <Setting Id="Hippo_1" Label="Hippo" State="true" />
-      <Setting Id="Scorpion_1" Label="Scorpion" State="true" />
-      <Setting Id="Daisy_1" Label="Daisy" State="true" />
-      <Setting Id="Kagami_1" Label="Kagami" State="true" />
-      <Setting Id="Peony_1" Label="Peony" State="true" />
-    </Setting>
+	<!-- <Setting Label="Cutscene Splits within Chapters" State="false">
+		<Setting Id="CH1C" Label="Chapter 1" State="false">
+			<Setting Id="LS_SC0102_L1_M" Label="Head Down into Ebisugaoka" State="false"/>
+			<Setting Id="LS_SC0107_L1_M" Label="Talking to Rinko" State="false"/>
+			<Setting Id="LS_SC0103_L1_M" Label="Talking to Shu and everyone" State="false"/>
+			<Setting Id="LS_SC0104_L1_M" Label="After Fog Chase" State="false"/>
+			<Setting Id="LS_LQ0104_L1_M" Label="First Enemy Encounter" State="false"/>
+			<Setting Id="LS_LQ0105_L1_M" Label="Not Rinko Enemy" State="false"/>
+			<Setting Id="LS_SC0105_L1_M" Label="whoops i missed it" State="false"/>
+			<Setting Id="LS_SC0106_L1_M" Label="Beat Enemies at Candy Shope" State="false"/>
+		</Setting>
+		<Setting Id="CH2C" Label="Chapter 2" State="false">
+			<Setting Id="LS_SC0201_L1_M" Label="Waking Up in Other World" State="false"/>
+				
+	<Setting Label="Key Item Collected Splits" State="true">
+		<Setting Id="HoteiSama_1" Label="Hotei Sama" State="true" />
+		<Setting Id="ALW_OutdoorKey_1" Label="Outdoor Key" State="true" />
+		<Setting Id="SCL_HallKey_1" Label="Hall Key" State="true" />
+		<Setting Id="OCR_DoorParts_1" Label="Door Parts" State="true" />
+		<Setting Id="OCR_StoneOrb_1" Label="Stone Orb" State="true" />
+		<Setting Id="OCR_StorageKey_1" Label="Storage Key" State="true" />
+		<Setting Id="TOR_StoneKey_1" Label="Stone Key" State="true" />
+		<Setting Id="OSF_DrawerKey_1" Label="Drawer Key" State="true" />
+		<Setting Id="WHL_MarkKeySayu_1" Label="Mark Key (Sayu)" State="true" />
+		<Setting Id="WHL_MarkKeyRinko_1" Label="Mark Key (Rinko)" State="true" />
+		<Setting Id="WHL_FoxStatue_000_1" Label="Fox Statue 1" State="true" />
+		<Setting Id="WHL_FoxStatue_001_1" Label="Fox Statue 2" State="true" />
+		<Setting Id="WHL_FoxStatue_002_1" Label="Fox Statue 3" State="true" />
+		<Setting Id="WHL_Comic_1" Label="Comic" State="true" />
+		<Setting Id="OSF_DepotKey_1" Label="Depot Key" State="true" />
+		<Setting Id="ALW_SimpleKeyBlood_1" Label="Bloody Key" State="true" />
+		<Setting Id="SMZ_Block_000_1" Label="Block 1" State="true" />
+		<Setting Id="SMZ_Block_001_1" Label="Block 2" State="true" />
+		<Setting Id="SMZ_Block_002_1" Label="Block 3" State="true" />
+		<Setting Id="OSF_MailboxKey_1" Label="Mailbox Key" State="true" />
+		<Setting Id="SCL_Hairpin_1" Label="Hairpin" State="true" />
+		<Setting Id="SCL_MountainKey_1" Label="Mountain Key" State="true" />
+		<Setting Id="SMZ_Frame_1" Label="Frame" State="true" />
+		<Setting Id="SCL_KeyBoxKey_1" Label="Key Box Key" State="true" />
+		<Setting Id="SCL_StairsKey_1" Label="Stairs Key" State="true" />
+		<Setting Id="SCL_ClassKey_1" Label="Classroom Key" State="true" />
+		<Setting Id="THS_BSparrowBadge_1" Label="Black Sparrow Badge" State="true" />
+		<Setting Id="THS_WSparrowBadge_1" Label="White Sparrow Badge" State="true" />
+		<Setting Id="THS_FoxBadge_1" Label="Fox Badge" State="true" />
+		<Setting Id="SMZ_Calendar_1" Label="Calendar 1" State="true" />
+		<Setting Id="SMZ_Wax_1" Label="Wax" State="true" />
+		<Setting Id="SMZ_BirdKey_1" Label="Bird Key" State="true" />
+		<Setting Id="SMZ_GorgeousKey_1" Label="Gorgeous Key" State="true" />
+		<Setting Id="SMZ_GasPipe_1" Label="Gas Pipe" State="true" />
+		<Setting Id="SMZ_DrawerKey_1" Label="Drawer Key" State="true" />
+		<Setting Id="MTN_IronKey_1" Label="Iron Key" State="true" />
+		<Setting Id="SCL_ComicNote_1" Label="Comic Note" State="true" />
+		<Setting Id="SMZ_Calendar02_1" Label="Calendar 2" State="true" />
+		<Setting Id="CMN_PocketA_1" Label="Pocket Upgrade 1" State="true" />
+		<Setting Id="CMN_PocketB_1" Label="Pocket Upgrade 2" State="true" />
+		<Setting Id="CMN_PocketC_1" Label="Pocket Upgrade 3" State="true" />
+		<Setting Id="CMN_PocketD_1" Label="Pocket Upgrade 4" State="true" />
+		<Setting Id="CMN_PocketE_1" Label="Pocket Upgrade 5" State="true" />
+		<Setting Id="CMN_PocketF_1" Label="Pocket Upgrade 6" State="true" />
+		<Setting Id="MTN_ShuHouseKey_1" Label="Shu House Key" State="true" />
+		<Setting Id="HLS_TreasureHuntKey_1" Label="Treasure Hunt Key" State="true" />
+		<Setting Id="CMN_Brooch_1" Label="Brooch" State="true" />
+		<Setting Id="WHL_Portrait_1" Label="Portrait" State="true" />
+		<Setting Id="WHL_LightGun_1" Label="Light Gun" State="true" />
+		<Setting Id="HLS_BalconyKey_1" Label="Balcony Key" State="true" />
+		<Setting Id="WHL_RabbitBirdLantern_1" Label="Rabbit Bird Lantern" State="true" />
+		<Setting Id="WHL_RabbitFoxLantern_1" Label="Rabbit Fox Lantern" State="true" />
+		<Setting Id="SMZ_CalendarEndC_1" Label="Calendar 3" State="true" />
+		<Setting Id="SCL_LockerRoomKey_1" Label="Locker Room Key" State="true" />
+		<Setting Id="TOR_LockPart_1" Label="Lock Part" State="true" />
+		<Setting Id="SwordNotePicture_01_1" Label="Sword Note Picture 1" State="true" />
+		<Setting Id="SwordNotePicture_02_1" Label="Sword Note Picture 2" State="true" />
+		<Setting Id="SwordNotePicture_03_1" Label="Sword Note Picture 3" State="true" />
+		<Setting Id="SwordNotePicture_04_1" Label="Sword Note Picture 4" State="true" />
+		<Setting Id="SwordNotePicture_05_1" Label="Sword Note Picture 5" State="true" />
+	</Setting>
 
-  </Settings>
+	<Setting Label="Omamori Collected Splits" State="true">
+		<Setting Id="Mustela_1" Label="Mustela" State="true" />
+		<Setting Id="Snake_1" Label="Snake" State="true" />
+		<Setting Id="Cat_1" Label="Cat" State="true" />
+		<Setting Id="Mirage_1" Label="Mirage" State="true" />
+		<Setting Id="Eagle_1" Label="Eagle" State="true" />
+		<Setting Id="Owl_1" Label="Owl" State="true" />
+		<Setting Id="Matsu_1" Label="Matsu" State="true" />
+		<Setting Id="Take_1" Label="Take" State="true" />
+		<Setting Id="Ume_1" Label="Ume" State="true" />
+		<Setting Id="Kuzunoha_1" Label="Kuzunoha" State="true" />
+		<Setting Id="Boar_1" Label="Boar" State="true" />
+		<Setting Id="Rabbit_1" Label="Rabbit" State="true" />
+		<Setting Id="Horse_1" Label="Horse" State="true" />
+		<Setting Id="Crow_1" Label="Crow" State="true" />
+		<Setting Id="Dog_1" Label="Dog" State="true" />
+		<Setting Id="Swallow_1" Label="Swallow" State="true" />
+		<Setting Id="Bear_1" Label="Bear" State="true" />
+		<Setting Id="Wolf_1" Label="Wolf" State="true" />
+		<Setting Id="Spider_1" Label="Spider" State="true" />
+		<Setting Id="Swordfish_1" Label="Swordfish" State="true" />
+		<Setting Id="Goat_1" Label="Goat" State="true" />
+		<Setting Id="Turtle_1" Label="Turtle" State="true" />
+		<Setting Id="Elephant_1" Label="Elephant" State="true" />
+		<Setting Id="StagBeetle_1" Label="Stag Beetle" State="true" />
+		<Setting Id="Butterfly_1" Label="Butterfly" State="true" />
+		<Setting Id="Suzuran_1" Label="Suzuran" State="true" />
+		<Setting Id="Dolphin_1" Label="Dolphin" State="true" />
+		<Setting Id="Camel_1" Label="Camel" State="true" />
+		<Setting Id="Ox_1" Label="Ox" State="true" />
+		<Setting Id="Raccoon_1" Label="Raccoon" State="true" />
+		<Setting Id="Willow_1" Label="Willow" State="true" />
+		<Setting Id="Cuckoo_1" Label="Cuckoo" State="true" />
+		<Setting Id="Shrew_1" Label="Shrew" State="true" />
+		<Setting Id="Tanuki_1" Label="Tanuki" State="true" />
+		<Setting Id="Crab_1" Label="Crab" State="true" />
+		<Setting Id="Sakura_1" Label="Sakura" State="true" />
+		<Setting Id="Hippo_1" Label="Hippo" State="true" />
+		<Setting Id="Scorpion_1" Label="Scorpion" State="true" />
+		<Setting Id="Daisy_1" Label="Daisy" State="true" />
+		<Setting Id="Kagami_1" Label="Kagami" State="true" />
+		<Setting Id="Peony_1" Label="Peony" State="true" />
+	</Setting> -->
+
+</Settings>
