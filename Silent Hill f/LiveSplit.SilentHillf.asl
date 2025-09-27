@@ -5,7 +5,7 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
     Assembly.Load(File.ReadAllBytes("Components/uhara9")).CreateInstance("Main");
-    // vars.Helper.Settings.CreateFromXml("Components/SilentHillf.Settings.xml");
+    vars.Helper.Settings.CreateFromXml("Components/SilentHillf.Settings.xml");
     vars.Helper.GameName = "Silent Hill f";
     vars.Helper.AlertLoadless();
     vars.Uhara.EnableDebug();
