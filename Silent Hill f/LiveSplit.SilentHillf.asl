@@ -115,7 +115,6 @@ update
     {
         if (current.CutsceneName != 0)
         {
-            print(current.CutsceneName.ToString("X"));
             string cutscene = vars.FNameToString(current.CutsceneName);
             if (!string.IsNullOrEmpty(cutscene) && cutscene != "None")
             {
@@ -161,6 +160,7 @@ split
                     vars.FNameCache[item] = vars.FNameToString(item);
                 }
                 setting = vars.FNameCache[item] + "_" + collected;
+                vars.Log(vars.FNameCache[item].ToString());
             }
 
             if (!string.IsNullOrEmpty(setting) && settings.ContainsKey(setting) && settings[setting] && !vars.CompletedSplits.Contains(setting))
@@ -210,6 +210,14 @@ split
 		}
 	}
 
+    // Cutscene Splits
+    if (old.Cutscene != current.Cutscene)
+    {
+        return settings[current.Cutscene] && vars.CompletedSplits.Add(current.Cutscene);
+        vars.Log("Split complete: " + current.Cutscene);
+    }
+
+    // Progress Splits
     if ((current.Progress.EndsWith("Easy") || current.Progress.EndsWith("Normal") || current.Progress.EndsWith("Hard")) && !vars.CompletedSplits.Contains(current.Progress))
     {
         string baseProgress = current.Progress;
@@ -221,10 +229,12 @@ split
             baseProgress = baseProgress.Substring(0, baseProgress.Length - 5);
 
         return settings[baseProgress] && vars.CompletedSplits.Add(baseProgress);
+        vars.Log("Split complete: " + baseProgress);
     }
     else if (current.Progress != old.Progress && !vars.CompletedSplits.Contains(current.Progress))
     {
         return settings[current.Progress] && vars.CompletedSplits.Add(current.Progress);
+        vars.Log("Split complete: " + current.Progress);
     }
 }
 
