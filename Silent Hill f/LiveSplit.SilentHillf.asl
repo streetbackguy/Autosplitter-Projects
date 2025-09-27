@@ -5,7 +5,7 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
     Assembly.Load(File.ReadAllBytes("Components/uhara9")).CreateInstance("Main");
-    vars.Helper.Settings.CreateFromXml("Components/SilentHillf.Settings.xml");
+    // vars.Helper.Settings.CreateFromXml("Components/SilentHillf.Settings.xml");
     vars.Helper.GameName = "Silent Hill f";
     vars.Helper.AlertLoadless();
     vars.Uhara.EnableDebug();
@@ -92,7 +92,7 @@ init
     
     vars.CutsceneIndex = -1;
     current.Cutscene = "";
-    current.Test = "";
+    current.Progress = "";
     current.World = "";
 }
 
@@ -130,6 +130,10 @@ update
     var world = vars.FNameToString(current.GWorldName);
 	if (!string.IsNullOrEmpty(world) && world != "None") current.World = world;
     if (old.World != current.World) vars.Log("World: " + current.World);
+
+    var progress = vars.FNameToString(current.ProgressTag);
+	if (!string.IsNullOrEmpty(progress) && progress != "None") current.Progress = progress;
+    if (old.Progress != current.Progress) vars.Log("Progress: " + current.Progress);
 
     // var test = vars.FNameToShortString2(current.KeyItems);
 	// if (!string.IsNullOrEmpty(test)) current.Test = test;
@@ -205,12 +209,29 @@ split
 			// vars.Log(setting);
 		}
 	}
+
+    if ((current.Progress.EndsWith("Easy") || current.Progress.EndsWith("Normal") || current.Progress.EndsWith("Hard")) && !vars.CompletedSplits.Contains(current.Progress))
+    {
+        string baseProgress = current.Progress;
+        if (baseProgress.EndsWith("Easy"))
+            baseProgress = baseProgress.Substring(0, baseProgress.Length - 5);
+        else if (baseProgress.EndsWith("Normal"))
+            baseProgress = baseProgress.Substring(0, baseProgress.Length - 7);
+        else if (baseProgress.EndsWith("Hard"))
+            baseProgress = baseProgress.Substring(0, baseProgress.Length - 5);
+
+        return settings[baseProgress] && vars.CompletedSplits.Add(baseProgress);
+    }
+    else if (current.Progress != old.Progress && !vars.CompletedSplits.Contains(current.Progress))
+    {
+        return settings[current.Progress] && vars.CompletedSplits.Add(current.Progress);
+    }
 }
 
 isLoading
 {
-    return current.World == "NoceEntry" || current.bWaitForRevive || !current.IsGameInitialized || current.isLoading 
-    || !string.IsNullOrEmpty(current.Cutscene) || vars.FNameToShortString2(current.LocalPlayer) != "BP_Pl_Hina_PlayerController_C_";
+    return current.World == "NoceEntry" || current.bWaitForRevive || !current.IsGameInitialized ||
+     !string.IsNullOrEmpty(current.Cutscene) || vars.FNameToShortString2(current.LocalPlayer) != "BP_Pl_Hina_PlayerController_C_";
 }
 
 exit
