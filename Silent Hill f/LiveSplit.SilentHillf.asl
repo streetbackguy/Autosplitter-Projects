@@ -85,7 +85,7 @@ init
 // Look for when character has control as starting point
 start
 {
-    return old.Cutscene == "LS_SC0101_L1_M" && current.Cutscene != "LS_SC0101_L1_M" && !current.bIsInEvent;
+    return old.Cutscene.Contains("LS_SC0101_L") && !current.Cutscene.Contains("LS_SC0101_L") && !current.bIsInEvent;
 }
 
 onStart
