@@ -2,21 +2,95 @@
 // Improvements on Memory Addresses and Load Refinement by PlayingLikeAss (aposteriorist)
 
 
-state("LikeADragonPirates", "Steam 1.10")
+state("likeadragongaiden", "Steam 1.22")
+{
+    long FileTimer: 0x3826D58, 0x358;
+    long KiryuHP:   0x3826D58, 0x3A8;
+    long Money:     0x3826D58, 0x420, 0x8;
+    short Plot:     0x3826D58, 0x730;
+    int HActAdj:    0x383CC00, 0xC0, 0x8, 0x18, 0x2B4; // 0x383CE40 alt.
+    string60 Magic: 0x383CC00, 0xC0, 0x8, 0x18, 0x7F2;
+    bool Loads:     0x383E780, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383E780, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383E780, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383E780, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383E780, 0xC0, 0x10, 0x6C4;
+}
+
+state("likeadragongaiden", "Steam 1.21")
 {
     long FileTimer: 0x3826D28, 0x358;
+    long KiryuHP:   0x3826D28, 0x3A8;
     long Money:     0x3826D28, 0x420, 0x8;
     short Plot:     0x3826D28, 0x730;
     int HActAdj:    0x383CBC0, 0xC0, 0x8, 0x18, 0x2B4;
     string60 Magic: 0x383CBC0, 0xC0, 0x8, 0x18, 0x7F2;
     bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
     bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383E740, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
+}
+
+state("likeadragongaiden", "Steam 1.20") 
+{
+    long FileTimer: 0x3826D18, 0x358;
+    long KiryuHP:   0x3826D18, 0x3A8;
+    long Money:     0x3826D18, 0x420, 0x8;
+    short Plot:     0x3826D18, 0x730;
+    int HActAdj:    0x383CBC0, 0xC0, 0x8, 0x18, 0x2B4;
+    string60 Magic: 0x383CBC0, 0xC0, 0x8, 0x18, 0x7F2;
+    bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383E740, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
+}
+
+state("likeadragongaiden", "Steam 1.12") 
+{
+    long FileTimer: 0x3826D10, 0x358;
+    long KiryuHP:   0x3826D10, 0x3A8;
+    long Money:     0x3826D10, 0x420, 0x8;
+    short Plot:     0x3826D10, 0x730;
+    int HActAdj:    0x383CBC0, 0xC0, 0x8, 0x18, 0x2B4;
+    string60 Magic: 0x383CBC0, 0xC0, 0x8, 0x18, 0x7F2;
+    bool Loads:     0x383E740, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383E740, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383E740, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x383E740, 0xC0, 0x10, 0x684;
+    bool Costello:  0x383E740, 0xC0, 0x10, 0x6C4;
+}
+
+state("likeadragongaiden", "Steam 1.10") // To-Do
+{
+    long FileTimer: 0x3823CA8, 0x358;
+    long Money:     0x3823CA8, 0x420, 0x8;
+    short Plot:     0x3823CA8, 0x730;
+    bool Loads:     0x383B6C0, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x383B6C0, 0xC0, 0x10, 0x554;
+    bool Pause:     0x383B6C0, 0xC0, 0x10, 0x574;
+}
+
+state("likeadragongaiden", "M Store 1.20 - 1.21")
+{
+    long FileTimer: 0x2DAB0D0, 0x358;
+    long KiryuHP:   0x2DAB0D0, 0x3A8;
+    long Money:     0x2DAB0D0, 0x420, 0x8;
+    short Plot:     0x2DAB0D0, 0x730;
+    int HActAdj:    0x2DD8C40, 0xC0, 0x8, 0x18, 0x2B4;
+    string60 Magic: 0x2DD8C40, 0xC0, 0x8, 0x18, 0x7F2;
+    bool Loads:     0x2DDA7C0, 0xC0, 0x10, 0x35C;
+    bool Starter:   0x2DDA7C0, 0xC0, 0x10, 0x554;
+    bool Pause:     0x2DDA7C0, 0xC0, 0x10, 0x574;
+    bool Abbott:    0x2DDA7C0, 0xC0, 0x10, 0x684;
+    bool Costello:  0x2DDA7C0, 0xC0, 0x10, 0x6C4;
 }
 
 init 
 {
     // Needs to be explicitly set for things to function appropriately
-    refreshRate = 60;
+    refreshRate = 30;
 
     // Pointer table offset for the QTE (to be set below in the switch)
     vars.Cucco = 0;
@@ -62,12 +136,35 @@ init
 
             switch (MD5Hash)
             {
+                case "A504AE35E0EB5254E40B494B6CB4C4F2": // Memory size: 433803264
+                    version = "Steam 1.22";
+                    vars.Cucco = 0x382A780;
+                    break;
+
                 case "50EF74E7E7F287CE08ACF5B89D51DBF1": // Memory size: 426950656 
+                    version = "Steam 1.21";
+                    vars.Cucco = 0x382A740;
+                    break;
+
+                case "E6031417A5A3B7819DDCD26359860AB0": // Memory size: 439140352
+                    version = "Steam 1.20";
+                    vars.Cucco = 0x382A740;
+                    break;
+
+                case "27B67CD71627BF7096823BDF038B7AD1":
+                    version = "Steam 1.12";
+                    vars.Cucco = 0x382A740;
+                    break;
+
+                case "859CDDBEC2B6F5B890CD4A96BBCFCFCC":
                     version = "Steam 1.10";
+                    vars.Cucco = 0x382A740; // TO-DO
                     break;
 
                 default:
+                    MessageBox.Show("ASL won't work for the moment. Send PLA this: " + MD5Hash);
                     version = "Unknown";
+                    vars.Cucco = 0;
                     break;
             }
         }
@@ -81,7 +178,7 @@ init
 
     else
     {
-        version = "M Store 1.20 - 1.21"; // Memory sizes: 337735680, 337424384
+        version = "M Store 1.20 - 1.21"; // Memory sizes: 337735680, 337424384, 332951552
         vars.Cucco = 0x2DC6760;
     }
 }
@@ -142,7 +239,7 @@ startup
         settings.Add("btl05_0100", false, "Ch.5: Shishitani and Friends", "FIGHTS");
         settings.Add("btl05_0200", false, "Ch.5: Breakup Brouhaha", "FIGHTS");
         settings.Add("btl05_0300", false, "Ch.5: Shirts v. Skins", "FIGHTS");
-        settings.Add("END", false, "Ch.5: Final Boss", "FIGHTS");
+        // settings.Add("END", false, "Ch.5: Final Boss", "FIGHTS");
 
     settings.Add("SETPIECES", false, "Setpiece Splits (before boss)", "LADG");
         settings.Add("btl01_1200", false, "Ch.1: Daidoji Temple", "SETPIECES");
@@ -194,6 +291,7 @@ update
 
     else if (vars.LoadCount > 0)
     {
+        print("LC: " + vars.LoadCount.ToString());
         vars.LoadCount = 0;
         vars.IsLoading = true;
     }
@@ -252,7 +350,8 @@ split
             vars.QTE = null;
             vars.FinalQTE = false;
             vars.Splits.Add(271);
-            return settings["END"];
+            // return settings["END"];
+            return false;
         }
 
         else if (result == 0x100000000)
