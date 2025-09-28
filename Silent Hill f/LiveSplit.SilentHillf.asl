@@ -69,7 +69,7 @@ init
     vars.Helper["LocalPlayer"] = vars.Helper.Make<ulong>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x18);
     vars.Helper["AcknowledgedPawn"] = vars.Helper.Make<ulong>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x338, 0x18);
     vars.Helper["AcknowledgedPawn"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
-    vars.Helper["bIsInEvent"] = vars.Helper.Make<ulong>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x298, 0x708);
+    vars.Helper["bIsInEvent"] = vars.Helper.Make<bool>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x298, 0x708);
 
     vars.Helper["isLoading"] = vars.Helper.Make<bool>(gSyncLoad);
     vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
@@ -80,12 +80,18 @@ init
     current.Progress = "";
     current.World = "";
     current.Item = "";
+    current.bIsInEvent = false;
+    vars.cutsceneStarted = false;
 }
 
 // Look for when character has control as starting point
 start
 {
-    return old.Cutscene.Contains("LS_SC0101_L") && !current.Cutscene.Contains("LS_SC0101_L") && !current.bIsInEvent;
+    if (current.Cutscene.Contains("LS_SC0101"))
+    {
+        vars.cutsceneStarted = true;
+    }
+    return vars.cutsceneStarted && current.World == "NoceWorld" && !current.bIsInEvent;
 }
 
 onStart
@@ -110,19 +116,19 @@ update
         else current.Cutscene = "";
     }
 
-    if (old.Cutscene != current.Cutscene) vars.Log("Cutscene: " + current.Cutscene);
+    // if (old.Cutscene != current.Cutscene) vars.Log("Cutscene: " + current.Cutscene);
 
     var world = vars.FNameToString(current.GWorldName);
     if (!string.IsNullOrEmpty(world) && world != "None") current.World = world;
-    if (old.World != current.World) vars.Log("World: " + current.World);
+    // if (old.World != current.World) vars.Log("World: " + current.World);
 
     var progress = vars.FNameToString(current.ProgressTag);
     if (!string.IsNullOrEmpty(progress) && progress != "None" && current.World == "NoceWorld") current.Progress = progress;
-    if (old.Progress != current.Progress) vars.Log("Progress: " + current.Progress);
+    // if (old.Progress != current.Progress) vars.Log("Progress: " + current.Progress);
 
     var item = vars.FNameToString(current.LastAddedID);
     if (!string.IsNullOrEmpty(item) && item != "None") current.Item = item;
-    if (old.Item != current.Item) vars.Log("Item: " + current.Item);
+    // if (old.Item != current.Item) vars.Log("Item: " + current.Item);
 }
 
 split
