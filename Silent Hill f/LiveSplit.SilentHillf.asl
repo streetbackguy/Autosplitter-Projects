@@ -1,3 +1,4 @@
+// Autosplitter and Load Remover made by Nikoheart and Streetbackguy
 state("SHf-Win64-Shipping"){}
 state("SHf-WinGDK-Shipping"){}
 
@@ -16,7 +17,6 @@ init
 	IntPtr gWorld = vars.Helper.ScanRel(3, "48 8B 05 ???????? 48 85 C0 75 ?? 48 83 C4 ?? 5B");
 	IntPtr gEngine = vars.Helper.ScanRel(3, "48 8B 0D ???????? 48 8B BC 24 ???????? 48 8B 9C 24");
 	IntPtr fNames = vars.Helper.ScanRel(3, "48 8D 0D ???????? E8 ???????? C6 05 ?????????? 0F 10 07");
-	// IntPtr gSyncLoad = vars.Helper.ScanRel(21, "33 C0 0F 57 C0 F2 0F 11 05");
 
 	vars.CompletedSplits = new HashSet<string>();
 	vars.GEngine = gEngine;
@@ -27,52 +27,24 @@ init
 	if (gWorld == IntPtr.Zero || gEngine == IntPtr.Zero || fNames == IntPtr.Zero)
 		throw new Exception("Not all required addresses could be found by scanning.");
 
-	// vars.FNameToString = (Func<ulong, string>)(fName =>
-	// {
-	// 	var nameIdx = (fName & 0x000000000000FFFF) >> 0x00;
-	// 	var chunkIdx = (fName & 0x00000000FFFF0000) >> 0x10;
-	// 	var number = (fName & 0xFFFFFFFF00000000) >> 0x20;
-
-	// 	IntPtr chunk = vars.Helper.Read<IntPtr>(fNames + 0x10 + (int)chunkIdx * 0x8);
-	// 	IntPtr entry = chunk + (int)nameIdx * sizeof(short);
-	// 	int length = vars.Helper.Read<short>(entry) >> 6;
-	// 	string name = vars.Helper.ReadString(length, ReadStringType.UTF8, entry + sizeof(short));
-
-	// 	return number == 0 ? name : name + "_" + number;
-	// });
-
-	// vars.FNameToShortString = (Func<uint, string>)(fName =>
-	// {
-	//     string name = vars.Events.FNameToString(fName);
-	//     int dot = name.LastIndexOf('.');
-	//     int slash = name.LastIndexOf('/');
-	//     return name.Substring(Math.Max(dot, slash) + 1);
-	// });
-
 	vars.FNameToShortString = (Func<uint, string>)(fName =>
-	{
-		string name = vars.Events.FNameToString(fName);
-		int under = name.LastIndexOf('_');
-		return name.Substring(0, under + 1);
-	});
+    {
+        string name = vars.Events.FNameToString(fName);
+        int under = name.LastIndexOf('_');
+        return under >= 0 ? name.Substring(0, under + 1) : name;
+    });
 
-	// uhara helpers
 	vars.Events = vars.Uhara.CreateTool("UnrealEngine", "Events");
 	IntPtr WBP_Cutscene_C = vars.Events.InstancePtr("WBP_Cutscene_C", "");
 	vars.Helper["CutsceneName"] = vars.Helper.Make<uint>(WBP_Cutscene_C, 0x460);
 	vars.Helper["CutsceneName"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 
-	// asl-help helpers
 	vars.Helper["GWorldName"] = vars.Helper.Make<uint>(gWorld, 0x18);
 	vars.Helper["IsGameInitialized"] = vars.Helper.Make<bool>(gWorld, 0x158, 0x37A);
 	vars.Helper["bWaitForRevive"] = vars.Helper.Make<bool>(gWorld, 0x158, 0x3B1);
 	vars.Helper["ProgressTag"] = vars.Helper.Make<uint>(gWorld, 0x160, 0x328, 0x250);
-	// vars.Helper["ViewedCutscenes"] = vars.Helper.Make<uint>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x298, 0x598);
-	// vars.Helper["LastAddedType"] = vars.Helper.Make<uint>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x298, 0x408, 0xD0);
 	vars.Helper["LastAddedID"] = vars.Helper.Make<uint>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x298, 0x408, 0xD4);
 	vars.Helper["LocalPlayer"] = vars.Helper.Make<uint>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x18);
-	// vars.Helper["AcknowledgedPawn"] = vars.Helper.Make<ulong>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x338, 0x18);
-	// vars.Helper["AcknowledgedPawn"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 	vars.Helper["bIsInEvent"] = vars.Helper.Make<bool>(gEngine, 0x10A8, 0x38, 0x0, 0x30, 0x298, 0x708);
 	
 	current.Cutscene = "";
@@ -84,15 +56,16 @@ init
 	vars.cutsceneActive = false;
 	vars.cutsceneHold = false;
 	vars.NGPItemCollected = false;
-	
 	current.LocalPlayer = 0;
+    vars.localPlayerShort = "";
 
-	vars.CutscenesToWatch = new HashSet<string>() 
+	vars.CutscenesToHold = new HashSet<string>() 
 	{ 
 		"LS_SC0106",
 		"LS_SC0203", 
 		"LS_SC0303", 
 		"LS_SC0404", 
+        "LS_LQ0506",
 		"LS_SC0504",
 		"LS_SC0604",
 		"LS_SC0704",
@@ -102,11 +75,9 @@ init
 		"LS_SC1202",
 		"LS_SC1301",
 		"LS_SC1402",
-		
 	};
 }
 
-// Look for when character has control as starting point
 start
 {
 	if (current.Cutscene.Contains("LS_SC0101"))
@@ -128,7 +99,18 @@ update
 	vars.Helper.Update();
 	vars.Helper.MapPointers();
 
-	if (old.bIsInEvent != current.bIsInEvent) vars.Log("bIsInEvent: " + current.bIsInEvent);
+	// Store previous value somewhere in vars
+    string oldLocalPlayerShort = vars.localPlayerShort ?? "";  
+
+    // Get current
+    vars.localPlayerShort = vars.FNameToShortString(current.LocalPlayer);
+
+    // Compare
+    if (vars.localPlayerShort != oldLocalPlayerShort)
+    {
+        vars.Log("LocalPlayer short changed: " + vars.localPlayerShort);
+    }
+
 
 	string cutscene = vars.Events.FNameToString(current.CutsceneName); 
 	string newCutscene = (!string.IsNullOrEmpty(cutscene) && cutscene != "None") ? cutscene : "";
@@ -176,10 +158,7 @@ split
 	// Cutscene Splits
 	if (old.Cutscene != current.Cutscene && !string.IsNullOrEmpty(current.Cutscene))
     {
-        string baseCutscene = current.Cutscene;
-        int idx = baseCutscene.IndexOf("_L");
-        if (idx > 0)
-            baseCutscene = baseCutscene.Substring(0, idx);
+        string baseCutscene = current.Cutscene.Substring(0, 9);
 
         if (settings.ContainsKey(baseCutscene) && settings[baseCutscene] 
             && !vars.CompletedSplits.Contains(baseCutscene))
@@ -189,6 +168,37 @@ split
             didSplit = true;
         }
     }
+
+    // if (old.Cutscene != current.Cutscene && !string.IsNullOrEmpty(current.Cutscene))
+    // {
+    //     vars.Log("--- Cutscene Split Check Start ---");
+    //     vars.Log("Old Cutscene: " + (old.Cutscene ?? "null"));
+    //     vars.Log("Current Cutscene: " + current.Cutscene);
+
+    //     string baseCutscene = current.Cutscene;
+    //     int idx = baseCutscene.IndexOf("_L");
+    //     vars.Log("Index of '_L': " + idx);
+
+    //     if (idx > 0)
+    //         baseCutscene = baseCutscene.Substring(0, idx);
+
+    //     vars.Log("Base Cutscene after substring: " + baseCutscene);
+
+    //     if (!settings.ContainsKey(baseCutscene))
+    //         vars.Log("Cutscene not found in settings: " + baseCutscene);
+    //     else if (!settings[baseCutscene])
+    //         vars.Log("Cutscene found in settings but disabled: " + baseCutscene);
+    //     else if (vars.CompletedSplits.Contains(baseCutscene))
+    //         vars.Log("Cutscene already completed: " + baseCutscene);
+    //     else
+    //     {
+    //         vars.Log("--- Cutscene Split Complete: " + baseCutscene);
+    //         vars.CompletedSplits.Add(baseCutscene);
+    //         didSplit = true;
+    //     }
+
+    //     vars.Log("--- Cutscene Split Check End ---");
+    // }
 
 	// Progress Splits
 	if (!vars.CompletedSplits.Contains(current.Progress))
@@ -201,6 +211,8 @@ split
 			baseProgress = baseProgress.Substring(0, baseProgress.Length - 7);
 		else if (baseProgress.EndsWith("Hard"))
 			baseProgress = baseProgress.Substring(0, baseProgress.Length - 5);
+		else if (baseProgress.StartsWith("Progress.Story.Ch16"))
+			baseProgress = baseProgress.Substring(0, baseProgress.Length - 1);
 
 		if (settings.ContainsKey(baseProgress) && settings[baseProgress] && !vars.CompletedSplits.Contains(baseProgress))
 		{
@@ -267,13 +279,13 @@ isLoading
 	}
 
 	if (!vars.cutsceneHold && !string.IsNullOrEmpty(current.Cutscene) 
-		&& vars.CutscenesToWatch.Contains(current.Cutscene.Substring(0, 9)))
+		&& vars.CutscenesToHold.Contains(current.Cutscene.Substring(0, 9)))
 	{
 		vars.cutsceneHold = true;
 	}
 
 	if (vars.cutsceneHold && !string.IsNullOrEmpty(current.Cutscene) 
-		&& !vars.CutscenesToWatch.Contains(current.Cutscene.Substring(0, 9)))
+		&& !vars.CutscenesToHold.Contains(current.Cutscene.Substring(0, 9)))
 	{
 		vars.cutsceneHold = false;
 	}
@@ -283,10 +295,10 @@ isLoading
 
 reset
 {
-    if (current.Cutscene.Contains("LS_SC0101") && old.Cutscene == "")
-	{
-		return true;
-	}
+    if (settings["AutoReset"] && current.Cutscene.Contains("LS_SC0101") && old.Cutscene == "")
+    {
+        return true;
+    }
 }
 
 exit
