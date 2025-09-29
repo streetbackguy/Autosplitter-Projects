@@ -281,6 +281,14 @@ isLoading
 	return loading || loading2;
 }
 
+reset
+{
+    if (current.Cutscene.Contains("LS_SC0101") && old.Cutscene == "")
+	{
+		return true;
+	}
+}
+
 exit
 {
 	timer.IsGameTimePaused = true;
