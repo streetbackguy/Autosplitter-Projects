@@ -1,4 +1,5 @@
 <Settings>
+	<Setting Id="AutoReset" Label="Auto-Reset upon New Game's Intro Cutscene" State="false"/>
 	<Setting Id="Game" Label="Game Splits" State="false">
 		<Setting Id="Chapter1" Label="Chapter 1" State="true">
 			<Setting Id="CH1P" Label="Progress" State="true">
@@ -11,27 +12,27 @@
 				<Setting Id="LS_SC0105" Label="Find Sakuko's Corpse" State="false"/>
 				<Setting Id="LS_SC0106" Label="Enemies at Chizuruyu Store defeated" State="false"/>
                 <Setting Id="Progress.Story.Ch02" Label="Chapter 1 Finished" State="true" />
-				<Setting Id="CH1KIC" Label="Key Item Collected" State="true">
-					<Setting Id="ALW_SimpleKeyBlood" Label="Bloody Key" State="true" />
-					<Setting Id="ALW_OutdoorKey" Label="Back Door Key" State="true" />
-				</Setting>
+			</Setting>
+			<Setting Id="CH1KIC" Label="Key Item Collected" State="true">
+				<Setting Id="ALW_SimpleKeyBlood" Label="Bloody Key" State="true" />
+				<Setting Id="ALW_OutdoorKey" Label="Back Door Key" State="true" />
 			</Setting>
 		</Setting>
 
 		<Setting Id="Chapter2" Label="Chapter 2" State="true">
 			<Setting Id="CH2P" Label="Progress" State="true">
 				<Setting Id="LS_LQ0202" Label="Find the Kaiken" State="false"/>
-				<Setting Id="LS_LQ0204" Label="Find the Doll" State="false"/>
+				<Setting Id="LS_LQ0203" Label="Find the Doll" State="false"/>
 				<Setting Id="LS_SC0203" Label="Escape Monsters and reach Inari Statue" State="false"/>
                 <Setting Id="Progress.Story.Ch03" Label="Chapter 2 Finished" State="true" />
-				<Setting Id="CH2KIC" Label="Key Item Collected" State="true">
-                    <Setting Id="TOR_LockPart" Label="Vault Key Dial Lock" State="true" />
-                    <Setting Id="TOR_Stonekey" Label="Stone Key" State="true" />
-				</Setting>
-				<Setting Id="CH2PUZ" Label="Puzzles Completed" State="true">
-					<Setting Id="Progress.Story.Ch02.0210_EntranceHall.0212_LightUp" Label="Altar Puzzle" State="true" />
-					<Setting Id="Progress.Story.Ch02.0220_Torii.0224_FindPassword.05" Label="EMA Vault Key Dial Lock" State="true" />
-				</Setting>
+			</Setting>
+			<Setting Id="CH2KIC" Label="Key Item Collected" State="true">
+				<Setting Id="TOR_LockPart" Label="Vault Key Dial Lock" State="true" />
+				<Setting Id="TOR_Stonekey" Label="Stone Key" State="true" />
+			</Setting>
+			<Setting Id="CH2PUZ" Label="Puzzles Completed" State="true">
+				<Setting Id="Progress.Story.Ch02.0210_EntranceHall.0212_LightUp" Label="Altar Puzzle" State="true" />
+				<Setting Id="Progress.Story.Ch02.0220_Torii.0224_FindPassword.05" Label="EMA Vault Key Dial Lock" State="true" />
 			</Setting>
 		</Setting>
 
@@ -41,12 +42,12 @@
 				<Setting Id="LS_LQ0302" Label="Escape through Storehouse Window" State="false"/>
 				<Setting Id="LS_SC0304" Label="Riverside Reminisce with Shu" State="false"/>
                 <Setting Id="Progress.Story.Ch04" Label="Chapter 3 Finished" State="true" />
-				<Setting Id="CH3KIC" Label="Key Item Collected" State="true">
-					<Setting Id="OSF_DepotKey" Label="Storehouse Key" State="true" />
-				</Setting>
-				<Setting Id="CH3PUZ" Label="Puzzles Completed" State="true">
-					<Setting Id="Progress.Story.Ch03.0320_FieldMaze.10" Label="Scarecrow Field Maze" State="true" />
-				</Setting>
+			</Setting>
+			<Setting Id="CH3KIC" Label="Key Item Collected" State="true">
+				<Setting Id="OSF_DepotKey" Label="Storehouse Key" State="true" />
+			</Setting>
+			<Setting Id="CH3PUZ" Label="Puzzles Completed" State="true">
+				<Setting Id="Progress.Story.Ch03.0320_FieldMaze.10" Label="Scarecrow Field Maze" State="true" />
 			</Setting>
 		</Setting>
 
@@ -57,14 +58,14 @@
 				<Setting Id="LS_SC0402" Label="Insert Stone Orb into Inari Statue" State="false"/>
 				<Setting Id="LS_SC0404" Label="Sakuko Boss Defeated" State="false"/>
                 <Setting Id="Progress.Story.Ch05" Label="Chapter 4 Finished" State="true" />
-				<Setting Id="CH4KIC" Label="Key Item Collected" State="true">
-					<Setting Id="OCR_StorageKey" Label="Storage Key" State="true" />
-					<Setting Id="OCR_DoorParts" Label="Inari Sculpture" State="true" />
-					<Setting Id="OCR_StoneOrb" Label="Stone Orb" State="true" />
-				</Setting>
-				<Setting Id="CH4PUZ" Label="Puzzles Completed" State="true">
-					<Setting Id="Progress.Story.Ch04.0410_ReachGate.11" Label="Placed Inari Sculpture" State="true" />
-				</Setting>
+			</Setting>
+			<Setting Id="CH4KIC" Label="Key Item Collected" State="true">
+				<Setting Id="OCR_StorageKey" Label="Storage Key" State="true" />
+				<Setting Id="OCR_DoorParts" Label="Inari Sculpture" State="true" />
+				<Setting Id="OCR_StoneOrb" Label="Stone Orb" State="true" />
+			</Setting>
+			<Setting Id="CH4PUZ" Label="Puzzles Completed" State="true">
+				<Setting Id="Progress.Story.Ch04.0410_ReachGate.11" Label="Placed Inari Sculpture" State="true" />
 			</Setting>
 		</Setting>
 
@@ -75,35 +76,35 @@
 				<Setting Id="LS_LQ0504" Label="Navigate Back-Alleys to Shu and Rinko" State="false"/>
 				<Setting Id="LS_SC0502" Label="Reach the Middle School and Enter" State="false"/>
                 <Setting Id="Progress.Story.Ch06" Label="Chapter 5 Finished" State="true" />
-				<Setting Id="CH5KIC" Label="Key Item Collected" State="true">
-					<Setting Id="SCL_Hairpin" Label="Hairpin (Story Difficulty)" State="true" />
-					<Setting Id="SCL_StairsKey" Label="Main Building 2F Stair Key" State="true" />
-					<Setting Id="SCL_ClassKey" Label="Second Floor Classroom Generic Key" State="true" />
-					<Setting Id="Item_ToTeacher" Label="Old Annex Main Gate Key" State="true" />
-					<Setting Id="SCL_LockerRoomKey" Label="Locker Room Key" State="true" />
-					<Setting Id="SCL_KeyBoxKey" Label="Key Cabinet Key" State="true" />
-					<Setting Id="SCL_MountainKey" Label="Key to the Back Mountains" State="true" />
-				</Setting>
+			</Setting>
+			<Setting Id="CH5KIC" Label="Key Item Collected" State="true">
+				<Setting Id="SCL_Hairpin" Label="Hairpin (Story Difficulty)" State="true" />
+				<Setting Id="SCL_StairsKey" Label="Main Building 2F Stair Key" State="true" />
+				<Setting Id="SCL_ClassKey" Label="Second Floor Classroom Generic Key" State="true" />
+				<Setting Id="Item_ToTeacher" Label="Old Annex Main Gate Key" State="true" />
+				<Setting Id="SCL_LockerRoomKey" Label="Locker Room Key" State="true" />
+				<Setting Id="SCL_KeyBoxKey" Label="Key Cabinet Key" State="true" />
+				<Setting Id="SCL_MountainKey" Label="Key to the Back Mountains" State="true" />
 			</Setting>
 		</Setting>
 
         <Setting Id="Chapter6" Label="Chapter 6" State="true">
 			<Setting Id="CH6P" Label="Progress" State="true">
-					<Setting Id="LS_SC0603" Label="Drop Caged Rinko into the Lava" State="false"/>
-					<Setting Id="LS_SC0602" Label="Find Sakuko and Trap her in Darkness" State="false"/>
-                    <Setting Id="Progress.Story.Ch06.0640_ShuArea.04" Label="Spawning Monster Defeated" State="true" />
-					<Setting Id="LS_SC0604" Label="Place Possessions and Find Shu" State="false"/>
-                    <Setting Id="Progress.Story.Ch07" Label="Chapter 6 Finished" State="true" />
-				<Setting Id="CH6KIC" Label="Key Item Collected" State="true">
-					<Setting Id="WHL_FoxStatue_000" Label="Rightward-facing Fox Crest" State="true" />
-                    <Setting Id="WHL_FoxStatue_001" Label="Leftward-face Fox Crest" State="true" />
-					<Setting Id="WHL_FoxStatue_002" Label="Frontward-facing Fox Crest" State="true" />
-					<Setting Id="WHL_MarkKeyRinko" Label="The Tri Scale Emblem Key" State="true" />
-					<Setting Id="WHL_MarkKeySaku" Label="The White Rabbit Emblem Key" State="true" />
-					<Setting Id="WHL_Portrait" Label="Drawing of a Young Shimizu Hinako" State="true" />
-					<Setting Id="WHL_LightGun" Label="Raygun" State="true" />
-                    <Setting Id="WHL_Comic" Label="Brainiac Hero Comic" State="true" />
-				</Setting>
+				<Setting Id="LS_SC0603" Label="Drop Caged Rinko into the Lava" State="false"/>
+				<Setting Id="LS_SC0602" Label="Find Sakuko and Trap her in Darkness" State="false"/>
+				<Setting Id="Progress.Story.Ch06.0640_ShuArea.04" Label="Spawning Monster Defeated" State="true" />
+				<Setting Id="LS_SC0604" Label="Place Possessions and Find Shu" State="false"/>
+				<Setting Id="Progress.Story.Ch07" Label="Chapter 6 Finished" State="true" />
+			</Setting>
+			<Setting Id="CH6KIC" Label="Key Item Collected" State="true">
+				<Setting Id="WHL_FoxStatue_000" Label="Rightward-facing Fox Crest" State="true" />
+				<Setting Id="WHL_FoxStatue_001" Label="Leftward-face Fox Crest" State="true" />
+				<Setting Id="WHL_FoxStatue_002" Label="Frontward-facing Fox Crest" State="true" />
+				<Setting Id="WHL_MarkKeyRinko" Label="The Tri Scale Emblem Key" State="true" />
+				<Setting Id="WHL_MarkKeySaku" Label="The White Rabbit Emblem Key" State="true" />
+				<Setting Id="WHL_Portrait" Label="Drawing of a Young Shimizu Hinako" State="true" />
+				<Setting Id="WHL_LightGun" Label="Raygun" State="true" />
+				<Setting Id="WHL_Comic" Label="Brainiac Hero Comic" State="true" />
 			</Setting>
 		</Setting>
 
@@ -113,10 +114,10 @@
 				<Setting Id="LS_SC0703" Label="Escape Fog Monster after Chainlink Gate" State="false"/>
 				<Setting Id="LS_SC0704" Label="Enter Shu's House" State="false"/>
                 <Setting Id="Progress.Story.Ch08" Label="Chapter 7 Finished" State="true" />
-				<Setting Id="CH7KIC" Label="Key Item Collected" State="true">
-					<Setting Id="MTN_IronKey" Label="Metal Gate Key" State="true" />
-					<Setting Id="MTN_ShuHouseKey" Label="Front Door Key to Shu's House" State="true" />
-				</Setting>
+			</Setting>
+			<Setting Id="CH7KIC" Label="Key Item Collected" State="true">
+				<Setting Id="MTN_IronKey" Label="Metal Gate Key" State="true" />
+				<Setting Id="MTN_ShuHouseKey" Label="Front Door Key to Shu's House" State="true" />
 			</Setting>
 		</Setting>
 
@@ -145,18 +146,18 @@
                 <Setting Id="LS_SC1001" Label="Meeting the other Hinako Shimizu" State="false"/>
                 <Setting Id="LS_SC1007" Label="Defeat Mom and Dad Bosses" State="false"/>
                 <Setting Id="Progress.Story.Ch11" Label="Chapter 10 Finished" State="true" />
-				<Setting Id="CH10KIC" Label="Key Item Collected" State="true">
-					<Setting Id="SMZ_Calendar02" Label="Calendar (6th October 1962)" State="true" />
-					<Setting Id="SMZ_Calendar" Label="Calendar (26th May 1960)" State="true" />
-                    <Setting Id="SMZ_Frame" Label="Picture Frame" State="true" />
-                    <Setting Id="SMZ_Block_002" Label="Scales Plate" State="true" />
-                    <Setting Id="SMZ_GasPipe" Label="Propane Tube" State="true" />
-                    <Setting Id="SMZ_Wax" Label="Block of Wax" State="true" />
-                    <Setting Id="SMZ_BirdKey" Label="Fletching Key" State="true" />
-                    <Setting Id="SMZ_Block_000" Label="Black Bird and Sword Plate" State="true" />
-                    <Setting Id="SMZ_Block_001" Label="White Bird and Fox Plate" State="true" />
-                    <Setting Id="SMZ_GorgeousKey" Label="Pine Tree Emblem" State="true" />
-				</Setting>
+			</Setting>
+			<Setting Id="CH10KIC" Label="Key Item Collected" State="true">
+				<Setting Id="SMZ_Calendar02" Label="Calendar (6th October 1962)" State="true" />
+				<Setting Id="SMZ_Calendar" Label="Calendar (26th May 1960)" State="true" />
+				<Setting Id="SMZ_Frame" Label="Picture Frame" State="true" />
+				<Setting Id="SMZ_Block_002" Label="Scales Plate" State="true" />
+				<Setting Id="SMZ_GasPipe" Label="Propane Tube" State="true" />
+				<Setting Id="SMZ_Wax" Label="Block of Wax" State="true" />
+				<Setting Id="SMZ_BirdKey" Label="Fletching Key" State="true" />
+				<Setting Id="SMZ_Block_000" Label="Black Bird and Sword Plate" State="true" />
+				<Setting Id="SMZ_Block_001" Label="White Bird and Fox Plate" State="true" />
+				<Setting Id="SMZ_GorgeousKey" Label="Pine Tree Emblem" State="true" />
 			</Setting>
 		</Setting>
 
@@ -165,11 +166,11 @@
 				<Setting Id="LS_SC1102" Label="Meeting Junko and Fox" State="false"/>
 				<Setting Id="LS_SC1103" Label="Beginning the Final Rite" State="false"/>
                 <Setting Id="Progress.Story.Ch12" Label="Chapter 11 Finished" State="true" />
-				<Setting Id="CH11KIC" Label="Key Item Collected" State="true">
-					<Setting Id="THS_BSparrowBadge" Label="Black Sparrow Crest" State="true" />
-					<Setting Id="THS_WSparrowBadge" Label="White Sparrow Crest" State="true" />
-                    <Setting Id="THS_FoxBadge" Label="Fox Mask Crest" State="true" />
-				</Setting>
+			</Setting>
+			<Setting Id="CH11KIC" Label="Key Item Collected" State="true">
+				<Setting Id="THS_BSparrowBadge" Label="Black Sparrow Crest" State="true" />
+				<Setting Id="THS_WSparrowBadge" Label="White Sparrow Crest" State="true" />
+				<Setting Id="THS_FoxBadge" Label="Fox Mask Crest" State="true" />
 			</Setting>
 		</Setting>
 
@@ -177,7 +178,8 @@
 			<Setting Id="CH12P" Label="Progress" State="true">
                 <Setting Id="Progress.Story.Ch12.1210_ToCandyStore.05" Label="First Forced Fight" State="false"/>
 				<Setting Id="Progress.Story.Ch12.1210_ToCandyStore.07" Label="Second Forced Fight" State="false"/>
-                <Setting Id="Progress.Story.Ch12.1210_ToCandyStore.010" Label="Third Forced Fight" State="false"/>
+                <Setting Id="Progress.Story.Ch12.1210_ToCandyStore.10" Label="Third Forced Fight" State="false"/>
+				<Setting Id="LS_SC1202" Label="Catch up to Fog Monster" State="false"/>
                 <Setting Id="Progress.Story.Ch13" Label="Chapter 12 Finished" State="true" />
 			</Setting>
 		</Setting>
@@ -192,7 +194,7 @@
 			<Setting Id="CH14P" Label="Progress" State="true">
 				<Setting Id="Progress.Story.Ch14.1410_GoHome.03" Label="First Forced Fight" State="false"/>
 				<Setting Id="Progress.Story.Ch14.1420_HillSide.03" Label="Second Forced Fight" State="false"/>
-                <Setting Id="Progress.Story.Ch14.1420_HillSide.06" Label="Third Forced Fight" State="false"/>
+                <Setting Id="Progress.Story.Ch14.1420_HillSide.07" Label="Third Forced Fight" State="false"/>
                 <Setting Id="Progress.Story.Ch15" Label="Chapter 14 Finished" State="true" />
 			</Setting>
 		</Setting>
@@ -201,36 +203,63 @@
 			<Setting Id="CH15P" Label="Progress" State="true">
 				<Setting Id="Progress.Story.Ch15.1520_Torii.06" Label="First Forced Fight" State="false"/>
 				<Setting Id="Progress.Story.Ch15.1530_OCR.04" Label="Second Forced Fight" State="false"/>
-                <Setting Id="Progress.Story.Ch16A" Label="Chapter 15 Finished" State="true" />
+                <Setting Id="Progress.Story.Ch16" Label="Chapter 15 Finished" State="true" />
 			</Setting>
 		</Setting>
 
 		<Setting Id="Chapter16" Label="Chapter 16" State="true">
 			<Setting Id="CH16P" Label="Progress" State="true">
-				<Setting Id="CH16C" Label="Cutscenes" State="false">
-                    <Setting Id="LS_SC1602" Label="Defeat the Shiromuku Boss" State="true"/>
-					<Setting Id="LS_SC1603" Label="Exit the Worship Hall (Ending A)" State="true"/>
-				</Setting>
+				<Setting Id="LS_SC1602" Label="Defeat the Shiromuku Boss" State="true"/>
+				<Setting Id="LS_SC1603" Label="Exit the Worship Hall (Ending A)" State="true"/>
 			</Setting>
 		</Setting>
 	</Setting>
 
-	<Setting Id="NewGamePlus" Label="New Game Plus Items" State="false">
+	<Setting Id="NewGamePlus" Label="New Game Plus Splits" State="false">
 		<Setting Id="SS" Label="Sacred Sword" State="false">
-			<Setting Id="HLS_SacredSwordOffering_01" Label="Faded Bride Doll to Jizo Statue" State="false"/>
-			<Setting Id="OLD_SacredSwordOffering_02" Label="Rusted Flask to Jizo Statue" State="false"/>
-			<Setting Id="ALW_SacredSwordOffering_03" Label="Broken Japanese Geta Sandal to Jizo Statue" State="false"/>
-			<Setting Id="MTN_SacredSwordOffering_04" Label="Cracked Hibachi Brazier to Jizo Statue" State="false"/>
-			<Setting Id="OLD_SacredSwordOffering_05" Label="Dad's Old Kitchen Knife to Jizo Statue" State="false"/>
+			<Setting Id= "SSP" Label="Progress" State="false">
+				<Setting Id="HLS_SacredSwordOffering_01" Label="Faded Bride Doll to Jizo Statue" State="false"/>
+				<Setting Id="OLD_SacredSwordOffering_02" Label="Rusted Flask to Jizo Statue" State="false"/>
+				<Setting Id="ALW_SacredSwordOffering_03" Label="Broken Japanese Geta Sandal to Jizo Statue" State="false"/>
+				<Setting Id="MTN_SacredSwordOffering_04" Label="Cracked Hibachi Brazier to Jizo Statue" State="false"/>
+				<Setting Id="OLD_SacredSwordOffering_05" Label="Dad's Old Kitchen Knife to Jizo Statue" State="false"/>
+			</Setting>
+			<Setting Id="SSC" Label="Cutscene" State="false">
+				<Setting Id="LS_LQ0901" Label="Acquired Sacred Sword from Divine Tree Cutscene" State="false"/>
+			</Setting>
+			<Setting Id="SSKI" Label="Key Items Collected" State="false">
+				<Setting Id="Katana" Label="Get Sacred Sword" State="false"/>
+			</Setting>
 		</Setting>
-		<Setting Id="AltEnding" Label="Alternative Ending Splits" State="false">
-			<Setting Id="LS_SC0705" Label="Got Rid of Red Capsules" State="false"/>
-			<Setting Id="LS_LQ0901" Label="Acquired Sacred Sword from Divine Tree" State="false"/>
-			<!-- <Setting Id="Katana" Label="Sacred Sword" State="false"/> -->
-			<Setting Id="LS_LQ0902" Label="Purify the Sacred Sword" State="false"/>
-			<!-- <Setting Id="KatanaAlter" Label="Get Agura No Hitei-Sama? (need to verify)" State="false"/>-->
+		<Setting Id="PSS" Label="Purified Sacred Sword" State="false">
+			<Setting Id="PSSC" Label="Cutscene" State="false">
+				<Setting Id="LS_LQ0902" Label="Purify the Sacred Sword Cutscene" State="false"/>
+			</Setting>
+			<Setting Id="PSSKI" Label="Key Items Collected" State="false">
+				<Setting Id="KatanaAltar" Label="Get the Purified Sword" State="false"/>
+			</Setting>
+		</Setting>
+		<Setting Id="LS_SC0705" Label="Got Rid of Red Capsules" State="false"/>
+		<Setting Id="UFO" Label="UFO Ending" State="false">
+			<Setting Id="LS_LQ1603" Label="UFO Ending" State="false"/>
+		</Setting>
+		<Setting Id="FWE" Label="Fox's Wedding Ending" State="false">
+			<Setting Id="HoteiSama" Label="Get Agura No Hotei-Sama" State="false"/>
 			<Setting Id="LS_SC1606" Label="Fox's Wedding Ending (Bad)" State="false"/>
-			<Setting Id="LS_SC1610" Label="The Fox Who Wet His Whistle Ending (Good)" State="false"/>
+		</Setting>
+		<Setting Id="FWT" Label="Fox Who Wet His Tail Ending" State="false">
+			<Setting Id="LS_SC1610" Label="The Fox Who Wet His Tail Ending (Good)" State="false"/>
+		</Setting>
+		<Setting Id="EIS" Label="Ebisugaoka in Silence Ending" State="false">
+			<Setting Id="LS_LQ0903" Label="Offer Brooch to Jizo Statue" State="false"/>
+			<Setting Id="LS_SC1004" Label="Marriage Talk with Mother" State="false"/>
+			<Setting Id="LS_SC1005" Label="Father Apologising to Hinako" State="false"/>
+			<Setting Id="LS_LQ1601" Label="Fox First Phase" State="false"/>
+			<Setting Id="Progress.Story.Ch16D.1641_FoxFight.04" Label="Tsukumogami First Phase" State="false"/>
+			<Setting Id="Progress.Story.Ch16D.1642_Tsukumogami.04" Label="Fox Second Phase" State="false"/>
+			<Setting Id="Progress.Story.Ch16D.1643_FoxFightR2.03" Label="Tsukumogami Second Phase" State="false"/>
+			<Setting Id="LS_LQ1602" Label="Fox Third Phase" State="false"/>
+			<Setting Id="LS_LQ1613" Label="Ebisugaoka in Silence Ending (True)" State="false"/>
 		</Setting>
 	</Setting>
 
