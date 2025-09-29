@@ -223,6 +223,15 @@
 			<Setting Id="MTN_SacredSwordOffering_04" Label="Cracked Hibachi Brazier to Jizo Statue" State="false"/>
 			<Setting Id="OLD_SacredSwordOffering_05" Label="Dad's Old Kitchen Knife to Jizo Statue" State="false"/>
 		</Setting>
+		<Setting Id="AltEnding" Label="Alternative Ending Splits" State="false">
+			<Setting Id="LS_SC0705" Label="Got Rid of Red Capsules" State="false"/>
+			<Setting Id="LS_LQ0901" Label="Acquired Sacred Sword from Divine Tree" State="false"/>
+			<!-- <Setting Id="Katana" Label="Sacred Sword" State="false"/> -->
+			<Setting Id="LS_LQ0902" Label="Purify the Sacred Sword" State="false"/>
+			<!-- <Setting Id="KatanaAlter" Label="Get Agura No Hitei-Sama? (need to verify)" State="false"/>-->
+			<Setting Id="LS_SC1606" Label="Fox's Wedding Ending (Bad)" State="false"/>
+			<Setting Id="LS_SC1610" Label="The Fox Who Wet His Whistle Ending (Good)" State="false"/>
+		</Setting>
 	</Setting>
 
     <Setting Label="Omamori Collected Splits" State="true">
