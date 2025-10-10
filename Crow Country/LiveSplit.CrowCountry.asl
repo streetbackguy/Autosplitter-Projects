@@ -141,16 +141,16 @@ init
     {
         var pmg = mono["PlayMaker", "PlayMakerGlobals"];
 
-        vars.Helper["IntVariables"] = pmg.MakeArray<IntPtr>("instance", "variables", "intVariables");
+        vars.Helper["IntVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "intVariables");
         vars.Helper["IntVariables"].Update(game);
 
-        vars.Helper["BoolVariables"] = pmg.MakeArray<IntPtr>("instance", "variables", "boolVariables");
+        vars.Helper["BoolVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "boolVariables");
         vars.Helper["BoolVariables"].Update(game);
 
-        vars.Helper["FloatVariables"] = pmg.MakeArray<IntPtr>("instance", "variables", "floatVariables");
+        vars.Helper["FloatVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "floatVariables");
         vars.Helper["FloatVariables"].Update(game);
 
-        vars.Helper["StringVariables"] = pmg.MakeArray<IntPtr>("instance", "variables", "stringVariables");
+        vars.Helper["StringVariables"] = mono.MakeArray<IntPtr>(pmg, "instance", "variables", "stringVariables");
         vars.Helper["StringVariables"].Update(game);
 
         IntPtr[] intVariables = vars.Helper["IntVariables"].Current;
