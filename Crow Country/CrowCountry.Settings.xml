@@ -66,7 +66,7 @@
       <Setting Id="ac-Root Fri" Label="Root Fri" State="true" />
       <Setting Id="ac-Underground SW" Label="Underground SW" State="true" />
       <Setting Id="ac-Root Thu" Label="Root Thu" State="true" />
-      <Setting Id="ac-Corridor C" Label="Corridor C" State="truee" />
+      <Setting Id="ac-Corridor C" Label="Corridor C" State="true" />
       <Setting Id="ac-Machine SW" Label="Machine SW" State="true" />
       <Setting Id="ac-Boat Ride Dock" Label="Boat Ride Dock" State="true" />
       <Setting Id="ac-Boat Ride" Label="Boat Ride" State="true" />
