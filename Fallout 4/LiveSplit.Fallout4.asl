@@ -9,7 +9,7 @@ state("Fallout4")
 
 isLoading
 {
-	return current.isLoadingScreen || current.isQuickLoading || current.isMiscLoad && current.isInstituteEntry != "Use the Signal Interceptor";
+	return current.isLoadingScreen || current.isQuickLoading || current.isMiscLoad && current.isInstituteEntry != "Use the Signal Interceptor" && current.isInstituteEntry == "";
 }
 
 exit
