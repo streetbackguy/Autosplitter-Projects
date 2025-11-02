@@ -76,6 +76,7 @@ start
 onStart
 {
     vars.Splits.Clear();
+    current.ActiveMissions.Clear();
     current.Mission = "";
 }
 
@@ -114,8 +115,6 @@ update
             }
         }
     }
-
-    vars.Log(current.InCutscene);
 }
 
 split
@@ -124,8 +123,14 @@ split
     { 
         if (old.Mission.StartsWith("MQ") && current.Mission.StartsWith("MQ") && current.Mission != old.Mission && !vars.Splits.Contains(old.Mission)) 
         { 
-            vars.Log("Split Complete: " + old.Mission);
+            vars.Log("MQ Split Complete: " + old.Mission);
             return true && vars.Splits.Add(old.Mission); 
+        }
+
+        if (old.Mission.StartsWith("SQ") && current.Mission.StartsWith("SQ") && current.Mission != old.Mission && !vars.Splits.Contains(old.Mission)) 
+        { 
+            vars.Log("SQ Split Complete: " + old.Mission);
+            return true && vars.Splits.Add(old.Mission);
         } 
     }
 }
