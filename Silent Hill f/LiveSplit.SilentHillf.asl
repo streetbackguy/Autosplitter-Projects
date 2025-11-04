@@ -10,6 +10,7 @@ startup
 	vars.Helper.GameName = "Silent Hill f";
 	vars.Helper.AlertLoadless();
 	vars.Uhara.EnableDebug();
+	vars.CompletedSplits = new HashSet<string>();
 }
 
 init
@@ -17,15 +18,7 @@ init
 	IntPtr gWorld = vars.Helper.ScanRel(3, "48 8B 05 ???????? 48 85 C0 75 ?? 48 83 C4 ?? 5B");
 	IntPtr gEngine = vars.Helper.ScanRel(3, "48 8B 0D ???????? 48 8B BC 24 ???????? 48 8B 9C 24");
 	IntPtr fNames = vars.Helper.ScanRel(3, "48 8D 0D ???????? E8 ???????? C6 05 ?????????? 0F 10 07");
-
-	vars.CompletedSplits = new HashSet<string>();
 	vars.GEngine = gEngine;
-	vars.KeyItem = new Dictionary<ulong, int>();
-	vars.Omamori = new Dictionary<ulong, int>();
-	vars.FNameCache = new Dictionary<ulong, string>();
-
-	if (gWorld == IntPtr.Zero || gEngine == IntPtr.Zero || fNames == IntPtr.Zero)
-		throw new Exception("Not all required addresses could be found by scanning.");
 
 	vars.FNameToShortString = (Func<uint, string>)(fName =>
     {
@@ -57,7 +50,6 @@ init
 	vars.cutsceneHold = false;
 	vars.NGPItemCollected = false;
 	current.LocalPlayer = 0;
-    vars.localPlayerShort = "";
 
 	vars.CutscenesToHold = new HashSet<string>() 
 	{ 
@@ -65,7 +57,6 @@ init
 		"LS_SC0203", 
 		"LS_SC0303", 
 		"LS_SC0404", 
-        "LS_LQ0506",
 		"LS_SC0504",
 		"LS_SC0604",
 		"LS_SC0704",
@@ -99,50 +90,24 @@ update
 	vars.Helper.Update();
 	vars.Helper.MapPointers();
 
-	// Store previous value somewhere in vars
-    string oldLocalPlayerShort = vars.localPlayerShort ?? "";  
-
-    // Get current
-    vars.localPlayerShort = vars.FNameToShortString(current.LocalPlayer);
-
-    // Compare
-    if (vars.localPlayerShort != oldLocalPlayerShort)
-    {
-        vars.Log("LocalPlayer short changed: " + vars.localPlayerShort);
-    }
-
-
 	string cutscene = vars.Events.FNameToString(current.CutsceneName); 
 	string newCutscene = (!string.IsNullOrEmpty(cutscene) && cutscene != "None") ? cutscene : "";
-
-	if (newCutscene != current.Cutscene)
-	{
-		if (!string.IsNullOrEmpty(newCutscene))
-			vars.Log("Current Cutscene Started: " + newCutscene);
-		else
-			vars.Log("No Cutscene Active");
-
-		current.Cutscene = newCutscene;
-	}
+	if (newCutscene != current.Cutscene) current.Cutscene = newCutscene;
 
 	string world = vars.Events.FNameToString(current.GWorldName);
 	if (!string.IsNullOrEmpty(world) && world != "None") current.World = world;
-	if (old.World != current.World) vars.Log("/// World Log: " + current.World);
 
 	string progress = vars.Events.FNameToString(current.ProgressTag);
 	if (!string.IsNullOrEmpty(progress) && progress != "None" && current.World == "NoceWorld") current.Progress = progress;
-	if (old.Progress != current.Progress) vars.Log("/// Progress Log: " + current.Progress);
 
 	string item = vars.Events.FNameToString(current.LastAddedID);
 	if (!string.IsNullOrEmpty(item) && item != "None") current.Item = item;
-	if (old.Item != current.Item) vars.Log("/// Item Log: " + current.Item);
 }
 
 split
 {
 	bool didSplit = false;
 
-	// Item and Omamori Split on Change (exclude NG+ Sacred Sword Offering items)
 	if (current.Item != old.Item 
 		&& !vars.CompletedSplits.Contains(current.Item)
 		&& settings.ContainsKey(current.Item)
@@ -155,7 +120,6 @@ split
 		didSplit = true;
 	}
 
-	// Cutscene Splits
 	if (old.Cutscene != current.Cutscene && !string.IsNullOrEmpty(current.Cutscene))
     {
         string baseCutscene = current.Cutscene.Substring(0, 9);
@@ -169,38 +133,6 @@ split
         }
     }
 
-    // if (old.Cutscene != current.Cutscene && !string.IsNullOrEmpty(current.Cutscene))
-    // {
-    //     vars.Log("--- Cutscene Split Check Start ---");
-    //     vars.Log("Old Cutscene: " + (old.Cutscene ?? "null"));
-    //     vars.Log("Current Cutscene: " + current.Cutscene);
-
-    //     string baseCutscene = current.Cutscene;
-    //     int idx = baseCutscene.IndexOf("_L");
-    //     vars.Log("Index of '_L': " + idx);
-
-    //     if (idx > 0)
-    //         baseCutscene = baseCutscene.Substring(0, idx);
-
-    //     vars.Log("Base Cutscene after substring: " + baseCutscene);
-
-    //     if (!settings.ContainsKey(baseCutscene))
-    //         vars.Log("Cutscene not found in settings: " + baseCutscene);
-    //     else if (!settings[baseCutscene])
-    //         vars.Log("Cutscene found in settings but disabled: " + baseCutscene);
-    //     else if (vars.CompletedSplits.Contains(baseCutscene))
-    //         vars.Log("Cutscene already completed: " + baseCutscene);
-    //     else
-    //     {
-    //         vars.Log("--- Cutscene Split Complete: " + baseCutscene);
-    //         vars.CompletedSplits.Add(baseCutscene);
-    //         didSplit = true;
-    //     }
-
-    //     vars.Log("--- Cutscene Split Check End ---");
-    // }
-
-	// Progress Splits
 	if (!vars.CompletedSplits.Contains(current.Progress))
 	{
 		string baseProgress = current.Progress;
@@ -228,10 +160,8 @@ split
 		}
 	}
 
-	// Custom NG+ Splits (SwordOffering + SSword sequence)
 	if (settings.ContainsKey("NewGamePlus") && settings["NewGamePlus"])
     {
-        // SwordOffering picked up
         if (current.Item != old.Item 
             && current.Item.Contains("SwordOffering")
             && !vars.NGPItemCollected)
@@ -240,7 +170,6 @@ split
             vars.NGPItemCollected = true;
         }
 
-        // Sacred Sword acquired after SwordOffering
         if (vars.NGPItemCollected 
             && current.Item != old.Item 
             && current.Item.Contains("SSword")
