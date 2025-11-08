@@ -13,7 +13,7 @@ init
 {
     var exe = modules.First();
 
-    if (File.Exists(Path.Combine(Path.GetDirectoryName(exe.FileName), "Binaries", "Win64", "DQIIIHD2DRemake.exe")))
+    if (File.Exists(Path.Combine(Path.GetDirectoryName(exe.FileName), "Game", "Binaries", "Win64", "DQIIIHD2DRemake.exe")))
     {
         var allComponents = timer.Layout.Components;
         
