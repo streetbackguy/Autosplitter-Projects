@@ -16,7 +16,7 @@ init
     if (File.Exists(Path.Combine(Path.GetDirectoryName(exe.FileName), "Binaries", "Win64", "DQIIIHD2DRemake.exe")))
     {
         var allComponents = timer.Layout.Components;
-        // Grab the autosplitter from splits
+        
         if (timer.Run.AutoSplitter != null && timer.Run.AutoSplitter.Component != null)
         {
             allComponents = allComponents.Append(timer.Run.AutoSplitter.Component);
@@ -26,8 +26,6 @@ init
             var type = component.GetType();
             if (type.Name == "ASLComponent") 
             {
-                // Could also check script path, but renaming the script breaks that, and
-                //  running multiple autosplitters at once is already just asking for problems
                 var script = type.GetProperty("Script").GetValue(component);
                 script.GetType().GetField(
                     "_game",
