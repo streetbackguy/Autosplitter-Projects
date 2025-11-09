@@ -151,9 +151,6 @@ update
             vars.Log("SQ Complete: " + oldQuest);
         }
     }
-
-    // vars.Log(current.LoadingScreen);
-    // vars.Log(current.InCutscene);
 }
 
 split
