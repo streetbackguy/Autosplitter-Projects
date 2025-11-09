@@ -40,8 +40,8 @@ init
     // GEngine.GameInstance.ActiveMissions[0].MissionData.Count
     vars.Helper["ActiveMissionCount"] = vars.Helper.Make<int>(gEngine, 0xEA8, 0x6F8, 0xF4);
 
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.MyHUD.StateMgr.EnabledHUDStates[0].bActiveState
-    vars.Helper["HUDStateCount"] = vars.Helper.Make<int>(gEngine, 0xEA8, 0x38, 0x0, 0x30, 0x2E8, 0x358, 0x11C);
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.MyHUD.StateMgr.AllHUDStates[0].bActiveState
+    vars.Helper["HUDStateCutscene"] = vars.Helper.Make<bool>(gEngine, 0xEA8, 0x38, 0x0, 0x30, 0x2E8, 0x358, 0x100, 0x8, 0xA0);
 
     // GEngine.GameInstance.MenuManager.ActiveMenus[0].Name
     vars.Helper["MenuName"] = vars.Helper.Make<ulong>(gEngine, 0xEA8, 0x3E0, 0x58, 0x0, 0x18);
@@ -77,7 +77,6 @@ init
     current.Menu = "";
     vars.Splits = new HashSet<string>();
     vars.gEngine = gEngine;
-    vars.Loading = false;
 }
 
 start
@@ -155,22 +154,6 @@ update
 
     // vars.Log(current.LoadingScreen);
     // vars.Log(current.InCutscene);
-
-    for (int i = 0; i < current.HUDStateCount; i++)
-    {
-        int hudstateenabled = vars.Helper.Read<int>(vars.gEngine, 0xEA8, 0x38, 0x0, 0x30, 0x2E8, 0x358, 0x110, (i * 0x8), 0xA0);
-        ulong hudstatename = vars.Helper.Read<ulong>(vars.gEngine, 0xEA8, 0x38, 0x0, 0x30, 0x2E8, 0x358, 0x110, (i * 0x8), 0x18);
-
-        var statename = vars.FNameToString(hudstatename);
-
-        if (statename == "BP_HUDState_Cutscene_C" && hudstateenabled == 1)
-        {
-            vars.Loading = true;
-        } else 
-        {
-            vars.Loading = false;
-        }
-    }
 }
 
 split
@@ -193,7 +176,7 @@ split
 
 isLoading
 {
-    return current.GSync || current.HUDFades >= 1065000000 || vars.Loading || current.Menu.StartsWith("BP_MenuInstance_FrontEnd_C") || current.LoadingScreen == 0 || vars.Loading && current.InCutscene == 5;
+    return current.GSync || current.HUDFades >= 1065000000 || current.Menu.StartsWith("BP_MenuInstance_FrontEnd_C") || current.LoadingScreen == 0 || current.HUDStateCutscene;
 }
 
 exit
