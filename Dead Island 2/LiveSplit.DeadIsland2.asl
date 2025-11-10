@@ -28,8 +28,8 @@ init
 
     vars.Helper["ActiveMission"] = vars.Helper.MakeString(gEngine, 0xEA8, 0x6F8, 0xE8, 0x0, 0x78, 0x28, 0x28, 0x0);
 
-    // GWorld.PersistentLevel.WorldSettings.LoadingSceneManager.IsEnding
-    vars.Helper["LoadingScreen"] = vars.Helper.Make<byte>(gWorld, 0x30, 0x248, 0x740, 0x538);
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.MyHUD.StateMgr.AllHUDStates[12].bActiveState
+    vars.Helper["LoadingScreen"] = vars.Helper.Make<bool>(gEngine, 0xEA8, 0x38, 0x0, 0x30, 0x2E8, 0x358, 0x100, 0x60, 0xA0);
 
     // GEngine.GameInstance.LocalPlayer[0].PlayerController.AcknowledgedPawn.PlayerMovementComponent.MovementMode
     vars.Helper["InCutscene"] = vars.Helper.Make<byte>(gEngine, 0xEA8, 0x38, 0x0, 0x30, 0x2D8, 0x1280, 0x1A4);
@@ -40,11 +40,19 @@ init
     // GEngine.GameInstance.ActiveMissions[0].MissionData.Count
     vars.Helper["ActiveMissionCount"] = vars.Helper.Make<int>(gEngine, 0xEA8, 0x6F8, 0xF4);
 
-    // GEngine.GameInstance.LocalPlayer[0].PlayerController.MyHUD.StateMgr.AllHUDStates[0].bActiveState
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.MyHUD.StateMgr.AllHUDStates[1].bActiveState
     vars.Helper["HUDStateCutscene"] = vars.Helper.Make<bool>(gEngine, 0xEA8, 0x38, 0x0, 0x30, 0x2E8, 0x358, 0x100, 0x8, 0xA0);
+
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.MyHUD.StateMgr.AllHUDStates[2].bActiveState
+    vars.Helper["HUDStateQuestDelivery"] = vars.Helper.Make<bool>(gEngine, 0xEA8, 0x38, 0x0, 0x30, 0x2E8, 0x358, 0x100, 0x10, 0xA0);
+
+    // GEngine.GameInstance.LocalPlayer[0].PlayerController.MyHUD.StateMgr.AllHUDStates[0].bActiveState
+    vars.Helper["HUDStateStoryPlayer"] = vars.Helper.Make<bool>(gEngine, 0xEA8, 0x38, 0x0, 0x30, 0x2E8, 0x358, 0x100, 0x0, 0x18);
+    vars.Helper["HUDStateStoryPlayer"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 
     // GEngine.GameInstance.MenuManager.ActiveMenus[0].Name
     vars.Helper["MenuName"] = vars.Helper.Make<ulong>(gEngine, 0xEA8, 0x3E0, 0x58, 0x0, 0x18);
+    vars.Helper["MenuName"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 
     vars.FNameToString = (Func<ulong, string>)(fName =>
 	{
@@ -173,7 +181,7 @@ split
 
 isLoading
 {
-    return current.GSync || current.HUDFades >= 1065000000 || current.Menu.StartsWith("BP_MenuInstance_FrontEnd_C") || current.LoadingScreen == 0 || current.HUDStateCutscene;
+    return current.GSync || current.HUDFades >= 1065000000 || current.Menu.StartsWith("BP_MenuInstance_FrontEnd_C") || current.LoadingScreen || current.HUDStateCutscene || !current.HUDStateStoryPlayer || current.HUDStateQuestDelivery;
 }
 
 exit
