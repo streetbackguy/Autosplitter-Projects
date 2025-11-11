@@ -130,8 +130,6 @@ update
             if (!current.ActiveMissions.Contains(m))
                 current._JustRemoved.Add(m);
     }
-
-    vars.Log(current.Menu);
 }
 
 split
