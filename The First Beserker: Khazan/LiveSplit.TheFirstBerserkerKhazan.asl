@@ -72,13 +72,6 @@ init
     // GWorld.FName
     vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
 
-    // GWorld.StreamingLevelsToConsider.ArrayNum
-    vars.Helper["StreamingLevelsToConsider"] = vars.Helper.Make<int>(gWorld, 0xA0);
-
-    // GWorld.CurrentLevelPendingVisibility
-    vars.Helper["CurrentLevelPendingVisibility"] = vars.Helper.Make<int>(gWorld, 0x100);
-    vars.Helper["CurrentLevelPendingVisibility"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
-
     // xxGameEngine.GameInstance.LocalPlayers[0].PlayerController.AcknowledgedPawn.bBindingLevelSequence
     vars.Helper["BindingLevelSequence"] = vars.Helper.Make<bool>(gEngine, 0xD78, 0x38, 0x0, 0x30, 0x2C0, 0x14C9);
 
