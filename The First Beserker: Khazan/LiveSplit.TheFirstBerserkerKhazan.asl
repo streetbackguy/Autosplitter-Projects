@@ -86,10 +86,6 @@ init
     vars.Helper["CurrentMissionName"] = vars.Helper.Make<ulong>(gEngine, 0xD78, 0xF0, 0x140, 0x138, 0xB0, 0x50, 0x18);
     vars.Helper["CurrentMissionName"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 
-    // xxGameEngine.GameInstance.Subsystems(0xF0).xxFadeInOutManager(0x1A0).FadeWidget.ActiveSequencePlayers
-    vars.Helper["ActiveSequencePlayers"] = vars.Helper.Make<ulong>(gEngine, 0xD78, 0xF0, 0x1A0, 0x70, 0x1B0);
-    vars.Helper["ActiveSequencePlayers"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
-
     vars.FNameToString = (Func<ulong, string>)(fName =>
 	{
 		var nameIdx = (fName & 0x000000000000FFFF) >> 0x00;
