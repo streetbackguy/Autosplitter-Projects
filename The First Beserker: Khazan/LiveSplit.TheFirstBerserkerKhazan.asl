@@ -39,22 +39,22 @@ startup
             settings.Add("MI_402", true, "Beat Human Xilence Mission", "SM");
             settings.Add("MI_702", true, "Beat Final Conquest Mission", "SM");
             settings.Add("MI_604", true, "Beat Pavel's Final Words Mission", "SM");
-            settings.Add("MI_902", true, "Beat Escaping Linon Mine Mission", "SM");
-            settings.Add("MI_1102", true, "Beat Last Command Mission", "SM");
-            settings.Add("MI_1202", true, "Beat Why Have You Forsaken Us? Mission", "SM");
-            settings.Add("MI_1302", true, "Beat Lacrima Mission", "SM");
-            settings.Add("MI_1402", true, "Beat Unrequited Love Mission", "SM");
-            settings.Add("MI_1502", true, "Beat Valus's Axe Mission", "SM");
-            settings.Add("MI_1602", true, "Beat Atlante the Precise (Mission) Mission", "SM");
-            settings.Add("MI_1702", true, "Beat Centurial Order Mission", "SM");
-            settings.Add("MI_1802", true, "Beat Remnants of Chaos Mission", "SM");
-            settings.Add("MI_1902", true, "Beat Crimson Trace Mission", "SM");
-            settings.Add("MI_2002", true, "Beat Last Sentinel Mission", "SM");
-            settings.Add("MI_2102", true, "Beat Transcendental Sword Mission", "SM");
-            settings.Add("MI_2202", true, "Beat Disobedience Mission", "SM");
-            settings.Add("MI_2302", true, "Beat Charon's Chains Mission", "SM");
-            settings.Add("MI_2402", true, "Beat Birth of Evil Mission", "SM");
-            settings.Add("MI_2502", true, "Beat The Vow Mission", "SM");
+            settings.Add("MI_903", true, "Beat Escaping Linon Mine Mission", "SM");
+            settings.Add("MI_902", true, "Beat Last Command Mission", "SM");
+            settings.Add("MI_2201", true, "Beat Why Have You Forsaken Us? Mission", "SM");
+            settings.Add("MI_1002", true, "Beat Lacrima Mission", "SM");
+            settings.Add("MI_1003", true, "Beat Unrequited Love Mission", "SM");
+            settings.Add("MI_803", true, "Beat Valus's Axe Mission", "SM");
+            settings.Add("MI_1102", true, "Beat Atlante the Precise Mission", "SM");
+            settings.Add("MI_1302", true, "Beat Centurial Order Mission", "SM");
+            settings.Add("MI_802", true, "Beat Remnants of Chaos Mission", "SM");
+            settings.Add("MI_1202", true, "Beat Crimson Trace Mission", "SM");
+            settings.Add("MI_1203", true, "Beat Last Sentinel Mission", "SM");
+            settings.Add("MI_2401", true, "Beat Transcendental Sword Mission", "SM");
+            settings.Add("MI_1402", true, "Beat Disobedience Mission", "SM");
+            settings.Add("MI_1404", true, "Beat Charon's Chains Mission", "SM");
+            settings.Add("MI_1403", true, "Beat Birth of Evil Mission", "SM");
+            settings.Add("MI_2101", true, "Beat The Vow Mission", "SM");
 }
 
 init
@@ -95,6 +95,9 @@ init
 	});
 
     vars.Events = vars.Uhara.CreateTool("UnrealEngine", "Events");
+    vars.Utils = vars.Uhara.CreateTool("UnrealEngine", "Utils");
+
+    vars.Resolver.Watch<bool>("GSync", vars.Utils.GSync);
     
     IntPtr OnMissionCleared = vars.Events.FunctionFlag("W_MissionResult_C", "W_MissionResult_C", "OnMissionCleared");
     print("ON_MISSION_CLEARED_PTR: " + OnMissionCleared.ToString("X"));
@@ -116,17 +119,18 @@ init
     print("CUTSCENE_END_PTR: " + CutsceneEnd.ToString("X"));
     vars.Resolver.Watch<ulong>("CutsceneEnd", CutsceneEnd);
 
-    IntPtr FadeOut = vars.Events.FunctionFlag("W_FadeInOut_C", "W_FadeInOut_C", "OnAnimationStarted");
-    print("FADE_OUT_PTR: " + FadeOut.ToString("X"));
-    vars.Resolver.Watch<ulong>("FadeOut", FadeOut);
-
     IntPtr SkoffaBossDead = vars.Events.FunctionFlag("SkoffaCave_Spawn_Main01_C", "SkoffaCave_Spawn_Main01_C", "BndEvt__SkoffaCave_Spawn_Main01_SA_BigSpiderBoss_88_K2Node_ActorBoundEvent_0_SpawnedActorDead__DelegateSignature");
     print("SKOFFA_BOSS_END_PTR: " + SkoffaBossDead.ToString("X"));
     vars.Resolver.Watch<ulong>("SkoffaBossDead", SkoffaBossDead);
 
+    IntPtr VitalonBossDead = vars.Events.FunctionFlag("VitalonCity_Spawn_Main01_C", "VitalonCity_Spawn_Main01_C", "BndEvt__SkoffaCave_Spawn_Main01_SA_BigSpiderBoss_88_K2Node_ActorBoundEvent_13_SpawnedActorDead__DelegateSignature");
+    print("VITALON_BOSS_END_PTR: " + VitalonBossDead.ToString("X"));
+    vars.Resolver.Watch<ulong>("VitalonBossDead", VitalonBossDead);
+
     current.World = "";
     current.Mission = "";
     vars.LoadingFlag = false;
+    vars.PhaseCounter = 0;
 }
 
 update
@@ -143,14 +147,23 @@ update
 	current.Mission = mission;
 	if (old.Mission != current.Mission) vars.Log("Mission Name: " + current.Mission.ToString());
 
-    if (vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart") || vars.Resolver.CheckFlag("FadeOut"))
+    if(vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart"))
     {  
         vars.LoadingFlag = true;
     }
 
-	if (vars.Resolver.CheckFlag("LoadingEnd") || vars.Resolver.CheckFlag("CutsceneEnd"))
+	if(vars.Resolver.CheckFlag("LoadingEnd") || vars.Resolver.CheckFlag("CutsceneEnd"))
     {
         vars.LoadingFlag = false;
+    }
+
+    if(current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission == "MI_1201")
+    {
+        vars.PhaseCounter++;
+    } 
+    else if(current.Mission != old.Mission)
+    {
+        vars.PhaseCounter = 0;
     }
 
     // vars.Log("\nOnMissionCleared: " + current.OnMissionCleared +"\nMissionCleared: " + current.MissionCleared);
@@ -161,6 +174,7 @@ isLoading
     return current.World == "None" ||
     current.World == "LB_LobbyLevel" ||
     current.World == "Untitled" ||
+    current.GSync ||
     vars.LoadingFlag;
 }
 
@@ -177,8 +191,10 @@ onStart
 
 split
 {
-    if(current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
-    current.SkoffaBossDead != old.SkoffaBossDead && current.SkoffaBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission))
+    if(current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission != "MI_1201" && vars.PhaseCounter == 1  && !vars.CompletedSplits.Contains(current.Mission) ||
+    current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission == "MI_1201" && vars.PhaseCounter == 2 && !vars.CompletedSplits.Contains(current.Mission) ||
+    current.SkoffaBossDead != old.SkoffaBossDead && current.SkoffaBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
+    current.VitalonBossDead != old.VitalonBossDead && current.VitalonBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission))
     {
         return settings[current.Mission] && vars.CompletedSplits.Add(current.Mission);
     }
