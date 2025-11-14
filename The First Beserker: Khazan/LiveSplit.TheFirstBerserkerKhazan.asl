@@ -123,6 +123,10 @@ init
     print("SKOFFA_BOSS_END_PTR: " + SkoffaBossDead.ToString("X"));
     vars.Resolver.Watch<ulong>("SkoffaBossDead", SkoffaBossDead);
 
+    IntPtr VaisarBossDead = vars.Events.FunctionFlag("Vaisar_Spawn_Main01_C", "Vaisar_Spawn_Main01_C", "BndEvt__Vaisar_Spawn_Main01_SA_PicaroonBoss_183_K2Node_ActorBoundEvent_1_SpawnedActorDead__DelegateSignature");
+    print("VAISAR_BOSS_END_PTR: " + VaisarBossDead.ToString("X"));
+    vars.Resolver.Watch<ulong>("VaisarBossDead", VaisarBossDead);
+
     IntPtr VitalonBossDead = vars.Events.FunctionFlag("VitalonCity_Spawn_Main01_C", "VitalonCity_Spawn_Main01_C", "BndEvt__SkoffaCave_Spawn_Main01_SA_BigSpiderBoss_88_K2Node_ActorBoundEvent_13_SpawnedActorDead__DelegateSignature");
     print("VITALON_BOSS_END_PTR: " + VitalonBossDead.ToString("X"));
     vars.Resolver.Watch<ulong>("VitalonBossDead", VitalonBossDead);
@@ -142,7 +146,6 @@ init
     current.World = "";
     current.Mission = "";
     vars.LoadingFlag = false;
-    vars.PhaseCounter = 0;
 }
 
 update
@@ -159,23 +162,13 @@ update
 	current.Mission = mission;
 	if (old.Mission != current.Mission) vars.Log("Mission Name: " + current.Mission.ToString());
 
-    if(vars.Resolver.CheckFlag("LoadingStart") && vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("CutsceneStart") && vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("FadeStart"))
+    if(vars.Resolver.CheckFlag("FadeStart") || vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart"))
     {  
         vars.LoadingFlag = true;
     }
-
-	if(vars.Resolver.CheckFlag("LoadingEnd") && vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("CutsceneEnd") && vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("FadeEnd"))
+    else if(vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("CutsceneEnd") || vars.Resolver.CheckFlag("LoadingEnd"))
     {
         vars.LoadingFlag = false;
-    }
-
-    if(current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission == "MI_1201")
-    {
-        vars.PhaseCounter++;
-    } 
-    else if(current.Mission != old.Mission)
-    {
-        vars.PhaseCounter = 0;
     }
 
     // vars.Log("\nOnMissionCleared: " + current.OnMissionCleared +"\nMissionCleared: " + current.MissionCleared);
@@ -203,9 +196,9 @@ onStart
 
 split
 {
-    if(current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission != "MI_1201" && vars.PhaseCounter == 1  && !vars.CompletedSplits.Contains(current.Mission) ||
-    current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission == "MI_1201" && vars.PhaseCounter == 2 && !vars.CompletedSplits.Contains(current.Mission) ||
+    if(current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission != "MI_1201" && !vars.CompletedSplits.Contains(current.Mission) ||
     current.SkoffaBossDead != old.SkoffaBossDead && current.SkoffaBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
+    current.VaisarBossDead != old.VaisarBossDead && current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
     current.VitalonBossDead != old.VitalonBossDead && current.VitalonBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
     current.ImperialBossDead != old.ImperialBossDead && current.ImperialBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission))
     {
