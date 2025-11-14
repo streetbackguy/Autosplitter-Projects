@@ -127,6 +127,14 @@ init
     print("VITALON_BOSS_END_PTR: " + VitalonBossDead.ToString("X"));
     vars.Resolver.Watch<ulong>("VitalonBossDead", VitalonBossDead);
 
+    IntPtr FadeStart = vars.Events.FunctionFlag("W_FadeInOut_C", "W_FadeInOut_C", "PreConstruct");
+    print("FADE_START_PTR: " + FadeStart.ToString("X"));
+	vars.Resolver.Watch<ulong>("FadeStart", FadeStart);
+
+    IntPtr FadeEnd = vars.Events.FunctionFlag("W_FadeInOut_C", "W_FadeInOut_C", "Destruct");
+    print("FADE_END_PTR: " + FadeEnd.ToString("X"));
+	vars.Resolver.Watch<ulong>("FadeEnd", FadeEnd);
+
     current.World = "";
     current.Mission = "";
     vars.LoadingFlag = false;
@@ -147,12 +155,12 @@ update
 	current.Mission = mission;
 	if (old.Mission != current.Mission) vars.Log("Mission Name: " + current.Mission.ToString());
 
-    if(vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart"))
+    if(vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart") || vars.Resolver.CheckFlag("FadeStart"))
     {  
         vars.LoadingFlag = true;
     }
 
-	if(vars.Resolver.CheckFlag("LoadingEnd") || vars.Resolver.CheckFlag("CutsceneEnd"))
+	if(vars.Resolver.CheckFlag("LoadingEnd") || vars.Resolver.CheckFlag("CutsceneEnd") || vars.Resolver.CheckFlag("FadeEnd") && vars.Resolver.CheckFlag("LoadingEnd") || vars.Resolver.CheckFlag("FadeEnd") && vars.Resolver.CheckFlag("CutsceneEnd"))
     {
         vars.LoadingFlag = false;
     }
