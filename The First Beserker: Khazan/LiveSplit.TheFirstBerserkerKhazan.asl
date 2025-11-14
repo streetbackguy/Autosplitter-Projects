@@ -29,7 +29,7 @@ startup
             settings.Add("MI_1301", true, "Beat Strange Melody Mission", "MM");
             settings.Add("MI_1401", true, "Beat Fall of the Empire Mission", "MM");
             settings.Add("MI_1501", true, "Beat Bloodied Sanctuary Mission", "MM");
-            settings.Add("MI_1601", true, "Beat Master of Chaos Mission", "MM");
+            settings.Add("MI_1600_A", true, "Beat Master of Chaos Mission", "MM");
         settings.Add("SM", true, "Side Missions", "TFBK");
             settings.Add("MI_202", true, "Beat Stormpass' Phantom of Combat Mission", "SM");
             settings.Add("MI_304", true, "Beat Jar Enthusiasts Mission", "SM");
@@ -126,12 +126,16 @@ init
     IntPtr VitalonBossDead = vars.Events.FunctionFlag("VitalonCity_Spawn_Main01_C", "VitalonCity_Spawn_Main01_C", "BndEvt__SkoffaCave_Spawn_Main01_SA_BigSpiderBoss_88_K2Node_ActorBoundEvent_13_SpawnedActorDead__DelegateSignature");
     print("VITALON_BOSS_END_PTR: " + VitalonBossDead.ToString("X"));
     vars.Resolver.Watch<ulong>("VitalonBossDead", VitalonBossDead);
+    
+    IntPtr ImperialBossDead = vars.Events.FunctionFlag("ImperialPalace_Spawn_Main01_C", "ImperialPalace_Spawn_Main01_C", "BndEvt__ImperialPalace_Spawn_Main01_SA_Ozma_Phase2_2_K2Node_ActorBoundEvent_7_SpawnedActorSendSignal__DelegateSignature");
+    print("IMPERIAL_BOSS_END_PTR: " + ImperialBossDead.ToString("X"));
+    vars.Resolver.Watch<ulong>("ImperialBossDead", ImperialBossDead);
 
     IntPtr FadeStart = vars.Events.FunctionFlag("W_FadeInOut_C", "W_FadeInOut_C", "PreConstruct");
     print("FADE_START_PTR: " + FadeStart.ToString("X"));
 	vars.Resolver.Watch<ulong>("FadeStart", FadeStart);
 
-    IntPtr FadeEnd = vars.Events.FunctionFlag("W_FadeInOut_C", "W_FadeInOut_C", "Destruct");
+    IntPtr FadeEnd = vars.Events.FunctionFlag("W_InputBlocking_C", "W_InputBlocking_C", "OnFinishEndUMG");
     print("FADE_END_PTR: " + FadeEnd.ToString("X"));
 	vars.Resolver.Watch<ulong>("FadeEnd", FadeEnd);
 
@@ -155,12 +159,12 @@ update
 	current.Mission = mission;
 	if (old.Mission != current.Mission) vars.Log("Mission Name: " + current.Mission.ToString());
 
-    if(vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart") || vars.Resolver.CheckFlag("FadeStart"))
+    if(vars.Resolver.CheckFlag("LoadingStart") && vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("CutsceneStart") && vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("FadeStart"))
     {  
         vars.LoadingFlag = true;
     }
 
-	if(vars.Resolver.CheckFlag("LoadingEnd") || vars.Resolver.CheckFlag("CutsceneEnd") || vars.Resolver.CheckFlag("FadeEnd") && vars.Resolver.CheckFlag("LoadingEnd") || vars.Resolver.CheckFlag("FadeEnd") && vars.Resolver.CheckFlag("CutsceneEnd"))
+	if(vars.Resolver.CheckFlag("LoadingEnd") && vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("CutsceneEnd") && vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("FadeEnd"))
     {
         vars.LoadingFlag = false;
     }
@@ -202,7 +206,8 @@ split
     if(current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission != "MI_1201" && vars.PhaseCounter == 1  && !vars.CompletedSplits.Contains(current.Mission) ||
     current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission == "MI_1201" && vars.PhaseCounter == 2 && !vars.CompletedSplits.Contains(current.Mission) ||
     current.SkoffaBossDead != old.SkoffaBossDead && current.SkoffaBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
-    current.VitalonBossDead != old.VitalonBossDead && current.VitalonBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission))
+    current.VitalonBossDead != old.VitalonBossDead && current.VitalonBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
+    current.ImperialBossDead != old.ImperialBossDead && current.ImperialBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission))
     {
         return settings[current.Mission] && vars.CompletedSplits.Add(current.Mission);
     }
