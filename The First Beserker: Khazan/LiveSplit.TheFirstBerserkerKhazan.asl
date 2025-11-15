@@ -4,11 +4,8 @@ state("BBQ-Win64-Shipping")
 
 startup
 {
-    Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
     Assembly.Load(File.ReadAllBytes("Components/uhara9")).CreateInstance("Main");
-	vars.Helper.GameName = "The First Berserker: Khazan";
-	vars.Helper.AlertLoadless();
-    vars.Uhara.EnableDebug();
+	vars.Uhara.AlertLoadless(); vars.Uhara.EnableDebug();
 
     vars.CompletedSplits = new HashSet<string>();
 
@@ -59,89 +56,33 @@ startup
 
 init
 {
-    IntPtr gWorld = vars.Helper.ScanRel(8, "0F 2E ?? 74 ?? 48 8B 1D ?? ?? ?? ?? 48 85 DB 74");
-	IntPtr gEngine = vars.Helper.ScanRel(3, "48 8B 0D ?? ?? ?? ?? 48 85 C9 74 ?? E8");
-	IntPtr fNames = vars.Helper.ScanRel(13, "89 5C 24 ?? 89 44 24 ?? 74 ?? 48 8D 15");
-
-    if (gWorld == IntPtr.Zero || gEngine == IntPtr.Zero || fNames == IntPtr.Zero)
-	{
-		string Msg = "Not all required addresses could be found by scanning.\nGWorld: " + gWorld + "\nGEngine: " + gEngine + "\nFNames: " + fNames;
-		throw new Exception(Msg);
-	}
-
+	vars.Events = vars.Uhara.CreateTool("UnrealEngine", "Events");
+    vars.Utils = vars.Uhara.CreateTool("UnrealEngine", "Utils");
+	
     // GWorld.FName
-    vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
+	vars.Resolver.Watch<ulong>("GWorldName", vars.Utils.GWorld, 0x18);
 
     // xxGameEngine.GameInstance.LocalPlayers[0].PlayerController.AcknowledgedPawn.bBindingLevelSequence
-    vars.Helper["BindingLevelSequence"] = vars.Helper.Make<bool>(gEngine, 0xD78, 0x38, 0x0, 0x30, 0x2C0, 0x14C9);
+	vars.Resolver.Watch<bool>("BindingLevelSequence", vars.Utils.GEngine, 0xD78, 0x38, 0x0, 0x30, 0x2C0, 0x14C9);
 
     // xxGameEngine.GameInstance.Subsystems(0xF0).xxContentsManager(0x140).ContentsDataModels[7].xxMissionDM.CurrentMissionInfo.Name
-    vars.Helper["CurrentMissionName"] = vars.Helper.Make<ulong>(gEngine, 0xD78, 0xF0, 0x140, 0x138, 0xB0, 0x50, 0x18);
-    vars.Helper["CurrentMissionName"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
+	vars.Resolver.Watch<ulong>("CurrentMissionName", vars.Utils.GEngine, 0xD78, 0xF0, 0x140, 0x138, 0xB0, 0x50, 0x18);
+    vars.Resolver["CurrentMissionName"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 
-    vars.FNameToString = (Func<ulong, string>)(fName =>
-	{
-		var nameIdx = (fName & 0x000000000000FFFF) >> 0x00;
-		var chunkIdx = (fName & 0x00000000FFFF0000) >> 0x10;
-		var number = (fName & 0xFFFFFFFF00000000) >> 0x20;
-
-		IntPtr chunk = vars.Helper.Read<IntPtr>(fNames + 0x10 + (int)chunkIdx * 0x8);
-		IntPtr entry = chunk + (int)nameIdx * sizeof(short);
-
-		int length = vars.Helper.Read<short>(entry) >> 6;
-		string name = vars.Helper.ReadString(length, ReadStringType.UTF8, entry + sizeof(short));
-
-		return number == 0 ? name : name + "_" + number;
-	});
-
-    vars.Events = vars.Uhara.CreateTool("UnrealEngine", "Events");
-    vars.Utils = vars.Uhara.CreateTool("UnrealEngine", "Utils");
-
+	// ---
     vars.Resolver.Watch<bool>("GSync", vars.Utils.GSync);
     
-    IntPtr OnMissionCleared = vars.Events.FunctionFlag("W_MissionResult_C", "W_MissionResult_C", "OnMissionCleared");
-    print("ON_MISSION_CLEARED_PTR: " + OnMissionCleared.ToString("X"));
-    vars.Resolver.Watch<ulong>("OnMissionCleared", OnMissionCleared);
-    
-    IntPtr LoadingStart = vars.Events.FunctionFlag("W_Loading_C", "W_Loading_C", "OnFinishBeginUMG");
-    print("LOADING_START_PTR: " + LoadingStart.ToString("X"));
-    vars.Resolver.Watch<ulong>("LoadingStart", LoadingStart);
-
-    IntPtr LoadingEnd = vars.Events.FunctionFlag("Loading_All_C", "Loading_All_C", "ReceiveEndPlay");
-    print("LOADING_END_PTR: " + LoadingEnd.ToString("X"));
-    vars.Resolver.Watch<ulong>("LoadingEnd", LoadingEnd);
-
-    IntPtr CutsceneStart = vars.Events.FunctionFlag("xxCutSceneSequenceVM", "xxCutSceneSequenceVM", "OnBeginUMG");
-    print("CUTSCENE_START_PTR: " + CutsceneStart.ToString("X"));
-    vars.Resolver.Watch<ulong>("CutsceneStart", CutsceneStart);
-
-    IntPtr CutsceneEnd = vars.Events.FunctionFlag("xxCutSceneSequenceVM", "xxCutSceneSequenceVM", "OnEndUMG");
-    print("CUTSCENE_END_PTR: " + CutsceneEnd.ToString("X"));
-    vars.Resolver.Watch<ulong>("CutsceneEnd", CutsceneEnd);
-
-    IntPtr SkoffaBossDead = vars.Events.FunctionFlag("SkoffaCave_Spawn_Main01_C", "SkoffaCave_Spawn_Main01_C", "BndEvt__SkoffaCave_Spawn_Main01_SA_BigSpiderBoss_88_K2Node_ActorBoundEvent_0_SpawnedActorDead__DelegateSignature");
-    print("SKOFFA_BOSS_END_PTR: " + SkoffaBossDead.ToString("X"));
-    vars.Resolver.Watch<ulong>("SkoffaBossDead", SkoffaBossDead);
-
-    IntPtr VaisarBossDead = vars.Events.FunctionFlag("Vaisar_Spawn_Main01_C", "Vaisar_Spawn_Main01_C", "BndEvt__Vaisar_Spawn_Main01_SA_PicaroonBoss_183_K2Node_ActorBoundEvent_1_SpawnedActorDead__DelegateSignature");
-    print("VAISAR_BOSS_END_PTR: " + VaisarBossDead.ToString("X"));
-    vars.Resolver.Watch<ulong>("VaisarBossDead", VaisarBossDead);
-
-    IntPtr VitalonBossDead = vars.Events.FunctionFlag("VitalonCity_Spawn_Main01_C", "VitalonCity_Spawn_Main01_C", "BndEvt__SkoffaCave_Spawn_Main01_SA_BigSpiderBoss_88_K2Node_ActorBoundEvent_13_SpawnedActorDead__DelegateSignature");
-    print("VITALON_BOSS_END_PTR: " + VitalonBossDead.ToString("X"));
-    vars.Resolver.Watch<ulong>("VitalonBossDead", VitalonBossDead);
-    
-    IntPtr ImperialBossDead = vars.Events.FunctionFlag("ImperialPalace_Spawn_Main01_C", "ImperialPalace_Spawn_Main01_C", "BndEvt__ImperialPalace_Spawn_Main01_SA_Ozma_Phase2_2_K2Node_ActorBoundEvent_7_SpawnedActorSendSignal__DelegateSignature");
-    print("IMPERIAL_BOSS_END_PTR: " + ImperialBossDead.ToString("X"));
-    vars.Resolver.Watch<ulong>("ImperialBossDead", ImperialBossDead);
-
-    IntPtr FadeStart = vars.Events.FunctionFlag("W_FadeInOut_C", "W_FadeInOut_C", "PreConstruct");
-    print("FADE_START_PTR: " + FadeStart.ToString("X"));
-	vars.Resolver.Watch<ulong>("FadeStart", FadeStart);
-
-    IntPtr FadeEnd = vars.Events.FunctionFlag("W_InputBlocking_C", "W_InputBlocking_C", "OnFinishEndUMG");
-    print("FADE_END_PTR: " + FadeEnd.ToString("X"));
-	vars.Resolver.Watch<ulong>("FadeEnd", FadeEnd);
+    vars.Resolver.Watch<ulong>("OnMissionCleared", vars.Events.FunctionFlag("W_MissionResult_C", "W_MissionResult_C", "OnMissionCleared"));
+    vars.Resolver.Watch<ulong>("LoadingStart", vars.Events.FunctionFlag("W_Loading_C", "W_Loading_C", "OnFinishBeginUMG"));
+    vars.Resolver.Watch<ulong>("LoadingEnd", vars.Events.FunctionFlag("Loading_All_C", "Loading_All_C", "ReceiveEndPlay"));
+    vars.Resolver.Watch<ulong>("CutsceneStart", vars.Events.FunctionFlag("xxCutSceneSequenceVM", "xxCutSceneSequenceVM", "OnBeginUMG"));
+    vars.Resolver.Watch<ulong>("CutsceneEnd", vars.Events.FunctionFlag("xxCutSceneSequenceVM", "xxCutSceneSequenceVM", "OnEndUMG"));
+    vars.Resolver.Watch<ulong>("SkoffaBossDead", vars.Events.FunctionFlag("SkoffaCave_Spawn_Main01_C", "SkoffaCave_Spawn_Main01_C", "BndEvt__SkoffaCave_Spawn_Main01_SA_BigSpiderBoss_88_K2Node_ActorBoundEvent_0_SpawnedActorDead__DelegateSignature"));
+    vars.Resolver.Watch<ulong>("VaisarBossDead", vars.Events.FunctionFlag("Vaisar_Spawn_Main01_C", "Vaisar_Spawn_Main01_C", "BndEvt__Vaisar_Spawn_Main01_SA_PicaroonBoss_183_K2Node_ActorBoundEvent_1_SpawnedActorDead__DelegateSignature"));
+    vars.Resolver.Watch<ulong>("VitalonBossDead", vars.Events.FunctionFlag("VitalonCity_Spawn_Main01_C", "VitalonCity_Spawn_Main01_C", "BndEvt__SkoffaCave_Spawn_Main01_SA_BigSpiderBoss_88_K2Node_ActorBoundEvent_13_SpawnedActorDead__DelegateSignature"));
+    vars.Resolver.Watch<ulong>("ImperialBossDead", vars.Events.FunctionFlag("ImperialPalace_Spawn_Main01_C", "ImperialPalace_Spawn_Main01_C", "BndEvt__ImperialPalace_Spawn_Main01_SA_Ozma_Phase2_2_K2Node_ActorBoundEvent_7_SpawnedActorSendSignal__DelegateSignature"));
+	vars.Resolver.Watch<ulong>("FadeStart", vars.Events.FunctionFlag("W_FadeInOut_C", "W_FadeInOut_C", "PreConstruct"));
+	vars.Resolver.Watch<ulong>("FadeEnd", vars.Events.FunctionFlag("W_InputBlocking_C", "W_InputBlocking_C", "OnFinishEndUMG"));
 
     current.World = "";
     current.Mission = "";
@@ -150,17 +91,21 @@ init
 
 update
 {
-    vars.Helper.Update();
-	vars.Helper.MapPointers();
     vars.Uhara.Update();
 
-    var world = vars.FNameToString(current.GWorldName);
-	current.World = world;
-	if (old.World != current.World) vars.Log("GWorldName: " + current.World.ToString());
-
-    var mission = vars.FNameToString(current.CurrentMissionName);
-	current.Mission = mission;
-	if (old.Mission != current.Mission) vars.Log("Mission Name: " + current.Mission.ToString());
+    var world = vars.Utils.FNameToString(current.GWorldName);
+	if (!string.IsNullOrEmpty(world) && world != "None")
+		current.World = world;
+	
+	if (old.World != current.World)
+		vars.Uhara.Log("GWorldName: " + current.World.ToString());
+	
+    var mission = vars.Utils.FNameToString(current.CurrentMissionName);
+	if (!string.IsNullOrEmpty(mission) && mission != "None")
+		current.Mission = mission;
+	
+	if (old.Mission != current.Mission)
+		vars.Uhara.Log("Mission Name: " + current.Mission.ToString());
 
     if(vars.Resolver.CheckFlag("FadeStart") || vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart"))
     {  
@@ -170,13 +115,14 @@ update
     {
         vars.LoadingFlag = false;
     }
-
+	
     // vars.Log("\nOnMissionCleared: " + current.OnMissionCleared +"\nMissionCleared: " + current.MissionCleared);
 }
 
 isLoading
 {
-    return current.World == "None" ||
+    return
+	current.World == "None" ||
     current.World == "LB_LobbyLevel" ||
     current.World == "Untitled" ||
     current.GSync ||
@@ -185,7 +131,7 @@ isLoading
 
 start
 {
-    return !current.BindingLevelSequence && current.World == "HeinMach_All" && old.BindingLevelSequence;
+    return !current.BindingLevelSequence && old.BindingLevelSequence && current.World == "HeinMach_All";
 }
 
 onStart
@@ -196,14 +142,14 @@ onStart
 
 split
 {
-    if(current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && current.Mission != "MI_1201" && !vars.CompletedSplits.Contains(current.Mission) ||
-    current.SkoffaBossDead != old.SkoffaBossDead && current.SkoffaBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
-    current.VaisarBossDead != old.VaisarBossDead && current.OnMissionCleared != old.OnMissionCleared && current.OnMissionCleared != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
-    current.VitalonBossDead != old.VitalonBossDead && current.VitalonBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission) ||
-    current.ImperialBossDead != old.ImperialBossDead && current.ImperialBossDead != 0 && !vars.CompletedSplits.Contains(current.Mission))
-    {
-        return settings[current.Mission] && vars.CompletedSplits.Add(current.Mission);
-    }
+	bool SplitsContainMission = vars.CompletedSplits.Contains(current.Mission);
+	
+    return
+	vars.Resolver.CheckFlag("OnMissionCleared") && current.Mission != "MI_1201" && !SplitsContainMission ||
+    vars.Resolver.CheckFlag("SkoffaBossDead") && !SplitsContainMission ||
+    vars.Resolver.CheckFlag("VaisarBossDead") && vars.Resolver.CheckFlag("OnMissionCleared") && !SplitsContainMission ||
+    vars.Resolver.CheckFlag("VitalonBossDead") && !SplitsContainMission ||
+    vars.Resolver.CheckFlag("ImperialBossDead") && !SplitsContainMission;
 }
 
 exit
