@@ -60,13 +60,13 @@ init
     vars.Utils = vars.Uhara.CreateTool("UnrealEngine", "Utils");
 	
     // GWorld.FName
-	vars.Resolver.Watch<ulong>("GWorldName", vars.Utils.GWorld, 0x18);
+	vars.Resolver.Watch<uint>("GWorldName", vars.Utils.GWorld, 0x18);
 
     // xxGameEngine.GameInstance.LocalPlayers[0].PlayerController.AcknowledgedPawn.bBindingLevelSequence
 	vars.Resolver.Watch<bool>("BindingLevelSequence", vars.Utils.GEngine, 0xD78, 0x38, 0x0, 0x30, 0x2C0, 0x14C9);
 
     // xxGameEngine.GameInstance.Subsystems(0xF0).xxContentsManager(0x140).ContentsDataModels[7].xxMissionDM.CurrentMissionInfo.Name
-	vars.Resolver.Watch<ulong>("CurrentMissionName", vars.Utils.GEngine, 0xD78, 0xF0, 0x140, 0x138, 0xB0, 0x50, 0x18);
+	vars.Resolver.Watch<uint>("CurrentMissionName", vars.Utils.GEngine, 0xD78, 0xF0, 0x140, 0x138, 0xB0, 0x50, 0x18);
     vars.Resolver["CurrentMissionName"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 
 	// ---
