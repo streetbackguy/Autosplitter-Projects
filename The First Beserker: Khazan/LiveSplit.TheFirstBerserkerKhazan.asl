@@ -5,7 +5,8 @@ state("BBQ-Win64-Shipping")
 startup
 {
     Assembly.Load(File.ReadAllBytes("Components/uhara9")).CreateInstance("Main");
-	vars.Uhara.AlertLoadless(); vars.Uhara.EnableDebug();
+	vars.Uhara.AlertLoadless();
+	vars.Uhara.EnableDebug();
 
     vars.CompletedSplits = new HashSet<string>();
 
