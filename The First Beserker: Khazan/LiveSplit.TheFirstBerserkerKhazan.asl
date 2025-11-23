@@ -70,6 +70,13 @@ init
 	vars.Resolver.Watch<uint>("CurrentMissionName", vars.Utils.GEngine, 0xD78, 0xF0, 0x140, 0x138, 0xB0, 0x50, 0x18);
     vars.Resolver["CurrentMissionName"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 
+    // xxGameEngine.GameInstance.Subsystems(0xF0).xxFadeInOutManager(0x1A0).FadeWidget.ActiveSequencePlayers
+    vars.Resolver.Watch<bool>("ActiveSequencePlayers", vars.Utils.GEngine, 0xD78, 0xF0, 0x1A0, 0x70, 0x1B0);
+    vars.Resolver["ActiveSequencePlayers"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
+
+    // xxGameEngine.GameInstance.Subsystems(0xF0).xxFadeInOutManager(0x1A0).FadeWidget.BG.RenderOpacity
+    vars.Resolver.Watch<float>("RenderOpacity", vars.Utils.GEngine, 0xD78, 0xF0, 0x1A0, 0x70, 0x4E8, 0xC4);
+
 	// ---
     vars.Resolver.Watch<bool>("GSync", vars.Utils.GSync);
     
@@ -82,8 +89,6 @@ init
     vars.Resolver.Watch<ulong>("VaisarBossDead", vars.Events.FunctionFlag("Vaisar_Spawn_Main01_C", "Vaisar_Spawn_Main01_C", "BndEvt__Vaisar_Spawn_Main01_SA_PicaroonBoss_183_K2Node_ActorBoundEvent_1_SpawnedActorDead__DelegateSignature"));
     vars.Resolver.Watch<ulong>("VitalonBossDead", vars.Events.FunctionFlag("VitalonCity_Spawn_Main01_C", "VitalonCity_Spawn_Main01_C", "BndEvt__SkoffaCave_Spawn_Main01_SA_BigSpiderBoss_88_K2Node_ActorBoundEvent_13_SpawnedActorDead__DelegateSignature"));
     vars.Resolver.Watch<ulong>("ImperialBossDead", vars.Events.FunctionFlag("ImperialPalace_Spawn_Main01_C", "ImperialPalace_Spawn_Main01_C", "BndEvt__ImperialPalace_Spawn_Main01_SA_Ozma_Phase2_2_K2Node_ActorBoundEvent_7_SpawnedActorSendSignal__DelegateSignature"));
-	vars.Resolver.Watch<ulong>("FadeStart", vars.Events.FunctionFlag("W_FadeInOut_C", "W_FadeInOut_C", "PreConstruct"));
-	vars.Resolver.Watch<ulong>("FadeEnd", vars.Events.FunctionFlag("W_InputBlocking_C", "W_InputBlocking_C", "OnFinishEndUMG"));
     vars.Resolver.Watch<ulong>("ZoneEnterStart", vars.Events.FunctionFlag("W_ZoneEnter*", "W_ZoneEnter*", "OnPlayAnimStart"));
     vars.Resolver.Watch<ulong>("CutsceneAltStart", vars.Events.FunctionFlag("W_Movie_C", "W_Movie_C", "OnInitialized"));
     vars.Resolver.Watch<ulong>("CutsceneAltEnd", vars.Events.FunctionFlag("W_CutSceneSequence_C", "W_CutSceneSequence_C", "OnFinishEndUMG"));
@@ -111,11 +116,11 @@ update
 	if (old.Mission != current.Mission)
 		vars.Uhara.Log("Mission Name: " + current.Mission.ToString());
 
-    if(vars.Resolver.CheckFlag("FadeStart") || vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart") || vars.Resolver.CheckFlag("CutsceneAltStart"))
+    if(vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart"))
     {  
         vars.LoadingFlag = true;
     }
-    else if(vars.Resolver.CheckFlag("FadeEnd") || vars.Resolver.CheckFlag("CutsceneEnd") || vars.Resolver.CheckFlag("ZoneEnterStart") || vars.Resolver.CheckFlag("LoadingEnd") || vars.Resolver.CheckFlag("CutsceneAltEnd"))
+    else if(vars.Resolver.CheckFlag("CutsceneEnd") || vars.Resolver.CheckFlag("ZoneEnterStart") || vars.Resolver.CheckFlag("LoadingEnd"))
     {
         vars.LoadingFlag = false;
     }
@@ -129,6 +134,8 @@ isLoading
     current.World == "LB_LobbyLevel" ||
     current.World == "Untitled" ||
     current.GSync ||
+    current.ActiveSequencePlayers ||
+    current.RenderOpacity != 0.0f||
     vars.LoadingFlag;
 }
 
