@@ -116,11 +116,11 @@ update
 	if (old.Mission != current.Mission)
 		vars.Uhara.Log("Mission Name: " + current.Mission.ToString());
 
-    if(vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart"))
+    if(vars.Resolver.CheckFlag("LoadingStart") || vars.Resolver.CheckFlag("CutsceneStart") || vars.Resolver.CheckFlag("CutsceneAltStart"))
     {  
         vars.LoadingFlag = true;
     }
-    else if(vars.Resolver.CheckFlag("CutsceneEnd") || vars.Resolver.CheckFlag("ZoneEnterStart") || vars.Resolver.CheckFlag("LoadingEnd"))
+    else if(vars.Resolver.CheckFlag("CutsceneEnd") || vars.Resolver.CheckFlag("ZoneEnterStart") || vars.Resolver.CheckFlag("LoadingEnd") || vars.Resolver.CheckFlag("CutsceneAltEnd"))
     {
         vars.LoadingFlag = false;
     }
