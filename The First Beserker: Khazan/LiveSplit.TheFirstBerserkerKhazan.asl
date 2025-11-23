@@ -77,6 +77,9 @@ init
     // xxGameEngine.GameInstance.Subsystems(0xF0).xxFadeInOutManager(0x1A0).FadeWidget.BG.RenderOpacity
     vars.Resolver.Watch<float>("RenderOpacity", vars.Utils.GEngine, 0xD78, 0xF0, 0x1A0, 0x70, 0x4E8, 0xC4);
 
+    // xxGameEngine.GameInstance.Subsystems(0xF0).xxContentsManager(0x140).ContentsViewModels[2]
+    vars.Resolver.Watch<uint>("PlayerActive", vars.Utils.GEngine, 0xD78, 0xF0, 0x140, 0x48, 0x38, 0xC8);
+
 	// ---
     vars.Resolver.Watch<bool>("GSync", vars.Utils.GSync);
     
@@ -135,7 +138,7 @@ isLoading
     current.World == "Untitled" ||
     current.GSync ||
     current.ActiveSequencePlayers ||
-    current.RenderOpacity != 0.0f||
+    current.RenderOpacity != 0.0f && current.PlayerActive == 0 ||
     vars.LoadingFlag;
 }
 
