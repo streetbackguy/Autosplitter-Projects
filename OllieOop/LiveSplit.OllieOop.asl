@@ -10,7 +10,7 @@ startup
     vars.Helper.LoadSceneManager = true;
 
     settings.Add("OO", true, "OllieOop Splits");
-        settings.Add("Demo", false, "Split After leaving Tutorial", "OO");
+        settings.Add("Demo", true, "Split After leaving Tutorial", "OO");
         settings.Add("Culdesac", true, "Split After leaving The Dog Next Door", "OO");
         settings.Add("Doggerton", true, "Split After leaving The Good, The Bad & The Pugly", "OO");
         settings.Add("Pupperwave", true, "Split After leaving Pupperwave", "OO");
