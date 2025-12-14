@@ -8,6 +8,7 @@ startup
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     vars.Helper.GameName = "OllieOop";
     vars.Helper.LoadSceneManager = true;
+    vars.Helper.AlertLoadless();
 
     settings.Add("OO", true, "OllieOop Splits");
         settings.Add("Demo", true, "Split After leaving Tutorial", "OO");
@@ -37,7 +38,7 @@ update
 
 start
 {
-    if(current.activeScene != "Manager" && old.activeScene == "Manager")
+    if(current.activeScene != "Manager" && old.activeScene != current.activeScene)
     {
         return true;
     }
