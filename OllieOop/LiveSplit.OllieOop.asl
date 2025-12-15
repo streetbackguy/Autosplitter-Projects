@@ -34,11 +34,12 @@ init
 update
 {
     current.activeScene = vars.Helper.Scenes.Active.Name ?? old.activeScene;
+    current.activeScene = vars.Helper.Scenes.Loaded[0].Name ?? old.activeScene;
 }
 
 start
 {
-    if(current.activeScene != "Manager" && old.activeScene != current.activeScene)
+    if(current.activeScene != "Manager" && old.activeScene == "Manager")
     {
         return true;
     }
