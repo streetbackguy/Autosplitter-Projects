@@ -34,7 +34,11 @@ init
 update
 {
     current.activeScene = vars.Helper.Scenes.Active.Name ?? old.activeScene;
-    current.activeScene = vars.Helper.Scenes.Loaded[0].Name ?? old.activeScene;
+
+    if (current.activeScene != old.activeScene)
+    {
+        vars.Log("Scene changed: " + old.activeScene + " -> " + current.activeScene);
+    }
 }
 
 start
@@ -52,8 +56,11 @@ onStart
 
 split
 {
-    if(current.activeScene != old.activeScene && current.activeScene == "Manager" && !vars.Splits.Contains(old.activeScene))
+    // Split when returning to Manager from any level (level completion)
+    if (current.activeScene == "Manager" && old.activeScene != "Manager")
     {
-        return settings[old.activeScene] && vars.Splits.Add(old.activeScene);
+        return true;
     }
+
+    return false;
 }
