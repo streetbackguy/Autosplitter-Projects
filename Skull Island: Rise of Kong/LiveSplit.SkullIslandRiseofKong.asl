@@ -13,8 +13,8 @@ state("Monke-Win64-Shipping", "Steam 1.1")
 
 startup
 {
-    //settings.Add("KONG", true, "Skull Island: Rise of Kong");
-        //settings.Add("SPLITS", true, "GameSplits", "KONG");
+    settings.Add("KONG", true, "Skull Island: Rise of Kong");
+        settings.Add("SPLITS", true, "GameSplits", "KONG");
             //settings.Add("Tutorial", false, "Split on final hit from Gaw in the Tutorial (WIP)", "SPLITS");
             //settings.Add("Worm", false, "Split on final hit on Gijja (WIP)", "SPLITS");
             settings.Add("Wetlands", false, "Split on exiting to the Wetlands", "SPLITS");
@@ -97,3 +97,4 @@ exit
     vars.Splits.Clear();
     timer.IsGameTimePaused = true;
 }
+
