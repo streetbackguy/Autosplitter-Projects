@@ -14,7 +14,7 @@ init
 {
     vars.Events = vars.Uhara.CreateTool("UnrealEngine", "Events");
 	vars.Resolver.Watch<ulong>("StartLoading", vars.Events.FunctionFlag("WB_LoadingIcon_WindowItem00_C", "Loading", "PreConstruct"));
-	vars.Resolver.Watch<ulong>("EndLoading", vars.Events.FunctionFlag("WB_LoadingIcon_WindowItem00_C", "Loading*", "Destruct"));
+	vars.Resolver.Watch<ulong>("EndLoading", vars.Events.FunctionFlag("WB_LoadingIcon_WindowItem00_C", "Loading", "Destruct"));
 }
 
 onStart
