@@ -5,6 +5,13 @@ state("yakuzakiwami3", "Steam 1.13")
     bool LoadingScreens: 0x399F418, 0x1C8, 0xD48, 0xC4;
 }
 
+state("yakuzakiwami3", "Steam 1.14")
+{
+    int GameStart: 0x39B8E60, 0xC0, 0x58, 0x20, 0xAC;
+    int Fades: 0x397D770, 0x1C0, 0x98, 0x48, 0x64;
+    bool LoadingScreens: 0x39A0408, 0x290, 0x48, 0x44;
+}
+
 init 
 {
     string MD5Hash;
@@ -17,6 +24,10 @@ init
         {
             case "6DC3F3059DEF92D20D84066BDCD369AC":
                 version = "Steam 1.13";
+                break;
+
+            case "C963F680F7779DCEBB8521CB4D8E4C94":
+                version = "Steam 1.14";
                 break;
 
             default:
