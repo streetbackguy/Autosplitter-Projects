@@ -19,7 +19,9 @@ startup
         settings.Add("L11", true, "Pirate Boss Defeated", "AATSM");
         settings.Add("L13", true, "Snow Land Complete", "AATSM");
         settings.Add("L16", true, "Ice Caves Complete", "AATSM");
-        settings.Add("L19", true, "Temple Complete", "AATSM");
+        settings.Add("L17", true, "First Temple Complete", "AATSM");
+        settings.Add("L18", true, "Second Temple Complete", "AATSM");
+        settings.Add("L19", true, "Third Temple Complete", "AATSM");
         settings.Add("L20", true, "Final Boss Defeated", "AATSM");
 
     vars.Splits = new HashSet<string>();
