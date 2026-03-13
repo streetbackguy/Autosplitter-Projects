@@ -10,7 +10,7 @@ startup
     vars.Start = vars.Helper.Make<byte>(0xC0d1);
     vars.Level = vars.Helper.Make<byte>(0xC0db);
 
-    settings.Add("AATSM", true, "Alex Kidd in Shinobi World (Sega Master System) Splits");
+    settings.Add("AATSM", true, "Asterix and the Secret Mission (Sega Master System) Splits");
         settings.Add("L1", true, "Plains Complete", "AATSM");
         settings.Add("L3", true, "Waterfall Complete", "AATSM");
         settings.Add("L5", true, "Caves Complete", "AATSM");
