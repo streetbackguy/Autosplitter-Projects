@@ -2,14 +2,24 @@ state("yakuzakiwami3", "Steam 1.13")
 {
     int GameStart: 0x39B7E60, 0xC0, 0x58, 0x20, 0xAC;
     int Fades: 0x399F418, 0x224;
-    bool LoadingScreens: 0x399F418, 0x1C8, 0xD48, 0xC4;
 }
 
 state("yakuzakiwami3", "Steam 1.14")
 {
     int GameStart: 0x39B8E60, 0xC0, 0x58, 0x20, 0xAC;
     int Fades: 0x397D770, 0x1C0, 0x98, 0x48, 0x64;
-    bool LoadingScreens: 0x39A0408, 0x290, 0x48, 0x44;
+}
+
+state("yakuzakiwami3", "Steam 1.14")
+{
+    int GameStart: 0x39B8E60, 0xC0, 0x58, 0x20, 0xAC;
+    int Fades: 0x397D770, 0x1C0, 0x98, 0x48, 0x64;
+}
+
+state("yakuzakiwami3", "Steam 1.15")
+{
+    int GameStart: 0x39B8E60, 0xC0, 0x58, 0x20, 0xAC;
+    int Fades: 0x39B49C0, 0x224;
 }
 
 init 
@@ -30,6 +40,10 @@ init
                 version = "Steam 1.14";
                 break;
 
+            case "5DC7B2F9FC62AB7053EAEF7028018788":
+                version = "Steam 1.15";
+                break;
+
             default:
                 version = "Unknown";
                 break;
@@ -43,7 +57,7 @@ start
 
 isLoading
 {
-    return current.LoadingScreens || current.Fades != 0;
+    return current.Fades != 0;
 }
 
 exit
