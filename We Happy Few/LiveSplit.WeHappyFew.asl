@@ -7,7 +7,7 @@ state("GlimpseGame")
 
 startup
 {
-	Assembly.Load(File.ReadAllBytes("Components/uhara9")).CreateInstance("Main");
+	Assembly.Load(File.ReadAllBytes("Components/uhara10")).CreateInstance("Main");
 	vars.Uhara.AlertLoadless();
 	vars.Uhara.EnableDebug();
 }
