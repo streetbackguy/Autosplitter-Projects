@@ -1,4 +1,4 @@
-state("BearNoGrudge")
+state("BearNoGrudgeDemo-Win64-Shipping")
 {
 }
 
