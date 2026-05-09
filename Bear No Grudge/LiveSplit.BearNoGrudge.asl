@@ -17,7 +17,6 @@ init
 	vars.Resolver.Watch<float>("SpeedrunTimer", vars.Utils.GEngine, 0xD28, 0x1F4);
 
 	current.World = "";
-	vars.TotalTime = new TimeSpan();
 }
 
 update
@@ -37,11 +36,6 @@ update
 start
 {
     return current.World == "1" && old.World == "NewMainMenu";
-}
-
-onStart
-{
-	vars.TotalTime = TimeSpan.Zero;
 }
 
 isLoading
