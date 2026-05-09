@@ -1,4 +1,4 @@
-state("BearNoGrudgeDemo-Win64-Shipping")
+state("BearNoGrudge-Win64-Shipping")
 {
 }
 
@@ -34,14 +34,9 @@ update
 	}
 }
 
-gameTime
+start
 {
-    if(old.SpeedrunTimer > current.SpeedrunTimer)
-    {
-        vars.TotalTime += TimeSpan.FromSeconds(old.SpeedrunTimer);
-    }
-    
-    return vars.TotalTime + TimeSpan.FromSeconds(current.SpeedrunTimer);
+    return current.World == "1" && old.World == "NewMainMenu";
 }
 
 onStart
