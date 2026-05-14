@@ -35,12 +35,7 @@ startup
 
     foreach (var split in vars.WorldSplits)
     {
-        settings.Add(
-            split.Key,
-            true,
-            split.Value,
-            "Level Splits"
-        );
+        settings.Add(split.Key,true,split.Value,"Level Splits");
     }
 
     vars.Splits = new HashSet<string>();
@@ -51,6 +46,7 @@ init
 	vars.Utils = vars.Uhara.CreateTool("UnrealEngine", "Utils");
 
 	vars.Resolver.Watch<uint>("GWorldName", vars.Utils.GWorld, 0x18);
+    vars.Resolver.Watch<bool>("GSync", vars.Utils.GSync);
 	vars.Resolver.Watch<float>("SpeedrunTimer", vars.Utils.GEngine, 0xD28, 0x1F4);
 
 	current.World = "";
@@ -88,9 +84,17 @@ split
     }
 }
 
+reset
+{
+    if(old.World != "NewMainMenu" && current.World == "NewMainMenu")
+    {
+        return true;
+    }
+}
+
 isLoading
 {
-	return old.SpeedrunTimer == current.SpeedrunTimer;
+	return current.GSync;
 }
 
 exit
