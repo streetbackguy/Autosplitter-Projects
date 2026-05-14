@@ -13,7 +13,6 @@ startup
     vars.WorldSplits = new Dictionary<string, string>()
     {
         { "1", "Race" },
-        { "Hospital", "Hospital Intro" },
         { "TutMap", "Tutorial" },
         { "OfficeEntry", "Office Entry" },
         { "Office1", "Office Floor 1" },
