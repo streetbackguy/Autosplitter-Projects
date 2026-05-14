@@ -47,7 +47,6 @@ init
 
 	vars.Resolver.Watch<uint>("GWorldName", vars.Utils.GWorld, 0x18);
     vars.Resolver.Watch<bool>("GSync", vars.Utils.GSync);
-	vars.Resolver.Watch<float>("SpeedrunTimer", vars.Utils.GEngine, 0xD28, 0x1F4);
 
 	current.World = "";
 }
