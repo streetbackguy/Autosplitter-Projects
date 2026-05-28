@@ -48,7 +48,7 @@ init
     vars.Resolver.Watch<bool>("AetherCore", vars.Utils.GEngine, 0x1248, 0x38, 0x0, 0x30, 0x350, 0xA70, 0x591);
     vars.Uhara["AetherCore"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
     // GEngine -> Game Instance -> LocalPlayer[0] -> PlayerController -> AcknowledgedPawn -> CurrentAetherCore -> LastBase
-    vars.Resolver.Watch<bool>("AetherCore", vars.Utils.GEngine, 0x1248, 0x38, 0x0, 0x30, 0x350, 0xA70, 0x3B0, 0x18);
+    vars.Resolver.Watch<bool>("AetherCoreBase", vars.Utils.GEngine, 0x1248, 0x38, 0x0, 0x30, 0x350, 0xA70, 0x3B0, 0x18);
     vars.Uhara["AetherCore"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
     // GWorld -> AuthorityGameMode -> MF_QuestCpt -> Managers[0] -> FNodeStates[0] -> CurrentState
     vars.Resolver.Watch<uint>("QuestState", vars.Utils.GWorld, 0x1A8, 0x3F8, 0x110, 0x50, 0x308, 0x60, 0x128);
