@@ -10,12 +10,12 @@ startup
 
     settings.Add("FE", true, "Fading Echo");
         settings.Add("DEMO", true, "Demo Splits", "FE");
-            settings.Add("2", true, "Tutorial Stage", "FE");
-            settings.Add("3", true, "Water Orb Tutorial", "FE");
-            settings.Add("Bastion", true, "Bastion", "FE");
-            settings.Add("PreVolcano", true, "Before The Volcano", "FE");
-            settings.Add("WaterVolcano", true, "Reach Volcano Water Dimension", "FE");
-            settings.Add("DemoEnding", true, "Volcano Source (End of Demo)", "FE");
+            settings.Add("2", true, "Tutorial Stage", "DEMO");
+            settings.Add("3", true, "Water Orb Tutorial", "DEMO");
+            settings.Add("Bastion", true, "Bastion", "DEMO");
+            settings.Add("PreVolcano", true, "Before The Volcano", "DEMO");
+            settings.Add("WaterVolcano", true, "Reach Volcano Water Dimension", "DEMO");
+            settings.Add("DemoEnding", true, "Volcano Source (End of Demo)", "DEMO");
 
     vars.Splits = new HashSet<string>();
     vars.BastionActivated = false;
@@ -55,13 +55,13 @@ init
     vars.Uhara["QuestState"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 
     // Reach Bastion
-    vars.Resolver.Watch<ulong>("BastionActivated", vars.Events.FunctionFlag("PH_BP_PerkSystemInteraction_C", "PH_BP_PerkSystemInteraction_C", "FishBoidsDisappear__FinishedFunc"));
+    vars.Events.FunctionFlag("PH_BP_PerkSystemInteraction_C", "PH_BP_PerkSystemInteraction_C", "FishBoidsDisappear__FinishedFunc");
     // Reach Volcano
-    vars.Resolver.Watch<ulong>("VolcanoReached", vars.Events.FunctionFlag("YGRO_Volcano_Sh0_Narra_C", "YGRO_Volcano_Sh0_Narra_C", "OnPortalTravelEnd_Event"));
+    vars.Events.FunctionFlag("YGRO_Volcano_Sh0_Narra_C", "YGRO_Volcano_Sh0_Narra_C", "OnPortalTravelEnd_Event");
     // Reach Volcano Water Dimension
-    vars.Resolver.Watch<ulong>("VolcanoWaterReached", vars.Events.FunctionFlag("YGRO_Volcano_SH1_Narra_C", "YGRO_Volcano_SH1_Narra_C", "O n P o r t a l T r a v e l"));
+    vars.Events.FunctionFlag("YGRO_Volcano_SH1_Narra_C", "YGRO_Volcano_SH1_Narra_C", "O n P o r t a l T r a v e l");
     // End of Demo
-    vars.Resolver.Watch<ulong>("DemoEnd", vars.Events.FunctionFlag("W_ClosedAlphaEndPanel_C", "W_ClosedAlphaEndPanel_C", "ExecuteUbergraph_W_ClosedAlphaEndPanel]"));
+    vars.Events.FunctionFlag("W_ClosedAlphaEndPanel_C", "W_ClosedAlphaEndPanel_C", "ExecuteUbergraph_W_ClosedAlphaEndPanel");
 
 	current.World = "";
 }
@@ -114,7 +114,7 @@ update
     if (vars.Resolver.CheckFlag("DemoEnd"))
     {
         vars.DemoEnd = true;
-        vars.Uhara.Log("Volcano Water Dimension Reached? " + current.DemoEnd);
+        vars.Uhara.Log("End of Demo Reached? " + current.DemoEnd);
     }
 }
 
