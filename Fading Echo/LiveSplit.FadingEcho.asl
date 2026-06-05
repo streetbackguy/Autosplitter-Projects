@@ -1,4 +1,4 @@
-state("UE_YGRO-Win64-Shipping")
+state("UE_YGRO_Steam-Win64-Shipping")
 {
 }
 
@@ -33,19 +33,16 @@ init
 	vars.Events = vars.Uhara.CreateTool("UnrealEngine", "Events");
 
 	vars.Resolver.Watch<bool>("GSync", vars.Utils.GSync);
-	// GEngine -> Game Instance -> LocalPlayer[0] -> PlayerController -> LevelLoader -> LoadingStep
-	vars.Resolver.Watch<uint>("LoadingStep", vars.Utils.GEngine, 0x1248, 0x38, 0x0, 0x30, 0x830, 0x588);
-	// GEngine -> Game Instance -> LocalPlayer[0] -> PlayerController -> LevelLoader -> LevelZone
-	vars.Resolver.Watch<uint>("LevelZone", vars.Utils.GEngine, 0x1248, 0x38, 0x0, 0x30, 0x830, 0x4C1);
-	// GEngine -> Game Instance -> LocalPlayer[0] -> PlayerController -> LevelLoader -> NewZoneToLoad -> Zone Name
-	vars.Resolver.Watch<uint>("LevelZoneName", vars.Utils.GEngine, 0x1248, 0x38, 0x0, 0x30, 0x830, 0x2F8, 0x30);
-	vars.Uhara["LevelZoneName"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
-	// GWorld -> AuthorityGameMode -> CurrentCutscene[0] -> CutsceneIndex
-	vars.Resolver.Watch<uint>("CutsceneIndex", vars.Utils.GWorld, 0x1A8, 0x4B0, 0x380);
-	vars.Uhara["CutsceneIndex"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
-	// GWorld -> AuthorityGameMode -> MF_QuestCpt -> Managers[0] -> FNodeStates[0] -> CurrentState
-	vars.Resolver.Watch<uint>("QuestState", vars.Utils.GWorld, 0x1A8, 0x3F8, 0x110, 0x50, 0x308, 0x60, 0x128);
-	vars.Uhara["QuestState"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
+    // GEngine -> Game Instance -> LocalPlayer[0] -> PlayerController -> LevelLoader -> LoadingStep
+    vars.Resolver.Watch<uint>("LoadingStep", vars.Utils.GEngine, 0x1248, 0x38, 0x0, 0x30, 0x830, 0x578);
+    // GEngine -> Game Instance -> LocalPlayer[0] -> PlayerController -> LevelLoader -> LevelZone
+    vars.Resolver.Watch<uint>("LevelZone", vars.Utils.GEngine, 0x1248, 0x38, 0x0, 0x30, 0x830, 0x4B1);
+    // GEngine -> Game Instance -> LocalPlayer[0] -> PlayerController -> LevelLoader -> NewZoneToLoad -> Zone Name
+    vars.Resolver.Watch<uint>("LevelZoneName", vars.Utils.GEngine, 0x1248, 0x38, 0x0, 0x30, 0x830, 0x2E8, 0x30);
+    vars.Uhara["LevelZoneName"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
+    // GWorld -> AuthorityGameMode -> CurrentCutscene[0] -> CutsceneIndex
+    vars.Resolver.Watch<uint>("CutsceneIndex", vars.Utils.GWorld, 0x1A8, 0x4C0, 0x380);
+    vars.Uhara["CutsceneIndex"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 
 	// Reach Bastion Activation
 	vars.Events.FunctionFlag("BastionActivated", "IrisSystem_C", "IrisSystem_C", "CenterAnimation__FinishedFunc");
