@@ -35,9 +35,9 @@ init
 	vars.Helper["GWorldName"] = vars.Helper.Make<ulong>(gWorld, 0x18);
     vars.Helper["GameState"] = vars.Helper.Make<ulong>(gWorld, 0x160, 0x300);
     // GEngine -> GameInstance -> Subsystems(0x108) -> LoadingScreenManager
-    vars.Helper["LoadingScreenManager"] = vars.Helper.Make<byte>(gEngine, 0x11F8, 0x108, 0x68, 0xE8);
-    vars.Helper["InCutscene"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x350, 0x939);
-    vars.Helper["InDialogue"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x350, 0x938);
+    vars.Helper["LoadingScreenManager"] = vars.Helper.Make<byte>(gEngine, 0x11F8, 0x108, 0x68, 0xED);
+    vars.Helper["InCutscene"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x350, 0x950);
+    vars.Helper["InDialogue"] = vars.Helper.Make<bool>(gEngine, 0x11F8, 0x38, 0x0, 0x30, 0x350, 0x940);
 	vars.Helper["GSync"] = vars.Helper.Make<bool>(gSync);
 
 	current.World = "";
