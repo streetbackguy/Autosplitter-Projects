@@ -2,11 +2,6 @@ state("livesplit")
 {
 }
 
-// EU for Progress Base = 0x193374/0x193720
-// EU for Map/ID Base = 0x193718
-// EU for MapString = 0x193378
-// EU for Boss Health = 0x193388
-
 startup
 {
     Assembly.Load(File.ReadAllBytes("Components/emu-help-v3")).CreateInstance("PS2");
@@ -54,32 +49,32 @@ update
 {
     string ver = vars.Version.Current.ToString();
 
-    if(vars.MapStringUS.Old != vars.MapStringUS.Current && vars.Version.Current == "SLUS")
+    if(vars.MapStringUS.Old != vars.MapStringUS.Current && ver == "SLUS")
     {
         print("Map StringUS: " + vars.MapStringUS.Old + " -> " + vars.MapStringUS.Current);
     }
 
-    if(vars.TankerStoryUS.Old != vars.TankerStoryUS.Current && vars.Version.Current == "SLUS")
+    if(vars.TankerStoryUS.Old != vars.TankerStoryUS.Current && ver == "SLUS")
     {
         print("TankerStory Progress US: " + vars.TankerStoryUS.Old + " -> " + vars.TankerStoryUS.Current);
     }
 
-    if(vars.PlantStoryUS.Old != vars.PlantStoryUS.Current && vars.Version.Current == "SLUS")
+    if(vars.PlantStoryUS.Old != vars.PlantStoryUS.Current && ver == "SLUS")
     {
         print("PlantStory Progress US: " + vars.PlantStoryUS.Old + " -> " + vars.PlantStoryUS.Current);
     }
 
-    if(vars.MapStringEU.Old != vars.MapStringEU.Current && vars.Version.Current == "SLES")
+    if(vars.MapStringEU.Old != vars.MapStringEU.Current && ver == "SLES")
     {
         print("Map StringEU: " + vars.MapStringEU.Old + " -> " + vars.MapStringEU.Current);
     }
 
-    if(vars.TankerStoryEU.Old != vars.TankerStoryEU.Current && vars.Version.Current == "SLES")
+    if(vars.TankerStoryEU.Old != vars.TankerStoryEU.Current && ver == "SLES")
     {
         print("TankerStory Progress EU: " + vars.TankerStoryEU.Old + " -> " + vars.TankerStoryEU.Current);
     }
 
-    if(vars.PlantStoryUS.Old != vars.PlantStoryEU.Current && vars.Version.Current == "SLES")
+    if(vars.PlantStoryUS.Old != vars.PlantStoryEU.Current && ver == "SLES")
     {
         print("PlantStory Progress EU: " + vars.PlantStoryEU.Old + " -> " + vars.PlantStoryEU.Current);
     }
@@ -192,7 +187,7 @@ split
 
 start
 {
-    return (vars.IGTUS.Current == 0 && vars.IGTUS.Current != vars.IGTUS.Old && vars.Version.Current == "SLUS" || vars.IGTEU.Current == 0 && vars.IGTEU.Current != vars.IGTEU.Old && vars.Version.Current == "SLES");
+    return (vars.IGTUS.Current == 0 && vars.IGTUS.Current != vars.IGTUS.Old);
 }
 
 onStart
@@ -207,20 +202,12 @@ isLoading
 
 gameTime
 {
-    if(vars.Version.Current == "SLUS")
-    {
-        return TimeSpan.FromMilliseconds(vars.IGTUS.Current * 1000 / 60);
-    }
-
-    if(vars.Version.Current == "SLES")
-    {
-        return TimeSpan.FromMilliseconds(vars.IGTEU.Current * 1000 / 60);
-    }
+    return TimeSpan.FromMilliseconds(vars.IGTUS.Current * 1000 / 60);
 }
 
 reset
 {
-    if(vars.MapStringUS.Current == "n_title" && vars.Version.Current == "SLUS" || vars.MapStringEU.Current == "n_title" && vars.Version.Current == "SLES")
+    if(vars.MapStringUS.Current == "n_title")
     {
         return true;
     }
