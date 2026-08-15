@@ -17,11 +17,11 @@ init
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         var gwsc = mono["FallenAces.CSharp", "FallenAces.GameworldSceneController"];
-        vars.Helper["Loads"] = gwsc.Make<bool>("Instance", "_worldLoader", "_isLoading");
+        vars.Helper["Loads"] = mono.Make<bool>(gwsc, "Instance", "_worldLoader", "_isLoading");
 
         var mmm = mono["FallenAces.CSharp", "FallenAces.MainMenuManager"];
-        vars.Helper["MenuID"] = mmm.Make<int>("Instance", "_currentMenuId");
-        vars.Helper["ContextID"] = mmm.Make<int>("Instance", "_context");
+        vars.Helper["MenuID"] = mono.Make<int>(mmm, "Instance", "_currentMenuId");
+        vars.Helper["ContextID"] = mono.Make<int>(mmm, "Instance", "_context");
 
         return true;
     });
