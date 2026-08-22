@@ -93,7 +93,7 @@ isLoading
 
 split
 {
-    if(current.World != "TransitionMap" && vars.Resolver.CheckFlag("MissionEndScreen") || current.World != "RoN_Station_DLC04_Core" && vars.Resolver.CheckFlag("MissionEndScreen"))
+    if(current.World != "TransitionMap" && vars.Resolver.CheckFlag("MissionEndScreen") || !current.World.Contains("RoN_Station") && vars.Resolver.CheckFlag("MissionEndScreen"))
     {
         return settings[current.World] && vars.CompletedSplits.Add(current.World);
     }
