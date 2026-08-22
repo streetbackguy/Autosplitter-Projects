@@ -55,9 +55,12 @@ init
     vars.Resolver.Watch<bool>("GSync", vars.Utils.GSync);
 
     vars.Resolver.Watch<ulong>("MissionEndScreen", vars.Events.FunctionFlag("W_MissionScore_C", "W_MissionScore", "BP_OnActivated"));
+    vars.Resolver.Watch<ulong>("LoadingScreenStart", vars.Events.FunctionFlag("W_LoadingScreen_C", "W_LoadingScreen_C", "OnInitialized"));
+    vars.Resolver.Watch<ulong>("LoadingScreenEnd", vars.Events.FunctionFlag("W_LoadingScreen_C", "W_LoadingScreen_C", "BP_OnDeactivated"));
     vars.Resolver.Watch<ulong>("PreMissionEnd", vars.Events.FunctionFlag("W_PreMission_C", "W_PreMission_C", "BP_OnDeactivated"));
 
     current.World = "";
+    vars.LoadingFlag = false;
 }
 
 update
@@ -67,6 +70,15 @@ update
     var world = vars.Utils.FNameToString(current.GWorldName);
 	if (!string.IsNullOrEmpty(world) && world != "None") current.World = world;
 	if(old.World != current.World) vars.Uhara.Log("World: " + old.World + " -> " + current.World);
+
+    if(vars.Resolver.CheckFlag("LoadingScreenStart"))
+    {  
+        vars.LoadingFlag = true;
+    }
+    else if(vars.Resolver.CheckFlag("PreMissionEnd") && !current.World.Contains("RoN_Station") || vars.Resolver.CheckFlag("LoadingScreenEnd") && current.World.Contains("RoN_Station"))
+    {
+        vars.LoadingFlag = false;
+    }
 }
 
 start
@@ -76,7 +88,7 @@ start
 
 isLoading
 {
-    return current.World == "TransitionMap" || current.GSync;
+    return current.World == "TransitionMap" || current.GSync || vars.LoadingFlag == true;
 }
 
 split
@@ -94,7 +106,7 @@ onStart
 
 reset
 {
-    return current.World == "MainMenu_V2";
+    // return current.World == "MainMenu_V2";
 }
 
 exit
