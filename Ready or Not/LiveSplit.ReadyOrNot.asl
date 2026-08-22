@@ -22,6 +22,7 @@ startup
             settings.Add("RoN_Importer_BarricadedSuspects_Core", true, "Greased Palms", "MLSPLITS");
             settings.Add("RoN_Valley_BarricadedSuspects_Core", true, "Valley Of The Dolls", "MLSPLITS");
             settings.Add("RoN_Campus_BarricadedSuspects_Core", true, "Elephant", "MLSPLITS");
+            settings.Add("RoN_Coyote_BarricadedSuspects_Core", true, "Rust Belt", "MLSPLITS");
             settings.Add("RoN_Sins_BarricadedSuspects_Core", true, "Sins Of The Father", "MLSPLITS");
             settings.Add("RoN_Club_BarricadedSuspects_Core", true, "Neon Tomb", "MLSPLITS");
             settings.Add("RoN_Dealer_BarricadedSuspects_Core", true, "Buy Cheap, Buy Twice", "MLSPLITS");
@@ -54,7 +55,10 @@ init
 	vars.Resolver.Watch<uint>("GWorldName", vars.Utils.GWorld, 0x18);
     vars.Resolver.Watch<bool>("GSync", vars.Utils.GSync);
 
+    vars.Resolver.Watch<uint>("PlayerDeaths", vars.Utils.GEngine, 0x1080, 0x38, 0x0, 0x30, 0x348, 0x2C0, 0x4D0);
+
     vars.Resolver.Watch<ulong>("MissionEndScreen", vars.Events.FunctionFlag("W_MissionScore_C", "W_MissionScore", "BP_OnActivated"));
+    vars.Resolver.Watch<ulong>("MissionEndScreenEnd", vars.Events.FunctionFlag("W_MissionScore_C", "W_MissionScore", "BP_OnDeactivated"));
     vars.Resolver.Watch<ulong>("LoadingScreenStart", vars.Events.FunctionFlag("W_LoadingScreen_C", "W_LoadingScreen_C", "OnInitialized"));
     vars.Resolver.Watch<ulong>("LoadingScreenEnd", vars.Events.FunctionFlag("W_LoadingScreen_C", "W_LoadingScreen_C", "BP_OnDeactivated"));
     vars.Resolver.Watch<ulong>("PreMissionEnd", vars.Events.FunctionFlag("W_PreMission_C", "W_PreMission_C", "BP_OnDeactivated"));
@@ -71,7 +75,7 @@ update
 	if (!string.IsNullOrEmpty(world) && world != "None") current.World = world;
 	if(old.World != current.World) vars.Uhara.Log("World: " + old.World + " -> " + current.World);
 
-    if(vars.Resolver.CheckFlag("LoadingScreenStart"))
+    if(vars.Resolver.CheckFlag("LoadingScreenStart") || vars.Resolver.CheckFlag("MissionEndScreen"))
     {  
         vars.LoadingFlag = true;
     }
@@ -93,7 +97,7 @@ isLoading
 
 split
 {
-    if(current.World != "TransitionMap" && vars.Resolver.CheckFlag("MissionEndScreen") || !current.World.Contains("RoN_Station") && vars.Resolver.CheckFlag("MissionEndScreen"))
+    if(current.World != "TransitionMap" && vars.Resolver.CheckFlag("MissionEndScreen") && current.PlayerDeaths == 0 || !current.World.Contains("RoN_Station") && vars.Resolver.CheckFlag("MissionEndScreen") && current.PlayerDeaths == 0)
     {
         return settings[current.World] && vars.CompletedSplits.Add(current.World);
     }
@@ -106,7 +110,7 @@ onStart
 
 reset
 {
-    // return current.World == "MainMenu_V2";
+    return current.World == "MainMenu_V2";
 }
 
 exit
