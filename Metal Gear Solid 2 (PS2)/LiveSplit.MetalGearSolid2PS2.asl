@@ -12,7 +12,6 @@ startup
     if (File.Exists(standardLogPath))
     {
         logPath = standardLogPath;
-        print("Using standard PCSX2 log: " + logPath);
     }
 
     if (logPath == null)
@@ -56,25 +55,17 @@ startup
         {
             string[] lines;
 
-            using (var stream = new FileStream(
-                logPath,
-                FileMode.Open,
-                FileAccess.Read,
-                FileShare.ReadWrite))
+            using (var stream = new FileStream(logPath,FileMode.Open,FileAccess.Read,FileShare.ReadWrite))
             using (var reader = new StreamReader(stream))
             {
-                lines = reader.ReadToEnd().Split(
-                    new[] { "\r\n", "\n" },
-                    StringSplitOptions.None);
+                lines = reader.ReadToEnd().Split(new[] { "\r\n", "\n" },StringSplitOptions.None);
             }
 
             for (int i = lines.Length - 1; i >= 0; i--)
             {
                 if (lines[i].Contains("CRC:"))
                 {
-                    crc = lines[i].Substring(
-                        lines[i].IndexOf("CRC:") + 4
-                    ).Trim();
+                    crc = lines[i].Substring(lines[i].IndexOf("CRC:") + 4).Trim();
 
                     print("PCSX2 CRC: " + crc);
                     break;
