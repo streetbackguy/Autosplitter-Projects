@@ -6,20 +6,126 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/emu-help-v3")).CreateInstance("PS2");
 
-    vars.Version = vars.Helper.MakeString(4, 0x155D0);
-    print("Version: " + vars.Version.Current);
+    string logPath = null;
+    string standardLogPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"PCSX2","logs","emulog.txt");
 
-    // USA
-    vars.MapStringUS = vars.Helper.MakeString(30, 0x1911E8);
-    vars.IGTUS = vars.Helper.Make<int>(0x1931D8, 0x138);
-    vars.TankerStoryUS = vars.Helper.Make<short>(0x1931E0, 0x6);
-    vars.PlantStoryUS = vars.Helper.Make<short>(0x1931E0, 0x68);
+    if (File.Exists(standardLogPath))
+    {
+        logPath = standardLogPath;
+        print("Using standard PCSX2 log: " + logPath);
+    }
 
-    // EU
-    vars.MapStringEU = vars.Helper.MakeString(30, 0x193378);
-    vars.IGTEU = vars.Helper.Make<int>(0x193718, 0x138);
-    vars.TankerStoryEU = vars.Helper.Make<short>(0x193720, 0x6);
-    vars.PlantStoryEU = vars.Helper.Make<short>(0x193720, 0x68);
+    if (logPath == null)
+    {
+        try
+        {
+            var pcsx2Processes = Process.GetProcessesByName("pcsx2-qt");
+
+            foreach (var process in pcsx2Processes)
+            {
+                try
+                {
+                    string exePath = process.MainModule.FileName;
+                    string exeDirectory = Path.GetDirectoryName(exePath);
+
+                    string portableLogPath = Path.Combine(exeDirectory,"logs","emulog.txt");
+
+                    if (File.Exists(portableLogPath))
+                    {
+                        logPath = portableLogPath;
+                        break;
+                    }
+                }
+                catch
+                {
+                    
+                }
+            }
+        }
+        catch
+        {
+            
+        }
+    }
+
+    string crc = "";
+
+    if (logPath != null && File.Exists(logPath))
+    {
+        try
+        {
+            string[] lines;
+
+            using (var stream = new FileStream(
+                logPath,
+                FileMode.Open,
+                FileAccess.Read,
+                FileShare.ReadWrite))
+            using (var reader = new StreamReader(stream))
+            {
+                lines = reader.ReadToEnd().Split(
+                    new[] { "\r\n", "\n" },
+                    StringSplitOptions.None);
+            }
+
+            for (int i = lines.Length - 1; i >= 0; i--)
+            {
+                if (lines[i].Contains("CRC:"))
+                {
+                    crc = lines[i].Substring(
+                        lines[i].IndexOf("CRC:") + 4
+                    ).Trim();
+
+                    print("PCSX2 CRC: " + crc);
+                    break;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            print("Could not read PCSX2 log: " + ex.Message);
+        }
+    }
+    else
+    {
+        print("Could not find PCSX2 emulog.txt");
+    }
+
+    switch (crc)
+    {
+        case "C539049D":
+            version = "SLUS";
+                vars.MapString = vars.Helper.MakeString(30, 0x1911E8);
+                vars.MapID = vars.Helper.Make<short>(0x1931D8, 0x2C);
+                vars.IGT = vars.Helper.Make<int>(0x1931D8, 0x138);
+                vars.TankerStory = vars.Helper.Make<short>(0x1931E0, 0x6);
+                vars.PlantStory = vars.Helper.Make<short>(0x1931E0, 0x68);
+            break;
+
+        case "093E7D52":
+            version = "SLES";
+                vars.MapString = vars.Helper.MakeString(30, 0x191720);
+                vars.MapID = vars.Helper.Make<short>(0x193718, 0x2C);
+                vars.IGT = vars.Helper.Make<int>(0x193718, 0x138);
+                vars.TankerStory = vars.Helper.Make<short>(0x193720, 0x6);
+                vars.PlantStory = vars.Helper.Make<short>(0x193720, 0x68);
+            break;
+
+        // case "0":
+        //     version = "SKOS";
+        //         vars.MapString = vars.Helper.MakeString(30, 0x193378);
+        //         vars.MapID = vars.Helper.Make<short>(0x193718, 0x2C);
+        //         vars.IGT = vars.Helper.Make<int>(0x193718, 0x138);
+        //         vars.TankerStory = vars.Helper.Make<short>(0x193724, 0x6);
+        //         vars.PlantStory = vars.Helper.Make<short>(0x193724, 0x68);
+        //     break;
+
+        default:
+            version = "Unknown";
+            break;
+    }
+
+    print("Version: " + version);
 
     settings.Add("MAJOR", true, "Major Splits Only");
         settings.Add("OLGA", true, "Olga", "MAJOR");
@@ -42,157 +148,222 @@ startup
         settings.Add("MEET_STILLMAN", true, "Meet Stillmann", "MINOR");
         settings.Add("MEET_PREZ", true, "Meet The President", "MINOR");
 
+    vars.TotalTime = new TimeSpan();
     vars.Splits = new HashSet<string>();
 }
 
 update
 {
-    string ver = vars.Version.Current.ToString();
+        if(vars.MapString.Old != vars.MapString.Current)
+        {
+            print("Map String: " + vars.MapString.Old + " -> " + vars.MapString.Current);
+        }
 
-    if(vars.MapStringUS.Old != vars.MapStringUS.Current && ver == "SLUS")
-    {
-        print("Map StringUS: " + vars.MapStringUS.Old + " -> " + vars.MapStringUS.Current);
-    }
+        if(vars.TankerStory.Old != vars.TankerStory.Current)
+        {
+            print("TankerStory Progress: " + vars.TankerStory.Old + " -> " + vars.TankerStory.Current);
+        }
 
-    if(vars.TankerStoryUS.Old != vars.TankerStoryUS.Current && ver == "SLUS")
-    {
-        print("TankerStory Progress US: " + vars.TankerStoryUS.Old + " -> " + vars.TankerStoryUS.Current);
-    }
-
-    if(vars.PlantStoryUS.Old != vars.PlantStoryUS.Current && ver == "SLUS")
-    {
-        print("PlantStory Progress US: " + vars.PlantStoryUS.Old + " -> " + vars.PlantStoryUS.Current);
-    }
-
-    if(vars.MapStringEU.Old != vars.MapStringEU.Current && ver == "SLES")
-    {
-        print("Map StringEU: " + vars.MapStringEU.Old + " -> " + vars.MapStringEU.Current);
-    }
-
-    if(vars.TankerStoryEU.Old != vars.TankerStoryEU.Current && ver == "SLES")
-    {
-        print("TankerStory Progress EU: " + vars.TankerStoryEU.Old + " -> " + vars.TankerStoryEU.Current);
-    }
-
-    if(vars.PlantStoryUS.Old != vars.PlantStoryEU.Current && ver == "SLES")
-    {
-        print("PlantStory Progress EU: " + vars.PlantStoryEU.Old + " -> " + vars.PlantStoryEU.Current);
-    }
-
-    switch(ver)
-    {
-        case "SLUS":
-            version = "USA";
-            break;
-
-        case "SLES":
-            version = "PAL";
-            break;
-    }
+        if(vars.PlantStory.Old != vars.PlantStory.Current)
+        {
+            print("PlantStory Progress: " + vars.PlantStory.Old + " -> " + vars.PlantStory.Current);
+        }
 }
 
 split
 {
-    // if(vars.TankerStory.Old <= 25 && vars.TankerStory.Current == 26 && !vars.Splits.Contains("OLGA"))
-    // {
-    //     return settings["OLGA"] && vars.Splits.Add("OLGA");
-    // }
+    if(vars.TankerStory.Old <= 25 && vars.TankerStory.Current == 26 && !vars.Splits.Contains("OLGA"))
+    {
+        return settings["OLGA"] && vars.Splits.Add("OLGA");
+    }
 
-    // if(vars.TankerStory.Old <= 32 && vars.TankerStory.Current == 33 && !vars.Splits.Contains("GUARDS"))
-    // {
-    //     return settings["GUARDS"] && vars.Splits.Add("GUARDS");
-    // }
+    if(vars.TankerStory.Old <= 32 && vars.TankerStory.Current == 33 && !vars.Splits.Contains("GUARDS"))
+    {
+        return settings["GUARDS"] && vars.Splits.Add("GUARDS");
+    }
 
-    // if(vars.TankerStory.Old <= 55 && vars.TankerStory.Current >= 56 && vars.TankerStory.Current <= 64 && !vars.Splits.Contains("TANKER"))
-    // {
-    //     return settings["TANKER"] && vars.Splits.Add("TANKER");
-    // }
+    if(vars.TankerStory.Old <= 55 && vars.TankerStory.Current >= 56 && vars.TankerStory.Current <= 64 && !vars.Splits.Contains("TANKER"))
+    {
+        return settings["TANKER"] && vars.Splits.Add("TANKER");
+    }
     
-    // if(vars.PlantStory.Old <= 62 && vars.PlantStory.Current == 63 && !vars.Splits.Contains("MEET_STILLMAN"))
-    // {
-    //     return settings["MEET_STILLMAN"] && vars.Splits.Add("MEET_STILLMAN");
-    // }
+    if(vars.PlantStory.Old <= 62 && vars.PlantStory.Current == 63 && !vars.Splits.Contains("MEET_STILLMAN"))
+    {
+        return settings["MEET_STILLMAN"] && vars.Splits.Add("MEET_STILLMAN");
+    }
 
-    // if(vars.PlantStory.Old <= 91 && vars.PlantStory.Current == 92 && !vars.Splits.Contains("STILLMAN"))
-    // {
-    //     return settings["STILLMAN"] && vars.Splits.Add("STILLMAN");
-    // }
+    if(vars.PlantStory.Old <= 91 && vars.PlantStory.Current == 92 && !vars.Splits.Contains("STILLMAN"))
+    {
+        return settings["STILLMAN"] && vars.Splits.Add("STILLMAN");
+    }
 
-    // if(vars.PlantStory.Old <= 114 && vars.PlantStory.Current == 115 && !vars.Splits.Contains("FORTUNE"))
-    // {
-    //     return settings["FORTUNE"] && vars.Splits.Add("FORTUNE");
-    // }
+    if(vars.PlantStory.Old <= 114 && vars.PlantStory.Current == 115 && !vars.Splits.Contains("FORTUNE"))
+    {
+        return settings["FORTUNE"] && vars.Splits.Add("FORTUNE");
+    }
 
-    // if(vars.PlantStory.Old <= 118 && vars.PlantStory.Current == 119 && !vars.Splits.Contains("FATMAN"))
-    // {
-    //     return settings["FATMAN"] && vars.Splits.Add("FATMAN");
-    // }
+    if(vars.PlantStory.Old <= 118 && vars.PlantStory.Current == 119 && !vars.Splits.Contains("FATMAN"))
+    {
+        return settings["FATMAN"] && vars.Splits.Add("FATMAN");
+    }
 
-    // if(vars.PlantStory.Old <= 154 && vars.PlantStory.Current == 155 && !vars.Splits.Contains("AMES"))
-    // {
-    //     return settings["AMES"] && vars.Splits.Add("AMES");
-    // }
+    if(vars.PlantStory.Old <= 154 && vars.PlantStory.Current == 155 && !vars.Splits.Contains("AMES"))
+    {
+        return settings["AMES"] && vars.Splits.Add("AMES");
+    }
 
-    // if(vars.PlantStory.Old <= 189 && vars.PlantStory.Current == 190 && !vars.Splits.Contains("HARRIER"))
-    // {
-    //     return settings["HARRIER"] && vars.Splits.Add("HARRIER");
-    // }
+    if(vars.PlantStory.Old <= 189 && vars.PlantStory.Current == 190 && !vars.Splits.Contains("HARRIER"))
+    {
+        return settings["HARRIER"] && vars.Splits.Add("HARRIER");
+    }
 
-    // if(vars.PlantStory.Old <= 205 && vars.PlantStory.Current == 206 && !vars.Splits.Contains("MEET_PREZ"))
-    // {
-    //     return settings["MEET_PREZ"] && vars.Splits.Add("MEET_PREZ");
-    // }
+    if(vars.PlantStory.Old <= 205 && vars.PlantStory.Current == 206 && !vars.Splits.Contains("MEET_PREZ"))
+    {
+        return settings["MEET_PREZ"] && vars.Splits.Add("MEET_PREZ");
+    }
 
-    // if(vars.PlantStory.Old <= 240 && vars.PlantStory.Current == 241 && !vars.Splits.Contains("PRESIDENT"))
-    // {
-    //     return settings["PRESIDENT"] && vars.Splits.Add("PRESIDENT");
-    // }
+    if(vars.PlantStory.Old <= 240 && vars.PlantStory.Current == 241 && !vars.Splits.Contains("PRESIDENT"))
+    {
+        return settings["PRESIDENT"] && vars.Splits.Add("PRESIDENT");
+    }
 
-    // if(vars.PlantStory.Old <= 253 && vars.PlantStory.Current == 254 && !vars.Splits.Contains("VAMP1"))
-    // {
-    //     return settings["VAMP1"] && vars.Splits.Add("VAMP1");
-    // }
+    if(vars.PlantStory.Old <= 253 && vars.PlantStory.Current == 254 && !vars.Splits.Contains("VAMP1"))
+    {
+        return settings["VAMP1"] && vars.Splits.Add("VAMP1");
+    }
 
-    // if(vars.PlantStory.Old <= 317 && vars.PlantStory.Current == 318 && !vars.Splits.Contains("VAMP2"))
-    // {
-    //     return settings["VAMP2"] && vars.Splits.Add("VAMP2");
-    // }
+    if(vars.PlantStory.Old <= 317 && vars.PlantStory.Current == 318 && !vars.Splits.Contains("VAMP2"))
+    {
+        return settings["VAMP2"] && vars.Splits.Add("VAMP2");
+    }
 
-    // // did split too early one time?
-    // if(vars.PlantStory.Old <= 396 && vars.PlantStory.Current == 397 && !vars.Splits.Contains("TENGUS1"))
-    // {
-    //     return settings["TENGUS1"] && vars.Splits.Add("TENGUS1");
-    // }
+    // did split too early one time?
+    if(vars.PlantStory.Old <= 396 && vars.PlantStory.Current == 397 && !vars.Splits.Contains("TENGUS1"))
+    {
+        return settings["TENGUS1"] && vars.Splits.Add("TENGUS1");
+    }
 
-    // if(vars.PlantStory.Old <= 403 && vars.PlantStory.Current == 404 && !vars.Splits.Contains("TENGUS2"))
-    // {
-    //     return settings["TENGUS2"] && vars.Splits.Add("TENGUS2");
-    // }
+    if(vars.PlantStory.Old <= 403 && vars.PlantStory.Current == 404 && !vars.Splits.Contains("TENGUS2"))
+    {
+        return settings["TENGUS2"] && vars.Splits.Add("TENGUS2");
+    }
 
-    // if(vars.PlantStory.Old <= 411 && vars.PlantStory.Current == 412 && !vars.Splits.Contains("RAYS"))
-    // {
-    //     return settings["RAYS"] && vars.Splits.Add("RAYS");
-    // }
+    if(vars.PlantStory.Old <= 411 && vars.PlantStory.Current == 412 && !vars.Splits.Contains("RAYS"))
+    {
+        return settings["RAYS"] && vars.Splits.Add("RAYS");
+    }
 
-    // if(vars.PlantStory.Old <= 469 && vars.PlantStory.Current == 470 && !vars.Splits.Contains("SOLIDUS"))
-    // {
-    //     return settings["SOLIDUS"] && vars.Splits.Add("SOLIDUS");
-    // }
+    if(vars.PlantStory.Old <= 469 && vars.PlantStory.Current == 470 && !vars.Splits.Contains("SOLIDUS"))
+    {
+        return settings["SOLIDUS"] && vars.Splits.Add("SOLIDUS");
+    }
 
-    // if(vars.PlantStory.Old == 486 && vars.PlantStory.Current == 487 && !vars.Splits.Contains("PLANT"))
-    // {
-    //     return settings["PLANT"] && vars.Splits.Add("PLANT");
-    // }
+    if(vars.PlantStory.Old == 486 && vars.PlantStory.Current == 487 && !vars.Splits.Contains("PLANT"))
+    {
+        return settings["PLANT"] && vars.Splits.Add("PLANT");
+    }
+
+    if(vars.TankerStory.Old <= 25 && vars.TankerStory.Current == 26 && !vars.Splits.Contains("OLGA"))
+    {
+        return settings["OLGA"] && vars.Splits.Add("OLGA");
+    }
+
+    if(vars.TankerStory.Old <= 32 && vars.TankerStory.Current == 33 && !vars.Splits.Contains("GUARDS"))
+    {
+        return settings["GUARDS"] && vars.Splits.Add("GUARDS");
+    }
+
+    if(vars.TankerStory.Old <= 55 && vars.TankerStory.Current >= 56 && vars.TankerStory.Current <= 64 && !vars.Splits.Contains("TANKER"))
+    {
+        return settings["TANKER"] && vars.Splits.Add("TANKER");
+    }
+    
+    if(vars.PlantStory.Old <= 62 && vars.PlantStory.Current == 63 && !vars.Splits.Contains("MEET_STILLMAN"))
+    {
+        return settings["MEET_STILLMAN"] && vars.Splits.Add("MEET_STILLMAN");
+    }
+
+    if(vars.PlantStory.Old <= 91 && vars.PlantStory.Current == 92 && !vars.Splits.Contains("STILLMAN"))
+    {
+        return settings["STILLMAN"] && vars.Splits.Add("STILLMAN");
+    }
+
+    if(vars.PlantStory.Old <= 114 && vars.PlantStory.Current == 115 && !vars.Splits.Contains("FORTUNE"))
+    {
+        return settings["FORTUNE"] && vars.Splits.Add("FORTUNE");
+    }
+
+    if(vars.PlantStory.Old <= 118 && vars.PlantStory.Current == 119 && !vars.Splits.Contains("FATMAN"))
+    {
+        return settings["FATMAN"] && vars.Splits.Add("FATMAN");
+    }
+
+    if(vars.PlantStory.Old <= 154 && vars.PlantStory.Current == 155 && !vars.Splits.Contains("AMES"))
+    {
+        return settings["AMES"] && vars.Splits.Add("AMES");
+    }
+
+    if(vars.PlantStory.Old <= 189 && vars.PlantStory.Current == 190 && !vars.Splits.Contains("HARRIER"))
+    {
+        return settings["HARRIER"] && vars.Splits.Add("HARRIER");
+    }
+
+    if(vars.PlantStory.Old <= 205 && vars.PlantStory.Current == 206 && !vars.Splits.Contains("MEET_PREZ"))
+    {
+        return settings["MEET_PREZ"] && vars.Splits.Add("MEET_PREZ");
+    }
+
+    if(vars.PlantStory.Old <= 240 && vars.PlantStory.Current == 241 && !vars.Splits.Contains("PRESIDENT"))
+    {
+        return settings["PRESIDENT"] && vars.Splits.Add("PRESIDENT");
+    }
+
+    if(vars.PlantStory.Old <= 253 && vars.PlantStory.Current == 254 && !vars.Splits.Contains("VAMP1"))
+    {
+        return settings["VAMP1"] && vars.Splits.Add("VAMP1");
+    }
+
+    if(vars.PlantStory.Old <= 317 && vars.PlantStory.Current == 318 && !vars.Splits.Contains("VAMP2"))
+    {
+        return settings["VAMP2"] && vars.Splits.Add("VAMP2");
+    }
+
+    // did split too early one time?
+    if(vars.PlantStory.Old <= 396 && vars.PlantStory.Current == 397 && !vars.Splits.Contains("TENGUS1"))
+    {
+        return settings["TENGUS1"] && vars.Splits.Add("TENGUS1");
+    }
+
+    if(vars.PlantStory.Old <= 403 && vars.PlantStory.Current == 404 && !vars.Splits.Contains("TENGUS2"))
+    {
+        return settings["TENGUS2"] && vars.Splits.Add("TENGUS2");
+    }
+
+    if(vars.PlantStory.Old <= 411 && vars.PlantStory.Current == 412 && !vars.Splits.Contains("RAYS"))
+    {
+        return settings["RAYS"] && vars.Splits.Add("RAYS");
+    }
+
+    if(vars.PlantStory.Old <= 469 && vars.PlantStory.Current == 470 && !vars.Splits.Contains("SOLIDUS"))
+    {
+        return settings["SOLIDUS"] && vars.Splits.Add("SOLIDUS");
+    }
+
+    if(vars.PlantStory.Old == 486 && vars.PlantStory.Current == 487 && !vars.Splits.Contains("PLANT"))
+    {
+        return settings["PLANT"] && vars.Splits.Add("PLANT");
+    }
 }
 
 start
 {
-    return (vars.IGTUS.Current == 0 && vars.IGTUS.Current != vars.IGTUS.Old);
+    return (vars.IGT.Current == 0 && vars.IGT.Current != vars.IGT.Old);
 }
 
 onStart
 {
     vars.Splits.Clear();
+    vars.TotalTime = TimeSpan.Zero;
 }
 
 isLoading
@@ -202,12 +373,12 @@ isLoading
 
 gameTime
 {
-    return TimeSpan.FromMilliseconds(vars.IGTUS.Current * 1000 / 60);
+    return TimeSpan.FromMilliseconds(vars.IGT.Current * 1000 / 60);
 }
 
 reset
 {
-    if(vars.MapStringUS.Current == "n_title")
+    if(vars.MapString.Current == "n_title")
     {
         return true;
     }
