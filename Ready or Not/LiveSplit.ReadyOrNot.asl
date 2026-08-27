@@ -79,7 +79,7 @@ update
     {  
         vars.LoadingFlag = true;
     }
-    else if(vars.Resolver.CheckFlag("PreMissionEnd") && !current.World.Contains("RoN_Station") || vars.Resolver.CheckFlag("LoadingScreenEnd") && current.World.Contains("RoN_Station"))
+    else if(vars.Resolver.CheckFlag("PreMissionEnd") && !current.World.Contains("RoN_Station"))
     {
         vars.LoadingFlag = false;
     }
@@ -92,7 +92,7 @@ start
 
 isLoading
 {
-    return current.World == "TransitionMap" || current.GSync || vars.LoadingFlag == true;
+    return current.World == "TransitionMap" || current.World.Contains("RoN_Station") || current.GSync || vars.LoadingFlag == true;
 }
 
 split
