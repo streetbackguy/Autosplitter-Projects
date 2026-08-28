@@ -14,7 +14,7 @@ startup
             settings.Add("RoN_Gas_BarricadedSuspects_Core", true, "Thank You, Come Again", "MLSPLITS");
             settings.Add("RoN_Streamer_BarricadedSuspects_Core", true, "23 Megabytes A Second", "MLSPLITS");
             settings.Add("RoN_Meth_BarricadedSuspects_Core", true, "Twisted Nerve", "MLSPLITS");
-            settings.Add("RoN_Agency_BarricadedSuspects_Core", true, "The Spider", "MLSPLITS");
+            settings.Add("Ron_Agency_BarricadedSuspects_Core", true, "The Spider", "MLSPLITS");
             settings.Add("RoN_Ridgeline_BarricadedSuspects_Core", true, "A Lethal Obsession", "MLSPLITS");
             settings.Add("RoN_Penthouse_BarricadedSuspects_Core", true, "Ides Of March", "MLSPLITS");
             settings.Add("RoN_Datacenter_BarricadedSuspects_Core", true, "Sinuous Trail", "MLSPLITS");
