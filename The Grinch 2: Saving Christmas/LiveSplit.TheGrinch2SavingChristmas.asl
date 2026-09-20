@@ -98,7 +98,7 @@ split
 
 	if(current.TreeOrnaments == 23 && old.TreeOrnaments == 22 && !vars.Splits.Contains(current.ActiveScene))
 	{
-		return settings[current.ActiveScene] && vars.Splits.Add(current.ActiveScene) && print("All Ornaments Placed on Tree!");
+		return settings[current.ActiveScene] && vars.Splits.Add(current.ActiveScene);
 	}
 
 	if(current.TreeOrnaments == old.TreeOrnaments + 1 && current.TreeOrnaments != old.TreeOrnaments && current.ActiveScene == "(Hub)_Main")
