@@ -36,17 +36,16 @@ startup
     vars.LevelsAny = new Dictionary<string, string>
     {
         { "AnyTutorial", "Finish Mt. Crumpit Tutorial" },
-        { "AnyDW1", "First Visit to Downtown Whoville" },
+        { "AnyDW", "Exiting Downtown Whoville" },
         { "AnyRE", "Obtain Rotten Egg Lanucher and Enter Whoforest" },
-        { "AnyWF1", "First Visit to Whoforest" },
+        { "AnyWF", "Exiting Whoforest" },
         { "AnyRS", "Obtain Rocket Spring and Enter Whoforest" },
-        { "AnyWF2", "Second Visit to Whoforest" },
         { "AnyDG", "Dump Guardian Shaved" },
-        { "AnyD1", "First Visit to Dump" },
-        { "AnySS1", "Enter Wholake's North Shore" },
-        { "AnyNS1", "First Visit to Wholake's North Shore" },
+        { "AnyD", "Exiting Dump" },
+        { "AnySS", "Enter Wholake's North Shore" },
+        { "AnyNS", "Exiting Wholake's North Shore" },
         { "AnyMM", "Obtain Marine Mobile and Enter Downtown Whoville" },
-        { "AnySS", "All Sleigh Parts" },
+        { "AnySP", "All Sleigh Parts" },
         { "AnySanta", "Santa Defeated" }
     };
 
@@ -121,10 +120,6 @@ startup
     	};
 
     vars.Splits = new HashSet<string>();
-    vars.WhovilleVisits = 0;
-    vars.WhoforestVisits = 0;
-    vars.DumpVisits = 0;
-    vars.WholakeVisits = 0;
 }
 
 init
@@ -148,26 +143,6 @@ update
     {
         vars.Log("Missions 2: " + vars.Missions2.Current.ToString());
     }
-
-    if(vars.Map.Current == 7 && vars.Map.Old == 5)
-    {
-        vars.WhovilleVisits++;
-    }
-
-    if(vars.Map.Current == 11 && vars.Map.Old == 5)
-    {
-        vars.WhoforestVisits++;
-    }
-
-    if(vars.Map.Current == 14 && vars.Map.Old == 5)
-    {
-        vars.DumpVisits++;
-    }
-
-    if(vars.Map.Current == 18 && vars.Map.Old == 5)
-    {
-        vars.WholakeVisits++;
-    }
 }
 
 split
@@ -180,24 +155,24 @@ split
             return settings["AnyTutorial"] && vars.Splits.Add("AnyTutorial");
         }
 
-        if(vars.Map.Current == 5 && vars.Map.Old == 7 && vars.WhovilleVisits == 1 && vars.WhovilleVisits == 1 && !vars.Splits.Contains("AnyDW1"))
+        if(vars.Map.Current == 5 && vars.Map.Old != 5 && !vars.Splits.Contains("AnyDW"))
         {
-            return settings["AnyDW1"] && vars.Splits.Add("AnyDW1");
+            return settings["AnyDW"] && vars.Splits.Add("AnyDW");
         }
         
-        if(vars.Map.Current == 11 && vars.Map.Old == 5 && !vars.Splits.Contains("AnyRE"))
+        if(vars.Map.Current == 11 && vars.Map.Old == 5)
         {
-            return settings["AnyRE"] && vars.Splits.Add("AnyRE");
+            return settings["AnyRE"];
         }
 
-        if(vars.Map.Current == 5 && vars.Map.Old == 11 && vars.WhoforestVisits == 1 && !vars.Splits.Contains("AnyWF1"))
+        if(vars.Map.Current == 5 && vars.Map.Old == 11)
         {
-            return settings["AnyWF1"] && vars.Splits.Add("AnyWF1");
+            return settings["AnyWF"];
         }
         
-        if(vars.Map.Current == 11 && vars.Map.Old == 5 && vars.WhoforestVisits == 2 && !vars.Splits.Contains("AnyRS"))
+        if(vars.Map.Current == 11 && vars.Map.Old == 5)
         {
-            return settings["AnyRS"] && vars.Splits.Add("AnyRS");
+            return settings["AnyRS"];
         }
 
         if(vars.Map.Current == 17 && vars.Map.Old == 14 && vars.Missions2.Current == vars.Missions2.Old+1 && !vars.Splits.Contains("AnyDG"))
@@ -205,32 +180,32 @@ split
             return settings["AnyDG"] && vars.Splits.Add("AnyDG");
         }
 
-        if(vars.Map.Current == 5 && vars.Map.Old == 14 && vars.DumpVisits == 1 && !vars.Splits.Contains("AnyD1"))
+        if(vars.Map.Current == 5 && vars.Map.Old == 14)
         {
-            return settings["AnyD1"] && vars.Splits.Add("AnyD1");
+            return settings["AnyD"] && vars.Splits.Add("AnyD");
         }
 
-        if(vars.Map.Current == 20 && vars.Map.Old == 18 && vars.WholakeVisits == 1 && !vars.Splits.Contains("AnySS1"))
+        if(vars.Map.Current == 20 && vars.Map.Old == 18)
         {
-            return settings["AnySS1"] && vars.Splits.Add("AnySS1");
+            return settings["AnySS"] && vars.Splits.Add("AnySS");
         }
 
-        if(vars.Map.Current == 5 && vars.Map.Old == 20 && vars.WholakeVisits == 1 && !vars.Splits.Contains("AnyNS1"))
+        if(vars.Map.Current != 20 && vars.Map.Old == 20)
         {
-            return settings["AnyNS1"] && vars.Splits.Add("AnyNS1");
+            return settings["AnyNS"] && vars.Splits.Add("AnyNS");
         }
 
-        if(vars.Map.Current == 7 && vars.Map.Old == 5 && vars.WholakeVisits == 1 && !vars.Splits.Contains("AnyMM"))
+        if(vars.Map.Current == 7 && vars.Map.Old == 5)
         {
-            return settings["AnyMM"] && vars.Splits.Add("AnyMM");
+            return settings["AnyMM"];
         }
 
-        if(vars.Map.Current == 5 && vars.Map.Old == 18 && vars.WholakeVisits == 2 && !vars.Splits.Contains("AnySP"))
+        if(vars.Map.Current == 5 && vars.Map.Old == 18)
         {
-            return settings["AnySP"] && vars.Splits.Add("AnySP");
+            return settings["AnySP"];
         }
 
-        if(vars.Map.Current == 25 && vars.SantaHealth.Current == 0 && vars.SantaHealth.Old > 0 && !vars.Splits.Contains("AnySanta"))
+        if(vars.SantaHealth.Old != 0 && vars.SantaHealth.Current == 0 && vars.Map.Current == 25 && !vars.Splits.Contains("AnySanta"))
         {
             return settings["AnySanta"] && vars.Splits.Add("AnySanta");
         }
@@ -329,7 +304,7 @@ split
     }
 
     // Split for defeating Santa at the end of the game
-    if(vars.SantaHealth.Old > vars.SantaHealth.Current && vars.SantaHealth.Current == 0 && vars.Map.Current == 25)
+    if(vars.SantaHealth.Old != 0 && vars.SantaHealth.Current == 0 && vars.Map.Current == 25)
     {
         return settings["Santa"] && vars.Splits.Add("Santa");
     }
@@ -348,10 +323,6 @@ isLoading
 onStart
 {
     vars.Splits.Clear();
-    vars.WhovilleVisits = 0;
-    vars.WhoforestVisits = 0;
-    vars.DumpVisits = 0;
-    vars.WholakeVisits = 0;
 }
 
 reset
