@@ -84,32 +84,55 @@ startup
 
     switch (crc)
     {
+        //MGS2:SUBSTANCE Regions
         case "C539049D":
-            version = "SLUS";
-                vars.MapString = vars.Helper.MakeString(30, 0x1911E8);
-                vars.MapID = vars.Helper.Make<short>(0x1931D8, 0x2C);
+            version = "Substance (NTSC-U)";
+                vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
                 vars.IGT = vars.Helper.Make<int>(0x1931D8, 0x138);
                 vars.TankerStory = vars.Helper.Make<short>(0x1931E0, 0x6);
                 vars.PlantStory = vars.Helper.Make<short>(0x1931E0, 0x68);
             break;
 
         case "093E7D52":
-            version = "SLES";
+            version = "Substance (PAL)";
                 vars.MapString = vars.Helper.MakeString(30, 0x191720);
-                vars.MapID = vars.Helper.Make<short>(0x193718, 0x2C);
                 vars.IGT = vars.Helper.Make<int>(0x193718, 0x138);
                 vars.TankerStory = vars.Helper.Make<short>(0x193720, 0x6);
                 vars.PlantStory = vars.Helper.Make<short>(0x193720, 0x68);
             break;
 
-        // case "0":
-        //     version = "SKOS";
-        //         vars.MapString = vars.Helper.MakeString(30, 0x193378);
-        //         vars.MapID = vars.Helper.Make<short>(0x193718, 0x2C);
-        //         vars.IGT = vars.Helper.Make<int>(0x193718, 0x138);
-        //         vars.TankerStory = vars.Helper.Make<short>(0x193724, 0x6);
-        //         vars.PlantStory = vars.Helper.Make<short>(0x193724, 0x68);
-        //     break;
+        case "5942DD1F":
+            version = "Substance (NTSC-K)";
+                vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
+                vars.IGT = vars.Helper.Make<int>(0x1931D8, 0x138);
+                vars.TankerStory = vars.Helper.Make<short>(0x1931E0, 0x6);
+                vars.PlantStory = vars.Helper.Make<short>(0x1931E0, 0x68);
+            break;
+
+        //MGS2:SOL Regions
+        case "BFBBB524":
+            version = "Sons of Liberty (NTSC-U)";
+                vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
+                vars.IGT = vars.Helper.Make<int>(0x191910, 0x130);
+                vars.TankerStory = vars.Helper.Make<short>(0x191918, 0xE);
+                vars.PlantStory = vars.Helper.Make<short>(0x19191C, 0x2);
+            break;
+
+        case "A630B37E":
+            version = "Sons of Liberty (PAL)";
+                vars.MapString = vars.Helper.MakeString(30, 0x18D860);
+                vars.IGT = vars.Helper.Make<int>(0x18F6D4, 0x130);
+                vars.TankerStory = vars.Helper.Make<short>(0x18F6DC, 0x12);
+                vars.PlantStory = vars.Helper.Make<short>(0x18F6DC, 0x6);
+            break;
+
+        case "EC9B66E6":
+            version = "Sons of Liberty (NTSC-K)";
+                vars.MapString = vars.Helper.MakeString(30, 0x18D2A8);
+                vars.IGT = vars.Helper.Make<int>(0x18F114, 0x130);
+                vars.TankerStory = vars.Helper.Make<short>(0x18F120, 0x12);
+                vars.PlantStory = vars.Helper.Make<short>(0x18F120, 0x6);
+            break;
 
         default:
             version = "Unknown";
@@ -159,6 +182,8 @@ update
         {
             print("PlantStory Progress: " + vars.PlantStory.Old + " -> " + vars.PlantStory.Current);
         }
+
+        //print("IGT: " + vars.IGT.Current * 1000 / 50);
 }
 
 split
