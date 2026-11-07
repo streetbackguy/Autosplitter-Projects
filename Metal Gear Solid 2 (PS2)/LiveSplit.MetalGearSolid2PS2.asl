@@ -102,7 +102,7 @@ update
                     vars.PlantStory = vars.Helper.Make<short>(0x19191C, 0x2);
                 break;
 
-            case "SLES50330":
+            case "SLES50383":
                 version = "Sons of Liberty (PAL)";
                     vars.MapString = vars.Helper.MakeString(30, 0x18D860);
                     vars.IGT = vars.Helper.Make<int>(0x18F6D4, 0x130);
