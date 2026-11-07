@@ -9,9 +9,11 @@ startup
     vars.SerialSUBNU = vars.Helper.MakeString(32, 0x1B91CC);
     vars.SerialSUBP = vars.Helper.MakeString(32, 0x1B974C);
     vars.SerialSUBNK = vars.Helper.MakeString(32, 0x1B91CC);
+    vars.SerialSUBNJ = vars.Helper.MakeString(32, 0x1B914C);
     vars.SerialSOLNU = vars.Helper.MakeString(32, 0x1B69CC);
     vars.SerialSOLP = vars.Helper.MakeString(32, 0x1B494C);
     vars.SerialSOLNK = vars.Helper.MakeString(32, 0x1B43CC);
+    vars.SerialSOLNJ = vars.Helper.MakeString(32, 0x1B40CC);
     vars.Detected = false;
     vars.LastId = "";
 
@@ -45,7 +47,7 @@ update
     if (!vars.Detected)
     {
         string gameId = "";
-        foreach (string raw in new string[] { (string)(vars.SerialSUBP.Current ?? ""), (string)(vars.SerialSUBP.Current ?? ""), (string)(vars.SerialSUBNK.Current ?? ""), (string)(vars.SerialSOLNU.Current ?? ""), (string)(vars.SerialSOLP.Current ?? ""), (string)(vars.SerialSOLNK.Current ?? "") })
+        foreach (string raw in new string[] { (string)(vars.SerialSUBNJ.Current ?? ""), (string)(vars.SerialSUBP.Current ?? ""), (string)(vars.SerialSUBNK.Current ?? ""), (string)(vars.SerialSOLNU.Current ?? ""), (string)(vars.SerialSOLP.Current ?? ""), (string)(vars.SerialSOLNK.Current ?? ""), (string)(vars.SerialSOLNJ.Current ?? "") })
         {
             string clean = new string(raw.Where(char.IsLetterOrDigit).ToArray()).ToUpper();
             var m = System.Text.RegularExpressions.Regex.Match(clean, @"SL[A-Z]{2}\d{5}");
@@ -93,6 +95,14 @@ update
                     vars.PlantStory = vars.Helper.Make<short>(0x1931E0, 0x68);
                 break;
 
+            case "SLPM67002":
+                version = "Substance (NTSC-J)";
+                    vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
+                    vars.IGT = vars.Helper.Make<int>(0x193158, 0x138);
+                    vars.TankerStory = vars.Helper.Make<short>(0x193160, 0x6);
+                    vars.PlantStory = vars.Helper.Make<short>(0x193160, 0x68);
+                break;
+
             //MGS2:SOL Regions
             case "SLUS20144":
                 version = "Sons of Liberty (NTSC-U)";
@@ -116,6 +126,14 @@ update
                     vars.IGT = vars.Helper.Make<int>(0x18F114, 0x130);
                     vars.TankerStory = vars.Helper.Make<short>(0x18F120, 0x12);
                     vars.PlantStory = vars.Helper.Make<short>(0x18F120, 0x6);
+                break;
+
+            case "SLPM65078":
+                version = "Sons of Liberty (NTSC-J)";
+                    vars.MapString = vars.Helper.MakeString(30, 0x18D028);
+                    vars.IGT = vars.Helper.Make<int>(0x18EE94, 0x130);
+                    vars.TankerStory = vars.Helper.Make<short>(0x18EE9C, 0xE);
+                    vars.PlantStory = vars.Helper.Make<short>(0x18EE9C, 0x2);
                 break;
 
             default:
@@ -147,7 +165,7 @@ update
             print("PlantStory Progress: " + vars.PlantStory.Old + " -> " + vars.PlantStory.Current);
         }
 
-        print("IGT: " + vars.IGT.Current * 1000 / 50);
+        //print("IGT: " + vars.IGT.Current * 1000 / 60);
 }
 
 split
