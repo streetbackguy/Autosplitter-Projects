@@ -6,140 +6,14 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/emu-help-v3")).CreateInstance("PS2");
 
-    string logPath = null;
-    string standardLogPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"PCSX2","logs","emulog.txt");
-
-    if (File.Exists(standardLogPath))
-    {
-        logPath = standardLogPath;
-    }
-
-    if (logPath == null)
-    {
-        try
-        {
-            var pcsx2Processes = Process.GetProcessesByName("pcsx2-qt");
-
-            foreach (var process in pcsx2Processes)
-            {
-                try
-                {
-                    string exePath = process.MainModule.FileName;
-                    string exeDirectory = Path.GetDirectoryName(exePath);
-
-                    string portableLogPath = Path.Combine(exeDirectory,"logs","emulog.txt");
-
-                    if (File.Exists(portableLogPath))
-                    {
-                        logPath = portableLogPath;
-                        break;
-                    }
-                }
-                catch
-                {
-                    
-                }
-            }
-        }
-        catch
-        {
-            
-        }
-    }
-
-    string crc = "";
-
-    if (logPath != null && File.Exists(logPath))
-    {
-        try
-        {
-            string[] lines;
-
-            using (var stream = new FileStream(logPath,FileMode.Open,FileAccess.Read,FileShare.ReadWrite))
-            using (var reader = new StreamReader(stream))
-            {
-                lines = reader.ReadToEnd().Split(new[] { "\r\n", "\n" },StringSplitOptions.None);
-            }
-
-            for (int i = lines.Length - 1; i >= 0; i--)
-            {
-                if (lines[i].Contains("CRC:"))
-                {
-                    crc = lines[i].Substring(lines[i].IndexOf("CRC:") + 4).Trim();
-
-                    print("PCSX2 CRC: " + crc);
-                    break;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            print("Could not read PCSX2 log: " + ex.Message);
-        }
-    }
-    else
-    {
-        print("Could not find PCSX2 emulog.txt");
-    }
-
-    switch (crc)
-    {
-        //MGS2:SUBSTANCE Regions
-        case "C539049D":
-            version = "Substance (NTSC-U)";
-                vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
-                vars.IGT = vars.Helper.Make<int>(0x1931D8, 0x138);
-                vars.TankerStory = vars.Helper.Make<short>(0x1931E0, 0x6);
-                vars.PlantStory = vars.Helper.Make<short>(0x1931E0, 0x68);
-            break;
-
-        case "093E7D52":
-            version = "Substance (PAL)";
-                vars.MapString = vars.Helper.MakeString(30, 0x191720);
-                vars.IGT = vars.Helper.Make<int>(0x193718, 0x138);
-                vars.TankerStory = vars.Helper.Make<short>(0x193720, 0x6);
-                vars.PlantStory = vars.Helper.Make<short>(0x193720, 0x68);
-            break;
-
-        case "5942DD1F":
-            version = "Substance (NTSC-K)";
-                vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
-                vars.IGT = vars.Helper.Make<int>(0x1931D8, 0x138);
-                vars.TankerStory = vars.Helper.Make<short>(0x1931E0, 0x6);
-                vars.PlantStory = vars.Helper.Make<short>(0x1931E0, 0x68);
-            break;
-
-        //MGS2:SOL Regions
-        case "BFBBB524":
-            version = "Sons of Liberty (NTSC-U)";
-                vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
-                vars.IGT = vars.Helper.Make<int>(0x191910, 0x130);
-                vars.TankerStory = vars.Helper.Make<short>(0x191918, 0xE);
-                vars.PlantStory = vars.Helper.Make<short>(0x19191C, 0x2);
-            break;
-
-        case "A630B37E":
-            version = "Sons of Liberty (PAL)";
-                vars.MapString = vars.Helper.MakeString(30, 0x18D860);
-                vars.IGT = vars.Helper.Make<int>(0x18F6D4, 0x130);
-                vars.TankerStory = vars.Helper.Make<short>(0x18F6DC, 0x12);
-                vars.PlantStory = vars.Helper.Make<short>(0x18F6DC, 0x6);
-            break;
-
-        case "EC9B66E6":
-            version = "Sons of Liberty (NTSC-K)";
-                vars.MapString = vars.Helper.MakeString(30, 0x18D2A8);
-                vars.IGT = vars.Helper.Make<int>(0x18F114, 0x130);
-                vars.TankerStory = vars.Helper.Make<short>(0x18F120, 0x12);
-                vars.PlantStory = vars.Helper.Make<short>(0x18F120, 0x6);
-            break;
-
-        default:
-            version = "Unknown";
-            break;
-    }
-
-    print("Version: " + version);
+    vars.SerialSUBNU = vars.Helper.MakeString(32, 0x1B91CC);
+    vars.SerialSUBP = vars.Helper.MakeString(32, 0x1B974C);
+    vars.SerialSUBNK = vars.Helper.MakeString(32, 0x1B91CC);
+    vars.SerialSOLNU = vars.Helper.MakeString(32, 0x1B69CC);
+    vars.SerialSOLP = vars.Helper.MakeString(32, 0x1B494C);
+    vars.SerialSOLNK = vars.Helper.MakeString(32, 0x1B43CC);
+    vars.Detected = false;
+    vars.LastId = "";
 
     settings.Add("MAJOR", true, "Major Splits Only");
         settings.Add("OLGA", true, "Olga", "MAJOR");
@@ -168,6 +42,96 @@ startup
 
 update
 {
+    if (!vars.Detected)
+    {
+        string gameId = "";
+        foreach (string raw in new string[] { (string)(vars.SerialSUBP.Current ?? ""), (string)(vars.SerialSUBP.Current ?? ""), (string)(vars.SerialSUBNK.Current ?? ""), (string)(vars.SerialSOLNU.Current ?? ""), (string)(vars.SerialSOLP.Current ?? ""), (string)(vars.SerialSOLNK.Current ?? "") })
+        {
+            string clean = new string(raw.Where(char.IsLetterOrDigit).ToArray()).ToUpper();
+            var m = System.Text.RegularExpressions.Regex.Match(clean, @"SL[A-Z]{2}\d{5}");
+
+            if (m.Success)
+            {
+                gameId = m.Value;
+                break;
+            }
+        }
+
+        if (gameId == "")
+        {
+            return false;
+        }
+
+        bool changed = (gameId != vars.LastId);
+        vars.LastId = gameId;
+        if (changed) { print("Game ID: " + gameId); }
+
+        switch (gameId)
+        {
+            //MGS2:SUBSTANCE Regions
+            case "SLUS20554":
+                version = "Substance (NTSC-U)";
+                    vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
+                    vars.IGT = vars.Helper.Make<int>(0x1931D8, 0x138);
+                    vars.TankerStory = vars.Helper.Make<short>(0x1931E0, 0x6);
+                    vars.PlantStory = vars.Helper.Make<short>(0x1931E0, 0x68);
+                break;
+
+            case "SLES82008":
+                version = "Substance (PAL)";
+                    vars.MapString = vars.Helper.MakeString(30, 0x191720);
+                    vars.IGT = vars.Helper.Make<int>(0x193718, 0x138);
+                    vars.TankerStory = vars.Helper.Make<short>(0x193720, 0x6);
+                    vars.PlantStory = vars.Helper.Make<short>(0x193720, 0x68);
+                break;
+
+            case "SLPM35001":
+                version = "Substance (NTSC-K)";
+                    vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
+                    vars.IGT = vars.Helper.Make<int>(0x1931D8, 0x138);
+                    vars.TankerStory = vars.Helper.Make<short>(0x1931E0, 0x6);
+                    vars.PlantStory = vars.Helper.Make<short>(0x1931E0, 0x68);
+                break;
+
+            //MGS2:SOL Regions
+            case "SLUS20144":
+                version = "Sons of Liberty (NTSC-U)";
+                    vars.MapString = vars.Helper.MakeString(30, 0x18FA98);
+                    vars.IGT = vars.Helper.Make<int>(0x191910, 0x130);
+                    vars.TankerStory = vars.Helper.Make<short>(0x191918, 0xE);
+                    vars.PlantStory = vars.Helper.Make<short>(0x19191C, 0x2);
+                break;
+
+            case "SLES50330":
+                version = "Sons of Liberty (PAL)";
+                    vars.MapString = vars.Helper.MakeString(30, 0x18D860);
+                    vars.IGT = vars.Helper.Make<int>(0x18F6D4, 0x130);
+                    vars.TankerStory = vars.Helper.Make<short>(0x18F6DC, 0x12);
+                    vars.PlantStory = vars.Helper.Make<short>(0x18F6DC, 0x6);
+                break;
+
+            case "SLPM67515":
+                version = "Sons of Liberty (NTSC-K)";
+                    vars.MapString = vars.Helper.MakeString(30, 0x18D2A8);
+                    vars.IGT = vars.Helper.Make<int>(0x18F114, 0x130);
+                    vars.TankerStory = vars.Helper.Make<short>(0x18F120, 0x12);
+                    vars.PlantStory = vars.Helper.Make<short>(0x18F120, 0x6);
+                break;
+
+            default:
+                version = "Unknown";
+                break;
+        }
+
+        if (changed) { print("Version: " + version); }
+
+        vars.Detected = (version != "Unknown");
+        if (!vars.Detected)
+        {
+            return false;
+        }
+    }
+
         if(vars.MapString.Old != vars.MapString.Current)
         {
             print("Map String: " + vars.MapString.Old + " -> " + vars.MapString.Current);
@@ -183,7 +147,7 @@ update
             print("PlantStory Progress: " + vars.PlantStory.Old + " -> " + vars.PlantStory.Current);
         }
 
-        //print("IGT: " + vars.IGT.Current * 1000 / 50);
+        print("IGT: " + vars.IGT.Current * 1000 / 50);
 }
 
 split
