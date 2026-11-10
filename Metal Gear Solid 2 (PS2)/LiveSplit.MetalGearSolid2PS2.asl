@@ -29,7 +29,7 @@ startup
         settings.Add("PRESIDENT", true, "End of President", "MAJOR");
         settings.Add("VAMP1", true, "Vamp 1", "MAJOR");
         settings.Add("VAMP2", true, "Vamp 2", "MAJOR");
-        settings.Add("TENGUS1", true, "Tengu's 1 End", "MAJOR");
+        settings.Add("TENGUS1", true, "Tengu's 1", "MAJOR");
         settings.Add("TENGUS2", true, "Tengu's 2", "MAJOR");
         settings.Add("RAYS", true, "Rays", "MAJOR");
         settings.Add("SOLIDUS", true, "Solidus", "MAJOR");
