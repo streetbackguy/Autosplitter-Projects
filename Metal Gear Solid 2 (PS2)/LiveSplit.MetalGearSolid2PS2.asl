@@ -29,9 +29,8 @@ startup
         settings.Add("PRESIDENT", true, "End of President", "MAJOR");
         settings.Add("VAMP1", true, "Vamp 1", "MAJOR");
         settings.Add("VAMP2", true, "Vamp 2", "MAJOR");
-        settings.Add("TENGUS1START", true, "Tengu's 1 Start", "MAJOR");
-        settings.Add("TENGUS1END", true, "Tengu's 1 End", "MAJOR");
-        settings.Add("TENGUS2END", true, "Tengu's 2", "MAJOR");
+        settings.Add("TENGUS1", true, "Tengu's 1 End", "MAJOR");
+        settings.Add("TENGUS2", true, "Tengu's 2", "MAJOR");
         settings.Add("RAYS", true, "Rays", "MAJOR");
         settings.Add("SOLIDUS", true, "Solidus", "MAJOR");
         settings.Add("PLANT", true, "Plant Complete", "MAJOR");
@@ -39,6 +38,7 @@ startup
         settings.Add("ENGINE", true, "Entering Deck-2 Portside", "MINOR");
         settings.Add("MEET_STILLMAN", true, "Meet Stillmann", "MINOR");
         settings.Add("MEET_PREZ", true, "Meet The President", "MINOR");
+        settings.Add("TENGUS1START", true, "Tengu's 1 Start", "MINOR");
 
     vars.TotalTime = new TimeSpan();
     vars.Splits = new HashSet<string>();
