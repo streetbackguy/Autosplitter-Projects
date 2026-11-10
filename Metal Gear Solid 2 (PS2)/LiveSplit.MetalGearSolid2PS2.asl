@@ -29,12 +29,14 @@ startup
         settings.Add("PRESIDENT", true, "End of President", "MAJOR");
         settings.Add("VAMP1", true, "Vamp 1", "MAJOR");
         settings.Add("VAMP2", true, "Vamp 2", "MAJOR");
-        settings.Add("TENGUS1", true, "Tengus 1", "MAJOR");
-        settings.Add("TENGUS2", true, "Tengus 2", "MAJOR");
+        settings.Add("TENGUS1START", true, "Tengu's 1 Start", "MAJOR");
+        settings.Add("TENGUS1END", true, "Tengu's 1 End", "MAJOR");
+        settings.Add("TENGUS2END", true, "Tengu's 2", "MAJOR");
         settings.Add("RAYS", true, "Rays", "MAJOR");
         settings.Add("SOLIDUS", true, "Solidus", "MAJOR");
         settings.Add("PLANT", true, "Plant Complete", "MAJOR");
     settings.Add("MINOR", true, "Minor Splits Only");
+        settings.Add("ENGINE", true, "Entering Deck-2 Portside", "MINOR");
         settings.Add("MEET_STILLMAN", true, "Meet Stillmann", "MINOR");
         settings.Add("MEET_PREZ", true, "Meet The President", "MINOR");
 
@@ -79,7 +81,7 @@ update
                     vars.PlantStory = vars.Helper.Make<short>(0x1931E0, 0x68);
                 break;
 
-            case "SLES82008":
+            case "SLES82009":
                 version = "Substance (PAL)";
                     vars.MapString = vars.Helper.MakeString(30, 0x191720);
                     vars.IGT = vars.Helper.Make<int>(0x193718, 0x138);
@@ -170,12 +172,17 @@ update
 
 split
 {
-    if(vars.TankerStory.Old <= 25 && vars.TankerStory.Current == 26 && !vars.Splits.Contains("OLGA"))
+    if(vars.MapString.Old == "w00b" && vars.MapString.Current == "d05t" && !vars.Splits.Contains("OLGA"))
     {
         return settings["OLGA"] && vars.Splits.Add("OLGA");
     }
 
-    if(vars.TankerStory.Old <= 32 && vars.TankerStory.Current == 33 && !vars.Splits.Contains("GUARDS"))
+    if(vars.MapString.Old == "w02a" && vars.MapString.Current == "w03a" && !vars.Splits.Contains("ENGINE"))
+    {
+        return settings["ENGINE"] && vars.Splits.Add("ENGINE");
+    }
+
+    if(vars.MapString.Old == "w03b" && vars.MapString.Current == "d10t" && !vars.Splits.Contains("GUARDS"))
     {
         return settings["GUARDS"] && vars.Splits.Add("GUARDS");
     }
@@ -235,15 +242,19 @@ split
         return settings["VAMP2"] && vars.Splits.Add("VAMP2");
     }
 
-    // did split too early one time?
-    if(vars.PlantStory.Old <= 396 && vars.PlantStory.Current == 397 && !vars.Splits.Contains("TENGUS1"))
+    if(vars.MapString.Old == "w43a" && vars.MapString.Current == "w44a" && !vars.Splits.Contains("TENGUS1START"))
     {
-        return settings["TENGUS1"] && vars.Splits.Add("TENGUS1");
+        return settings["TENGUS1START"] && vars.Splits.Add("TENGUS1START");
     }
 
-    if(vars.PlantStory.Old <= 403 && vars.PlantStory.Current == 404 && !vars.Splits.Contains("TENGUS2"))
+    if(vars.MapString.Old == "w44a" && vars.MapString.Current == "w45a" && !vars.Splits.Contains("TENGUS1END"))
     {
-        return settings["TENGUS2"] && vars.Splits.Add("TENGUS2");
+        return settings["TENGUS1END"] && vars.Splits.Add("TENGUS1END");
+    }
+
+    if(vars.PlantStory.Old <= 403 && vars.PlantStory.Current == 404 && !vars.Splits.Contains("TENGUS2END"))
+    {
+        return settings["TENGUS2END"] && vars.Splits.Add("TENGUS2END");
     }
 
     if(vars.PlantStory.Old <= 411 && vars.PlantStory.Current == 412 && !vars.Splits.Contains("RAYS"))
